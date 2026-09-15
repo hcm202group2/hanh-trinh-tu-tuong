@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Hành Trình Tư Tưởng</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background:
+        radial-gradient(circle at center, #3a1515 0%, #160b0b 55%, #080505 100%);
+      color: #f3eadb;
+      min-height: 100vh;
+      overflow: hidden;
+    }
+
+    #game {
+      width: 100%;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      position: relative;
+      padding: 30px;
+    }
+
+    .noise {
+      position: absolute;
+      inset: 0;
+      opacity: 0.08;
+      pointer-events: none;
+      background-image:
+        repeating-linear-gradient(
+          0deg,
+          transparent,
+          transparent 2px,
+          rgba(255,255,255,.05) 3px
+        );
+    }
+
+    .screen {
+      max-width: 900px;
+      position: relative;
+      z-index: 2;
+      animation: appear 1.3s ease;
+    }
+
+    .year {
+      letter-spacing: 8px;
+      font-size: 14px;
+      color: #c8a45c;
+      margin-bottom: 25px;
+    }
+
+    h1 {
+      font-size: clamp(45px, 8vw, 95px);
+      line-height: 0.95;
+      letter-spacing: -3px;
+      margin-bottom: 25px;
+    }
+
+    .red {
+      color: #b83b38;
+    }
+
+    .subtitle {
+      max-width: 650px;
+      margin: 0 auto 40px;
+      color: #c7bdad;
+      font-size: 18px;
+      line-height: 1.7;
+    }
+
+    button {
+      border: 1px solid #c8a45c;
+      background: transparent;
+      color: #f5ead5;
+      padding: 16px 34px;
+      font-size: 16px;
+      letter-spacing: 2px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #c8a45c;
+      color: #140909;
+      transform: translateY(-3px);
+    }
+
+    .bottom {
+      position: absolute;
+      bottom: 28px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 12px;
+      letter-spacing: 3px;
+      color: #756b61;
+    }
+
+    @keyframes appear {
+      from {
+        opacity: 0;
+        transform: translateY(25px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<div id="game">
+
+  <div class="noise"></div>
+
+  <main class="screen" id="startScreen">
+
+    <div class="year">
+      1911 — 2026
+    </div>
+
+    <h1>
+      HÀNH TRÌNH<br>
+      <span class="red">TƯ TƯỞNG</span>
+    </h1>
+
+    <p class="subtitle">
+      Một hành trình tương tác qua những dấu mốc,
+      lựa chọn và giá trị trong Tư tưởng Hồ Chí Minh.
+      <br><br>
+      Bạn đã sẵn sàng bắt đầu?
+    </p>
+
+    <button id="startBtn">
+      BẮT ĐẦU HÀNH TRÌNH →
+    </button>
+
+  </main>
+
+  <div class="bottom">
+    INTERACTIVE EXPERIENCE
+  </div>
+
+</div>
+
+<script>
+  const startBtn = document.getElementById("startBtn");
+
+  startBtn.addEventListener("click", function () {
+
+    document.getElementById("startScreen").innerHTML = `
+      <div class="year">CHƯƠNG 01</div>
+
+      <h1>
+        NĂM <span class="red">1911</span>
+      </h1>
+
+      <p class="subtitle">
+        Một người thanh niên 21 tuổi đứng trước một lựa chọn:
+        tiếp tục những con đường đã có,
+        hay bước ra thế giới để tìm một con đường mới?
+        <br><br>
+        Hành trình bắt đầu từ đây.
+      </p>
+
+      <button onclick="alert('LEVEL 1 sẽ được xây ở bước tiếp theo!')">
+        TIẾP TỤC →
+      </button>
+    `;
+  });
+</script>
+
+</body>
+</html>

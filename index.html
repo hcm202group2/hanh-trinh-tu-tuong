@@ -841,6 +841,297 @@ button.dropSlot.matched{
     display:none;
   }
 }
+  /* ===== LEVEL 3 · BOSS PHASE 1 ===== */
+
+.boss1930{
+  width:min(980px,100%);
+  position:relative;
+}
+
+.bossTop{
+  width:min(850px,100%);
+  margin:0 auto 22px;
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-end;
+  gap:20px;
+}
+
+.bossLabel{
+  text-align:left;
+  color:#c8a45c;
+  font-size:12px;
+  letter-spacing:4px;
+  line-height:1.7;
+}
+
+.bossTimer{
+  min-width:100px;
+  padding:12px 17px;
+
+  border:1px solid rgba(184,59,56,.55);
+  border-radius:8px;
+
+  background:rgba(184,59,56,.08);
+
+  color:#e77b76;
+  font-size:15px;
+  letter-spacing:2px;
+
+  box-shadow:0 0 20px rgba(184,59,56,.08);
+}
+
+.unityBox{
+  width:min(780px,100%);
+  margin:0 auto 28px;
+}
+
+.unityText{
+  margin-bottom:9px;
+
+  display:flex;
+  justify-content:space-between;
+
+  color:#9e9183;
+
+  font-size:11px;
+  letter-spacing:3px;
+}
+
+.unityTrack{
+  height:8px;
+  overflow:hidden;
+
+  background:#302222;
+
+  border:1px solid rgba(255,255,255,.04);
+  border-radius:20px;
+}
+
+#unityFill{
+  height:100%;
+  width:25%;
+
+  background:
+    linear-gradient(
+      90deg,
+      #8f302e,
+      #c8a45c
+    );
+
+  box-shadow:0 0 25px rgba(200,164,92,.35);
+
+  transition:width .55s ease;
+}
+
+.crisisCard{
+  width:min(820px,100%);
+  margin:0 auto;
+
+  padding:30px;
+
+  border:1px solid rgba(200,164,92,.2);
+  border-radius:14px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255,255,255,.045),
+      rgba(255,255,255,.012)
+    );
+
+  box-shadow:
+    0 20px 70px rgba(0,0,0,.18);
+}
+
+.crisisNumber{
+  margin-bottom:13px;
+
+  color:#b83b38;
+
+  font-size:11px;
+  letter-spacing:5px;
+}
+
+.crisisQuestion{
+  margin-bottom:25px;
+
+  color:#f0e6d8;
+
+  font-size:23px;
+  line-height:1.5;
+}
+
+.choiceGrid1930{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:12px;
+}
+
+.choice1930{
+  appearance:none;
+  -webkit-appearance:none;
+
+  width:100%;
+
+  padding:17px 20px;
+
+  border:1px solid rgba(200,164,92,.2);
+  border-radius:9px;
+
+  background:rgba(0,0,0,.16);
+
+  color:#e8ddce;
+
+  font-family:Arial,sans-serif;
+  font-size:15px;
+  line-height:1.45;
+
+  text-align:left;
+
+  cursor:pointer;
+
+  transition:
+    transform .22s ease,
+    border-color .22s ease,
+    background .22s ease;
+}
+
+.choice1930:hover{
+  transform:translateX(8px);
+
+  border-color:#c8a45c;
+
+  background:rgba(200,164,92,.08);
+}
+
+.choice1930.correct1930{
+  border-color:#70a66b;
+
+  color:#add6a8;
+
+  background:rgba(65,110,60,.16);
+
+  box-shadow:0 0 20px rgba(80,140,70,.12);
+}
+
+.choice1930.wrong1930{
+  border-color:#b83b38;
+
+  color:#e47a76;
+
+  background:rgba(150,40,40,.14);
+
+  animation:shake .35s;
+}
+
+.phaseKnowledge{
+  width:min(820px,100%);
+  min-height:88px;
+
+  margin:18px auto 0;
+  padding:16px 20px;
+
+  border-left:2px solid #c8a45c;
+
+  background:rgba(200,164,92,.04);
+
+  color:#c8beb1;
+
+  font-size:14px;
+  line-height:1.7;
+
+  text-align:left;
+}
+
+.phaseXP{
+  color:#c8a45c;
+  font-weight:bold;
+  letter-spacing:1px;
+}
+
+.combo1930{
+  position:fixed;
+
+  right:35px;
+  top:105px;
+
+  z-index:50;
+
+  color:#c8a45c;
+
+  font-size:21px;
+  font-weight:bold;
+  letter-spacing:2px;
+
+  opacity:0;
+
+  transform:scale(.7);
+
+  pointer-events:none;
+}
+
+.combo1930.showCombo{
+  animation:comboPop .7s ease;
+}
+
+.bossDanger{
+  animation:bossPulse .55s infinite alternate;
+}
+
+@keyframes comboPop{
+
+  0%{
+    opacity:0;
+    transform:scale(.6);
+  }
+
+  35%{
+    opacity:1;
+    transform:scale(1.25);
+  }
+
+  100%{
+    opacity:0;
+    transform:scale(1);
+  }
+}
+
+@keyframes bossPulse{
+
+  from{
+    box-shadow:0 0 5px rgba(184,59,56,.1);
+  }
+
+  to{
+    box-shadow:0 0 28px rgba(184,59,56,.5);
+  }
+}
+
+@media(max-width:700px){
+
+  .bossTop{
+    flex-direction:column;
+    align-items:center;
+  }
+
+  .bossLabel{
+    text-align:center;
+  }
+
+  .crisisQuestion{
+    font-size:18px;
+  }
+
+  .crisisCard{
+    padding:22px 16px;
+  }
+
+  .combo1930{
+    top:90px;
+    right:15px;
+  }
+}
 </style>
 </head>
 
@@ -1708,40 +1999,678 @@ screen.insertAdjacentHTML("beforeend", `
      `);
 
     document
-      .getElementById("enter1930Boss")
-      .addEventListener("click",function(){
+.getElementById("enter1930Boss")
+.addEventListener("click",function(){
+
+  startPhase1();
+
+});
+
+  },7000);
+}
+  /* ===== LEVEL 3 · BOSS PHASE 1 ===== */
+
+let phase1Index = 0;
+let phase1Timer = null;
+let phase1Time = 12;
+let phase1Unity = 25;
+
+let level3BaseXP = 0;
+
+let phase1Combo = 0;
+let phase1Locked = false;
+
+
+const phase1Questions = [
+
+  {
+    question:
+      "Cuối năm 1929, vấn đề cấp thiết đặt ra đối với phong trào cộng sản Việt Nam là gì?",
+
+    answers:[
+      "Thống nhất các tổ chức cộng sản đang hoạt động riêng rẽ",
+      "Giải tán toàn bộ các tổ chức cách mạng",
+      "Từ bỏ mục tiêu giành độc lập dân tộc"
+    ],
+
+    correct:0,
+
+    knowledge:
+      "Năm 1929, ba tổ chức cộng sản lần lượt xuất hiện. Tuy cùng hướng tới cách mạng, việc tồn tại riêng rẽ làm xuất hiện yêu cầu cấp thiết phải thống nhất lực lượng lãnh đạo."
+  },
+
+
+  {
+    question:
+      "Ai giữ vai trò chủ trì Hội nghị hợp nhất các tổ chức cộng sản đầu năm 1930?",
+
+    answers:[
+      "Nguyễn Ái Quốc",
+      "Phan Bội Châu",
+      "Phan Châu Trinh"
+    ],
+
+    correct:0,
+
+    knowledge:
+      "Nguyễn Ái Quốc chủ trì Hội nghị hợp nhất đầu năm 1930. Hội nghị có ý nghĩa đặc biệt trong quá trình thành lập một chính đảng cộng sản thống nhất ở Việt Nam."
+  },
+
+
+  {
+    question:
+      "Hai tổ chức trực tiếp tham dự Hội nghị hợp nhất đầu năm 1930 là những tổ chức nào?",
+
+    answers:[
+      "Đông Dương Cộng sản Đảng và An Nam Cộng sản Đảng",
+      "An Nam Cộng sản Đảng và Việt Nam Quốc dân Đảng",
+      "Đông Dương Cộng sản Liên đoàn và Việt Nam Quốc dân Đảng"
+    ],
+
+    correct:0,
+
+    knowledge:
+      "Đại biểu Đông Dương Cộng sản Đảng và An Nam Cộng sản Đảng trực tiếp tham dự Hội nghị hợp nhất. Đông Dương Cộng sản Liên đoàn sau đó gia nhập Đảng."
+  }
+
+];
+
+
+function startPhase1(){
+
+  level3BaseXP = xp;
+
+  hearts = 3;
+
+  phase1Index = 0;
+
+  phase1Unity = 25;
+
+  phase1Combo = 0;
+
+  phase1Locked = false;
+
+  hud.style.display = "flex";
+
+  updateHUD();
+
+
+  document
+    .querySelector("#hud .hudBlock:last-child")
+    .firstChild.textContent = "LEVEL 3 / 5";
+
+
+  document
+    .getElementById("progress")
+    .style.width = "60%";
+
+
+  renderPhase1Question();
+}
+
+
+function renderPhase1Question(){
+
+  clearInterval(phase1Timer);
+
+  phase1Locked = false;
+
+  phase1Time = 12;
+
+  const q =
+    phase1Questions[phase1Index];
+
+
+  screen.innerHTML = `
+    <div class="content boss1930">
+
+      <div
+        class="combo1930"
+        id="combo1930">
+      </div>
+
+      <div class="bossTop">
+
+        <div class="bossLabel">
+          LEVEL 03 · BOSS MISSION
+          <br>
+          PHASE 01 · KHỦNG HOẢNG 1929
+        </div>
+
+        <div
+          class="bossTimer"
+          id="bossTimerBox">
+
+          ⏱
+          <span id="bossTime">
+            12
+          </span>s
+
+        </div>
+
+      </div>
+
+
+      <div class="unityBox">
+
+        <div class="unityText">
+
+          <span>
+            UNITY METER
+          </span>
+
+          <span id="unityPercent">
+            ${phase1Unity}%
+          </span>
+
+        </div>
+
+        <div class="unityTrack">
+
+          <div
+            id="unityFill"
+            style="width:${phase1Unity}%">
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="crisisCard">
+
+        <div class="crisisNumber">
+          CRISIS ${phase1Index + 1} / 3
+        </div>
+
+        <div class="crisisQuestion">
+          ${q.question}
+        </div>
+
+        <div class="choiceGrid1930">
+
+          ${q.answers.map(function(answer,index){
+
+            return `
+              <button
+                class="choice1930"
+                data-index="${index}">
+
+                ${answer}
+
+              </button>
+            `;
+
+          }).join("")}
+
+        </div>
+
+      </div>
+
+
+      <div
+        class="phaseKnowledge"
+        id="phaseKnowledge">
+
+        ⚠ Bạn có 12 giây để đưa ra quyết định.
+
+      </div>
+
+    </div>
+  `;
+
+
+  document
+    .querySelectorAll(".choice1930")
+    .forEach(function(button){
+
+      button.addEventListener(
+        "click",
+        function(){
+
+          choosePhase1(
+            Number(button.dataset.index),
+            button
+          );
+
+        }
+      );
+
+    });
+
+
+  phase1Timer =
+    setInterval(function(){
+
+      if(phase1Locked){
+        return;
+      }
+
+      phase1Time--;
+
+
+      const timer =
+        document.getElementById("bossTime");
+
+
+      if(timer){
+        timer.textContent = phase1Time;
+      }
+
+
+      if(phase1Time <= 5){
+
+        const timerBox =
+          document.getElementById("bossTimerBox");
+
+        if(timerBox){
+          timerBox.classList.add("bossDanger");
+        }
+
+      }
+
+
+      if(phase1Time <= 0){
+
+        clearInterval(phase1Timer);
+
+        phase1Wrong(null);
+
+      }
+
+    },1000);
+}
+
+
+function choosePhase1(index,button){
+
+  if(phase1Locked){
+    return;
+  }
+
+  phase1Locked = true;
+
+  clearInterval(phase1Timer);
+
+
+  const q =
+    phase1Questions[phase1Index];
+
+
+  document
+    .querySelectorAll(".choice1930")
+    .forEach(function(b){
+
+      b.disabled = true;
+
+    });
+
+
+  if(index === q.correct){
+
+    button
+      .classList
+      .add("correct1930");
+
+
+    phase1Combo++;
+
+
+    const multiplier =
+      Math.min(phase1Combo,3);
+
+
+    const reward =
+      150 * multiplier;
+
+
+    xp += reward;
+
+    phase1Unity += 25;
+
+
+    if(phase1Unity > 100){
+      phase1Unity = 100;
+    }
+
+
+    updateHUD();
+
+
+    const unityFill =
+      document.getElementById("unityFill");
+
+
+    const unityPercent =
+      document.getElementById("unityPercent");
+
+
+    if(unityFill){
+      unityFill.style.width =
+        phase1Unity + "%";
+    }
+
+
+    if(unityPercent){
+      unityPercent.textContent =
+        phase1Unity + "%";
+    }
+
+
+    showPhase1Combo(
+      multiplier,
+      reward
+    );
+
+
+    document
+      .getElementById("phaseKnowledge")
+      .innerHTML = `
+
+        <span class="phaseXP">
+          ✓ QUYẾT ĐỊNH CHÍNH XÁC
+          · +${reward} XP
+        </span>
+
+        <br><br>
+
+        ${q.knowledge}
+
+      `;
+
+
+    setTimeout(function(){
+
+      phase1Index++;
+
+
+      if(
+        phase1Index <
+        phase1Questions.length
+      ){
+
+        renderPhase1Question();
+
+      }else{
+
+        phase1Complete();
+
+      }
+
+    },3300);
+
+
+  }else{
+
+    button
+      .classList
+      .add("wrong1930");
+
+
+    phase1Combo = 0;
+
+    phase1Wrong(q);
+
+  }
+}
+
+
+function showPhase1Combo(
+  multiplier,
+  reward
+){
+
+  const combo =
+    document.getElementById("combo1930");
+
+
+  if(!combo){
+    return;
+  }
+
+
+  combo.textContent =
+    "COMBO x" +
+    multiplier +
+    "  +" +
+    reward +
+    " XP";
+
+
+  combo.classList.remove(
+    "showCombo"
+  );
+
+
+  void combo.offsetWidth;
+
+
+  combo.classList.add(
+    "showCombo"
+  );
+}
+
+
+function phase1Wrong(q){
+
+  if(!phase1Locked){
+    phase1Locked = true;
+  }
+
+  clearInterval(phase1Timer);
+
+
+  hearts--;
+
+  phase1Combo = 0;
+
+  updateHUD();
+
+
+  document
+    .querySelectorAll(".choice1930")
+    .forEach(function(b){
+
+      b.disabled = true;
+
+    });
+
+
+  const knowledge =
+    document.getElementById(
+      "phaseKnowledge"
+    );
+
+
+  if(knowledge){
+
+    knowledge.innerHTML = `
+
+      <span style="color:#df716d">
+        ✕ QUYẾT ĐỊNH KHÔNG PHÙ HỢP
+      </span>
+
+      <br><br>
+
+      ${
+        q
+          ? q.knowledge
+          : "Bạn đã để thời gian quyết định kết thúc. Trong một giai đoạn khủng hoảng tổ chức, việc chậm đưa ra quyết định có thể khiến sự phân tán kéo dài."
+      }
+
+    `;
+
+  }
+
+
+  if(hearts <= 0){
+
+    setTimeout(
+      phase1Fail,
+      2600
+    );
+
+    return;
+  }
+
+
+  setTimeout(function(){
+
+    renderPhase1Question();
+
+  },3000);
+}
+
+
+function phase1Fail(){
+
+  clearInterval(phase1Timer);
+
+
+  xp = level3BaseXP;
+
+  updateHUD();
+
+
+  screen.innerHTML = `
+    <div class="content">
+
+      <div class="small">
+        BOSS MISSION FAILED
+      </div>
+
+      <h1>
+        KHỦNG HOẢNG<br>
+        <span class="red">
+          CHƯA ĐƯỢC GIẢI QUYẾT
+        </span>
+      </h1>
+
+      <p class="subtitle">
+
+        Sự phân tán vẫn còn tồn tại.
+
+        <br><br>
+
+        Quay lại bàn hội nghị
+        và đưa ra những quyết định chính xác hơn.
+
+      </p>
+
+      <button
+        class="btn"
+        id="retryPhase1">
+
+        THỬ LẠI PHASE 01 →
+
+      </button>
+
+    </div>
+  `;
+
+
+  document
+    .getElementById("retryPhase1")
+    .addEventListener(
+      "click",
+      startPhase1
+    );
+}
+
+
+function phase1Complete(){
+
+  clearInterval(phase1Timer);
+
+  phase1Unity = 100;
+
+
+  screen.innerHTML = `
+    <div class="content">
+
+      <div class="small">
+        PHASE 01 COMPLETE
+      </div>
+
+      <h1>
+        THỐNG NHẤT<br>
+        <span class="gold">
+          100%
+        </span>
+      </h1>
+
+      <div class="scoreBig">
+        UNITY ACHIEVED
+      </div>
+
+      <p class="subtitle">
+
+        Yêu cầu thống nhất lực lượng lãnh đạo
+        đã được giải quyết.
+
+        <br><br>
+
+        Nhưng một chính đảng thống nhất
+        vẫn phải trả lời câu hỏi quan trọng hơn:
+
+        <br><br>
+
+        <strong>
+          Cách mạng Việt Nam sẽ xác định
+          mục tiêu, lực lượng và đường lối như thế nào?
+        </strong>
+
+      </p>
+
+      <button
+        class="btn"
+        id="phase2Btn">
+
+        MỞ PHASE 02 · GIẢI MÃ CƯƠNG LĨNH →
+
+      </button>
+
+    </div>
+  `;
+
+
+  document
+    .getElementById("phase2Btn")
+    .addEventListener(
+      "click",
+      function(){
 
         screen.innerHTML = `
           <div class="content">
 
             <div class="small">
-              LEVEL 03 · BOSS MISSION
+              LEVEL 03 · PHASE 02
             </div>
 
             <h1>
-              HỘI NGHỊ<br>
-              <span class="red">1930</span>
+              GIẢI MÃ<br>
+              <span class="red">
+                CƯƠNG LĨNH
+              </span>
             </h1>
 
             <p class="subtitle">
-              Ba thử thách đang chờ bạn.
-              <br><br>
-              Bạn sẽ phải xử lý khủng hoảng tổ chức,
-              xác định đường lối,
-              và giải mã những nội dung cốt lõi
-              của Cương lĩnh đầu tiên.
-            </p>
 
-            <div class="mission">
-              PHASE 01 · KHỦNG HOẢNG 1929
-            </div>
+              Phase 01 đã hoàn thành.
+
+              <br><br>
+
+              Phase 02 sẽ yêu cầu bạn
+              tái cấu trúc những nội dung
+              cốt lõi của Cương lĩnh đầu tiên.
+
+            </p>
 
           </div>
         `;
 
-      });
-
-  },7000);
+      }
+    );
 }
 </script>
 

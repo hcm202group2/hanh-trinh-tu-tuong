@@ -474,6 +474,195 @@ h1{
   .progressWrap{width:90px}
   .hudBlock{font-size:10px}
 }
+  /* ===== LEVEL 2 PREMIUM UI ===== */
+
+.level2Top{
+  width:min(900px,100%);
+  margin:0 auto 15px;
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:30px;
+}
+
+.timerBox{
+  flex-shrink:0;
+  padding:12px 20px;
+  border:1px solid rgba(200,164,92,.45);
+  background:rgba(200,164,92,.07);
+  color:#d9b96e;
+  border-radius:8px;
+  font-size:16px;
+  letter-spacing:2px;
+}
+
+.matchBoard{
+  width:min(900px,100%);
+  margin:30px auto 0;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:28px;
+}
+
+.cardColumn,
+.slotColumn{
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+
+  padding:22px;
+  border:1px solid rgba(200,164,92,.16);
+  background:rgba(255,255,255,.025);
+  border-radius:12px;
+}
+
+.columnTitle{
+  margin-bottom:8px;
+  color:#c8a45c;
+  font-size:12px;
+  letter-spacing:4px;
+  text-align:left;
+}
+
+/* XÓA HOÀN TOÀN GIAO DIỆN BUTTON MẶC ĐỊNH */
+
+button.conceptCard,
+button.dropSlot{
+  appearance:none;
+  -webkit-appearance:none;
+
+  display:flex;
+  align-items:center;
+
+  width:100%;
+  min-height:82px;
+
+  padding:16px 18px;
+
+  border-radius:9px;
+  border:1px solid rgba(200,164,92,.22);
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255,255,255,.055),
+      rgba(255,255,255,.018)
+    );
+
+  color:#eadfce;
+
+  font-family:Arial,sans-serif;
+  font-size:15px;
+  line-height:1.45;
+  text-align:left;
+
+  cursor:pointer;
+
+  transition:
+    transform .22s ease,
+    border-color .22s ease,
+    background .22s ease,
+    box-shadow .22s ease;
+}
+
+button.conceptCard:hover,
+button.dropSlot:hover{
+  transform:translateY(-3px);
+  border-color:#c8a45c;
+  background:rgba(200,164,92,.08);
+}
+
+button.conceptCard.selected{
+  border-color:#d4ad58;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(200,164,92,.18),
+      rgba(200,164,92,.06)
+    );
+
+  box-shadow:
+    0 0 0 1px rgba(200,164,92,.15),
+    0 8px 30px rgba(0,0,0,.25);
+
+  transform:translateX(7px);
+}
+
+button.dropSlot{
+  border-style:dashed;
+  color:#bdb1a1;
+  background:rgba(0,0,0,.13);
+}
+
+button.conceptCard.matched,
+button.dropSlot.matched{
+  border-style:solid;
+  border-color:#6f9f68;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(74,120,67,.22),
+      rgba(74,120,67,.08)
+    );
+
+  color:#a9d3a4;
+
+  pointer-events:none;
+}
+
+.level2Feedback{
+  width:min(900px,100%);
+  min-height:48px;
+
+  margin:22px auto 0;
+  padding:13px 18px;
+
+  border-top:1px solid rgba(200,164,92,.15);
+
+  color:#c8beb1;
+
+  font-size:15px;
+  letter-spacing:.5px;
+}
+
+.timerDanger{
+  color:#e06460 !important;
+  border-color:#b83b38 !important;
+
+  box-shadow:
+    0 0 20px rgba(184,59,56,.25);
+
+  animation:timerPulse .7s infinite alternate;
+}
+
+@keyframes timerPulse{
+  from{
+    transform:scale(1);
+  }
+
+  to{
+    transform:scale(1.06);
+  }
+}
+
+@media(max-width:750px){
+
+  .matchBoard{
+    grid-template-columns:1fr;
+  }
+
+  .level2Top{
+    align-items:center;
+    flex-direction:column;
+  }
+
+  button.conceptCard,
+  button.dropSlot{
+    min-height:70px;
+  }
+}
 </style>
 </head>
 

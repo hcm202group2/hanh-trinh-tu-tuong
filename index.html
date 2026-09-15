@@ -1,136 +1,262 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hành Trình Tư Tưởng</title>
 
-  <title>Hành Trình Tư Tưởng</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
 
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+body{
+  font-family:Arial,sans-serif;
+  background:radial-gradient(circle at center,#351414 0%,#150909 55%,#070404 100%);
+  color:#f3eadb;
+  min-height:100vh;
+}
 
-    body {
-      font-family: Arial, sans-serif;
-      background:
-        radial-gradient(circle at center, #3a1515 0%, #160b0b 55%, #080505 100%);
-      color: #f3eadb;
-      min-height: 100vh;
-      overflow: hidden;
-    }
+#game{
+  min-height:100vh;
+  position:relative;
+  overflow:hidden;
+}
 
-    #game {
-      width: 100%;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      position: relative;
-      padding: 30px;
-    }
+.noise{
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  opacity:.07;
+  background-image:repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(255,255,255,.05) 3px
+  );
+}
 
-    .noise {
-      position: absolute;
-      inset: 0;
-      opacity: 0.08;
-      pointer-events: none;
-      background-image:
-        repeating-linear-gradient(
-          0deg,
-          transparent,
-          transparent 2px,
-          rgba(255,255,255,.05) 3px
-        );
-    }
+.screen{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:90px 24px 60px;
+  animation:appear .8s ease;
+}
 
-    .screen {
-      max-width: 900px;
-      position: relative;
-      z-index: 2;
-      animation: appear 1.3s ease;
-    }
+.content{
+  width:min(950px,100%);
+}
 
-    .year {
-      letter-spacing: 8px;
-      font-size: 14px;
-      color: #c8a45c;
-      margin-bottom: 25px;
-    }
+.small{
+  letter-spacing:6px;
+  font-size:13px;
+  color:#c8a45c;
+  margin-bottom:22px;
+}
 
-    h1 {
-      font-size: clamp(45px, 8vw, 95px);
-      line-height: 0.95;
-      letter-spacing: -3px;
-      margin-bottom: 25px;
-    }
+h1{
+  font-size:clamp(45px,8vw,90px);
+  line-height:.95;
+  margin-bottom:25px;
+}
 
-    .red {
-      color: #b83b38;
-    }
+.red{color:#b83b38}
+.gold{color:#c8a45c}
 
-    .subtitle {
-      max-width: 650px;
-      margin: 0 auto 40px;
-      color: #c7bdad;
-      font-size: 18px;
-      line-height: 1.7;
-    }
+.subtitle{
+  max-width:700px;
+  margin:0 auto 35px;
+  color:#c8beb1;
+  font-size:18px;
+  line-height:1.7;
+}
 
-    button {
-      border: 1px solid #c8a45c;
-      background: transparent;
-      color: #f5ead5;
-      padding: 16px 34px;
-      font-size: 16px;
-      letter-spacing: 2px;
-      cursor: pointer;
-      transition: 0.3s;
-    }
+.btn{
+  border:1px solid #c8a45c;
+  background:transparent;
+  color:#f5ead5;
+  padding:16px 30px;
+  font-size:14px;
+  letter-spacing:2px;
+  cursor:pointer;
+  transition:.25s;
+}
 
-    button:hover {
-      background: #c8a45c;
-      color: #140909;
-      transform: translateY(-3px);
-    }
+.btn:hover{
+  background:#c8a45c;
+  color:#160909;
+  transform:translateY(-3px);
+}
 
-    .bottom {
-      position: absolute;
-      bottom: 28px;
-      left: 50%;
-      transform: translateX(-50%);
-      font-size: 12px;
-      letter-spacing: 3px;
-      color: #756b61;
-    }
+/* HUD */
+#hud{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  padding:18px 28px;
+  display:none;
+  justify-content:space-between;
+  align-items:center;
+  z-index:20;
+  background:rgba(8,4,4,.8);
+  border-bottom:1px solid rgba(200,164,92,.25);
+  backdrop-filter:blur(8px);
+}
 
-    @keyframes appear {
-      from {
-        opacity: 0;
-        transform: translateY(25px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-  </style>
+.hudBlock{
+  font-size:13px;
+  letter-spacing:2px;
+}
+
+#hearts{color:#d95550;font-size:20px}
+
+.progressWrap{
+  width:180px;
+  height:5px;
+  background:#332727;
+  margin-top:8px;
+}
+
+#progress{
+  width:20%;
+  height:100%;
+  background:#c8a45c;
+}
+
+/* LEVEL 1 */
+.levelTitle{
+  font-size:clamp(32px,6vw,65px);
+  margin-bottom:10px;
+}
+
+.mission{
+  color:#c8a45c;
+  letter-spacing:3px;
+  font-size:13px;
+  margin-bottom:12px;
+}
+
+.objects{
+  margin:38px auto 25px;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:16px;
+  max-width:760px;
+}
+
+.object{
+  min-height:145px;
+  border:1px solid rgba(200,164,92,.25);
+  background:rgba(255,255,255,.035);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  transition:.25s;
+  padding:18px;
+}
+
+.object:hover{
+  transform:translateY(-6px);
+  border-color:#c8a45c;
+  background:rgba(200,164,92,.08);
+}
+
+.object .icon{
+  font-size:48px;
+  margin-bottom:12px;
+}
+
+.object .label{
+  font-size:12px;
+  letter-spacing:2px;
+  color:#a99f91;
+}
+
+.object.correct-found{
+  border-color:#7aaa72;
+  background:rgba(70,120,60,.12);
+  opacity:.55;
+  pointer-events:none;
+}
+
+.object.wrong{
+  animation:shake .35s;
+  border-color:#b83b38;
+}
+
+#message{
+  min-height:35px;
+  margin-top:20px;
+  font-size:15px;
+  letter-spacing:1px;
+  color:#d8c9b4;
+}
+
+.completeBox{
+  padding:45px 25px;
+  border:1px solid rgba(200,164,92,.4);
+  background:rgba(255,255,255,.025);
+  max-width:700px;
+  margin:auto;
+}
+
+.scoreBig{
+  font-size:70px;
+  color:#c8a45c;
+  margin:15px 0;
+  font-weight:bold;
+}
+
+@keyframes appear{
+  from{opacity:0;transform:translateY(20px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+@keyframes shake{
+  0%,100%{transform:translateX(0)}
+  25%{transform:translateX(-8px)}
+  75%{transform:translateX(8px)}
+}
+
+@media(max-width:650px){
+  .objects{grid-template-columns:repeat(2,1fr)}
+  #hud{padding:14px 12px}
+  .progressWrap{width:90px}
+  .hudBlock{font-size:10px}
+}
+</style>
 </head>
 
 <body>
 
 <div id="game">
+<div class="noise"></div>
 
-  <div class="noise"></div>
+<div id="hud">
+  <div class="hudBlock">
+    <span id="hearts">♥ ♥ ♥</span>
+  </div>
 
-  <main class="screen" id="startScreen">
+  <div class="hudBlock">
+    XP <span class="gold" id="xp">0</span>
+  </div>
 
-    <div class="year">
-      1911 — 2026
+  <div class="hudBlock">
+    LEVEL 1 / 5
+    <div class="progressWrap">
+      <div id="progress"></div>
     </div>
+  </div>
+</div>
+
+<div id="screen" class="screen">
+  <div class="content">
+
+    <div class="small">1911 — 2026</div>
 
     <h1>
       HÀNH TRÌNH<br>
@@ -138,49 +264,280 @@
     </h1>
 
     <p class="subtitle">
-      Một hành trình tương tác qua những dấu mốc,
+      Một trải nghiệm tương tác qua những dấu mốc,
       lựa chọn và giá trị trong Tư tưởng Hồ Chí Minh.
       <br><br>
-      Bạn đã sẵn sàng bắt đầu?
+      Mỗi lựa chọn của bạn sẽ tạo nên hành trình.
     </p>
 
-    <button id="startBtn">
+    <button class="btn" id="startBtn">
       BẮT ĐẦU HÀNH TRÌNH →
     </button>
 
-  </main>
-
-  <div class="bottom">
-    INTERACTIVE EXPERIENCE
   </div>
+</div>
 
 </div>
 
 <script>
-  const startBtn = document.getElementById("startBtn");
+const screen = document.getElementById("screen");
+const hud = document.getElementById("hud");
 
-  startBtn.addEventListener("click", function () {
+let hearts = 3;
+let xp = 0;
+let found = 0;
 
-    document.getElementById("startScreen").innerHTML = `
-      <div class="year">CHƯƠNG 01</div>
+document.getElementById("startBtn").addEventListener("click", intro1911);
+
+function intro1911(){
+
+  screen.innerHTML = `
+    <div class="content">
+
+      <div class="small">CHƯƠNG 01</div>
 
       <h1>
         NĂM <span class="red">1911</span>
       </h1>
 
       <p class="subtitle">
-        Một người thanh niên 21 tuổi đứng trước một lựa chọn:
-        tiếp tục những con đường đã có,
-        hay bước ra thế giới để tìm một con đường mới?
+        Một người thanh niên 21 tuổi đứng trước câu hỏi lớn:
         <br><br>
-        Hành trình bắt đầu từ đây.
+        <strong>Con đường nào có thể đưa dân tộc tới độc lập?</strong>
+        <br><br>
+        Ngày 5/6/1911, Nguyễn Tất Thành rời Bến Nhà Rồng,
+        bắt đầu hành trình tìm đường cứu nước.
       </p>
 
-      <button onclick="alert('LEVEL 1 sẽ được xây ở bước tiếp theo!')">
-        TIẾP TỤC →
+      <button class="btn" id="enterLevel">
+        BƯỚC LÊN CON TÀU →
       </button>
-    `;
+
+    </div>
+  `;
+
+  document.getElementById("enterLevel")
+    .addEventListener("click", levelOne);
+}
+
+function levelOne(){
+
+  hud.style.display = "flex";
+
+  screen.innerHTML = `
+    <div class="content">
+
+      <div class="mission">
+        LEVEL 01 · KHỞI HÀNH
+      </div>
+
+      <div class="levelTitle">
+        TÌM <span class="red">3 MANH MỐI</span>
+      </div>
+
+      <p class="subtitle">
+        Trong 6 vật phẩm dưới đây, hãy tìm 3 biểu tượng
+        phù hợp nhất với một hành trình ra đi khám phá thế giới
+        và tìm một con đường mới.
+      </p>
+
+      <div class="objects">
+
+        <div class="object" data-correct="true">
+          <div class="icon">🚢</div>
+          <div class="label">CON TÀU</div>
+        </div>
+
+        <div class="object" data-correct="true">
+          <div class="icon">🗺️</div>
+          <div class="label">BẢN ĐỒ</div>
+        </div>
+
+        <div class="object" data-correct="false">
+          <div class="icon">👑</div>
+          <div class="label">VƯƠNG MIỆN</div>
+        </div>
+
+        <div class="object" data-correct="true">
+          <div class="icon">🧳</div>
+          <div class="label">HÀNH TRANG</div>
+        </div>
+
+        <div class="object" data-correct="false">
+          <div class="icon">💰</div>
+          <div class="label">TÀI SẢN</div>
+        </div>
+
+        <div class="object" data-correct="false">
+          <div class="icon">🏆</div>
+          <div class="label">VINH QUANG</div>
+        </div>
+
+      </div>
+
+      <div id="message">
+        Tìm đủ 3 manh mối để tiếp tục.
+      </div>
+
+    </div>
+  `;
+
+  document.querySelectorAll(".object")
+    .forEach(item => item.addEventListener("click", chooseObject));
+}
+
+function chooseObject(e){
+
+  const item = e.currentTarget;
+
+  if(item.dataset.correct === "true"){
+
+    if(item.classList.contains("correct-found")) return;
+
+    item.classList.add("correct-found");
+
+    found++;
+    xp += 100;
+
+    updateHUD();
+
+    document.getElementById("message").innerHTML =
+      `<span style="color:#8fb987">✓ MANH MỐI ĐÚNG &nbsp; +100 XP</span>`;
+
+    if(found === 3){
+
+      setTimeout(levelComplete,700);
+    }
+
+  } else {
+
+    hearts--;
+
+    item.classList.remove("wrong");
+    void item.offsetWidth;
+    item.classList.add("wrong");
+
+    updateHUD();
+
+    document.getElementById("message").innerHTML =
+      `<span style="color:#d45d58">✕ Đây không phải lựa chọn phù hợp.</span>`;
+
+    if(hearts <= 0){
+
+      setTimeout(gameOver,500);
+    }
+  }
+}
+
+function updateHUD(){
+
+  document.getElementById("xp").textContent = xp;
+
+  let heartText = "";
+
+  for(let i=0;i<3;i++){
+    heartText += i < hearts ? "♥ " : "♡ ";
+  }
+
+  document.getElementById("hearts").textContent = heartText;
+}
+
+function gameOver(){
+
+  screen.innerHTML = `
+    <div class="content">
+
+      <div class="small">MISSION FAILED</div>
+
+      <h1>
+        THỬ <span class="red">LẠI</span>
+      </h1>
+
+      <p class="subtitle">
+        Bạn đã sử dụng hết 3 lượt lựa chọn.
+        <br>
+        Quan sát kỹ hơn và thử lại nhiệm vụ.
+      </p>
+
+      <button class="btn" id="retryBtn">
+        CHƠI LẠI LEVEL 1
+      </button>
+
+    </div>
+  `;
+
+  document.getElementById("retryBtn").addEventListener("click",function(){
+
+    hearts = 3;
+    xp = 0;
+    found = 0;
+
+    updateHUD();
+    levelOne();
   });
+}
+
+function levelComplete(){
+
+  screen.innerHTML = `
+    <div class="content">
+
+      <div class="completeBox">
+
+        <div class="small">
+          LEVEL 01 COMPLETE
+        </div>
+
+        <h1>
+          KHỞI HÀNH<br>
+          <span class="red">1911</span>
+        </h1>
+
+        <div class="scoreBig">
+          +${xp} XP
+        </div>
+
+        <p class="subtitle">
+          Hành trình tìm đường cứu nước đã bắt đầu.
+          <br><br>
+          Đây không chỉ là một chuyến đi về địa lý,
+          mà là quá trình tìm kiếm một con đường mới
+          cho độc lập dân tộc.
+        </p>
+
+        <button class="btn" id="nextLevel">
+          TIẾP TỤC HÀNH TRÌNH →
+        </button>
+
+      </div>
+
+    </div>
+  `;
+
+  document.getElementById("nextLevel")
+    .addEventListener("click",function(){
+
+      screen.innerHTML = `
+        <div class="content">
+
+          <div class="small">
+            CHECKPOINT UNLOCKED
+          </div>
+
+          <h1>
+            NĂM <span class="red">1920</span>
+          </h1>
+
+          <p class="subtitle">
+            Một bước ngoặt mới đang chờ phía trước.
+            <br><br>
+            LEVEL 02 sẽ bắt đầu tại đây.
+          </p>
+
+        </div>
+      `;
+    });
+}
 </script>
 
 </body>

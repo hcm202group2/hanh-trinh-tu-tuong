@@ -221,7 +221,152 @@ h1{
   25%{transform:translateX(-8px)}
   75%{transform:translateX(8px)}
 }
+/* ===== CINEMATIC 1911 → 1920 ===== */
 
+.cinematic{
+  position:relative;
+  width:min(1000px,100%);
+  min-height:520px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  overflow:hidden;
+}
+
+.cineTitle{
+  font-size:13px;
+  letter-spacing:7px;
+  color:#c8a45c;
+  margin-bottom:45px;
+}
+
+.timelineScene{
+  position:relative;
+  width:85%;
+  max-width:850px;
+  height:180px;
+  margin:auto;
+}
+
+.timelineBase{
+  position:absolute;
+  left:0;
+  right:0;
+  top:90px;
+  height:2px;
+  background:#352929;
+}
+
+.timelineFill{
+  position:absolute;
+  left:0;
+  top:90px;
+  height:2px;
+  width:0;
+  background:#c8a45c;
+  animation:growTimeline 5.5s ease forwards;
+}
+
+.yearPoint{
+  position:absolute;
+  top:82px;
+  width:18px;
+  height:18px;
+  border-radius:50%;
+  border:2px solid #62513a;
+  background:#150909;
+  transform:translateX(-50%);
+}
+
+.yearPoint::after{
+  content:attr(data-year);
+  position:absolute;
+  top:32px;
+  left:50%;
+  transform:translateX(-50%);
+  font-size:14px;
+  letter-spacing:3px;
+  color:#837569;
+}
+
+.p1911{
+  left:5%;
+  animation:unlockPoint .5s .4s forwards;
+}
+
+.p1919{
+  left:55%;
+  animation:unlockPoint .5s 3s forwards;
+}
+
+.p1920{
+  left:95%;
+  animation:unlockPoint .5s 5.2s forwards;
+}
+
+.ship{
+  position:absolute;
+  top:25px;
+  left:1%;
+  font-size:48px;
+  animation:shipJourney 5.5s ease-in-out forwards;
+}
+
+.cineText{
+  min-height:80px;
+  margin-top:25px;
+  font-size:18px;
+  line-height:1.7;
+  color:#c8beb1;
+  transition:.4s;
+}
+
+#cineContinue{
+  opacity:0;
+  pointer-events:none;
+  margin-top:20px;
+  animation:showContinue .8s 6.2s forwards;
+}
+
+@keyframes growTimeline{
+  from{width:0}
+  to{width:100%}
+}
+
+@keyframes shipJourney{
+  0%{
+    left:1%;
+    transform:translateY(0) rotate(-2deg);
+  }
+
+  35%{
+    transform:translateY(-8px) rotate(2deg);
+  }
+
+  65%{
+    transform:translateY(5px) rotate(-1deg);
+  }
+
+  100%{
+    left:90%;
+    transform:translateY(0);
+  }
+}
+
+@keyframes unlockPoint{
+  to{
+    background:#c8a45c;
+    border-color:#f1d28e;
+    box-shadow:0 0 20px rgba(200,164,92,.8);
+  }
+}
+
+@keyframes showContinue{
+  to{
+    opacity:1;
+    pointer-events:auto;
+  }
+}
 @media(max-width:650px){
   .objects{grid-template-columns:repeat(2,1fr)}
   #hud{padding:14px 12px}
@@ -515,28 +660,133 @@ function levelComplete(){
   `;
 
   document.getElementById("nextLevel")
-    .addEventListener("click",function(){
+    .addEventListener("click", cinematicJourney);
+}
 
-      screen.innerHTML = `
-        <div class="content">
 
-          <div class="small">
-            CHECKPOINT UNLOCKED
-          </div>
+function cinematicJourney(){
 
-          <h1>
-            NĂM <span class="red">1920</span>
-          </h1>
+  hud.style.display = "none";
 
-          <p class="subtitle">
-            Một bước ngoặt mới đang chờ phía trước.
-            <br><br>
-            LEVEL 02 sẽ bắt đầu tại đây.
-          </p>
+  screen.innerHTML = `
+    <div class="content cinematic">
 
-        </div>
-      `;
-    });
+      <div class="cineTitle">
+        HÀNH TRÌNH ĐANG TIẾP DIỄN
+      </div>
+
+      <div class="timelineScene">
+
+        <div class="timelineBase"></div>
+        <div class="timelineFill"></div>
+
+        <div class="yearPoint p1911" data-year="1911"></div>
+
+        <div class="yearPoint p1919" data-year="1919"></div>
+
+        <div class="yearPoint p1920" data-year="1920"></div>
+
+        <div class="ship">🚢</div>
+
+      </div>
+
+      <div class="cineText" id="cineText">
+        Rời Bến Nhà Rồng...
+      </div>
+
+      <button class="btn" id="cineContinue">
+        MỞ CHECKPOINT 1920 →
+      </button>
+
+    </div>
+  `;
+
+  const text = document.getElementById("cineText");
+
+  setTimeout(function(){
+    text.innerHTML =
+      "1911 — Một hành trình vượt ra ngoài biên giới bắt đầu.";
+  },700);
+
+  setTimeout(function(){
+    text.innerHTML =
+      "1919 — Tiếng nói của nhân dân An Nam được gửi tới Hội nghị Versailles.";
+  },3000);
+
+  setTimeout(function(){
+    text.innerHTML =
+      "<span class='gold'>1920</span> — Một bước ngoặt trong nhận thức về con đường giải phóng dân tộc.";
+  },5200);
+
+  setTimeout(function(){
+
+    document.getElementById("cineContinue")
+      .addEventListener("click", checkpoint1920);
+
+  },6200);
+}
+
+
+function checkpoint1920(){
+
+  screen.innerHTML = `
+    <div class="content">
+
+      <div class="small">
+        CHECKPOINT UNLOCKED
+      </div>
+
+      <h1>
+        NĂM <span class="red">1920</span>
+      </h1>
+
+      <p class="subtitle">
+        Sau nhiều năm quan sát, trải nghiệm và tìm kiếm,
+        Nguyễn Ái Quốc đứng trước một bước ngoặt quan trọng.
+        <br><br>
+        Một con đường mới đang dần được xác định.
+      </p>
+
+      <button class="btn" id="level2Btn">
+        BẮT ĐẦU LEVEL 02 →
+      </button>
+
+    </div>
+  `;
+
+  document.getElementById("level2Btn")
+    .addEventListener("click", levelTwo);
+}
+
+
+function levelTwo(){
+
+  hud.style.display = "flex";
+
+  document.querySelector("#hud .hudBlock:last-child")
+    .firstChild.textContent = "LEVEL 2 / 5";
+
+  document.getElementById("progress").style.width = "40%";
+
+  screen.innerHTML = `
+    <div class="content">
+
+      <div class="mission">
+        LEVEL 02 · BƯỚC NGOẶT
+      </div>
+
+      <div class="levelTitle">
+        NĂM <span class="red">1920</span>
+      </div>
+
+      <p class="subtitle">
+        Level 02 đã được mở khóa.
+        <br><br>
+        Gameplay mới sẽ được xây ở bước tiếp theo.
+      </p>
+
+    </div>
+  `;
 }
 </script>
 

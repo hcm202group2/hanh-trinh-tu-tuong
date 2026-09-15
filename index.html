@@ -366,6 +366,151 @@ h1{
     opacity:1;
     pointer-events:auto;
   }
+}/* ===== CINEMATIC 1911 → 1920 ===== */
+
+.cinematic{
+  position:relative;
+  width:min(1000px,100%);
+  min-height:520px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  overflow:hidden;
+}
+
+.cineTitle{
+  font-size:13px;
+  letter-spacing:7px;
+  color:#c8a45c;
+  margin-bottom:45px;
+}
+
+.timelineScene{
+  position:relative;
+  width:85%;
+  max-width:850px;
+  height:180px;
+  margin:auto;
+}
+
+.timelineBase{
+  position:absolute;
+  left:0;
+  right:0;
+  top:90px;
+  height:2px;
+  background:#352929;
+}
+
+.timelineFill{
+  position:absolute;
+  left:0;
+  top:90px;
+  height:2px;
+  width:0;
+  background:#c8a45c;
+  animation:growTimeline 5.5s ease forwards;
+}
+
+.yearPoint{
+  position:absolute;
+  top:82px;
+  width:18px;
+  height:18px;
+  border-radius:50%;
+  border:2px solid #62513a;
+  background:#150909;
+  transform:translateX(-50%);
+}
+
+.yearPoint::after{
+  content:attr(data-year);
+  position:absolute;
+  top:32px;
+  left:50%;
+  transform:translateX(-50%);
+  font-size:14px;
+  letter-spacing:3px;
+  color:#837569;
+}
+
+.p1911{
+  left:5%;
+  animation:unlockPoint .5s .4s forwards;
+}
+
+.p1919{
+  left:55%;
+  animation:unlockPoint .5s 3s forwards;
+}
+
+.p1920{
+  left:95%;
+  animation:unlockPoint .5s 5.2s forwards;
+}
+
+.ship{
+  position:absolute;
+  top:25px;
+  left:1%;
+  font-size:48px;
+  animation:shipJourney 5.5s ease-in-out forwards;
+}
+
+.cineText{
+  min-height:80px;
+  margin-top:25px;
+  font-size:18px;
+  line-height:1.7;
+  color:#c8beb1;
+  transition:.4s;
+}
+
+#cineContinue{
+  opacity:0;
+  pointer-events:none;
+  margin-top:20px;
+  animation:showContinue .8s 6.2s forwards;
+}
+
+@keyframes growTimeline{
+  from{width:0}
+  to{width:100%}
+}
+
+@keyframes shipJourney{
+  0%{
+    left:1%;
+    transform:translateY(0) rotate(-2deg);
+  }
+
+  35%{
+    transform:translateY(-8px) rotate(2deg);
+  }
+
+  65%{
+    transform:translateY(5px) rotate(-1deg);
+  }
+
+  100%{
+    left:90%;
+    transform:translateY(0);
+  }
+}
+
+@keyframes unlockPoint{
+  to{
+    background:#c8a45c;
+    border-color:#f1d28e;
+    box-shadow:0 0 20px rgba(200,164,92,.8);
+  }
+}
+
+@keyframes showContinue{
+  to{
+    opacity:1;
+    pointer-events:auto;
+  }
 }
 @media(max-width:650px){
   .objects{grid-template-columns:repeat(2,1fr)}
@@ -759,7 +904,27 @@ function checkpoint1920(){
 }
 
 
-function levelTwo(){
+let level2Matched = 0;
+let level2Selected = null;
+let level2Interval = null;
+let level2Time = 45;
+let level2BaseXP = 0;
+let level2Active = false;
+
+
+function levelTwo(resetBase = true){
+
+  if(resetBase){
+    level2BaseXP = xp;
+  }
+
+  hearts = 3;
+  level2Matched = 0;
+  level2Selected = null;
+  level2Time = 45;
+  level2Active = true;
+
+  updateHUD();
 
   hud.style.display = "flex";
 
@@ -771,22 +936,378 @@ function levelTwo(){
   screen.innerHTML = `
     <div class="content">
 
-      <div class="mission">
-        LEVEL 02 · BƯỚC NGOẶT
-      </div>
+      <div class="level2Top">
 
-      <div class="levelTitle">
-        NĂM <span class="red">1920</span>
+        <div>
+          <div class="mission">
+            LEVEL 02 · BƯỚC NGOẶT
+          </div>
+
+          <div class="levelTitle">
+            GIẢI MÃ <span class="red">1920</span>
+          </div>
+        </div>
+
+        <div class="timerBox" id="timerBox">
+          ⏱ <span id="level2Timer">45</span>s
+        </div>
+
       </div>
 
       <p class="subtitle">
-        Level 02 đã được mở khóa.
-        <br><br>
-        Gameplay mới sẽ được xây ở bước tiếp theo.
+        Ghép mỗi khái niệm bên trái với ý nghĩa phù hợp bên phải.
+        <br>
+        Bạn có 45 giây và 3 lượt sai.
       </p>
+
+      <div class="matchBoard">
+
+        <div class="cardColumn">
+
+          <div class="columnTitle">
+            MẢNH GHÉP
+          </div>
+
+          <button class="conceptCard"
+                  draggable="true"
+                  data-match="theory">
+            📜 Luận cương về vấn đề dân tộc và thuộc địa
+          </button>
+
+          <button class="conceptCard"
+                  draggable="true"
+                  data-match="path">
+            🧭 Con đường cách mạng vô sản
+          </button>
+
+          <button class="conceptCard"
+                  draggable="true"
+                  data-match="tours">
+            🏛 Đại hội Tours năm 1920
+          </button>
+
+        </div>
+
+
+        <div class="slotColumn">
+
+          <div class="columnTitle">
+            VAI TRÒ / Ý NGHĨA
+          </div>
+
+          <button class="dropSlot"
+                  data-match="path">
+            Con đường giải phóng dân tộc được lựa chọn
+          </button>
+
+          <button class="dropSlot"
+                  data-match="tours">
+            Dấu mốc thể hiện lựa chọn chính trị quan trọng
+          </button>
+
+          <button class="dropSlot"
+                  data-match="theory">
+            Tài liệu tạo bước ngoặt trong nhận thức
+          </button>
+
+        </div>
+
+      </div>
+
+      <div class="level2Feedback" id="level2Feedback">
+        Chọn một mảnh ghép rồi chọn ô tương ứng.
+      </div>
 
     </div>
   `;
+
+  setupLevel2();
+
+  clearInterval(level2Interval);
+
+  level2Interval = setInterval(function(){
+
+    if(!level2Active) return;
+
+    level2Time--;
+
+    document.getElementById("level2Timer").textContent = level2Time;
+
+    if(level2Time <= 10){
+      document.getElementById("timerBox")
+        .classList.add("timerDanger");
+    }
+
+    if(level2Time <= 0){
+
+      clearInterval(level2Interval);
+
+      level2Fail("HẾT THỜI GIAN");
+
+    }
+
+  },1000);
+}
+
+
+function setupLevel2(){
+
+  const cards = document.querySelectorAll(".conceptCard");
+  const slots = document.querySelectorAll(".dropSlot");
+
+  cards.forEach(function(card){
+
+    card.addEventListener("click",function(){
+
+      cards.forEach(c => c.classList.remove("selected"));
+
+      card.classList.add("selected");
+
+      level2Selected = card;
+
+      document.getElementById("level2Feedback").textContent =
+        "Đã chọn mảnh ghép. Hãy chọn vị trí phù hợp.";
+
+    });
+
+
+    card.addEventListener("dragstart",function(e){
+
+      e.dataTransfer.setData(
+        "text/plain",
+        card.dataset.match
+      );
+
+      level2Selected = card;
+
+    });
+
+  });
+
+
+  slots.forEach(function(slot){
+
+    slot.addEventListener("click",function(){
+
+      if(!level2Selected){
+
+        document.getElementById("level2Feedback").textContent =
+          "Hãy chọn một mảnh ghép trước.";
+
+        return;
+      }
+
+      checkLevel2Match(level2Selected,slot);
+
+    });
+
+
+    slot.addEventListener("dragover",function(e){
+      e.preventDefault();
+    });
+
+
+    slot.addEventListener("drop",function(e){
+
+      e.preventDefault();
+
+      const match = e.dataTransfer.getData("text/plain");
+
+      const card = [...document.querySelectorAll(".conceptCard")]
+        .find(c => c.dataset.match === match);
+
+      if(card){
+        checkLevel2Match(card,slot);
+      }
+
+    });
+
+  });
+}
+
+
+function checkLevel2Match(card,slot){
+
+  if(!level2Active) return;
+
+  if(card.dataset.match === slot.dataset.match){
+
+    card.classList.remove("selected");
+
+    card.classList.add("matched");
+
+    slot.classList.add("matched");
+
+    slot.innerHTML =
+      "✓ " + slot.innerHTML;
+
+    xp += 150;
+    level2Matched++;
+
+    updateHUD();
+
+    document.getElementById("level2Feedback").innerHTML =
+      `<span style="color:#8fb987">
+      ✓ GHÉP CHÍNH XÁC &nbsp; +150 XP
+      </span>`;
+
+    level2Selected = null;
+
+    if(level2Matched === 3){
+
+      level2Active = false;
+
+      clearInterval(level2Interval);
+
+      setTimeout(level2Complete,800);
+
+    }
+
+  } else {
+
+    hearts--;
+
+    updateHUD();
+
+    slot.classList.remove("wrong");
+
+    void slot.offsetWidth;
+
+    slot.classList.add("wrong");
+
+    document.getElementById("level2Feedback").innerHTML =
+      `<span style="color:#d45d58">
+      ✕ Chưa đúng mối liên hệ. Hãy thử lại.
+      </span>`;
+
+    card.classList.remove("selected");
+
+    level2Selected = null;
+
+    if(hearts <= 0){
+
+      clearInterval(level2Interval);
+
+      level2Fail("BẠN ĐÃ HẾT 3 LƯỢT");
+
+    }
+
+  }
+}
+
+
+function level2Fail(reason){
+
+  level2Active = false;
+
+  clearInterval(level2Interval);
+
+  screen.innerHTML = `
+    <div class="content">
+
+      <div class="small">
+        LEVEL 02 · MISSION FAILED
+      </div>
+
+      <h1>
+        ${reason}
+      </h1>
+
+      <p class="subtitle">
+        Bước ngoặt năm 1920 vẫn chưa được giải mã.
+        <br><br>
+        Hãy thử lại nhiệm vụ.
+      </p>
+
+      <button class="btn" id="retryLevel2">
+        THỬ LẠI LEVEL 02 →
+      </button>
+
+    </div>
+  `;
+
+  document.getElementById("retryLevel2")
+    .addEventListener("click",function(){
+
+      xp = level2BaseXP;
+
+      updateHUD();
+
+      levelTwo(false);
+
+    });
+}
+
+
+function level2Complete(){
+
+  level2Active = false;
+
+  clearInterval(level2Interval);
+
+  screen.innerHTML = `
+    <div class="content">
+
+      <div class="completeBox">
+
+        <div class="small">
+          LEVEL 02 COMPLETE
+        </div>
+
+        <h1>
+          BƯỚC NGOẶT<br>
+          <span class="red">1920</span>
+        </h1>
+
+        <div class="scoreBig">
+          +450 XP
+        </div>
+
+        <p class="subtitle">
+          Năm 1920 đánh dấu một bước chuyển quan trọng
+          trong quá trình hình thành tư tưởng Hồ Chí Minh.
+          <br><br>
+          Từ quá trình tìm kiếm,
+          một con đường giải phóng dân tộc mới
+          dần được xác định.
+        </p>
+
+        <button class="btn" id="to1930">
+          TIẾP TỤC ĐẾN 1930 →
+        </button>
+
+      </div>
+
+    </div>
+  `;
+
+  document.getElementById("to1930")
+    .addEventListener("click",function(){
+
+      hud.style.display = "none";
+
+      screen.innerHTML = `
+        <div class="content">
+
+          <div class="small">
+            NEXT CHECKPOINT
+          </div>
+
+          <h1>
+            NĂM <span class="red">1930</span>
+          </h1>
+
+          <p class="subtitle">
+            Từ một con đường tư tưởng
+            đến yêu cầu thống nhất lực lượng cách mạng.
+            <br><br>
+            Một thử thách mới đang chờ phía trước.
+          </p>
+
+        </div>
+      `;
+
+    });
 }
 </script>
 

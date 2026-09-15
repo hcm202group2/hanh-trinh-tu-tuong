@@ -1132,6 +1132,367 @@ button.dropSlot.matched{
     right:15px;
   }
 }
+  /* ===== LEVEL 3 · PHASE 2 · STRATEGY BOARD ===== */
+
+.phase2Wrap{
+  width:min(1100px,100%);
+}
+
+.phase2Header{
+  width:min(1000px,100%);
+  margin:0 auto 25px;
+
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-end;
+  gap:25px;
+}
+
+.phase2Title{
+  text-align:left;
+}
+
+.phase2Title .small{
+  margin-bottom:10px;
+}
+
+.docMeter{
+  width:250px;
+}
+
+.docMeterText{
+  display:flex;
+  justify-content:space-between;
+
+  margin-bottom:8px;
+
+  color:#a99d8f;
+
+  font-size:10px;
+  letter-spacing:2px;
+}
+
+.docMeterTrack{
+  height:7px;
+
+  overflow:hidden;
+
+  border-radius:20px;
+
+  background:#302323;
+}
+
+#docMeterFill{
+  width:0%;
+  height:100%;
+
+  background:
+    linear-gradient(
+      90deg,
+      #8e302d,
+      #c8a45c
+    );
+
+  box-shadow:
+    0 0 20px rgba(200,164,92,.4);
+
+  transition:width .5s ease;
+}
+
+.phase2Instruction{
+  max-width:800px;
+
+  margin:0 auto 25px;
+
+  color:#b9ad9e;
+
+  font-size:14px;
+  line-height:1.6;
+}
+
+.strategyLayout{
+  width:min(1050px,100%);
+
+  margin:0 auto;
+
+  display:grid;
+  grid-template-columns:.9fr 1.1fr;
+
+  gap:25px;
+}
+
+.fragmentTray,
+.strategyBoard{
+  padding:20px;
+
+  border:1px solid rgba(200,164,92,.15);
+  border-radius:13px;
+
+  background:rgba(255,255,255,.018);
+}
+
+.boardHeading{
+  margin-bottom:16px;
+
+  color:#c8a45c;
+
+  font-size:11px;
+  letter-spacing:4px;
+
+  text-align:left;
+}
+
+.fragmentTrayInner{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+.fragmentCard{
+  appearance:none;
+  -webkit-appearance:none;
+
+  width:100%;
+
+  padding:14px 16px;
+
+  border:1px solid rgba(200,164,92,.18);
+  border-radius:8px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255,255,255,.045),
+      rgba(255,255,255,.012)
+    );
+
+  color:#e7ddcf;
+
+  font-family:Arial,sans-serif;
+  font-size:13px;
+  line-height:1.5;
+
+  text-align:left;
+
+  cursor:grab;
+
+  transition:.22s;
+}
+
+.fragmentCard:hover{
+  transform:translateX(6px);
+
+  border-color:#c8a45c;
+
+  background:rgba(200,164,92,.07);
+}
+
+.fragmentCard.selectedFragment{
+  border-color:#d6b05d;
+
+  background:rgba(200,164,92,.14);
+
+  box-shadow:
+    0 0 22px rgba(200,164,92,.12);
+
+  transform:translateX(9px);
+}
+
+.fragmentCard.lockedFragment{
+  opacity:.25;
+
+  pointer-events:none;
+
+  transform:scale(.98);
+}
+
+.fragmentIcon{
+  margin-right:7px;
+}
+
+.strategySlots{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+.strategySlot{
+  appearance:none;
+  -webkit-appearance:none;
+
+  width:100%;
+  min-height:88px;
+
+  padding:14px 16px;
+
+  border:1px dashed rgba(200,164,92,.27);
+  border-radius:9px;
+
+  background:rgba(0,0,0,.12);
+
+  color:#b7aa9b;
+
+  font-family:Arial,sans-serif;
+
+  text-align:left;
+
+  cursor:pointer;
+
+  transition:.22s;
+}
+
+.strategySlot:hover{
+  border-color:#c8a45c;
+
+  background:rgba(200,164,92,.05);
+}
+
+.slotLabel{
+  display:block;
+
+  margin-bottom:7px;
+
+  color:#c8a45c;
+
+  font-size:10px;
+  letter-spacing:3px;
+}
+
+.slotContent{
+  font-size:13px;
+  line-height:1.5;
+}
+
+.strategySlot.filledSlot{
+  border-style:solid;
+
+  border-color:#6f9f68;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(70,115,60,.18),
+      rgba(70,115,60,.05)
+    );
+
+  color:#afd0a9;
+
+  pointer-events:none;
+}
+
+.noiseBin{
+  border-color:rgba(184,59,56,.4);
+
+  background:rgba(184,59,56,.035);
+}
+
+.noiseBin .slotLabel{
+  color:#d05b57;
+}
+
+.noiseBin.completeNoise{
+  border-color:#6f9f68;
+
+  background:rgba(70,115,60,.12);
+}
+
+.noiseStack{
+  margin-top:8px;
+
+  display:flex;
+  flex-wrap:wrap;
+
+  gap:6px;
+}
+
+.noiseChip{
+  padding:5px 8px;
+
+  border:1px solid rgba(184,59,56,.35);
+  border-radius:4px;
+
+  color:#d57974;
+
+  font-size:10px;
+}
+
+.phase2Feedback{
+  width:min(1000px,100%);
+  min-height:75px;
+
+  margin:20px auto 0;
+  padding:15px 18px;
+
+  border-left:2px solid #c8a45c;
+
+  background:rgba(200,164,92,.035);
+
+  color:#c7bbad;
+
+  font-size:14px;
+  line-height:1.65;
+
+  text-align:left;
+}
+
+.fragmentCard.wrongFragment,
+.strategySlot.wrongSlot{
+  animation:shake .35s;
+
+  border-color:#b83b38;
+}
+
+.phase2CompleteStamp{
+  width:max-content;
+
+  margin:25px auto;
+
+  padding:12px 23px;
+
+  border:3px solid #b83b38;
+
+  color:#d45c58;
+
+  font-weight:bold;
+  letter-spacing:4px;
+
+  transform:rotate(-4deg);
+
+  animation:stampFinal .5s ease;
+}
+
+@keyframes stampFinal{
+
+  from{
+    opacity:0;
+    transform:rotate(-4deg) scale(2);
+  }
+
+  to{
+    opacity:1;
+    transform:rotate(-4deg) scale(1);
+  }
+}
+
+@media(max-width:800px){
+
+  .strategyLayout{
+    grid-template-columns:1fr;
+  }
+
+  .phase2Header{
+    flex-direction:column;
+    align-items:center;
+  }
+
+  .phase2Title{
+    text-align:center;
+  }
+
+  .docMeter{
+    width:min(300px,100%);
+  }
+}
 </style>
 </head>
 
@@ -2634,8 +2995,984 @@ function phase1Complete(){
   `;
 
 
+ document
+  .getElementById("phase2Btn")
+  .addEventListener("click", startPhase2);
+}
+  /* ===== LEVEL 3 · PHASE 2 · GIẢI MÃ CƯƠNG LĨNH ===== */
+
+let phase2Selected = null;
+
+let phase2Solved = 0;
+
+let phase2NoiseSolved = 0;
+
+let phase2BaseXP = 0;
+
+let phase2Active = false;
+
+
+const phase2Pieces = [
+
+  {
+    id:"goal",
+
+    icon:"🎯",
+
+    target:"goal",
+
+    text:
+      "Đánh đổ đế quốc Pháp và phong kiến, làm cho nước Nam hoàn toàn độc lập.",
+
+    knowledge:
+      "Cương lĩnh đặt nhiệm vụ chống đế quốc và giành độc lập dân tộc ở vị trí rất quan trọng, đồng thời gắn với nhiệm vụ chống phong kiến."
+  },
+
+
+  {
+    id:"path",
+
+    icon:"🧭",
+
+    target:"path",
+
+    text:
+      "Làm tư sản dân quyền cách mạng và thổ địa cách mạng để đi tới xã hội cộng sản.",
+
+    knowledge:
+      "Cương lĩnh xác định phương hướng phát triển của cách mạng Việt Nam gắn độc lập dân tộc với con đường tiến lên xã hội cộng sản."
+  },
+
+
+  {
+    id:"leader",
+
+    icon:"⭐",
+
+    target:"leader",
+
+    text:
+      "Giai cấp vô sản lãnh đạo cách mạng thông qua Đảng Cộng sản.",
+
+    knowledge:
+      "Vai trò lãnh đạo của giai cấp công nhân thông qua Đảng là một nội dung quan trọng bảo đảm cách mạng có đường lối và tổ chức thống nhất."
+  },
+
+
+  {
+    id:"force",
+
+    icon:"🤝",
+
+    target:"force",
+
+    text:
+      "Công nhân và nông dân là lực lượng cơ bản; đồng thời đoàn kết, tranh thủ các lực lượng yêu nước khác.",
+
+    knowledge:
+      "Cương lĩnh không chỉ nhấn mạnh liên minh công – nông mà còn thể hiện tư tưởng tập hợp rộng rãi các lực lượng có thể tham gia chống đế quốc."
+  },
+
+
+  {
+    id:"world",
+
+    icon:"🌍",
+
+    target:"world",
+
+    text:
+      "Cách mạng Việt Nam gắn với phong trào cách mạng thế giới và đoàn kết với giai cấp vô sản quốc tế.",
+
+    knowledge:
+      "Cách mạng Việt Nam được đặt trong mối liên hệ với phong trào cách mạng thế giới, đồng thời phải giữ vai trò chủ động trong nhiệm vụ của mình."
+  },
+
+
+  {
+    id:"noise1",
+
+    icon:"⚠",
+
+    target:"noise",
+
+    text:
+      "Duy trì chế độ thuộc địa và chờ chính quyền thực dân tự trao độc lập.",
+
+    knowledge:
+      "Đây là mảnh gây nhiễu. Cương lĩnh xác định con đường đấu tranh cách mạng, không phải trông chờ sự ban phát độc lập từ chủ nghĩa thực dân."
+  },
+
+
+  {
+    id:"noise2",
+
+    icon:"⚠",
+
+    target:"noise",
+
+    text:
+      "Chỉ công nhân mới được tham gia cách mạng, không cần liên minh với nông dân và các lực lượng yêu nước khác.",
+
+    knowledge:
+      "Đây là mảnh gây nhiễu. Cương lĩnh coi công – nông là lực lượng cơ bản nhưng đồng thời chủ trương tập hợp và tranh thủ nhiều lực lượng xã hội."
+  }
+
+];
+
+
+function startPhase2(resetBase = true){
+
+  if(resetBase){
+    phase2BaseXP = xp;
+  }
+
+
+  hearts = 3;
+
+  phase2Selected = null;
+
+  phase2Solved = 0;
+
+  phase2NoiseSolved = 0;
+
+  phase2Active = true;
+
+
+  updateHUD();
+
+
+  hud.style.display = "flex";
+
+
   document
-    .getElementById("phase2Btn")
+    .querySelector("#hud .hudBlock:last-child")
+    .firstChild.textContent =
+    "LEVEL 3 / 5";
+
+
+  document
+    .getElementById("progress")
+    .style.width =
+    "60%";
+
+
+  renderPhase2();
+}
+
+
+function renderPhase2(){
+
+  const shuffled =
+    [...phase2Pieces]
+      .sort(function(){
+        return Math.random() - .5;
+      });
+
+
+  screen.innerHTML = `
+    <div class="content phase2Wrap">
+
+      <div class="phase2Header">
+
+        <div class="phase2Title">
+
+          <div class="small">
+            LEVEL 03 · PHASE 02
+          </div>
+
+          <div class="levelTitle">
+            GIẢI MÃ
+            <span class="red">
+              CƯƠNG LĨNH
+            </span>
+          </div>
+
+        </div>
+
+
+        <div class="docMeter">
+
+          <div class="docMeterText">
+
+            <span>
+              DOCUMENT INTEGRITY
+            </span>
+
+            <span id="docPercent">
+              0%
+            </span>
+
+          </div>
+
+          <div class="docMeterTrack">
+
+            <div id="docMeterFill">
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="phase2Instruction">
+
+        7 mảnh tài liệu đã bị xáo trộn.
+
+        <br>
+
+        Hãy phục dựng cấu trúc tư tưởng của
+        Cương lĩnh đầu tiên.
+
+        <br>
+
+        <span class="red">
+          Cảnh báo: có 2 mảnh gây nhiễu.
+        </span>
+
+      </div>
+
+
+      <div class="strategyLayout">
+
+
+        <div class="fragmentTray">
+
+          <div class="boardHeading">
+            MẢNH TÀI LIỆU
+          </div>
+
+
+          <div class="fragmentTrayInner">
+
+            ${shuffled.map(function(piece){
+
+              return `
+                <button
+                  class="fragmentCard"
+                  draggable="true"
+
+                  data-id="${piece.id}"
+                  data-target="${piece.target}">
+
+                  <span class="fragmentIcon">
+                    ${piece.icon}
+                  </span>
+
+                  <span class="fragmentText">
+                    ${piece.text}
+                  </span>
+
+                </button>
+              `;
+
+            }).join("")}
+
+          </div>
+
+        </div>
+
+
+        <div class="strategyBoard">
+
+          <div class="boardHeading">
+            BẢN CHIẾN LƯỢC 1930
+          </div>
+
+
+          <div class="strategySlots">
+
+
+            <button
+              class="strategySlot"
+              data-accept="goal">
+
+              <span class="slotLabel">
+                01 · MỤC TIÊU TRỰC TIẾP
+              </span>
+
+              <span class="slotContent">
+                Đặt mảnh phù hợp vào đây...
+              </span>
+
+            </button>
+
+
+            <button
+              class="strategySlot"
+              data-accept="path">
+
+              <span class="slotLabel">
+                02 · PHƯƠNG HƯỚNG PHÁT TRIỂN
+              </span>
+
+              <span class="slotContent">
+                Đặt mảnh phù hợp vào đây...
+              </span>
+
+            </button>
+
+
+            <button
+              class="strategySlot"
+              data-accept="leader">
+
+              <span class="slotLabel">
+                03 · LỰC LƯỢNG LÃNH ĐẠO
+              </span>
+
+              <span class="slotContent">
+                Đặt mảnh phù hợp vào đây...
+              </span>
+
+            </button>
+
+
+            <button
+              class="strategySlot"
+              data-accept="force">
+
+              <span class="slotLabel">
+                04 · LỰC LƯỢNG CÁCH MẠNG
+              </span>
+
+              <span class="slotContent">
+                Đặt mảnh phù hợp vào đây...
+              </span>
+
+            </button>
+
+
+            <button
+              class="strategySlot"
+              data-accept="world">
+
+              <span class="slotLabel">
+                05 · QUAN HỆ QUỐC TẾ
+              </span>
+
+              <span class="slotContent">
+                Đặt mảnh phù hợp vào đây...
+              </span>
+
+            </button>
+
+
+            <button
+              class="strategySlot noiseBin"
+              data-accept="noise">
+
+              <span class="slotLabel">
+                ⚠ LOẠI MẢNH GÂY NHIỄU
+              </span>
+
+              <span class="slotContent">
+                Phát hiện và loại bỏ 2 mảnh sai.
+              </span>
+
+              <div
+                class="noiseStack"
+                id="noiseStack">
+              </div>
+
+            </button>
+
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div
+        class="phase2Feedback"
+        id="phase2Feedback">
+
+        Chọn một mảnh tài liệu,
+        sau đó chọn vị trí phù hợp trên
+        Bản chiến lược.
+
+        <br>
+
+        Bạn cũng có thể kéo – thả trực tiếp.
+
+      </div>
+
+    </div>
+  `;
+
+
+  setupPhase2();
+}
+
+
+function setupPhase2(){
+
+  const cards =
+    document.querySelectorAll(
+      ".fragmentCard"
+    );
+
+
+  const slots =
+    document.querySelectorAll(
+      ".strategySlot"
+    );
+
+
+  cards.forEach(function(card){
+
+
+    card.addEventListener(
+      "click",
+      function(){
+
+        cards.forEach(function(c){
+
+          c.classList.remove(
+            "selectedFragment"
+          );
+
+        });
+
+
+        card.classList.add(
+          "selectedFragment"
+        );
+
+
+        phase2Selected = card;
+
+
+        document
+          .getElementById(
+            "phase2Feedback"
+          )
+          .textContent =
+          "Mảnh tài liệu đã được chọn. Hãy đặt nó vào đúng khu vực.";
+
+      }
+    );
+
+
+    card.addEventListener(
+      "dragstart",
+      function(e){
+
+        e.dataTransfer.setData(
+          "text/plain",
+          card.dataset.id
+        );
+
+
+        phase2Selected = card;
+
+      }
+    );
+
+  });
+
+
+  slots.forEach(function(slot){
+
+
+    slot.addEventListener(
+      "click",
+      function(){
+
+        if(!phase2Selected){
+
+          document
+            .getElementById(
+              "phase2Feedback"
+            )
+            .textContent =
+            "Hãy chọn một mảnh tài liệu trước.";
+
+          return;
+        }
+
+
+        checkPhase2Placement(
+          phase2Selected,
+          slot
+        );
+
+      }
+    );
+
+
+    slot.addEventListener(
+      "dragover",
+      function(e){
+
+        e.preventDefault();
+
+      }
+    );
+
+
+    slot.addEventListener(
+      "drop",
+      function(e){
+
+        e.preventDefault();
+
+
+        const id =
+          e.dataTransfer.getData(
+            "text/plain"
+          );
+
+
+        const card =
+          [...document.querySelectorAll(
+            ".fragmentCard"
+          )]
+          .find(function(c){
+
+            return c.dataset.id === id;
+
+          });
+
+
+        if(card){
+
+          checkPhase2Placement(
+            card,
+            slot
+          );
+
+        }
+
+      }
+    );
+
+  });
+}
+
+
+function checkPhase2Placement(
+  card,
+  slot
+){
+
+  if(!phase2Active){
+    return;
+  }
+
+
+  if(
+    slot.classList.contains(
+      "filledSlot"
+    )
+  ){
+    return;
+  }
+
+
+  const target =
+    card.dataset.target;
+
+
+  const accept =
+    slot.dataset.accept;
+
+
+  const piece =
+    phase2Pieces.find(
+      function(p){
+
+        return p.id ===
+          card.dataset.id;
+
+      }
+    );
+
+
+  if(target === accept){
+
+
+    card.classList.remove(
+      "selectedFragment"
+    );
+
+
+    card.classList.add(
+      "lockedFragment"
+    );
+
+
+    phase2Selected = null;
+
+
+    let reward = 150;
+
+
+    if(accept === "noise"){
+
+      reward = 75;
+
+      phase2NoiseSolved++;
+
+
+      const noiseStack =
+        document.getElementById(
+          "noiseStack"
+        );
+
+
+      noiseStack.insertAdjacentHTML(
+        "beforeend",
+
+        `
+          <span class="noiseChip">
+            MẢNH NHIỄU
+            ${phase2NoiseSolved}/2
+          </span>
+        `
+      );
+
+
+      slot.querySelector(
+        ".slotContent"
+      ).textContent =
+        `Đã loại ${phase2NoiseSolved}/2 mảnh sai.`;
+
+
+      if(phase2NoiseSolved === 2){
+
+        slot.classList.add(
+          "completeNoise"
+        );
+
+        slot.classList.add(
+          "filledSlot"
+        );
+
+      }
+
+
+    }else{
+
+
+      slot.classList.add(
+        "filledSlot"
+      );
+
+
+      slot.querySelector(
+        ".slotContent"
+      ).innerHTML =
+        "✓ " +
+        card
+          .querySelector(
+            ".fragmentText"
+          )
+          .textContent;
+
+    }
+
+
+    phase2Solved++;
+
+
+    xp += reward;
+
+
+    updateHUD();
+
+
+    updatePhase2Meter();
+
+
+    document
+      .getElementById(
+        "phase2Feedback"
+      )
+      .innerHTML =
+      `
+        <span class="phaseXP">
+
+          ✓ MẢNH TÀI LIỆU ĐÃ ĐƯỢC KHÔI PHỤC
+          · +${reward} XP
+
+        </span>
+
+        <br><br>
+
+        ${piece.knowledge}
+      `;
+
+
+    if(
+      phase2Solved ===
+      phase2Pieces.length
+    ){
+
+      phase2Active = false;
+
+
+      setTimeout(
+        phase2Complete,
+        1500
+      );
+
+    }
+
+
+  }else{
+
+
+    hearts--;
+
+
+    updateHUD();
+
+
+    card.classList.remove(
+      "selectedFragment"
+    );
+
+
+    card.classList.remove(
+      "wrongFragment"
+    );
+
+
+    slot.classList.remove(
+      "wrongSlot"
+    );
+
+
+    void card.offsetWidth;
+
+
+    card.classList.add(
+      "wrongFragment"
+    );
+
+
+    slot.classList.add(
+      "wrongSlot"
+    );
+
+
+    phase2Selected = null;
+
+
+    document
+      .getElementById(
+        "phase2Feedback"
+      )
+      .innerHTML =
+      `
+        <span style="color:#df716d">
+
+          ✕ MẢNH NÀY KHÔNG KHỚP
+          VỚI VỊ TRÍ ĐÓ.
+
+        </span>
+
+        <br><br>
+
+        Hãy đọc lại nội dung của mảnh
+        và xem nó đang nói về
+        mục tiêu, lực lượng,
+        lãnh đạo hay quan hệ quốc tế.
+      `;
+
+
+    if(hearts <= 0){
+
+      phase2Active = false;
+
+
+      setTimeout(
+        phase2Fail,
+        800
+      );
+
+    }
+
+  }
+}
+
+
+function updatePhase2Meter(){
+
+  const percent =
+    Math.round(
+      phase2Solved /
+      phase2Pieces.length *
+      100
+    );
+
+
+  const fill =
+    document.getElementById(
+      "docMeterFill"
+    );
+
+
+  const label =
+    document.getElementById(
+      "docPercent"
+    );
+
+
+  if(fill){
+    fill.style.width =
+      percent + "%";
+  }
+
+
+  if(label){
+    label.textContent =
+      percent + "%";
+  }
+}
+
+
+function phase2Fail(){
+
+  xp = phase2BaseXP;
+
+
+  updateHUD();
+
+
+  screen.innerHTML = `
+    <div class="content">
+
+      <div class="small">
+        DOCUMENT CORRUPTED
+      </div>
+
+      <h1>
+        CƯƠNG LĨNH<br>
+
+        <span class="red">
+          CHƯA HOÀN CHỈNH
+        </span>
+      </h1>
+
+
+      <p class="subtitle">
+
+        Quá nhiều mảnh tư tưởng
+        đã bị đặt sai vị trí.
+
+        <br><br>
+
+        Hãy quay lại bàn chiến lược
+        và tái cấu trúc văn kiện.
+
+      </p>
+
+
+      <button
+        class="btn"
+        id="retryPhase2">
+
+        PHỤC DỰNG LẠI →
+
+      </button>
+
+    </div>
+  `;
+
+
+  document
+    .getElementById(
+      "retryPhase2"
+    )
+    .addEventListener(
+      "click",
+      function(){
+
+        startPhase2(false);
+
+      }
+    );
+}
+
+
+function phase2Complete(){
+
+  screen.innerHTML = `
+    <div class="content">
+
+      <div class="small">
+        PHASE 02 COMPLETE
+      </div>
+
+
+      <h1>
+
+        CƯƠNG LĨNH<br>
+
+        <span class="gold">
+          ĐÃ ĐƯỢC PHỤC DỰNG
+        </span>
+
+      </h1>
+
+
+      <div class="phase2CompleteStamp">
+
+        STRATEGY · 1930
+
+      </div>
+
+
+      <p class="subtitle">
+
+        Một cấu trúc tư tưởng đã hiện rõ:
+
+        <br><br>
+
+        <strong>
+          độc lập dân tộc
+          · con đường cách mạng
+          · vai trò lãnh đạo của Đảng
+          · sức mạnh đoàn kết
+          · gắn bó với cách mạng thế giới.
+        </strong>
+
+        <br><br>
+
+        Cương lĩnh không chỉ trả lời
+        “đấu tranh chống lại điều gì”,
+        mà còn định hình
+        <span class="gold">
+          lực lượng nào,
+          dưới sự lãnh đạo nào
+          và đi tới đâu.
+        </span>
+
+      </p>
+
+
+      <button
+        class="btn"
+        id="phase3Btn">
+
+        MỞ PHASE 03 · ĐƯA VÀO THỰC TIỄN →
+
+      </button>
+
+    </div>
+  `;
+
+
+  document
+    .getElementById(
+      "phase3Btn"
+    )
     .addEventListener(
       "click",
       function(){
@@ -2644,25 +3981,28 @@ function phase1Complete(){
           <div class="content">
 
             <div class="small">
-              LEVEL 03 · PHASE 02
+              LEVEL 03 · FINAL PHASE
             </div>
 
             <h1>
-              GIẢI MÃ<br>
+
+              TỪ TƯ TƯỞNG<br>
+
               <span class="red">
-                CƯƠNG LĨNH
+                ĐẾN HÀNH ĐỘNG
               </span>
+
             </h1>
 
             <p class="subtitle">
 
-              Phase 01 đã hoàn thành.
+              Bản chiến lược đã hoàn thành.
 
               <br><br>
 
-              Phase 02 sẽ yêu cầu bạn
-              tái cấu trúc những nội dung
-              cốt lõi của Cương lĩnh đầu tiên.
+              Nhưng một đường lối chỉ thật sự
+              có ý nghĩa khi được vận dụng
+              vào thực tiễn cách mạng.
 
             </p>
 

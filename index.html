@@ -1697,7 +1697,7 @@ document.getElementById("to1930")
 
   setTimeout(function(){
 
-    screen.innerHTML += `
+screen.insertAdjacentHTML("beforeend", `
       <button
         class="btn"
         id="enter1930Boss"
@@ -1705,7 +1705,7 @@ document.getElementById("to1930")
       >
         TIẾN VÀO HỘI NGHỊ 1930 →
       </button>
-    `;
+     `);
 
     document
       .getElementById("enter1930Boss")

@@ -1493,6 +1493,564 @@ button.dropSlot.matched{
     width:min(300px,100%);
   }
 }
+  /* ===== LEVEL 3 · PHASE 3 · SECRET ARCHIVE ===== */
+
+.archive1930{
+  width:min(1120px,100%);
+}
+
+.archiveHeader{
+  width:min(1040px,100%);
+  margin:0 auto 25px;
+
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-end;
+  gap:25px;
+}
+
+.archiveHeaderText{
+  text-align:left;
+}
+
+.archiveCounter{
+  padding:12px 18px;
+
+  border:1px solid rgba(200,164,92,.28);
+  border-radius:8px;
+
+  background:rgba(200,164,92,.05);
+
+  color:#c8a45c;
+
+  font-size:12px;
+  letter-spacing:2px;
+}
+
+.archiveIntro{
+  max-width:760px;
+  margin:0 auto 28px;
+
+  color:#b8ab9c;
+
+  font-size:14px;
+  line-height:1.65;
+}
+
+.archiveGrid{
+  width:min(1040px,100%);
+  margin:0 auto;
+
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+
+  gap:18px;
+}
+
+.archiveCard{
+  position:relative;
+
+  min-height:260px;
+
+  overflow:hidden;
+
+  border:1px solid rgba(200,164,92,.2);
+  border-radius:12px;
+
+  background:#100a09;
+
+  cursor:pointer;
+
+  transition:
+    transform .25s ease,
+    border-color .25s ease,
+    box-shadow .25s ease;
+}
+
+.archiveCard:hover{
+  transform:translateY(-6px);
+
+  border-color:#c8a45c;
+
+  box-shadow:
+    0 18px 50px rgba(0,0,0,.32);
+}
+
+.archiveCard.foundCase{
+  border-color:#6d9a67;
+}
+
+.archiveCard.foundCase::after{
+  content:"EVIDENCE FOUND";
+
+  position:absolute;
+  top:14px;
+  right:-38px;
+
+  width:160px;
+
+  padding:6px 0;
+
+  background:#6d9a67;
+
+  color:#0c0807;
+
+  font-size:9px;
+  font-weight:bold;
+  letter-spacing:1px;
+
+  transform:rotate(35deg);
+}
+
+.archivePhoto{
+  position:relative;
+
+  height:190px;
+
+  overflow:hidden;
+
+  background:
+    radial-gradient(
+      circle at center,
+      rgba(122,99,76,.18),
+      rgba(0,0,0,.4)
+    );
+
+  filter:
+    sepia(.72)
+    contrast(1.13)
+    brightness(.82);
+}
+
+.archivePhoto::after{
+  content:"";
+
+  position:absolute;
+  inset:0;
+
+  pointer-events:none;
+
+  background:
+    repeating-linear-gradient(
+      0deg,
+      transparent 0px,
+      transparent 3px,
+      rgba(255,255,255,.025) 4px
+    );
+}
+
+.archivePhoto svg{
+  width:100%;
+  height:100%;
+}
+
+.archiveMeta{
+  padding:15px 17px 17px;
+
+  text-align:left;
+}
+
+.archiveCode{
+  margin-bottom:7px;
+
+  color:#b83b38;
+
+  font-size:10px;
+  letter-spacing:4px;
+}
+
+.archiveName{
+  color:#eee2d2;
+
+  font-size:15px;
+  letter-spacing:1px;
+}
+
+.archiveHint{
+  margin-top:7px;
+
+  color:#82766c;
+
+  font-size:11px;
+  line-height:1.5;
+}
+
+.evidenceDock{
+  width:min(1040px,100%);
+
+  margin:22px auto 0;
+  padding:15px 18px;
+
+  display:flex;
+  align-items:center;
+  gap:9px;
+  flex-wrap:wrap;
+
+  border-top:1px solid rgba(200,164,92,.16);
+}
+
+.evidenceDockLabel{
+  margin-right:8px;
+
+  color:#8f8274;
+
+  font-size:10px;
+  letter-spacing:3px;
+}
+
+.evidenceChip{
+  padding:7px 10px;
+
+  border:1px solid rgba(200,164,92,.25);
+  border-radius:5px;
+
+  background:rgba(200,164,92,.06);
+
+  color:#d8bd7a;
+
+  font-size:10px;
+  letter-spacing:1px;
+
+  animation:evidenceEnter .35s ease;
+}
+
+.evidenceEmpty{
+  color:#645a51;
+
+  font-size:11px;
+}
+
+.archiveNext{
+  margin-top:18px;
+}
+
+
+/* ===== INSPECT MODE ===== */
+
+.inspectOverlay{
+  position:fixed;
+  inset:0;
+
+  z-index:100;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  padding:25px;
+
+  background:rgba(4,2,2,.94);
+
+  backdrop-filter:blur(9px);
+
+  animation:inspectIn .3s ease;
+}
+
+.inspectPanel{
+  position:relative;
+
+  width:min(1000px,100%);
+  max-height:90vh;
+
+  overflow:auto;
+
+  border:1px solid rgba(200,164,92,.35);
+  border-radius:14px;
+
+  background:
+    radial-gradient(
+      circle at top,
+      #261313,
+      #0b0707 68%
+    );
+
+  box-shadow:
+    0 35px 120px rgba(0,0,0,.7);
+}
+
+.inspectTop{
+  padding:18px 22px;
+
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+
+  border-bottom:
+    1px solid rgba(200,164,92,.14);
+}
+
+.inspectLabel{
+  color:#c8a45c;
+
+  font-size:11px;
+  letter-spacing:4px;
+}
+
+.inspectClose{
+  appearance:none;
+
+  border:0;
+  background:transparent;
+
+  color:#a89b8d;
+
+  font-size:23px;
+
+  cursor:pointer;
+}
+
+.inspectStage{
+  position:relative;
+
+  width:100%;
+  height:min(60vh,550px);
+
+  overflow:hidden;
+
+  cursor:crosshair;
+
+  background:#080505;
+}
+
+.inspectStage svg{
+  width:100%;
+  height:100%;
+
+  filter:
+    sepia(.68)
+    contrast(1.15)
+    brightness(.9);
+}
+
+.inspectStage::after{
+  content:"";
+
+  position:absolute;
+  inset:0;
+
+  pointer-events:none;
+
+  background:
+    radial-gradient(
+      circle at center,
+      transparent 28%,
+      rgba(0,0,0,.48) 100%
+    );
+}
+
+.hotspot1930{
+  position:absolute;
+
+  width:34px;
+  height:34px;
+
+  transform:
+    translate(-50%,-50%);
+
+  border:1px solid #d9b761;
+  border-radius:50%;
+
+  background:
+    rgba(200,164,92,.14);
+
+  cursor:pointer;
+
+  z-index:4;
+
+  box-shadow:
+    0 0 0 0
+    rgba(200,164,92,.45);
+
+  animation:
+    hotspotPulse 1.4s infinite;
+}
+
+.hotspot1930::before{
+  content:"";
+
+  position:absolute;
+
+  left:50%;
+  top:50%;
+
+  width:5px;
+  height:5px;
+
+  transform:
+    translate(-50%,-50%);
+
+  border-radius:50%;
+
+  background:#e3c16e;
+}
+
+.hotspot1930.hotspotFound{
+  border-color:#77a771;
+
+  background:
+    rgba(80,140,70,.22);
+
+  animation:none;
+}
+
+.inspectFooter{
+  min-height:105px;
+
+  padding:18px 22px;
+
+  text-align:left;
+
+  color:#bfb3a5;
+
+  font-size:14px;
+  line-height:1.65;
+}
+
+.inspectInstruction{
+  color:#8f8376;
+}
+
+.evidenceReveal{
+  color:#d4bb79;
+
+  animation:evidenceEnter .4s ease;
+}
+
+.evidenceReveal strong{
+  color:#f1dfad;
+
+  letter-spacing:2px;
+}
+
+.inspectPanel.scanError{
+  animation:archiveGlitch .24s;
+}
+
+
+/* ===== ARCHIVE SVG STYLE ===== */
+
+.svgInk{
+  fill:#b9aa91;
+}
+
+.svgDark{
+  fill:#332722;
+}
+
+.svgLine{
+  stroke:#b6a585;
+  stroke-width:3;
+  fill:none;
+}
+
+.svgThin{
+  stroke:#7d6f5d;
+  stroke-width:2;
+  fill:none;
+}
+
+.svgRed{
+  fill:#8e3431;
+}
+
+.svgPaper{
+  fill:#b9aa87;
+}
+
+.svgPaperLine{
+  stroke:#59493d;
+  stroke-width:3;
+}
+
+
+/* ===== ANIMATIONS ===== */
+
+@keyframes hotspotPulse{
+
+  0%{
+    box-shadow:
+      0 0 0 0
+      rgba(200,164,92,.5);
+  }
+
+  70%{
+    box-shadow:
+      0 0 0 14px
+      rgba(200,164,92,0);
+  }
+
+  100%{
+    box-shadow:
+      0 0 0 0
+      rgba(200,164,92,0);
+  }
+}
+
+@keyframes archiveGlitch{
+
+  0%,100%{
+    transform:translateX(0);
+  }
+
+  25%{
+    transform:translateX(-5px);
+  }
+
+  50%{
+    transform:translateX(5px);
+  }
+
+  75%{
+    transform:translateX(-2px);
+  }
+}
+
+@keyframes evidenceEnter{
+
+  from{
+    opacity:0;
+    transform:translateY(8px);
+  }
+
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+@keyframes inspectIn{
+
+  from{
+    opacity:0;
+    transform:scale(.97);
+  }
+
+  to{
+    opacity:1;
+    transform:scale(1);
+  }
+}
+
+
+@media(max-width:760px){
+
+  .archiveGrid{
+    grid-template-columns:1fr;
+  }
+
+  .archiveHeader{
+    flex-direction:column;
+    align-items:center;
+  }
+
+  .archiveHeaderText{
+    text-align:center;
+  }
+
+  .inspectStage{
+    height:420px;
+  }
+}
 </style>
 </head>
 
@@ -3967,13 +4525,660 @@ function phase2Complete(){
 
     </div>
   `;
+document
+  .getElementById("phase3Btn")
+  .addEventListener("click", startPhase3);
+}
+  /* ===== LEVEL 3 · PHASE 3 · HỒ SƠ MẬT ===== */
+
+let phase3Found = new Set();
+
+const phase3Cases = [
+
+  {
+    id:"worker",
+    code:"DOSSIER A-01",
+    name:"DẤU VẾT TRONG CÔNG XƯỞNG",
+    hint:"Quan sát nhóm người lao động và công cụ sản xuất.",
+    evidence:"GIAI CẤP CÔNG NHÂN",
+
+    note:
+      "Công nhân là một lực lượng cơ bản của cách mạng và gắn với vai trò lãnh đạo của giai cấp vô sản.",
+
+    x:45,
+    y:57,
+
+    art:`
+      <svg
+        viewBox="0 0 800 450"
+        preserveAspectRatio="xMidYMid slice">
+
+        <rect
+          width="800"
+          height="450"
+          fill="#16100e"/>
+
+        <rect
+          x="0"
+          y="330"
+          width="800"
+          height="120"
+          class="svgDark"/>
+
+        <path
+          d="M70 330 L140 160 L210 330"
+          class="svgLine"/>
+
+        <path
+          d="M590 330 L660 120 L730 330"
+          class="svgLine"/>
+
+        <rect
+          x="120"
+          y="190"
+          width="38"
+          height="140"
+          class="svgInk"/>
+
+        <rect
+          x="635"
+          y="160"
+          width="40"
+          height="170"
+          class="svgInk"/>
+
+        <circle
+          cx="310"
+          cy="235"
+          r="31"
+          class="svgInk"/>
+
+        <rect
+          x="282"
+          y="268"
+          width="56"
+          height="105"
+          rx="15"
+          class="svgInk"/>
+
+        <circle
+          cx="455"
+          cy="225"
+          r="30"
+          class="svgInk"/>
+
+        <rect
+          x="428"
+          y="257"
+          width="55"
+          height="115"
+          rx="15"
+          class="svgInk"/>
+
+        <path
+          d="M335 280 L395 210"
+          class="svgLine"/>
+
+        <path
+          d="M395 210 L445 175"
+          class="svgLine"/>
+
+        <path
+          d="M467 280 L530 345"
+          class="svgLine"/>
+
+        <circle
+          cx="390"
+          cy="195"
+          r="13"
+          class="svgRed"/>
+
+        <text
+          x="35"
+          y="55"
+          fill="#75685d"
+          font-size="20"
+          font-family="monospace">
+          INDUSTRIAL RECORD
+        </text>
+
+      </svg>
+    `
+  },
+
+
+  {
+    id:"peasant",
+    code:"DOSSIER A-02",
+    name:"DẤU VẾT NGOÀI ĐỒNG RUỘNG",
+    hint:"Quan sát những người trực tiếp lao động trên ruộng đất.",
+    evidence:"NÔNG DÂN",
+
+    note:
+      "Nông dân là lực lượng đông đảo và cùng công nhân tạo thành nền tảng quan trọng của lực lượng cách mạng.",
+
+    x:57,
+    y:62,
+
+    art:`
+      <svg
+        viewBox="0 0 800 450"
+        preserveAspectRatio="xMidYMid slice">
+
+        <rect
+          width="800"
+          height="450"
+          fill="#19120e"/>
+
+        <circle
+          cx="655"
+          cy="85"
+          r="55"
+          fill="#57482f"/>
+
+        <path
+          d="M0 270 Q180 230 350 280 T800 255"
+          class="svgThin"/>
+
+        <path
+          d="M0 310 Q210 270 390 320 T800 295"
+          class="svgThin"/>
+
+        <path
+          d="M0 355 Q180 320 370 360 T800 340"
+          class="svgThin"/>
+
+        <circle
+          cx="260"
+          cy="220"
+          r="24"
+          class="svgInk"/>
+
+        <path
+          d="M212 220 L260 180 L308 220 Z"
+          class="svgInk"/>
+
+        <path
+          d="M260 245 L245 345"
+          class="svgLine"/>
+
+        <path
+          d="M260 250 L300 340"
+          class="svgLine"/>
+
+        <circle
+          cx="470"
+          cy="245"
+          r="23"
+          class="svgInk"/>
+
+        <path
+          d="M425 245 L470 207 L515 245 Z"
+          class="svgInk"/>
+
+        <path
+          d="M470 268 L450 360"
+          class="svgLine"/>
+
+        <path
+          d="M470 268 L510 355"
+          class="svgLine"/>
+
+        <path
+          d="M515 250 L595 315"
+          class="svgLine"/>
+
+        <text
+          x="35"
+          y="55"
+          fill="#75685d"
+          font-size="20"
+          font-family="monospace">
+          RURAL RECORD
+        </text>
+
+      </svg>
+    `
+  },
+
+
+  {
+    id:"conference",
+    code:"DOSSIER A-03",
+    name:"CĂN PHÒNG HỘI NGHỊ",
+    hint:"Tập trung vào điểm hội tụ giữa các đại biểu.",
+    evidence:"THỐNG NHẤT LÃNH ĐẠO",
+
+    note:
+      "Hội nghị hợp nhất đầu năm 1930 giải quyết yêu cầu thống nhất các tổ chức cộng sản và hình thành một tổ chức lãnh đạo thống nhất.",
+
+    x:50,
+    y:54,
+
+    art:`
+      <svg
+        viewBox="0 0 800 450"
+        preserveAspectRatio="xMidYMid slice">
+
+        <rect
+          width="800"
+          height="450"
+          fill="#15100e"/>
+
+        <rect
+          x="120"
+          y="260"
+          width="560"
+          height="85"
+          rx="8"
+          class="svgDark"/>
+
+        <ellipse
+          cx="400"
+          cy="286"
+          rx="240"
+          ry="52"
+          fill="#51433a"/>
+
+        <circle
+          cx="205"
+          cy="205"
+          r="27"
+          class="svgInk"/>
+
+        <circle
+          cx="310"
+          cy="180"
+          r="27"
+          class="svgInk"/>
+
+        <circle
+          cx="400"
+          cy="165"
+          r="30"
+          class="svgRed"/>
+
+        <circle
+          cx="495"
+          cy="180"
+          r="27"
+          class="svgInk"/>
+
+        <circle
+          cx="600"
+          cy="205"
+          r="27"
+          class="svgInk"/>
+
+        <rect
+          x="178"
+          y="232"
+          width="54"
+          height="95"
+          rx="14"
+          class="svgInk"/>
+
+        <rect
+          x="283"
+          y="207"
+          width="54"
+          height="110"
+          rx="14"
+          class="svgInk"/>
+
+        <rect
+          x="370"
+          y="197"
+          width="60"
+          height="120"
+          rx="14"
+          class="svgRed"/>
+
+        <rect
+          x="468"
+          y="207"
+          width="54"
+          height="110"
+          rx="14"
+          class="svgInk"/>
+
+        <rect
+          x="573"
+          y="232"
+          width="54"
+          height="95"
+          rx="14"
+          class="svgInk"/>
+
+        <text
+          x="35"
+          y="55"
+          fill="#75685d"
+          font-size="20"
+          font-family="monospace">
+          UNITY CONFERENCE
+        </text>
+
+      </svg>
+    `
+  },
+
+
+  {
+    id:"document",
+    code:"DOSSIER A-04",
+    name:"MẢNH VĂN KIỆN",
+    hint:"Tìm dấu hiệu cho thấy tư tưởng đã được hệ thống hóa thành đường lối.",
+    evidence:"CƯƠNG LĨNH CHÍNH TRỊ",
+
+    note:
+      "Chánh cương vắn tắt và Sách lược vắn tắt góp phần hình thành Cương lĩnh chính trị đầu tiên, xác định những vấn đề cơ bản của cách mạng Việt Nam.",
+
+    x:56,
+    y:48,
+
+    art:`
+      <svg
+        viewBox="0 0 800 450"
+        preserveAspectRatio="xMidYMid slice">
+
+        <rect
+          width="800"
+          height="450"
+          fill="#120d0b"/>
+
+        <rect
+          x="190"
+          y="45"
+          width="420"
+          height="365"
+          rx="5"
+          class="svgPaper"/>
+
+        <text
+          x="400"
+          y="105"
+          text-anchor="middle"
+          fill="#49382d"
+          font-size="23"
+          font-family="serif"
+          font-weight="bold">
+          CHÁNH CƯƠNG VẮN TẮT
+        </text>
+
+        <line
+          x1="240"
+          y1="145"
+          x2="555"
+          y2="145"
+          class="svgPaperLine"/>
+
+        <line
+          x1="240"
+          y1="180"
+          x2="540"
+          y2="180"
+          class="svgPaperLine"/>
+
+        <line
+          x1="240"
+          y1="215"
+          x2="560"
+          y2="215"
+          class="svgPaperLine"/>
+
+        <rect
+          x="230"
+          y="235"
+          width="345"
+          height="42"
+          fill="#8e3431"
+          opacity=".65"/>
+
+        <line
+          x1="240"
+          y1="256"
+          x2="560"
+          y2="256"
+          stroke="#ded0aa"
+          stroke-width="3"/>
+
+        <line
+          x1="240"
+          y1="305"
+          x2="520"
+          y2="305"
+          class="svgPaperLine"/>
+
+        <line
+          x1="240"
+          y1="340"
+          x2="545"
+          y2="340"
+          class="svgPaperLine"/>
+
+        <text
+          x="38"
+          y="55"
+          fill="#75685d"
+          font-size="20"
+          font-family="monospace">
+          DOCUMENT 1930
+        </text>
+
+      </svg>
+    `
+  }
+
+];
+
+
+function startPhase3(){
+
+  phase3Found = new Set();
+
+  hud.style.display = "flex";
+
+  document
+    .querySelector("#hud .hudBlock:last-child")
+    .firstChild.textContent =
+    "LEVEL 3 / 5";
+
+  document
+    .getElementById("progress")
+    .style.width =
+    "60%";
+
+  document
+    .getElementById("hearts")
+    .style.visibility =
+    "hidden";
+
+  renderPhase3Archive();
+}
+
+
+function renderPhase3Archive(){
+
+  screen.innerHTML = `
+    <div class="content archive1930">
+
+      <div class="archiveHeader">
+
+        <div class="archiveHeaderText">
+
+          <div class="small">
+            LEVEL 03 · FINAL PHASE
+          </div>
+
+          <div class="levelTitle">
+            HỒ SƠ
+            <span class="red">
+              MẬT 1930
+            </span>
+          </div>
+
+        </div>
+
+
+        <div class="archiveCounter">
+          EVIDENCE
+          ${phase3Found.size}
+          / 4
+        </div>
+
+      </div>
+
+
+      <p class="archiveIntro">
+
+        Không có câu hỏi.
+
+        <br>
+
+        Mở từng hồ sơ,
+        quan sát hình ảnh
+        và tìm điểm chứa thông tin quan trọng.
+
+      </p>
+
+
+      <div class="archiveGrid">
+
+        ${phase3Cases.map(function(item){
+
+          const found =
+            phase3Found.has(item.id);
+
+          return `
+            <div
+              class="
+                archiveCard
+                ${found ? "foundCase" : ""}
+              "
+              data-case="${item.id}">
+
+              <div class="archivePhoto">
+                ${item.art}
+              </div>
+
+              <div class="archiveMeta">
+
+                <div class="archiveCode">
+                  ${item.code}
+                </div>
+
+                <div class="archiveName">
+                  ${item.name}
+                </div>
+
+                <div class="archiveHint">
+                  ${item.hint}
+                </div>
+
+              </div>
+
+            </div>
+          `;
+
+        }).join("")}
+
+      </div>
+
+
+      <div class="evidenceDock">
+
+        <div class="evidenceDockLabel">
+          EVIDENCE LOG
+        </div>
+
+        ${
+          phase3Found.size === 0
+
+          ?
+
+          `
+            <span class="evidenceEmpty">
+              Chưa thu thập bằng chứng.
+            </span>
+          `
+
+          :
+
+          [...phase3Found]
+            .map(function(id){
+
+              const item =
+                phase3Cases.find(
+                  function(c){
+                    return c.id === id;
+                  }
+                );
+
+              return `
+                <span class="evidenceChip">
+                  ${item.evidence}
+                </span>
+              `;
+
+            })
+            .join("")
+        }
+
+      </div>
+
+
+      ${
+        phase3Found.size === phase3Cases.length
+
+        ?
+
+        `
+          <button
+            class="btn archiveNext"
+            id="openEvidenceBoard">
+
+            MỞ EVIDENCE BOARD →
+
+          </button>
+        `
+
+        :
+
+        ""
+      }
+
+    </div>
+  `;
 
 
   document
-    .getElementById(
-      "phase3Btn"
-    )
-    .addEventListener(
+    .querySelectorAll(".archiveCard")
+    .forEach(function(card){
+
+      card.addEventListener(
+        "click",
+        function(){
+
+          openArchiveCase(
+            card.dataset.case
+          );
+
+        }
+      );
+
+    });
+
+
+  const next =
+    document.getElementById(
+      "openEvidenceBoard"
+    );
+
+
+  if(next){
+
+    next.addEventListener(
       "click",
       function(){
 
@@ -3981,28 +5186,26 @@ function phase2Complete(){
           <div class="content">
 
             <div class="small">
-              LEVEL 03 · FINAL PHASE
+              EVIDENCE BOARD UNLOCKED
             </div>
 
             <h1>
-
-              TỪ TƯ TƯỞNG<br>
+              4 DẤU VẾT<br>
 
               <span class="red">
-                ĐẾN HÀNH ĐỘNG
+                1 HỆ THỐNG
               </span>
-
             </h1>
 
             <p class="subtitle">
 
-              Bản chiến lược đã hoàn thành.
+              Bạn đã tìm đủ bằng chứng.
 
               <br><br>
 
-              Nhưng một đường lối chỉ thật sự
-              có ý nghĩa khi được vận dụng
-              vào thực tiễn cách mạng.
+              Bước tiếp theo:
+              kết nối chúng thành
+              một mạng lưới tư tưởng hoàn chỉnh.
 
             </p>
 
@@ -4011,6 +5214,277 @@ function phase2Complete(){
 
       }
     );
+
+  }
+}
+
+
+function openArchiveCase(id){
+
+  const item =
+    phase3Cases.find(
+      function(c){
+        return c.id === id;
+      }
+    );
+
+  const alreadyFound =
+    phase3Found.has(id);
+
+
+  document.body.insertAdjacentHTML(
+    "beforeend",
+
+    `
+      <div
+        class="inspectOverlay"
+        id="inspectOverlay">
+
+        <div
+          class="inspectPanel"
+          id="inspectPanel">
+
+          <div class="inspectTop">
+
+            <div class="inspectLabel">
+              INSPECT MODE · ${item.code}
+            </div>
+
+            <button
+              class="inspectClose"
+              id="inspectClose">
+              ×
+            </button>
+
+          </div>
+
+
+          <div
+            class="inspectStage"
+            id="inspectStage">
+
+            ${item.art}
+
+            <button
+              class="
+                hotspot1930
+                ${
+                  alreadyFound
+                  ? "hotspotFound"
+                  : ""
+                }
+              "
+              id="hotspot1930"
+
+              style="
+                left:${item.x}%;
+                top:${item.y}%;
+              ">
+            </button>
+
+          </div>
+
+
+          <div
+            class="inspectFooter"
+            id="inspectFooter">
+
+            ${
+              alreadyFound
+
+              ?
+
+              `
+                <div class="evidenceReveal">
+
+                  EVIDENCE ALREADY FOUND
+
+                  <br><br>
+
+                  <strong>
+                    ${item.evidence}
+                  </strong>
+
+                  <br>
+
+                  ${item.note}
+
+                </div>
+              `
+
+              :
+
+              `
+                <span class="inspectInstruction">
+
+                  Di chuyển ánh nhìn
+                  trên tư liệu.
+
+                  <br>
+
+                  Có một chi tiết
+                  đang phát tín hiệu.
+
+                </span>
+              `
+            }
+
+          </div>
+
+        </div>
+
+      </div>
+    `
+  );
+
+
+  const overlay =
+    document.getElementById(
+      "inspectOverlay"
+    );
+
+  const panel =
+    document.getElementById(
+      "inspectPanel"
+    );
+
+  const stage =
+    document.getElementById(
+      "inspectStage"
+    );
+
+  const hotspot =
+    document.getElementById(
+      "hotspot1930"
+    );
+
+
+  document
+    .getElementById(
+      "inspectClose"
+    )
+    .addEventListener(
+      "click",
+      function(e){
+
+        e.stopPropagation();
+
+        overlay.remove();
+
+        renderPhase3Archive();
+
+      }
+    );
+
+
+  hotspot.addEventListener(
+    "click",
+    function(e){
+
+      e.stopPropagation();
+
+      discoverEvidence(
+        item,
+        hotspot
+      );
+
+    }
+  );
+
+
+  stage.addEventListener(
+    "click",
+    function(){
+
+      panel.classList.remove(
+        "scanError"
+      );
+
+      void panel.offsetWidth;
+
+      panel.classList.add(
+        "scanError"
+      );
+
+      document
+        .getElementById(
+          "inspectFooter"
+        )
+        .innerHTML = `
+
+          <span style="color:#a96b67">
+            SIGNAL LOST · NHIỄU TƯ LIỆU
+          </span>
+
+          <br>
+
+          Chi tiết này chưa mang
+          thông tin cần thiết.
+          Tiếp tục quan sát.
+
+        `;
+
+    }
+  );
+}
+
+
+function discoverEvidence(
+  item,
+  hotspot
+){
+
+  const wasFound =
+    phase3Found.has(
+      item.id
+    );
+
+  hotspot.classList.add(
+    "hotspotFound"
+  );
+
+
+  if(!wasFound){
+
+    phase3Found.add(
+      item.id
+    );
+
+    xp += 125;
+
+    updateHUD();
+
+  }
+
+
+  document
+    .getElementById(
+      "inspectFooter"
+    )
+    .innerHTML = `
+
+      <div class="evidenceReveal">
+
+        EVIDENCE FOUND
+
+        ${
+          !wasFound
+          ? "· +125 XP"
+          : ""
+        }
+
+        <br><br>
+
+        <strong>
+          ${item.evidence}
+        </strong>
+
+        <br>
+
+        ${item.note}
+
+      </div>
+    `;
 }
 </script>
 

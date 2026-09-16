@@ -2408,6 +2408,405 @@ button.dropSlot.matched{
     font-size:13px;
   }
 }
+  /* ==================================================
+   FINAL JOURNEY · TOPIC SELECT HUB
+================================================== */
+
+.finalHub{
+  width:min(1180px,100%);
+  margin:auto;
+}
+
+.finalHubHeader{
+  margin-bottom:28px;
+}
+
+.finalHubHeader .small{
+  margin-bottom:12px;
+}
+
+.finalHubTitle{
+  font-size:clamp(38px,6vw,72px);
+  line-height:1;
+  margin-bottom:15px;
+}
+
+.finalHubSubtitle{
+  max-width:720px;
+  margin:0 auto;
+
+  color:#aa9e90;
+
+  font-size:15px;
+  line-height:1.7;
+}
+
+
+/* ===== PROGRESS ===== */
+
+.finalHubProgress{
+  width:min(1120px,100%);
+
+  margin:0 auto 23px;
+
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+
+  padding:13px 17px;
+
+  border-top:
+    1px solid rgba(200,164,92,.18);
+
+  border-bottom:
+    1px solid rgba(200,164,92,.18);
+
+  color:#8f8376;
+
+  font-size:11px;
+  letter-spacing:3px;
+}
+
+.finalHubProgress strong{
+  color:#c8a45c;
+}
+
+
+/* ===== 4 TOPIC CARDS ===== */
+
+.finalHubGrid{
+  width:min(1120px,100%);
+
+  margin:0 auto;
+
+  display:grid;
+
+  grid-template-columns:
+    repeat(2,1fr);
+
+  gap:18px;
+}
+
+
+/* reset button */
+
+button.finalHubCard{
+  appearance:none;
+  -webkit-appearance:none;
+
+  position:relative;
+
+  display:block;
+
+  width:100%;
+  min-height:300px;
+
+  padding:0;
+
+  overflow:hidden;
+
+  border:
+    1px solid rgba(200,164,92,.22);
+
+  border-radius:14px;
+
+  background:#0b0707;
+
+  color:#eee2d3;
+
+  font-family:Arial,sans-serif;
+
+  text-align:left;
+
+  cursor:pointer;
+
+  transition:
+    transform .3s ease,
+    border-color .3s ease,
+    box-shadow .3s ease;
+}
+
+
+button.finalHubCard:hover{
+  transform:translateY(-7px);
+
+  border-color:#c8a45c;
+
+  box-shadow:
+    0 22px 65px rgba(0,0,0,.38);
+}
+
+
+/* ===== ẢNH ===== */
+
+.finalHubImage{
+  position:absolute;
+
+  inset:0;
+
+  width:100%;
+  height:100%;
+
+  object-fit:cover;
+
+  opacity:.52;
+
+  filter:
+    saturate(.72)
+    contrast(1.08);
+
+  transition:
+    transform .5s ease,
+    opacity .3s ease;
+}
+
+
+button.finalHubCard:hover
+.finalHubImage{
+
+  transform:scale(1.045);
+
+  opacity:.66;
+}
+
+
+/* ===== DARK OVERLAY ===== */
+
+.finalHubCard::after{
+  content:"";
+
+  position:absolute;
+
+  inset:0;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(5,3,3,.08) 15%,
+      rgba(7,4,4,.48) 55%,
+      rgba(7,4,4,.96) 100%
+    );
+
+  pointer-events:none;
+}
+
+
+/* ===== NỘI DUNG CARD ===== */
+
+.finalHubCardContent{
+  position:absolute;
+
+  z-index:2;
+
+  left:0;
+  right:0;
+  bottom:0;
+
+  padding:22px;
+}
+
+
+.finalHubTopicNumber{
+  margin-bottom:8px;
+
+  color:#c8a45c;
+
+  font-size:10px;
+
+  letter-spacing:4px;
+}
+
+
+.finalHubYear{
+  margin-bottom:5px;
+
+  color:#f0e4d4;
+
+  font-size:27px;
+
+  font-weight:bold;
+
+  letter-spacing:1px;
+}
+
+
+.finalHubName{
+  margin-bottom:16px;
+
+  color:#c5b7a6;
+
+  font-size:13px;
+
+  line-height:1.45;
+
+  letter-spacing:1px;
+}
+
+
+/* ===== STATUS ===== */
+
+.finalHubStatus{
+  display:inline-flex;
+
+  align-items:center;
+
+  gap:8px;
+
+  padding:7px 10px;
+
+  border:
+    1px solid rgba(200,164,92,.3);
+
+  border-radius:5px;
+
+  background:
+    rgba(10,6,6,.58);
+
+  color:#d3b96f;
+
+  font-size:10px;
+
+  letter-spacing:2px;
+}
+
+
+/* ===== COMPLETE CARD ===== */
+
+.finalHubCard.completed{
+  border-color:
+    rgba(111,159,104,.72);
+}
+
+
+.finalHubCard.completed
+.finalHubStatus{
+
+  border-color:#6f9f68;
+
+  background:
+    rgba(60,105,55,.23);
+
+  color:#9ec998;
+}
+
+
+.finalHubCard.completed::before{
+  content:"✓";
+
+  position:absolute;
+
+  z-index:4;
+
+  top:16px;
+  right:17px;
+
+  width:37px;
+  height:37px;
+
+  display:flex;
+
+  align-items:center;
+  justify-content:center;
+
+  border:
+    1px solid #79a773;
+
+  border-radius:50%;
+
+  background:
+    rgba(20,45,18,.82);
+
+  color:#9ac793;
+
+  font-size:19px;
+
+  box-shadow:
+    0 0 25px rgba(105,160,95,.22);
+}
+
+
+/* ===== FINAL UNLOCK ===== */
+
+.finalHubEnding{
+  width:min(1120px,100%);
+
+  margin:23px auto 0;
+
+  padding:22px;
+
+  border:
+    1px solid rgba(200,164,92,.22);
+
+  background:
+    rgba(200,164,92,.035);
+}
+
+
+.finalHubEndingLocked{
+  color:#675d54;
+
+  font-size:12px;
+
+  letter-spacing:2px;
+}
+
+
+.finalHubEndingUnlocked{
+  animation:
+    finalHubUnlock .65s ease;
+}
+
+
+.finalHubEndingTitle{
+  margin-bottom:13px;
+
+  color:#d8bd75;
+
+  font-size:12px;
+
+  letter-spacing:4px;
+}
+
+
+/* ===== ANIMATION ===== */
+
+@keyframes finalHubUnlock{
+
+  from{
+    opacity:0;
+
+    transform:
+      translateY(12px);
+  }
+
+  to{
+    opacity:1;
+
+    transform:
+      translateY(0);
+  }
+}
+
+
+/* ===== MOBILE ===== */
+
+@media(max-width:760px){
+
+  .finalHubGrid{
+    grid-template-columns:1fr;
+  }
+
+  button.finalHubCard{
+    min-height:260px;
+  }
+
+  .finalHubProgress{
+    flex-direction:column;
+
+    gap:8px;
+  }
+
+}
 </style>
 </head>
 

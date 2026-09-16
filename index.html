@@ -8744,6 +8744,13 @@ function renderLevel4Crisis(index){
             ${crisis.name}
 
           </div>
+
+          <div class="level4CrisisContext">
+
+            ${crisis.context}
+
+          </div>
+
 ${crisis.id === "food" ? `
 
   <div
@@ -8807,13 +8814,6 @@ ${crisis.id === "food" ? `
   </div>
 
 ` : ""}
-          <div class="level4CrisisContext">
-
-            ${crisis.context}
-
-          </div>
-
-
           <div class="level4SituationSignal">
 
             ${

@@ -7127,24 +7127,24 @@ function handleFinalTopic1Point(
     );
 
 
-  if(isNew){
+ if(isNew){
 
-    finalTopic1Visited.add(
-      point.id
-    );
+  finalTopic1Visited.add(
+    point.id
+  );
 
+  if(!finalJourneyCompleted.topic1){
 
     xp += 50;
 
-
     updateHUD();
-
-
-    hotspot.classList.add(
-      "read"
-    );
-
   }
+
+  hotspot.classList.add(
+    "read"
+  );
+
+}
 
 
   document
@@ -7181,9 +7181,9 @@ function handleFinalTopic1Point(
       <div class="finalKnowledgeLabel">
 
         ${
-          isNew
-          ? "NEW DISCOVERY · +50 XP"
-          : "DISCOVERY REVIEW"
+          isNew && !finalJourneyCompleted.topic1
+? "NEW DISCOVERY · +50 XP"
+: "DISCOVERY REVIEW"
         }
 
       </div>
@@ -7353,19 +7353,17 @@ function completeFinalTopic1(){
 
   if(finalTopic1Complete) return;
 
+  finalTopic1Complete = true;
+  finalTopic1QuizActive = false;
 
-  finalTopic1Complete =
-    true;
+  if(!finalJourneyCompleted.topic1){
 
+    finalJourneyCompleted.topic1 = true;
 
-  finalTopic1QuizActive =
-    false;
+    xp += 250;
 
-
-  xp += 250;
-
-
-  updateHUD();
+    updateHUD();
+  }
 
 
   document
@@ -7377,65 +7375,45 @@ function completeFinalTopic1(){
       <div class="finalSuccess">
 
         <div class="finalSuccessStamp">
-
           TOPIC 01 COMPLETE
-
         </div>
-
 
         <div class="finalKnowledgeTitle">
-
           1911 → 1930
-
         </div>
 
-
         Bạn đã hoàn thành
-        chặng đầu tiên của hành trình.
+        hồ sơ kiến thức đầu tiên.
 
         <br><br>
-
-        <span class="gold">
-
-          Từ hành trình tìm đường cứu nước
-          đến việc xác định con đường cách mạng
-          và hình thành những nội dung
-          đường lối đầu tiên.
-
-        </span>
-
-
-        <br><br>
-
 
         <strong class="gold">
-
           MEMORY CHECK PASSED · +250 XP
-
         </strong>
 
-
         <br><br>
-
 
         <button
           class="btn"
-          id="finalTopic2Btn">
+          id="returnFinalHub1">
 
-          MỞ TOPIC 02 · 1945 →
+          TRỞ VỀ HÀNH TRÌNH →
 
         </button>
 
       </div>
-
     `;
 
 
-document
-  .getElementById("finalTopic2Btn")
-  .addEventListener("click", startFinalTopic2);
+  document
+    .getElementById(
+      "returnFinalHub1"
+    )
+    .addEventListener(
+      "click",
+      renderFinalJourneyHub
+    );
 }
-
 
 /* ==================================================
    CHẾ ĐỘ TEST RIÊNG GAME 5
@@ -7926,16 +7904,19 @@ function handleFinalTopic2Point(
 
   if(isNew){
 
-    finalTopic2Visited.add(
-      point.id
-    );
+  finalTopic2Visited.add(
+    point.id
+  );
+
+  if(!finalJourneyCompleted.topic2){
 
     xp += 50;
 
     updateHUD();
-
-    hotspot.classList.add("read");
   }
+
+  hotspot.classList.add("read");
+}
 
 
   document
@@ -7971,9 +7952,9 @@ function handleFinalTopic2Point(
 
       <div class="finalKnowledgeLabel">
         ${
-          isNew
-          ? "NEW DISCOVERY · +50 XP"
-          : "DISCOVERY REVIEW"
+          isNew && !finalJourneyCompleted.topic2
+? "NEW DISCOVERY · +50 XP"
+: "DISCOVERY REVIEW"
         }
       </div>
 
@@ -8121,15 +8102,17 @@ function completeFinalTopic2(){
 
   if(finalTopic2Complete) return;
 
-  finalTopic2Complete =
-    true;
+  finalTopic2Complete = true;
+  finalTopic2QuizActive = false;
 
-  finalTopic2QuizActive =
-    false;
+  if(!finalJourneyCompleted.topic2){
 
-  xp += 250;
+    finalJourneyCompleted.topic2 = true;
 
-  updateHUD();
+    xp += 250;
+
+    updateHUD();
+  }
 
 
   document
@@ -8148,17 +8131,8 @@ function completeFinalTopic2(){
           1945 → 1946
         </div>
 
-        Bạn đã hoàn thành chặng thứ hai.
-
-        <br><br>
-
-        <span class="gold">
-
-          Từ Tuyên ngôn Độc lập
-          đến quyền làm chủ của nhân dân
-          trong nhà nước mới.
-
-        </span>
+        Bạn đã hoàn thành
+        hồ sơ kiến thức thứ hai.
 
         <br><br>
 
@@ -8170,9 +8144,9 @@ function completeFinalTopic2(){
 
         <button
           class="btn"
-          id="finalTopic3Btn">
+          id="returnFinalHub2">
 
-          MỞ TOPIC 03 · 1954–1969 →
+          TRỞ VỀ HÀNH TRÌNH →
 
         </button>
 
@@ -8180,9 +8154,14 @@ function completeFinalTopic2(){
     `;
 
 
- document
-  .getElementById("finalTopic3Btn")
-  .addEventListener("click", startFinalTopic3);
+  document
+    .getElementById(
+      "returnFinalHub2"
+    )
+    .addEventListener(
+      "click",
+      renderFinalJourneyHub
+    );
 }
   /* ==================================================
    TOPIC 03 · 1954 → 1969
@@ -8670,25 +8649,25 @@ function handleFinalTopic3Point(
     );
 
 
-  if(isNew){
+ if(isNew){
 
-    finalTopic3Visited.add(
-      point.id
-    );
+  finalTopic3Visited.add(
+    point.id
+  );
 
+  if(!finalJourneyCompleted.topic3){
 
     xp += 50;
 
-
     updateHUD();
-
-
-    hotspot.classList.add(
-      "read"
-    );
 
   }
 
+  hotspot.classList.add(
+    "read"
+  );
+
+}
 
   document
     .getElementById(
@@ -8724,9 +8703,9 @@ function handleFinalTopic3Point(
       <div class="finalKnowledgeLabel">
 
         ${
-          isNew
-          ? "NEW DISCOVERY · +50 XP"
-          : "DISCOVERY REVIEW"
+         isNew && !finalJourneyCompleted.topic3
+? "NEW DISCOVERY · +50 XP"
+: "DISCOVERY REVIEW"
         }
 
       </div>
@@ -8882,19 +8861,17 @@ function completeFinalTopic3(){
 
   if(finalTopic3Complete) return;
 
+  finalTopic3Complete = true;
+  finalTopic3QuizActive = false;
 
-  finalTopic3Complete =
-    true;
+  if(!finalJourneyCompleted.topic3){
 
+    finalJourneyCompleted.topic3 = true;
 
-  finalTopic3QuizActive =
-    false;
+    xp += 250;
 
-
-  xp += 250;
-
-
-  updateHUD();
+    updateHUD();
+  }
 
 
   document
@@ -8914,19 +8891,7 @@ function completeFinalTopic3(){
         </div>
 
         Bạn đã hoàn thành
-        chặng thứ ba.
-
-        <br><br>
-
-        <span class="gold">
-
-          Từ xây dựng chủ nghĩa xã hội ở miền Bắc
-          đến tư tưởng về con người,
-          đạo đức,
-          giáo dục
-          và sức mạnh nhân dân.
-
-        </span>
+        hồ sơ kiến thức thứ ba.
 
         <br><br>
 
@@ -8938,9 +8903,9 @@ function completeFinalTopic3(){
 
         <button
           class="btn"
-          id="finalTopic4Btn">
+          id="returnFinalHub3">
 
-          MỞ TOPIC 04 · 1969–2026 →
+          TRỞ VỀ HÀNH TRÌNH →
 
         </button>
 
@@ -8948,9 +8913,14 @@ function completeFinalTopic3(){
     `;
 
 
- document
-  .getElementById("finalTopic4Btn")
-  .addEventListener("click", startFinalTopic4);
+  document
+    .getElementById(
+      "returnFinalHub3"
+    )
+    .addEventListener(
+      "click",
+      renderFinalJourneyHub
+    );
 }
   /* ==================================================
    TOPIC 04 · 1969 → 2026
@@ -9459,21 +9429,25 @@ function handleFinalTopic4Point(
     );
 
 
-  if(isNew){
+ if(isNew){
 
-    finalTopic4Visited.add(
-      point.id
-    );
+  finalTopic4Visited.add(
+    point.id
+  );
+
+  if(!finalJourneyCompleted.topic4){
 
     xp += 50;
 
     updateHUD();
 
-    hotspot.classList.add(
-      "read"
-    );
-
   }
+
+  hotspot.classList.add(
+    "read"
+  );
+
+}
 
 
   document
@@ -9510,9 +9484,9 @@ function handleFinalTopic4Point(
       <div class="finalKnowledgeLabel">
 
         ${
-          isNew
-          ? "NEW DISCOVERY · +50 XP"
-          : "DISCOVERY REVIEW"
+        isNew && !finalJourneyCompleted.topic4
+? "NEW DISCOVERY · +50 XP"
+: "DISCOVERY REVIEW"
         }
 
       </div>
@@ -9668,19 +9642,17 @@ function completeFinalTopic4(){
 
   if(finalTopic4Complete) return;
 
+  finalTopic4Complete = true;
+  finalTopic4QuizActive = false;
 
-  finalTopic4Complete =
-    true;
+  if(!finalJourneyCompleted.topic4){
 
+    finalJourneyCompleted.topic4 = true;
 
-  finalTopic4QuizActive =
-    false;
+    xp += 250;
 
-
-  xp += 500;
-
-
-  updateHUD();
+    updateHUD();
+  }
 
 
   document
@@ -9692,46 +9664,29 @@ function completeFinalTopic4(){
       <div class="finalSuccess">
 
         <div class="finalSuccessStamp">
-          FINAL JOURNEY COMPLETE
+          TOPIC 04 COMPLETE
         </div>
 
         <div class="finalKnowledgeTitle">
-          1911 → 2026
+          1969 → 2026
         </div>
 
         Bạn đã hoàn thành
-        cả bốn chặng.
-
-        <br><br>
-
-        <span class="gold">
-
-          Từ tìm đường cứu nước,
-          độc lập dân tộc,
-          xây dựng đất nước
-          và con người
-
-          <br>
-
-          đến quá trình phát triển,
-          Đổi mới
-          và hội nhập trong thời đại mới.
-
-        </span>
+        hồ sơ kiến thức thứ tư.
 
         <br><br>
 
         <strong class="gold">
-          FINAL MEMORY CHECK PASSED · +500 XP
+          MEMORY CHECK PASSED · +250 XP
         </strong>
 
         <br><br>
 
         <button
           class="btn"
-          id="finalEndingBtn">
+          id="returnFinalHub4">
 
-          HOÀN THÀNH HÀNH TRÌNH →
+          TRỞ VỀ HÀNH TRÌNH →
 
         </button>
 
@@ -9741,14 +9696,13 @@ function completeFinalTopic4(){
 
   document
     .getElementById(
-      "finalEndingBtn"
+      "returnFinalHub4"
     )
     .addEventListener(
       "click",
-      showFinalJourneyEnding
+      renderFinalJourneyHub
     );
 }
-
 
 /* ===== FINAL ENDING ===== */
 

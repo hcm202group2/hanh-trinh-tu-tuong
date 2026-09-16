@@ -8147,46 +8147,874 @@ function completeFinalTopic3(){
     `;
 
 
+ document
+  .getElementById("finalTopic4Btn")
+  .addEventListener("click", startFinalTopic4);
+}
+  /* ==================================================
+   TOPIC 04 · 1969 → 2026
+================================================== */
+
+let finalTopic4Visited = new Set();
+
+let finalTopic4QuizActive = false;
+
+let finalTopic4QuizTarget = null;
+
+let finalTopic4Complete = false;
+
+
+const finalTopic4Points = [
+
+  {
+    id:"reunification",
+
+    x:15,
+    y:35,
+
+    title:"THỐNG NHẤT VÀ TÁI THIẾT ĐẤT NƯỚC",
+
+    body:`
+      Sau năm 1975,
+      Việt Nam bước vào giai đoạn mới
+      sau chiến tranh.
+
+      <br><br>
+
+      Năm 1976,
+      việc thống nhất đất nước
+      về mặt Nhà nước được hoàn thành
+      và tên nước
+      <strong class="gold">
+        Cộng hòa xã hội chủ nghĩa Việt Nam
+      </strong>
+      được xác lập.
+
+      <br><br>
+
+      Những năm tiếp theo đặt ra
+      yêu cầu khôi phục sản xuất,
+      khắc phục hậu quả chiến tranh
+      và xây dựng đất nước.
+    `,
+
+    question:
+      "Hãy chọn chi tiết thể hiện giai đoạn thống nhất và tái thiết đất nước sau chiến tranh."
+  },
+
+
+  {
+    id:"renovation",
+
+    x:39,
+    y:30,
+
+    title:"ĐỔI MỚI VÀ PHÁT TRIỂN",
+
+    body:`
+      Tháng 12 năm 1986,
+      Đại hội VI mở đầu
+      công cuộc Đổi mới đất nước.
+
+      <br><br>
+
+      Trong đó,
+      đổi mới kinh tế được đặt
+      ở vị trí quan trọng,
+      đồng thời Việt Nam từng bước
+      điều chỉnh cơ chế quản lý
+      và mở rộng các quan hệ kinh tế.
+
+      <br><br>
+
+      Quá trình này tiếp tục gắn với
+      công nghiệp hóa,
+      hiện đại hóa
+      và phát triển đất nước.
+    `,
+
+    question:
+      "Hãy chọn chi tiết thể hiện quá trình Đổi mới, sản xuất và phát triển kinh tế."
+  },
+
+
+  {
+    id:"people",
+
+    x:54,
+    y:65,
+
+    title:"CON NGƯỜI VÀ SỨC MẠNH CỘNG ĐỒNG",
+
+    body:`
+      Trong việc vận dụng
+      tư tưởng Hồ Chí Minh,
+      nhân dân tiếp tục được coi trọng
+      trong quá trình xây dựng đất nước.
+
+      <br><br>
+
+      Hình ảnh nhiều thế hệ
+      và nhiều lực lượng xã hội
+      tượng trưng cho tinh thần đoàn kết,
+      trách nhiệm cộng đồng
+      và sự tham gia của con người
+      vào quá trình phát triển.
+
+      <br><br>
+
+      Phát triển vì vậy
+      không chỉ được nhìn qua
+      cơ sở vật chất,
+      mà còn qua chất lượng
+      và năng lực của con người.
+    `,
+
+    question:
+      "Hãy chọn chi tiết thể hiện vai trò của con người, cộng đồng và tinh thần đoàn kết."
+  },
+
+
+  {
+    id:"integration",
+
+    x:81,
+    y:27,
+
+    title:"ĐỐI NGOẠI VÀ HỘI NHẬP QUỐC TẾ",
+
+    body:`
+      Việt Nam từng bước
+      mở rộng quan hệ đối ngoại
+      và hội nhập khu vực,
+      quốc tế.
+
+      <br><br>
+
+      Quá trình hội nhập
+      tạo điều kiện mở rộng
+      hợp tác kinh tế,
+      giáo dục,
+      khoa học,
+      công nghệ
+      và giao lưu giữa các quốc gia.
+
+      <br><br>
+
+      Đồng thời,
+      yêu cầu giữ vững độc lập,
+      tự chủ
+      tiếp tục được đặt ra
+      trong quá trình hợp tác.
+    `,
+
+    question:
+      "Hãy chọn chi tiết biểu tượng cho quan hệ đối ngoại và hội nhập quốc tế."
+  },
+
+
+  {
+    id:"innovation",
+
+    x:82,
+    y:72,
+
+    title:"GIÁO DỤC · KHOA HỌC · CÔNG NGHỆ",
+
+    body:`
+      Trong giai đoạn hiện đại,
+      giáo dục,
+      khoa học
+      và công nghệ
+      ngày càng gắn với
+      yêu cầu phát triển nguồn nhân lực.
+
+      <br><br>
+
+      Đào tạo,
+      nghiên cứu,
+      ứng dụng công nghệ
+      và đổi mới sáng tạo
+      trở thành những nội dung
+      quan trọng đối với phát triển.
+
+      <br><br>
+
+      Đây cũng là một cách
+      tiếp nối việc coi trọng
+      giáo dục và bồi dưỡng con người
+      trong điều kiện mới.
+    `,
+
+    question:
+      "Hãy chọn chi tiết thể hiện giáo dục, nghiên cứu khoa học và công nghệ trong Việt Nam hiện đại."
+  }
+
+];
+
+
+/* ===== BẮT ĐẦU TOPIC 04 ===== */
+
+function startFinalTopic4(){
+
+  finalTopic4Visited = new Set();
+
+  finalTopic4QuizActive = false;
+
+  finalTopic4QuizTarget = null;
+
+  finalTopic4Complete = false;
+
+
+  hud.style.display = "flex";
+
+
   document
-    .getElementById(
-      "finalTopic4Btn"
+    .getElementById("hearts")
+    .style.visibility = "hidden";
+
+
+  document
+    .querySelector(
+      "#hud .hudBlock:last-child"
     )
-    .addEventListener(
-      "click",
-      function(){
+    .firstChild.textContent =
+    "LEVEL 5 / 5";
 
-        screen.innerHTML = `
 
-          <div class="content">
+  document
+    .getElementById("progress")
+    .style.width =
+    "100%";
 
-            <div class="small">
-              FINAL JOURNEY · TOPIC 04
-            </div>
 
-            <h1>
+  renderFinalTopic4();
+}
 
-              1969–2026<br>
 
-              <span class="red">
-                COMING NEXT
-              </span>
+/* ===== HIỂN THỊ TOPIC 04 ===== */
 
-            </h1>
+function renderFinalTopic4(){
 
-            <p class="subtitle">
+  screen.innerHTML = `
 
-              Chặng cuối sẽ khám phá
-              việc vận dụng tư tưởng Hồ Chí Minh
-              trong Việt Nam hiện đại.
+    <div class="content finalJourney">
 
-            </p>
+      <div class="finalJourneyTop">
+
+        <div class="finalJourneyHeading">
+
+          <div class="small">
+            FINAL JOURNEY · TOPIC 04
+          </div>
+
+          <div class="finalJourneyTitle">
+
+            1969 → 2026<br>
+
+            <span class="red">
+              VẬN DỤNG · PHÁT TRIỂN · HỘI NHẬP
+            </span>
 
           </div>
 
-        `;
+        </div>
 
+
+        <div class="finalTopicProgress">
+
+          KHÁM PHÁ
+
+          <span id="finalTopic4ReadCount">
+            ${finalTopic4Visited.size}
+          </span>
+
+          / 5
+
+        </div>
+
+      </div>
+
+
+      <div class="finalTimeline">
+
+        <div class="finalTimelineItem">
+          1911–1930
+        </div>
+
+        <div class="finalTimelineItem">
+          1945
+        </div>
+
+        <div class="finalTimelineItem">
+          1954–1969
+        </div>
+
+        <div class="finalTimelineItem active">
+          1969–2026
+        </div>
+
+      </div>
+
+
+      <div
+        class="finalSceneFrame"
+        id="finalTopic4SceneFrame">
+
+        <img
+          class="finalSceneImage"
+          src="topic4-1969-2026.png"
+          alt="Việt Nam từ sau năm 1969 đến hiện đại">
+
+        ${finalTopic4Points
+          .map(function(point){
+
+            return `
+              <button
+                class="
+                  finalHotspot
+                  ${
+                    finalTopic4Visited.has(point.id)
+                    ? "read"
+                    : ""
+                  }
+                "
+
+                data-final-topic4-point="${point.id}"
+
+                style="
+                  left:${point.x}%;
+                  top:${point.y}%;
+                "
+
+                aria-label="${point.title}">
+              </button>
+            `;
+
+          })
+          .join("")
+        }
+
+      </div>
+
+
+      <div class="finalDiscoverCount">
+
+        <span>
+          HỒ SƠ KIẾN THỨC · 1969–2026
+        </span>
+
+        <span id="finalTopic4DiscoverText">
+
+          ${
+            finalTopic4Visited.size < 5
+
+            ?
+
+            `ĐÃ KHÁM PHÁ ${finalTopic4Visited.size}/5`
+
+            :
+
+            "ĐỦ DỮ LIỆU"
+          }
+
+        </span>
+
+      </div>
+
+
+      <div
+        class="finalKnowledgePanel"
+        id="finalTopic4KnowledgePanel">
+
+        <div class="finalKnowledgeLabel">
+          FINAL DISCOVERY
+        </div>
+
+        <div class="finalKnowledgeTitle">
+          CHẶNG CUỐI CỦA HÀNH TRÌNH
+        </div>
+
+        Quan sát bức ảnh và khám phá
+        <strong class="gold">
+          5 điểm kiến thức
+        </strong>.
+
+        <br><br>
+
+        Chặng cuối kết nối
+        lịch sử sau chiến tranh
+        với quá trình Đổi mới,
+        phát triển,
+        hội nhập
+        và xây dựng con người
+        trong bối cảnh hiện đại.
+
+      </div>
+
+
+      <button
+        class="btn finalMemoryBtn"
+        id="finalTopic4MemoryBtn"
+
+        style="
+          display:
+          ${
+            finalTopic4Visited.size === 5
+            ? "inline-block"
+            : "none"
+          };
+        ">
+
+        FINAL MEMORY CHECK →
+
+      </button>
+
+    </div>
+  `;
+
+
+  setupFinalTopic4();
+}
+
+
+/* ===== GẮN SỰ KIỆN HOTSPOT ===== */
+
+function setupFinalTopic4(){
+
+  document
+    .querySelectorAll(
+      "[data-final-topic4-point]"
+    )
+    .forEach(function(hotspot){
+
+      hotspot.addEventListener(
+        "click",
+        function(){
+
+          const id =
+            hotspot.dataset.finalTopic4Point;
+
+          handleFinalTopic4Point(
+            id,
+            hotspot
+          );
+
+        }
+      );
+
+    });
+
+
+  const memoryBtn =
+    document.getElementById(
+      "finalTopic4MemoryBtn"
+    );
+
+
+  if(memoryBtn){
+
+    memoryBtn.addEventListener(
+      "click",
+      startFinalTopic4MemoryCheck
+    );
+
+  }
+}
+
+
+/* ===== CLICK HOTSPOT ===== */
+
+function handleFinalTopic4Point(
+  id,
+  hotspot
+){
+
+  const point =
+    finalTopic4Points.find(
+      function(item){
+        return item.id === id;
       }
     );
+
+
+  if(!point) return;
+
+
+  if(finalTopic4QuizActive){
+
+    checkFinalTopic4Answer(
+      point,
+      hotspot
+    );
+
+    return;
+  }
+
+
+  const isNew =
+    !finalTopic4Visited.has(
+      point.id
+    );
+
+
+  if(isNew){
+
+    finalTopic4Visited.add(
+      point.id
+    );
+
+    xp += 50;
+
+    updateHUD();
+
+    hotspot.classList.add(
+      "read"
+    );
+
+  }
+
+
+  document
+    .getElementById(
+      "finalTopic4ReadCount"
+    )
+    .textContent =
+    finalTopic4Visited.size;
+
+
+  document
+    .getElementById(
+      "finalTopic4DiscoverText"
+    )
+    .textContent =
+
+    finalTopic4Visited.size === 5
+
+    ?
+
+    "ĐỦ DỮ LIỆU"
+
+    :
+
+    `ĐÃ KHÁM PHÁ ${finalTopic4Visited.size}/5`;
+
+
+  document
+    .getElementById(
+      "finalTopic4KnowledgePanel"
+    )
+    .innerHTML = `
+
+      <div class="finalKnowledgeLabel">
+
+        ${
+          isNew
+          ? "NEW DISCOVERY · +50 XP"
+          : "DISCOVERY REVIEW"
+        }
+
+      </div>
+
+      <div class="finalKnowledgeTitle">
+        ${point.title}
+      </div>
+
+      ${point.body}
+    `;
+
+
+  if(
+    finalTopic4Visited.size ===
+    finalTopic4Points.length
+  ){
+
+    document
+      .getElementById(
+        "finalTopic4MemoryBtn"
+      )
+      .style.display =
+      "inline-block";
+
+  }
+}
+
+
+/* ===== FINAL MEMORY CHECK ===== */
+
+function startFinalTopic4MemoryCheck(){
+
+  finalTopic4QuizActive =
+    true;
+
+
+  finalTopic4QuizTarget =
+
+    finalTopic4Points[
+      Math.floor(
+        Math.random()
+        *
+        finalTopic4Points.length
+      )
+    ];
+
+
+  document
+    .getElementById(
+      "finalTopic4MemoryBtn"
+    )
+    .style.display =
+    "none";
+
+
+  document
+    .getElementById(
+      "finalTopic4KnowledgePanel"
+    )
+    .innerHTML = `
+
+      <div class="finalKnowledgeLabel">
+        FINAL MEMORY CHECK
+      </div>
+
+      <div class="finalQuizQuestion">
+        ${finalTopic4QuizTarget.question}
+      </div>
+
+      <div class="finalQuizHint">
+
+        Không có A / B / C.
+
+        <br><br>
+
+        Hãy bấm trực tiếp
+        vào chi tiết đúng
+        trên bức ảnh.
+
+      </div>
+
+    `;
+}
+
+
+/* ===== KIỂM TRA ĐÁP ÁN ===== */
+
+function checkFinalTopic4Answer(
+  selectedPoint,
+  hotspot
+){
+
+  if(
+    selectedPoint.id ===
+    finalTopic4QuizTarget.id
+  ){
+
+    completeFinalTopic4();
+
+    return;
+  }
+
+
+  hotspot.classList.remove(
+    "finalWrong"
+  );
+
+
+  void hotspot.offsetWidth;
+
+
+  hotspot.classList.add(
+    "finalWrong"
+  );
+
+
+  document
+    .getElementById(
+      "finalTopic4KnowledgePanel"
+    )
+    .innerHTML = `
+
+      <div
+        class="finalKnowledgeLabel"
+        style="color:#d86661">
+
+        FINAL MEMORY CHECK · CHƯA ĐÚNG
+
+      </div>
+
+      <div class="finalQuizQuestion">
+        ${finalTopic4QuizTarget.question}
+      </div>
+
+      <div class="finalQuizHint">
+
+        Chi tiết vừa chọn chưa đúng.
+
+        <br><br>
+
+        Hãy quan sát lại
+        và thử một vị trí khác.
+
+      </div>
+
+    `;
+}
+
+
+/* ===== TOPIC 04 COMPLETE ===== */
+
+function completeFinalTopic4(){
+
+  if(finalTopic4Complete) return;
+
+
+  finalTopic4Complete =
+    true;
+
+
+  finalTopic4QuizActive =
+    false;
+
+
+  xp += 500;
+
+
+  updateHUD();
+
+
+  document
+    .getElementById(
+      "finalTopic4KnowledgePanel"
+    )
+    .innerHTML = `
+
+      <div class="finalSuccess">
+
+        <div class="finalSuccessStamp">
+          FINAL JOURNEY COMPLETE
+        </div>
+
+        <div class="finalKnowledgeTitle">
+          1911 → 2026
+        </div>
+
+        Bạn đã hoàn thành
+        cả bốn chặng.
+
+        <br><br>
+
+        <span class="gold">
+
+          Từ tìm đường cứu nước,
+          độc lập dân tộc,
+          xây dựng đất nước
+          và con người
+
+          <br>
+
+          đến quá trình phát triển,
+          Đổi mới
+          và hội nhập trong thời đại mới.
+
+        </span>
+
+        <br><br>
+
+        <strong class="gold">
+          FINAL MEMORY CHECK PASSED · +500 XP
+        </strong>
+
+        <br><br>
+
+        <button
+          class="btn"
+          id="finalEndingBtn">
+
+          HOÀN THÀNH HÀNH TRÌNH →
+
+        </button>
+
+      </div>
+    `;
+
+
+  document
+    .getElementById(
+      "finalEndingBtn"
+    )
+    .addEventListener(
+      "click",
+      showFinalJourneyEnding
+    );
+}
+
+
+/* ===== FINAL ENDING ===== */
+
+function showFinalJourneyEnding(){
+
+  screen.innerHTML = `
+
+    <div class="content">
+
+      <div class="small">
+        FINAL JOURNEY · COMPLETE
+      </div>
+
+
+      <h1>
+
+        HÀNH TRÌNH<br>
+
+        <span class="red">
+          1911 → 2026
+        </span>
+
+      </h1>
+
+
+      <p class="subtitle">
+
+        Bạn đã đi qua
+        bốn giai đoạn lớn
+        của hành trình.
+
+        <br><br>
+
+        Từ quá trình hình thành
+        con đường cách mạng,
+        giành độc lập,
+        xây dựng con người
+        và đất nước,
+
+        <br>
+
+        đến những vấn đề
+        của phát triển
+        và hội nhập hiện đại.
+
+      </p>
+
+
+      <div class="completeBox">
+
+        <div class="small">
+          FINAL XP
+        </div>
+
+        <div class="scoreBig">
+          ${xp}
+        </div>
+
+        <div class="gold">
+          HÀNH TRÌNH HOÀN TẤT
+        </div>
+
+      </div>
+
+    </div>
+
+  `;
 }
   
 </script>

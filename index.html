@@ -6408,7 +6408,44 @@ const finalTopic1Points = [
 
 /* ===== BẮT ĐẦU FINAL GAME ===== */
 
+/* ===== TRẠNG THÁI FINAL JOURNEY HUB ===== */
+
+const finalJourneyCompleted = {
+  topic1:false,
+  topic2:false,
+  topic3:false,
+  topic4:false
+};
+
+
+/* ===== BẮT ĐẦU FINAL GAME ===== */
+
 function startFinalGame(){
+
+  hud.style.display = "flex";
+
+  document
+    .getElementById("hearts")
+    .style.visibility = "hidden";
+
+  document
+    .querySelector(
+      "#hud .hudBlock:last-child"
+    )
+    .firstChild.textContent =
+    "LEVEL 5 / 5";
+
+  document
+    .getElementById("progress")
+    .style.width = "100%";
+
+  renderFinalJourneyHub();
+}
+
+
+/* ===== BẮT ĐẦU RIÊNG TOPIC 01 ===== */
+
+function startFinalTopic1(){
 
   finalTopic1Visited =
     new Set();
@@ -6422,34 +6459,399 @@ function startFinalGame(){
   finalTopic1Complete =
     false;
 
-
-  hud.style.display =
-    "flex";
-
-
-  document
-    .getElementById("hearts")
-    .style.visibility =
-    "hidden";
-
-
-  document
-    .querySelector(
-      "#hud .hudBlock:last-child"
-    )
-    .firstChild.textContent =
-    "LEVEL 5 / 5";
-
-
-  document
-    .getElementById("progress")
-    .style.width =
-    "100%";
-
-
   renderFinalTopic1();
 }
 
+
+/* ==================================================
+   FINAL JOURNEY HUB
+================================================== */
+
+function renderFinalJourneyHub(){
+
+  const completedCount =
+    Object.values(
+      finalJourneyCompleted
+    )
+    .filter(Boolean)
+    .length;
+
+
+  const allComplete =
+    completedCount === 4;
+
+
+  screen.innerHTML = `
+
+    <div class="content finalHub">
+
+      <div class="finalHubHeader">
+
+        <div class="small">
+          LEVEL 05 · FINAL JOURNEY
+        </div>
+
+        <div class="finalHubTitle">
+
+          CHỌN MỘT<br>
+
+          <span class="red">
+            GIAI ĐOẠN
+          </span>
+
+        </div>
+
+        <p class="finalHubSubtitle">
+
+          Bốn giai đoạn.
+          Bốn không gian lịch sử.
+
+          <br>
+
+          Bạn có thể khám phá
+          theo bất kỳ thứ tự nào.
+
+          Hoàn thành đủ bốn Topic
+          để mở khóa điểm kết thúc
+          của hành trình.
+
+        </p>
+
+      </div>
+
+
+      <div class="finalHubProgress">
+
+        <span>
+          FINAL JOURNEY ARCHIVE
+        </span>
+
+        <strong>
+          ${completedCount} / 4 TOPICS COMPLETE
+        </strong>
+
+      </div>
+
+
+      <div class="finalHubGrid">
+
+
+        <!-- TOPIC 01 -->
+
+        <button
+          class="
+            finalHubCard
+            ${
+              finalJourneyCompleted.topic1
+              ? "completed"
+              : ""
+            }
+          "
+          data-final-hub-topic="1">
+
+          <img
+            class="finalHubImage"
+            src="topic1-1911-1930.png"
+            alt="Topic 1">
+
+          <div class="finalHubCardContent">
+
+            <div class="finalHubTopicNumber">
+              TOPIC 01
+            </div>
+
+            <div class="finalHubYear">
+              1911 → 1930
+            </div>
+
+            <div class="finalHubName">
+              TÌM ĐƯỜNG CỨU NƯỚC
+            </div>
+
+            <div class="finalHubStatus">
+
+              ${
+                finalJourneyCompleted.topic1
+                ? "✓ TOPIC COMPLETE"
+                : "● KHÁM PHÁ"
+              }
+
+            </div>
+
+          </div>
+
+        </button>
+
+
+
+        <!-- TOPIC 02 -->
+
+        <button
+          class="
+            finalHubCard
+            ${
+              finalJourneyCompleted.topic2
+              ? "completed"
+              : ""
+            }
+          "
+          data-final-hub-topic="2">
+
+          <img
+            class="finalHubImage"
+            src="topic2-1945.png"
+            alt="Topic 2">
+
+          <div class="finalHubCardContent">
+
+            <div class="finalHubTopicNumber">
+              TOPIC 02
+            </div>
+
+            <div class="finalHubYear">
+              1945 → 1946
+            </div>
+
+            <div class="finalHubName">
+              ĐỘC LẬP & QUYỀN LÀM CHỦ
+            </div>
+
+            <div class="finalHubStatus">
+
+              ${
+                finalJourneyCompleted.topic2
+                ? "✓ TOPIC COMPLETE"
+                : "● KHÁM PHÁ"
+              }
+
+            </div>
+
+          </div>
+
+        </button>
+
+
+
+        <!-- TOPIC 03 -->
+
+        <button
+          class="
+            finalHubCard
+            ${
+              finalJourneyCompleted.topic3
+              ? "completed"
+              : ""
+            }
+          "
+          data-final-hub-topic="3">
+
+          <img
+            class="finalHubImage"
+            src="topic3-1954-1969.png"
+            alt="Topic 3">
+
+          <div class="finalHubCardContent">
+
+            <div class="finalHubTopicNumber">
+              TOPIC 03
+            </div>
+
+            <div class="finalHubYear">
+              1954 → 1969
+            </div>
+
+            <div class="finalHubName">
+              XÂY DỰNG · CON NGƯỜI · ĐẠO ĐỨC
+            </div>
+
+            <div class="finalHubStatus">
+
+              ${
+                finalJourneyCompleted.topic3
+                ? "✓ TOPIC COMPLETE"
+                : "● KHÁM PHÁ"
+              }
+
+            </div>
+
+          </div>
+
+        </button>
+
+
+
+        <!-- TOPIC 04 -->
+
+        <button
+          class="
+            finalHubCard
+            ${
+              finalJourneyCompleted.topic4
+              ? "completed"
+              : ""
+            }
+          "
+          data-final-hub-topic="4">
+
+          <img
+            class="finalHubImage"
+            src="topic4-1969-2026.png"
+            alt="Topic 4">
+
+          <div class="finalHubCardContent">
+
+            <div class="finalHubTopicNumber">
+              TOPIC 04
+            </div>
+
+            <div class="finalHubYear">
+              1969 → 2026
+            </div>
+
+            <div class="finalHubName">
+              PHÁT TRIỂN · ĐỔI MỚI · HỘI NHẬP
+            </div>
+
+            <div class="finalHubStatus">
+
+              ${
+                finalJourneyCompleted.topic4
+                ? "✓ TOPIC COMPLETE"
+                : "● KHÁM PHÁ"
+              }
+
+            </div>
+
+          </div>
+
+        </button>
+
+      </div>
+
+
+      <div class="finalHubEnding">
+
+        ${
+          allComplete
+
+          ?
+
+          `
+
+            <div
+              class="finalHubEndingUnlocked">
+
+              <div class="finalHubEndingTitle">
+                FINAL ARCHIVE UNLOCKED
+              </div>
+
+              <button
+                class="btn"
+                id="finalHubEndingBtn">
+
+                HOÀN THÀNH HÀNH TRÌNH →
+
+              </button>
+
+            </div>
+
+          `
+
+          :
+
+          `
+
+            <div class="finalHubEndingLocked">
+
+              🔒 FINAL ARCHIVE LOCKED
+
+              <br><br>
+
+              HOÀN THÀNH
+              ${4 - completedCount}
+              TOPIC CÒN LẠI
+
+            </div>
+
+          `
+        }
+
+      </div>
+
+    </div>
+  `;
+
+
+  setupFinalJourneyHub();
+}
+
+
+/* ===== SỰ KIỆN HUB ===== */
+
+function setupFinalJourneyHub(){
+
+  document
+    .querySelectorAll(
+      "[data-final-hub-topic]"
+    )
+    .forEach(function(card){
+
+      card.addEventListener(
+        "click",
+        function(){
+
+          const topic =
+            card.dataset.finalHubTopic;
+
+
+          if(topic === "1"){
+
+            startFinalTopic1();
+
+          }
+
+
+          if(topic === "2"){
+
+            startFinalTopic2();
+
+          }
+
+
+          if(topic === "3"){
+
+            startFinalTopic3();
+
+          }
+
+
+          if(topic === "4"){
+
+            startFinalTopic4();
+
+          }
+
+        }
+      );
+
+    });
+
+
+  const endingBtn =
+    document.getElementById(
+      "finalHubEndingBtn"
+    );
+
+
+  if(endingBtn){
+
+    endingBtn.addEventListener(
+      "click",
+      showFinalJourneyEnding
+    );
+
+  }
+}
 
 /* ===== HIỂN THỊ TOPIC 1 ===== */
 

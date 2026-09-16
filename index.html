@@ -2051,6 +2051,364 @@ button.dropSlot.matched{
     height:420px;
   }
 }
+  /* ===== LEVEL 5 · FINAL JOURNEY ===== */
+
+.finalJourney{
+  width:min(1180px,100%);
+}
+
+.finalJourneyTop{
+  width:min(1120px,100%);
+  margin:0 auto 20px;
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-end;
+  gap:25px;
+}
+
+.finalJourneyHeading{
+  text-align:left;
+}
+
+.finalJourneyHeading .small{
+  margin-bottom:8px;
+}
+
+.finalJourneyTitle{
+  font-size:clamp(30px,5vw,58px);
+  line-height:1;
+}
+
+.finalTopicProgress{
+  padding:11px 16px;
+  border:1px solid rgba(200,164,92,.28);
+  border-radius:8px;
+  background:rgba(200,164,92,.05);
+  color:#c8a45c;
+  font-size:11px;
+  letter-spacing:2px;
+}
+
+
+/* ===== TIMELINE 4 MỐC ===== */
+
+.finalTimeline{
+  width:min(1120px,100%);
+  margin:0 auto 17px;
+
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:8px;
+}
+
+.finalTimelineItem{
+  position:relative;
+  padding:9px 8px;
+
+  border-bottom:2px solid #392b28;
+
+  color:#675e57;
+
+  font-size:10px;
+  letter-spacing:1px;
+}
+
+.finalTimelineItem.active{
+  border-color:#c8a45c;
+  color:#d7b966;
+}
+
+.finalTimelineItem.locked{
+  opacity:.42;
+}
+
+
+/* ===== ẢNH CHÍNH ===== */
+
+.finalSceneFrame{
+  position:relative;
+
+  width:min(1120px,100%);
+  aspect-ratio:16 / 9;
+
+  margin:0 auto;
+
+  overflow:hidden;
+
+  border:1px solid rgba(200,164,92,.28);
+  border-radius:14px;
+
+  background:#090606;
+
+  box-shadow:
+    0 25px 80px rgba(0,0,0,.38);
+}
+
+.finalSceneImage{
+  display:block;
+
+  width:100%;
+  height:100%;
+
+  object-fit:cover;
+
+  user-select:none;
+  -webkit-user-drag:none;
+}
+
+
+/* ===== HOTSPOT ===== */
+
+.finalHotspot{
+  position:absolute;
+
+  width:38px;
+  height:38px;
+
+  transform:translate(-50%,-50%);
+
+  appearance:none;
+  -webkit-appearance:none;
+
+  border:1px solid rgba(235,201,116,.9);
+  border-radius:50%;
+
+  background:rgba(200,164,92,.09);
+
+  cursor:pointer;
+
+  box-shadow:
+    0 0 0 0 rgba(200,164,92,.4);
+
+  animation:finalHotspotPulse 2s infinite;
+
+  transition:
+    transform .2s ease,
+    background .2s ease,
+    border-color .2s ease;
+}
+
+.finalHotspot::before{
+  content:"";
+
+  position:absolute;
+  left:50%;
+  top:50%;
+
+  width:6px;
+  height:6px;
+
+  transform:translate(-50%,-50%);
+
+  border-radius:50%;
+
+  background:#e7c66d;
+}
+
+.finalHotspot:hover{
+  transform:
+    translate(-50%,-50%)
+    scale(1.18);
+
+  background:rgba(200,164,92,.22);
+}
+
+.finalHotspot.read{
+  border-color:#77a771;
+  background:rgba(75,130,70,.16);
+
+  animation:none;
+}
+
+.finalHotspot.read::before{
+  background:#88c27e;
+}
+
+.finalHotspot.finalWrong{
+  border-color:#d75a55;
+  animation:finalWrongShake .35s;
+}
+
+
+/* ===== PANEL KIẾN THỨC ===== */
+
+.finalKnowledgePanel{
+  width:min(1120px,100%);
+
+  min-height:125px;
+
+  margin:15px auto 0;
+  padding:17px 21px;
+
+  border-left:2px solid #c8a45c;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(200,164,92,.065),
+      rgba(200,164,92,.015)
+    );
+
+  text-align:left;
+
+  color:#c8beb1;
+
+  font-size:14px;
+  line-height:1.65;
+}
+
+.finalKnowledgeLabel{
+  margin-bottom:7px;
+
+  color:#c8a45c;
+
+  font-size:10px;
+  letter-spacing:3px;
+}
+
+.finalKnowledgeTitle{
+  margin-bottom:6px;
+
+  color:#eee1cf;
+
+  font-size:18px;
+  font-weight:bold;
+}
+
+.finalDiscoverCount{
+  width:min(1120px,100%);
+
+  margin:12px auto 0;
+
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+
+  color:#8d8175;
+
+  font-size:10px;
+  letter-spacing:2px;
+}
+
+.finalMemoryBtn{
+  margin-top:18px;
+}
+
+
+/* ===== MEMORY CHECK ===== */
+
+.finalQuizQuestion{
+  color:#ead8aa;
+
+  font-size:17px;
+  line-height:1.55;
+}
+
+.finalQuizHint{
+  margin-top:8px;
+
+  color:#91867a;
+
+  font-size:12px;
+}
+
+
+/* ===== COMPLETE ===== */
+
+.finalSuccess{
+  text-align:center;
+
+  padding:15px 5px;
+}
+
+.finalSuccessStamp{
+  width:max-content;
+
+  margin:0 auto 15px;
+  padding:10px 18px;
+
+  border:2px solid #739b6d;
+
+  color:#94c18d;
+
+  font-weight:bold;
+  letter-spacing:3px;
+
+  transform:rotate(-2deg);
+}
+
+
+/* ===== ANIMATION ===== */
+
+@keyframes finalHotspotPulse{
+
+  0%{
+    box-shadow:
+      0 0 0 0
+      rgba(200,164,92,.38);
+  }
+
+  70%{
+    box-shadow:
+      0 0 0 12px
+      rgba(200,164,92,0);
+  }
+
+  100%{
+    box-shadow:
+      0 0 0 0
+      rgba(200,164,92,0);
+  }
+}
+
+@keyframes finalWrongShake{
+
+  0%,100%{
+    transform:
+      translate(-50%,-50%)
+      translateX(0);
+  }
+
+  25%{
+    transform:
+      translate(-50%,-50%)
+      translateX(-8px);
+  }
+
+  75%{
+    transform:
+      translate(-50%,-50%)
+      translateX(8px);
+  }
+}
+
+
+/* ===== MOBILE ===== */
+
+@media(max-width:760px){
+
+  .finalJourneyTop{
+    flex-direction:column;
+    align-items:center;
+  }
+
+  .finalJourneyHeading{
+    text-align:center;
+  }
+
+  .finalTimeline{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .finalHotspot{
+    width:32px;
+    height:32px;
+  }
+
+  .finalKnowledgePanel{
+    font-size:13px;
+  }
+}
 </style>
 </head>
 
@@ -5485,6 +5843,866 @@ function discoverEvidence(
 
       </div>
     `;
+}
+  /* ==================================================
+   LEVEL 5 · FINAL JOURNEY
+   TOPIC 01 · 1911 → 1930
+================================================== */
+
+let finalTopic1Visited = new Set();
+
+let finalTopic1QuizActive = false;
+
+let finalTopic1QuizTarget = null;
+
+let finalTopic1Complete = false;
+
+
+const finalTopic1Points = [
+
+  {
+    id:"departure",
+
+    x:19,
+    y:52,
+
+    title:"1911 · RA ĐI TÌM ĐƯỜNG CỨU NƯỚC",
+
+    body:`
+      Ngày 5/6/1911,
+      Nguyễn Tất Thành rời Bến Nhà Rồng,
+      bắt đầu hành trình tìm đường cứu nước.
+
+      <br><br>
+
+      Đây là điểm khởi đầu của một quá trình
+      khảo nghiệm và tìm kiếm con đường
+      giải phóng dân tộc phù hợp với Việt Nam.
+    `,
+
+    question:
+      "Hãy chọn chi tiết gắn với sự kiện Nguyễn Tất Thành bắt đầu hành trình tìm đường cứu nước năm 1911."
+  },
+
+
+  {
+    id:"journey",
+
+    x:47,
+    y:18,
+
+    title:"KHẢO NGHIỆM THỰC TIỄN THẾ GIỚI",
+
+    body:`
+      Trong những năm hoạt động ở nước ngoài,
+      Nguyễn Ái Quốc đi qua nhiều quốc gia,
+      quan sát đời sống của người lao động
+      và các dân tộc thuộc địa.
+
+      <br><br>
+
+      Quá trình khảo nghiệm thực tiễn
+      giúp Người từng bước đánh giá
+      các con đường cứu nước khác nhau
+      và tìm kiếm một hướng đi mới
+      cho cách mạng Việt Nam.
+    `,
+
+    question:
+      "Hãy chọn chi tiết tượng trưng cho quá trình Nguyễn Ái Quốc khảo nghiệm thực tiễn tại nhiều quốc gia."
+  },
+
+
+  {
+    id:"lenin",
+
+    x:43,
+    y:61,
+
+    title:"1920 · LUẬN CƯƠNG CỦA LÊNIN",
+
+    body:`
+      Năm 1920,
+      Nguyễn Ái Quốc tiếp cận
+      Sơ thảo lần thứ nhất những luận cương
+      về vấn đề dân tộc và vấn đề thuộc địa
+      của V.I. Lênin.
+
+      <br><br>
+
+      Đây là một bước ngoặt quan trọng
+      trong quá trình nhận thức,
+      góp phần đưa Người đến với
+      con đường cách mạng vô sản
+      trong sự nghiệp giải phóng dân tộc.
+    `,
+
+    question:
+      "Hãy chọn chi tiết gắn với bước ngoặt nhận thức của Nguyễn Ái Quốc vào năm 1920."
+  },
+
+
+  {
+    id:"conference",
+
+    x:66,
+    y:54,
+
+    title:"1930 · HỘI NGHỊ HỢP NHẤT",
+
+    body:`
+      Đầu năm 1930,
+      Nguyễn Ái Quốc chủ trì
+      Hội nghị hợp nhất các tổ chức cộng sản.
+
+      <br><br>
+
+      Hội nghị thống nhất các tổ chức tham dự
+      thành Đảng Cộng sản Việt Nam,
+      giải quyết yêu cầu cấp thiết
+      về một tổ chức lãnh đạo thống nhất
+      của phong trào cách mạng.
+    `,
+
+    question:
+      "Hãy chọn chi tiết thể hiện Hội nghị hợp nhất các tổ chức cộng sản đầu năm 1930."
+  },
+
+
+  {
+    id:"platform",
+
+    x:86,
+    y:61,
+
+    title:"CƯƠNG LĨNH CHÍNH TRỊ ĐẦU TIÊN",
+
+    body:`
+      Hội nghị thành lập Đảng thông qua
+      những văn kiện quan trọng do Nguyễn Ái Quốc
+      chuẩn bị, trong đó có
+
+      <strong class="gold">
+        Chánh cương vắn tắt
+      </strong>
+
+      và
+
+      <strong class="gold">
+        Sách lược vắn tắt.
+      </strong>
+
+      <br><br>
+
+      Các văn kiện này phản ánh những nội dung
+      cơ bản của Cương lĩnh chính trị đầu tiên,
+      đề cập đến phương hướng,
+      nhiệm vụ, lực lượng
+      và tổ chức lãnh đạo của cách mạng Việt Nam.
+    `,
+
+    question:
+      "Hãy chọn chi tiết gắn với những văn kiện thể hiện đường lối cơ bản của cách mạng Việt Nam khi Đảng ra đời."
+  }
+
+];
+
+
+/* ===== BẮT ĐẦU FINAL GAME ===== */
+
+function startFinalGame(){
+
+  finalTopic1Visited =
+    new Set();
+
+  finalTopic1QuizActive =
+    false;
+
+  finalTopic1QuizTarget =
+    null;
+
+  finalTopic1Complete =
+    false;
+
+
+  hud.style.display =
+    "flex";
+
+
+  document
+    .getElementById("hearts")
+    .style.visibility =
+    "hidden";
+
+
+  document
+    .querySelector(
+      "#hud .hudBlock:last-child"
+    )
+    .firstChild.textContent =
+    "LEVEL 5 / 5";
+
+
+  document
+    .getElementById("progress")
+    .style.width =
+    "100%";
+
+
+  renderFinalTopic1();
+}
+
+
+/* ===== HIỂN THỊ TOPIC 1 ===== */
+
+function renderFinalTopic1(){
+
+  screen.innerHTML = `
+
+    <div class="content finalJourney">
+
+
+      <div class="finalJourneyTop">
+
+        <div class="finalJourneyHeading">
+
+          <div class="small">
+            FINAL JOURNEY · TOPIC 01
+          </div>
+
+          <div class="finalJourneyTitle">
+
+            1911 → 1930<br>
+
+            <span class="red">
+              TÌM ĐƯỜNG CỨU NƯỚC
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <div class="finalTopicProgress">
+
+          KHÁM PHÁ
+
+          <span id="finalReadCount">
+            ${finalTopic1Visited.size}
+          </span>
+
+          / 5
+
+        </div>
+
+      </div>
+
+
+      <div class="finalTimeline">
+
+        <div class="finalTimelineItem active">
+          1911–1930
+        </div>
+
+        <div class="finalTimelineItem locked">
+          1945
+        </div>
+
+        <div class="finalTimelineItem locked">
+          1954–1969
+        </div>
+
+        <div class="finalTimelineItem locked">
+          1969–2026
+        </div>
+
+      </div>
+
+
+      <div
+        class="finalSceneFrame"
+        id="finalSceneFrame">
+
+        <img
+          class="finalSceneImage"
+          src="topic1-1911-1930.png"
+          alt="Hành trình từ năm 1911 đến 1930">
+
+
+        ${finalTopic1Points
+          .map(function(point){
+
+            return `
+
+              <button
+                class="
+                  finalHotspot
+
+                  ${
+                    finalTopic1Visited.has(point.id)
+                    ? "read"
+                    : ""
+                  }
+                "
+
+                data-final-point="${point.id}"
+
+                style="
+                  left:${point.x}%;
+                  top:${point.y}%;
+                "
+
+                aria-label="${point.title}">
+              </button>
+
+            `;
+
+          })
+          .join("")
+        }
+
+      </div>
+
+
+      <div
+        class="finalDiscoverCount">
+
+        <span>
+          HỒ SƠ KIẾN THỨC · 1911–1930
+        </span>
+
+        <span id="finalDiscoverText">
+
+          ${
+            finalTopic1Visited.size < 5
+
+            ?
+
+            `ĐÃ KHÁM PHÁ ${finalTopic1Visited.size}/5`
+
+            :
+
+            "ĐỦ DỮ LIỆU"
+          }
+
+        </span>
+
+      </div>
+
+
+      <div
+        class="finalKnowledgePanel"
+        id="finalKnowledgePanel">
+
+        <div class="finalKnowledgeLabel">
+          DISCOVERY MODE
+        </div>
+
+        <div class="finalKnowledgeTitle">
+          KHÁM PHÁ BỨC ẢNH
+        </div>
+
+        Quan sát bức ảnh và tìm
+        <strong class="gold">5 điểm kiến thức</strong>.
+
+        <br><br>
+
+        Mỗi điểm sẽ giải mã một phần
+        của hành trình tư tưởng
+        từ năm 1911 đến năm 1930.
+
+      </div>
+
+
+      <button
+        class="btn finalMemoryBtn"
+        id="finalMemoryBtn"
+
+        style="
+          display:
+          ${
+            finalTopic1Visited.size === 5
+            ? "inline-block"
+            : "none"
+          };
+        ">
+
+        KIỂM TRA GHI NHỚ →
+
+      </button>
+
+
+    </div>
+  `;
+
+
+  setupFinalTopic1();
+}
+
+
+/* ===== GẮN SỰ KIỆN CHO HOTSPOT ===== */
+
+function setupFinalTopic1(){
+
+  document
+    .querySelectorAll(
+      ".finalHotspot"
+    )
+    .forEach(function(hotspot){
+
+      hotspot.addEventListener(
+        "click",
+        function(){
+
+          const id =
+            hotspot.dataset.finalPoint;
+
+
+          handleFinalTopic1Point(
+            id,
+            hotspot
+          );
+
+        }
+      );
+
+    });
+
+
+  const memoryBtn =
+    document.getElementById(
+      "finalMemoryBtn"
+    );
+
+
+  if(memoryBtn){
+
+    memoryBtn.addEventListener(
+      "click",
+      startFinalTopic1MemoryCheck
+    );
+
+  }
+}
+
+
+/* ===== CLICK VÀO CHI TIẾT ===== */
+
+function handleFinalTopic1Point(
+  id,
+  hotspot
+){
+
+  const point =
+    finalTopic1Points.find(
+      function(item){
+
+        return item.id === id;
+
+      }
+    );
+
+
+  if(!point) return;
+
+
+  /* ĐANG Ở PHẦN MEMORY CHECK */
+
+  if(finalTopic1QuizActive){
+
+    checkFinalTopic1Answer(
+      point,
+      hotspot
+    );
+
+    return;
+  }
+
+
+  /* ĐANG Ở PHẦN KHÁM PHÁ */
+
+  const isNew =
+    !finalTopic1Visited.has(
+      point.id
+    );
+
+
+  if(isNew){
+
+    finalTopic1Visited.add(
+      point.id
+    );
+
+
+    xp += 50;
+
+
+    updateHUD();
+
+
+    hotspot.classList.add(
+      "read"
+    );
+
+  }
+
+
+  document
+    .getElementById(
+      "finalReadCount"
+    )
+    .textContent =
+    finalTopic1Visited.size;
+
+
+  document
+    .getElementById(
+      "finalDiscoverText"
+    )
+    .textContent =
+
+    finalTopic1Visited.size === 5
+
+    ?
+
+    "ĐỦ DỮ LIỆU"
+
+    :
+
+    `ĐÃ KHÁM PHÁ ${finalTopic1Visited.size}/5`;
+
+
+  document
+    .getElementById(
+      "finalKnowledgePanel"
+    )
+    .innerHTML = `
+
+      <div class="finalKnowledgeLabel">
+
+        ${
+          isNew
+          ? "NEW DISCOVERY · +50 XP"
+          : "DISCOVERY REVIEW"
+        }
+
+      </div>
+
+
+      <div class="finalKnowledgeTitle">
+
+        ${point.title}
+
+      </div>
+
+
+      ${point.body}
+
+    `;
+
+
+  if(
+    finalTopic1Visited.size ===
+    finalTopic1Points.length
+  ){
+
+    document
+      .getElementById(
+        "finalMemoryBtn"
+      )
+      .style.display =
+      "inline-block";
+
+  }
+}
+
+
+/* ===== RANDOM MEMORY CHECK ===== */
+
+function startFinalTopic1MemoryCheck(){
+
+  finalTopic1QuizActive =
+    true;
+
+
+  finalTopic1QuizTarget =
+
+    finalTopic1Points[
+      Math.floor(
+        Math.random()
+        *
+        finalTopic1Points.length
+      )
+    ];
+
+
+  document
+    .getElementById(
+      "finalMemoryBtn"
+    )
+    .style.display =
+    "none";
+
+
+  document
+    .getElementById(
+      "finalKnowledgePanel"
+    )
+    .innerHTML = `
+
+      <div class="finalKnowledgeLabel">
+        MEMORY CHECK · RANDOM QUESTION
+      </div>
+
+
+      <div class="finalQuizQuestion">
+
+        ${finalTopic1QuizTarget.question}
+
+      </div>
+
+
+      <div class="finalQuizHint">
+
+        Không có đáp án A / B / C.
+
+        <br><br>
+
+        Hãy bấm trực tiếp
+        vào chi tiết đúng
+        trên bức ảnh.
+
+      </div>
+
+    `;
+}
+
+
+/* ===== KIỂM TRA ĐÁP ÁN ===== */
+
+function checkFinalTopic1Answer(
+  selectedPoint,
+  hotspot
+){
+
+  if(
+    selectedPoint.id ===
+    finalTopic1QuizTarget.id
+  ){
+
+    completeFinalTopic1();
+
+    return;
+  }
+
+
+  hotspot.classList.remove(
+    "finalWrong"
+  );
+
+
+  void hotspot.offsetWidth;
+
+
+  hotspot.classList.add(
+    "finalWrong"
+  );
+
+
+  document
+    .getElementById(
+      "finalKnowledgePanel"
+    )
+    .innerHTML = `
+
+      <div
+        class="finalKnowledgeLabel"
+        style="color:#d86661">
+
+        MEMORY CHECK · CHƯA ĐÚNG
+
+      </div>
+
+
+      <div class="finalQuizQuestion">
+
+        ${finalTopic1QuizTarget.question}
+
+      </div>
+
+
+      <div class="finalQuizHint">
+
+        Chi tiết vừa chọn
+        chưa phải dữ liệu được hỏi.
+
+        <br><br>
+
+        Hãy quan sát lại bức ảnh
+        và thử một vị trí khác.
+
+      </div>
+
+    `;
+}
+
+
+/* ===== TOPIC 1 COMPLETE ===== */
+
+function completeFinalTopic1(){
+
+  if(finalTopic1Complete) return;
+
+
+  finalTopic1Complete =
+    true;
+
+
+  finalTopic1QuizActive =
+    false;
+
+
+  xp += 250;
+
+
+  updateHUD();
+
+
+  document
+    .getElementById(
+      "finalKnowledgePanel"
+    )
+    .innerHTML = `
+
+      <div class="finalSuccess">
+
+        <div class="finalSuccessStamp">
+
+          TOPIC 01 COMPLETE
+
+        </div>
+
+
+        <div class="finalKnowledgeTitle">
+
+          1911 → 1930
+
+        </div>
+
+
+        Bạn đã hoàn thành
+        chặng đầu tiên của hành trình.
+
+        <br><br>
+
+        <span class="gold">
+
+          Từ hành trình tìm đường cứu nước
+          đến việc xác định con đường cách mạng
+          và hình thành những nội dung
+          đường lối đầu tiên.
+
+        </span>
+
+
+        <br><br>
+
+
+        <strong class="gold">
+
+          MEMORY CHECK PASSED · +250 XP
+
+        </strong>
+
+
+        <br><br>
+
+
+        <button
+          class="btn"
+          id="finalTopic2Btn">
+
+          MỞ TOPIC 02 · 1945 →
+
+        </button>
+
+      </div>
+
+    `;
+
+
+  document
+    .getElementById(
+      "finalTopic2Btn"
+    )
+    .addEventListener(
+      "click",
+      function(){
+
+        screen.innerHTML = `
+
+          <div class="content">
+
+            <div class="small">
+              FINAL JOURNEY · TOPIC 02
+            </div>
+
+
+            <h1>
+
+              NĂM
+
+              <span class="red">
+                1945
+              </span>
+
+            </h1>
+
+
+            <p class="subtitle">
+
+              TOPIC 01 COMPLETE
+
+              <br><br>
+
+              Chặng tiếp theo sẽ khám phá
+              độc lập dân tộc,
+              quyền làm chủ của nhân dân
+              và sự ra đời của Nhà nước mới.
+
+              <br><br>
+
+              <span class="gold">
+                TOPIC 02 · COMING NEXT
+              </span>
+
+            </p>
+
+          </div>
+
+        `;
+
+      }
+    );
+}
+
+
+/* ==================================================
+   CHẾ ĐỘ TEST RIÊNG GAME 5
+   KHÔNG ẢNH HƯỞNG GAME 1–4
+================================================== */
+
+if(
+  new URLSearchParams(
+    window.location.search
+  ).get("finaltest") === "1"
+){
+
+  setTimeout(
+    startFinalGame,
+    0
+  );
+
 }
 </script>
 

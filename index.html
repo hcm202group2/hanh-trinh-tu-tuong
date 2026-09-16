@@ -4099,6 +4099,331 @@ button.level4DecisionChoice.answerReveal{
   }
 
 }
+  /* ==================================================
+   LEVEL 4 · CRISIS TRANSITION
+================================================== */
+
+.level4TransitionScreen{
+  position:relative;
+  overflow:hidden;
+}
+
+.level4CrisisTransition{
+  position:relative;
+
+  width:min(900px,100%);
+  min-height:520px;
+
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+
+  margin:auto;
+
+  overflow:hidden;
+}
+
+
+/* scan line */
+
+.level4TransitionScan{
+  position:absolute;
+
+  left:0;
+  right:0;
+  top:-10%;
+
+  height:1px;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(200,164,92,.75),
+      transparent
+    );
+
+  box-shadow:
+    0 0 20px
+    rgba(200,164,92,.35);
+
+  animation:
+    level4TransitionScan 2.8s
+    ease-in-out infinite;
+}
+
+
+/* top text */
+
+.level4TransitionResolved{
+  color:#83aa7b;
+
+  font-size:11px;
+  letter-spacing:6px;
+
+  opacity:0;
+
+  animation:
+    level4TransitionFade .6s
+    .2s forwards;
+}
+
+
+/* 01 → 02 timeline */
+
+.level4TransitionPath{
+  width:min(520px,80%);
+
+  display:flex;
+  align-items:center;
+
+  margin:45px auto 40px;
+}
+
+.level4TransitionNode{
+  width:55px;
+  height:55px;
+
+  flex-shrink:0;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  border-radius:50%;
+
+  font-size:12px;
+  font-weight:bold;
+  letter-spacing:2px;
+}
+
+.level4TransitionNode.done{
+  border:
+    1px solid #78a470;
+
+  color:#8fc187;
+
+  background:
+    rgba(83,130,75,.12);
+
+  box-shadow:
+    0 0 22px
+    rgba(80,140,70,.18);
+}
+
+.level4TransitionNode.next{
+  border:
+    1px solid rgba(200,164,92,.25);
+
+  color:#74634a;
+
+  background:#120b09;
+
+  animation:
+    level4NextNode .7s
+    2.1s forwards;
+}
+
+.level4TransitionTrack{
+  position:relative;
+
+  flex:1;
+  height:2px;
+
+  margin:0 12px;
+
+  background:#352724;
+
+  overflow:hidden;
+}
+
+.level4TransitionTrackFill{
+  position:absolute;
+
+  left:0;
+  top:0;
+
+  width:0;
+  height:100%;
+
+  background:#c8a45c;
+
+  box-shadow:
+    0 0 14px
+    rgba(200,164,92,.6);
+
+  animation:
+    level4PathGrow 1.2s
+    .8s forwards;
+}
+
+
+/* dossier */
+
+.level4NextPriority{
+  margin-bottom:11px;
+
+  color:#827669;
+
+  font-size:9px;
+  letter-spacing:5px;
+
+  opacity:0;
+
+  animation:
+    level4TransitionFade .6s
+    2.15s forwards;
+}
+
+.level4NextCrisisNumber{
+  color:#b83b38;
+
+  font-size:12px;
+  letter-spacing:6px;
+
+  opacity:0;
+
+  animation:
+    level4DossierEnter .65s
+    2.35s forwards;
+}
+
+.level4NextCrisisTitle{
+  margin-top:8px;
+
+  color:#efe3d3;
+
+  font-size:
+    clamp(42px,7vw,78px);
+
+  line-height:1;
+
+  opacity:0;
+
+  animation:
+    level4DossierEnter .65s
+    2.5s forwards;
+}
+
+.level4NextCrisisDate{
+  margin-top:14px;
+
+  color:#9e8f7e;
+
+  font-size:10px;
+  letter-spacing:4px;
+
+  opacity:0;
+
+  animation:
+    level4TransitionFade .6s
+    2.75s forwards;
+}
+
+.level4OpenDossier{
+  margin-top:34px;
+
+  opacity:0;
+  pointer-events:none;
+
+  animation:
+    level4UnlockButton .65s
+    3.1s forwards;
+}
+
+
+/* animations */
+
+@keyframes level4PathGrow{
+
+  from{
+    width:0;
+  }
+
+  to{
+    width:100%;
+  }
+
+}
+
+@keyframes level4NextNode{
+
+  to{
+    border-color:#c8a45c;
+
+    color:#e2c477;
+
+    background:
+      rgba(200,164,92,.1);
+
+    box-shadow:
+      0 0 28px
+      rgba(200,164,92,.32);
+
+    transform:scale(1.08);
+  }
+
+}
+
+@keyframes level4TransitionFade{
+
+  from{
+    opacity:0;
+  }
+
+  to{
+    opacity:1;
+  }
+
+}
+
+@keyframes level4DossierEnter{
+
+  from{
+    opacity:0;
+    transform:
+      translateY(22px);
+  }
+
+  to{
+    opacity:1;
+    transform:
+      translateY(0);
+  }
+
+}
+
+@keyframes level4UnlockButton{
+
+  to{
+    opacity:1;
+    pointer-events:auto;
+  }
+
+}
+
+@keyframes level4TransitionScan{
+
+  0%{
+    top:5%;
+    opacity:0;
+  }
+
+  20%{
+    opacity:.8;
+  }
+
+  80%{
+    opacity:.8;
+  }
+
+  100%{
+    top:95%;
+    opacity:0;
+  }
+
+}
 @keyframes level4WrongDecision{
 
   0%,100%{
@@ -9400,7 +9725,7 @@ function renderLevel4DecisionFeedback(
         class="btn level4DecisionContinue"
         id="level4CrisisContinueBtn">
 
-        TRỞ VỀ CRISIS ROOM →
+      TIẾP TỤC · CRISIS 02 →
 
       </button>
 
@@ -9418,7 +9743,7 @@ function renderLevel4DecisionFeedback(
       "click",
       function(){
 
-        renderLevel4Dashboard();
+      showLevel4CrisisTransition();
 
 
         setTimeout(
@@ -9456,6 +9781,167 @@ function renderLevel4DecisionFeedback(
           },
           0
         );
+
+      }
+    );
+
+}
+  /* ==================================================
+   CRISIS 01 → CRISIS 02 TRANSITION
+================================================== */
+
+function showLevel4CrisisTransition(){
+
+  screen.innerHTML = `
+
+    <section class="
+      screen
+      level4TransitionScreen
+    ">
+
+      <div class="
+        level4CrisisTransition
+      ">
+
+
+        <div
+          class="level4TransitionScan">
+        </div>
+
+
+        <div
+          class="level4TransitionResolved">
+
+          CRISIS 01 RESOLVED
+
+        </div>
+
+
+        <div
+          class="level4TransitionPath">
+
+
+          <div
+            class="
+              level4TransitionNode
+              done
+            ">
+
+            01
+
+          </div>
+
+
+          <div
+            class="level4TransitionTrack">
+
+            <div
+              class="
+                level4TransitionTrackFill
+              ">
+            </div>
+
+          </div>
+
+
+          <div
+            class="
+              level4TransitionNode
+              next
+            ">
+
+            02
+
+          </div>
+
+
+        </div>
+
+
+        <div
+          class="level4NextPriority">
+
+          NEXT NATIONAL PRIORITY
+
+        </div>
+
+
+        <div
+          class="level4NextCrisisNumber">
+
+          CRISIS 02
+
+        </div>
+
+
+        <div
+          class="level4NextCrisisTitle">
+
+          GIẶC DỐT
+
+        </div>
+
+
+        <div
+          class="level4NextCrisisDate">
+
+          THÁNG 9 · 1945
+
+        </div>
+
+
+        <button
+          class="
+            btn
+            level4OpenDossier
+          "
+          id="level4OpenNextCrisis">
+
+          MỞ HỒ SƠ →
+
+        </button>
+
+
+      </div>
+
+    </section>
+
+  `;
+
+
+  document
+    .getElementById(
+      "level4OpenNextCrisis"
+    )
+    .addEventListener(
+      "click",
+      function(){
+
+        const nextIndex =
+          level4Crises
+            .findIndex(
+              function(item){
+
+                return !level4ResolvedCrises
+                  .has(item.id);
+
+              }
+            );
+
+
+        if(nextIndex >= 0){
+
+          renderLevel4Crisis(
+            nextIndex
+          );
+
+        }
+
+        else{
+
+          renderLevel4Dashboard();
+
+        }
 
       }
     );

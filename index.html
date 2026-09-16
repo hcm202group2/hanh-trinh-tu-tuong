@@ -3200,7 +3200,54 @@ button.finalHubCard:hover
 /* ==================================================
    LEVEL 4 · CRISIS DECISION
 ================================================== */
+/* ===== LIVE METERS INSIDE CRISIS ===== */
 
+.level4CrisisMeterGrid{
+  margin:0 auto 16px;
+}
+
+.level4MiniMetric{
+  min-height:108px;
+  padding:12px 14px;
+}
+
+.level4MiniMetric .level4MeterTop{
+  margin-bottom:8px;
+}
+
+.level4MiniMetric .level4MeterIcon{
+  width:34px;
+  height:34px;
+  border-radius:8px;
+}
+
+.level4MiniMetric .level4MeterIcon svg{
+  width:19px;
+  height:19px;
+}
+
+.level4MiniMetric .level4MeterValue{
+  font-size:23px;
+}
+
+.level4MiniMetric .level4MeterName{
+  margin-bottom:0;
+  font-size:10px;
+}
+
+.level4MiniMetric .level4MeterDesc{
+  display:none;
+}
+
+.level4MiniMetric .level4MeterTrack{
+  margin-top:9px;
+}
+
+.level4MiniMetric .level4Delta{
+  right:12px;
+  bottom:26px;
+  font-size:11px;
+}
 .level4CrisisStage{
   width:min(1120px,100%);
   margin:20px auto 0;
@@ -8144,7 +8191,77 @@ function renderLevel4Crisis(index){
 
 
       </div>
+      <div class="level4MeterGrid level4CrisisMeterGrid">
 
+        ${level4MetricData
+          .map(function(metric){
+
+            return `
+
+              <div
+                class="level4MeterCard level4MiniMetric"
+                id="level4Card-${metric.key}">
+
+
+                <div class="level4MeterTop">
+
+
+                  <div class="level4MeterIcon">
+
+                    ${metric.icon}
+
+                  </div>
+
+
+                  <div class="level4MeterValueWrap">
+
+                    <span
+                      class="level4MeterValue"
+                      id="level4Value-${metric.key}">
+                      0
+                    </span>
+
+                    <span class="level4MeterMax">
+                      /100
+                    </span>
+
+                  </div>
+
+
+                </div>
+
+
+                <div class="level4MeterName">
+
+                  ${metric.name}
+
+                </div>
+
+
+                <div class="level4MeterTrack">
+
+                  <div
+                    class="level4MeterFill"
+                    id="level4Fill-${metric.key}">
+                  </div>
+
+                </div>
+
+
+                <div
+                  class="level4Delta"
+                  id="level4Delta-${metric.key}">
+                </div>
+
+
+              </div>
+
+            `;
+
+          })
+          .join("")}
+
+      </div>
 
       <div class="level4CrisisStage">
 
@@ -8298,7 +8415,31 @@ function renderLevel4Crisis(index){
 
   `;
 
+  level4MetricData
+    .forEach(function(metric,index){
 
+      setTimeout(
+        function(){
+
+          setLevel4MetricVisual(
+
+            metric.key,
+
+            level4Metrics[
+              metric.key
+            ],
+
+            null
+
+          );
+
+        },
+
+        80 + index * 70
+
+      );
+
+    });
   document
     .querySelectorAll(
       ".level4DecisionChoice"

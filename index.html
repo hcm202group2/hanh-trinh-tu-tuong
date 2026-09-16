@@ -3197,7 +3197,526 @@ button.finalHubCard:hover
 
 
 /* ===== ANIMATIONS ===== */
+/* ==================================================
+   LEVEL 4 · CRISIS DECISION
+================================================== */
 
+.level4CrisisStage{
+  width:min(1120px,100%);
+  margin:20px auto 0;
+
+  display:grid;
+  grid-template-columns:.72fr 1.28fr;
+  gap:18px;
+  align-items:stretch;
+}
+
+
+/* ===== LEFT INTELLIGENCE PANEL ===== */
+
+.level4SituationPanel{
+  position:relative;
+  overflow:hidden;
+
+  padding:24px;
+
+  border:
+    1px solid
+    rgba(184,59,56,.25);
+
+  border-radius:13px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(184,59,56,.085),
+      rgba(0,0,0,.14)
+    );
+
+  text-align:left;
+}
+
+.level4SituationPanel::before{
+  content:"";
+
+  position:absolute;
+  left:0;
+  top:0;
+  bottom:0;
+
+  width:2px;
+
+  background:
+    linear-gradient(
+      #b83b38,
+      transparent
+    );
+}
+
+.level4CrisisCode{
+  margin-bottom:13px;
+
+  color:#b83b38;
+
+  font-size:10px;
+  letter-spacing:5px;
+}
+
+.level4CrisisDate{
+  margin-bottom:24px;
+
+  color:#786c61;
+
+  font-size:10px;
+  letter-spacing:3px;
+}
+
+.level4CrisisIcon{
+  width:64px;
+  height:64px;
+
+  margin-bottom:20px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  border:
+    1px solid
+    rgba(184,59,56,.4);
+
+  border-radius:50%;
+
+  color:#d26b66;
+
+  background:
+    rgba(184,59,56,.07);
+
+  box-shadow:
+    0 0 35px
+    rgba(184,59,56,.08);
+}
+
+.level4CrisisIcon svg{
+  width:32px;
+  height:32px;
+
+  fill:none;
+  stroke:currentColor;
+  stroke-width:1.6;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+
+.level4CrisisName{
+  margin-bottom:14px;
+
+  color:#eee0cf;
+
+  font-size:25px;
+  line-height:1.15;
+}
+
+.level4CrisisContext{
+  color:#aa9d90;
+
+  font-size:13px;
+  line-height:1.7;
+}
+
+.level4SituationSignal{
+  margin-top:22px;
+  padding-top:15px;
+
+  border-top:
+    1px solid
+    rgba(184,59,56,.18);
+
+  color:#bc625e;
+
+  font-size:9px;
+  letter-spacing:3px;
+}
+
+
+/* ===== DECISION CARD ===== */
+
+.level4DecisionCard{
+  padding:25px;
+
+  border:
+    1px solid
+    rgba(200,164,92,.19);
+
+  border-radius:13px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255,255,255,.04),
+      rgba(255,255,255,.012)
+    );
+
+  text-align:left;
+
+  box-shadow:
+    0 20px 70px
+    rgba(0,0,0,.18);
+}
+
+.level4DecisionLabel{
+  margin-bottom:10px;
+
+  color:#c8a45c;
+
+  font-size:9px;
+  letter-spacing:4px;
+}
+
+.level4DecisionQuestion{
+  margin-bottom:22px;
+
+  color:#f0e3d2;
+
+  font-size:20px;
+  line-height:1.5;
+}
+
+.level4ChoiceGrid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:11px;
+}
+
+button.level4DecisionChoice{
+  appearance:none;
+  -webkit-appearance:none;
+
+  position:relative;
+
+  width:100%;
+  min-height:100px;
+
+  padding:16px 17px 16px 48px;
+
+  border:
+    1px solid
+    rgba(200,164,92,.17);
+
+  border-radius:9px;
+
+  background:
+    rgba(0,0,0,.14);
+
+  color:#d8ccbd;
+
+  font-family:Arial,sans-serif;
+  font-size:13px;
+  line-height:1.5;
+
+  text-align:left;
+
+  cursor:pointer;
+
+  transition:
+    transform .22s ease,
+    border-color .22s ease,
+    background .22s ease,
+    opacity .22s ease;
+}
+
+button.level4DecisionChoice:hover{
+  transform:translateY(-3px);
+
+  border-color:
+    rgba(200,164,92,.6);
+
+  background:
+    rgba(200,164,92,.065);
+}
+
+.level4ChoiceLetter{
+  position:absolute;
+
+  left:15px;
+  top:16px;
+
+  width:24px;
+  height:24px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  border:
+    1px solid
+    rgba(200,164,92,.3);
+
+  border-radius:50%;
+
+  color:#c8a45c;
+
+  font-size:10px;
+}
+
+button.level4DecisionChoice:disabled{
+  cursor:default;
+}
+
+button.level4DecisionChoice.correctDecision{
+  border-color:#6f9f68;
+
+  background:
+    rgba(70,120,60,.15);
+
+  color:#abd0a5;
+
+  box-shadow:
+    0 0 25px
+    rgba(80,140,70,.1);
+}
+
+button.level4DecisionChoice.wrongDecision{
+  border-color:#b83b38;
+
+  background:
+    rgba(160,45,45,.13);
+
+  color:#dd817c;
+
+  animation:
+    level4WrongDecision .4s ease;
+}
+
+button.level4DecisionChoice.answerReveal{
+  border-color:
+    rgba(111,159,104,.65);
+
+  box-shadow:
+    inset 0 0 0 1px
+    rgba(111,159,104,.08);
+}
+
+
+/* ===== FEEDBACK ===== */
+
+.level4DecisionFeedback{
+  margin-top:17px;
+  padding:18px;
+
+  border-left:2px solid #c8a45c;
+
+  background:
+    rgba(200,164,92,.035);
+
+  animation:
+    level4FeedbackIn .4s ease;
+}
+
+.level4DecisionFeedback.success{
+  border-left-color:#78a871;
+}
+
+.level4DecisionFeedback.failure{
+  border-left-color:#b83b38;
+}
+
+.level4DecisionStamp{
+  width:max-content;
+
+  margin-bottom:12px;
+  padding:7px 11px;
+
+  border:2px solid currentColor;
+
+  font-size:10px;
+  font-weight:bold;
+  letter-spacing:3px;
+
+  transform:rotate(-2deg);
+
+  animation:
+    level4StampIn .35s ease;
+}
+
+.level4DecisionFeedback.success
+.level4DecisionStamp{
+  color:#88bb80;
+}
+
+.level4DecisionFeedback.failure
+.level4DecisionStamp{
+  color:#d26964;
+}
+
+.level4DecisionExplanation{
+  color:#bcae9f;
+
+  font-size:13px;
+  line-height:1.7;
+}
+
+.level4DecisionExplanation strong{
+  color:#ead39a;
+}
+
+.level4HistoricalNote{
+  margin-top:14px;
+  padding-top:13px;
+
+  border-top:
+    1px solid
+    rgba(200,164,92,.12);
+
+  color:#8e8377;
+
+  font-size:11px;
+  line-height:1.6;
+}
+
+.level4HistoricalNote span{
+  color:#c8a45c;
+  letter-spacing:2px;
+}
+
+.level4EffectRow{
+  margin-top:14px;
+
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+}
+
+.level4EffectChip{
+  padding:7px 10px;
+
+  border:
+    1px solid
+    rgba(200,164,92,.2);
+
+  border-radius:5px;
+
+  color:#c9b98d;
+
+  font-size:10px;
+  letter-spacing:1px;
+}
+
+.level4EffectChip.positive{
+  border-color:
+    rgba(111,159,104,.4);
+
+  color:#91bb8b;
+}
+
+.level4EffectChip.negative{
+  border-color:
+    rgba(184,59,56,.4);
+
+  color:#d17570;
+}
+
+.level4DecisionContinue{
+  margin-top:17px;
+}
+
+
+/* ===== DAMAGE EFFECT ===== */
+
+.level4MeterCard.damage{
+  animation:
+    level4DamagePulse .55s ease;
+
+  border-color:
+    rgba(184,59,56,.62);
+}
+
+
+/* ===== CRISIS ANIMATIONS ===== */
+
+@keyframes level4WrongDecision{
+
+  0%,100%{
+    transform:translateX(0);
+  }
+
+  25%{
+    transform:translateX(-7px);
+  }
+
+  75%{
+    transform:translateX(7px);
+  }
+
+}
+
+@keyframes level4FeedbackIn{
+
+  from{
+    opacity:0;
+    transform:translateY(9px);
+  }
+
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+
+}
+
+@keyframes level4StampIn{
+
+  0%{
+    opacity:0;
+    transform:
+      rotate(-2deg)
+      scale(1.8);
+  }
+
+  70%{
+    opacity:1;
+    transform:
+      rotate(-2deg)
+      scale(.93);
+  }
+
+  100%{
+    opacity:1;
+    transform:
+      rotate(-2deg)
+      scale(1);
+  }
+
+}
+
+@keyframes level4DamagePulse{
+
+  0%,100%{
+    box-shadow:
+      0 0 0
+      rgba(184,59,56,0);
+  }
+
+  50%{
+    box-shadow:
+      0 0 35px
+      rgba(184,59,56,.28);
+  }
+
+}
+
+
+@media(max-width:800px){
+
+  .level4CrisisStage{
+    grid-template-columns:1fr;
+  }
+
+  .level4ChoiceGrid{
+    grid-template-columns:1fr;
+  }
+
+}
 @keyframes level4MeterSweep{
 
   0%{
@@ -6890,6 +7409,14 @@ function startLevel4(){
   level4Metrics = {
     ...level4InitialMetrics
   };
+  level4ResolvedCrises =
+  new Set();
+
+level4DecisionLocked =
+  false;
+
+level4LevelXP =
+  0;
 
 
   hud.style.display =
@@ -7121,21 +7648,26 @@ function renderLevel4Dashboard(){
 
       </div>
 
+<div class="level4PreviewActions">
 
-      <div class="level4PreviewActions">
+  <button
+    class="btn"
+    id="level4StartCrisisBtn">
 
-        <button
-          class="btn"
-          id="level4PreviewBtn">
+    BẮT ĐẦU CRISIS 01 →
 
-          CHẠY THỬ METER ANIMATION →
-
-        </button>
-
-      </div>
+  </button>
 
 
-    </div>
+  <button
+    class="btn"
+    id="level4PreviewBtn">
+
+    DEV · TEST METER →
+
+  </button>
+
+</div>
 
   `;
 
@@ -7170,7 +7702,7 @@ function renderLevel4Dashboard(){
 
 
   setupLevel4Preview();
-
+setupLevel4CrisisStart();
 }
 
 
@@ -7350,7 +7882,914 @@ function setLevel4MetricVisual(
 
 }
 
+/* ==================================================
+   LEVEL 4 · CRISIS SYSTEM
+================================================== */
 
+let level4ResolvedCrises =
+  new Set();
+
+let level4DecisionLocked =
+  false;
+
+let level4LevelXP =
+  0;
+
+
+/* ===== CRISIS DATA ===== */
+
+const level4Crises = [
+
+  {
+
+    id:"food",
+
+    number:"01",
+
+    code:"NATIONAL EMERGENCY · 01",
+
+    date:"THÁNG 9 · 1945",
+
+    name:"GIẶC ĐÓI",
+
+    title:
+      "KHẨN CẤP LƯƠNG THỰC",
+
+    context:`
+      Nạn đói vẫn đang đe dọa
+      đời sống của hàng triệu người.
+
+      <br><br>
+
+      Nhà nước vừa ra đời
+      phải đưa ra quyết định
+      trong điều kiện nguồn lực
+      vô cùng hạn chế.
+    `,
+
+    question:
+      "Quyết định nào phù hợp nhất để vừa cứu đói trước mắt, vừa tạo khả năng cải thiện nguồn lương thực trong những tháng tiếp theo?",
+
+
+    choices:[
+
+
+      {
+
+        text:
+          "Chờ nguồn cứu trợ từ bên ngoài rồi mới triển khai các biện pháp quy mô lớn.",
+
+        correct:false,
+
+        effects:{
+          welfare:-6,
+          trust:-4
+        },
+
+        explanation:`
+          Việc chỉ chờ hỗ trợ bên ngoài
+          khiến phản ứng trước nạn đói
+          trở nên bị động,
+          trong khi tình hình đòi hỏi
+          hành động ngay.
+        `
+
+      },
+
+
+      {
+
+        text:
+          "Phát động cứu đói và lạc quyên gạo, đồng thời đẩy mạnh tăng gia sản xuất.",
+
+        correct:true,
+
+        effects:{
+          welfare:18,
+          trust:6
+        },
+
+        explanation:`
+          Đây là hướng xử lý phù hợp
+          với quyết định của Chính phủ
+          trong phiên họp ngày 3/9/1945:
+          vừa tổ chức cứu đói trước mắt,
+          vừa phát động tăng gia sản xuất.
+        `
+
+      },
+
+
+      {
+
+        text:
+          "Ưu tiên toàn bộ nguồn lực để củng cố bộ máy hành chính, tạm hoãn việc cứu đói.",
+
+        correct:false,
+
+        effects:{
+          welfare:-8,
+          trust:-5
+        },
+
+        explanation:`
+          Nạn đói là một vấn đề
+          đe dọa trực tiếp đời sống nhân dân.
+          Việc trì hoãn cứu đói
+          không đáp ứng yêu cầu cấp bách
+          của thời điểm này.
+        `
+
+      },
+
+
+      {
+
+        text:
+          "Chỉ siết đầu cơ và kiểm soát việc lưu thông lương thực, chưa triển khai cứu tế hay tăng gia sản xuất.",
+
+        correct:false,
+
+        effects:{
+          welfare:-2,
+          trust:-1
+        },
+
+        explanation:`
+          Kiểm soát đầu cơ và lưu thông
+          có thể hỗ trợ việc ổn định
+          nguồn lương thực,
+
+          nhưng nếu đứng riêng lẻ
+          thì chưa đủ.
+
+          Chính sách thực tế còn kết hợp
+          cứu đói, huy động tương trợ
+          và tăng gia sản xuất.
+        `
+
+      }
+
+    ],
+
+
+    historicalNote:`
+      Ngày 3/9/1945,
+      tại phiên họp đầu tiên
+      của Chính phủ lâm thời,
+      chống nạn đói được xác định
+      là một trong những nhiệm vụ cấp bách.
+
+      Chính phủ chủ trương
+      phát động tăng gia sản xuất
+      và tổ chức cứu đói,
+      lạc quyên lương thực.
+    `
+
+  }
+
+];
+
+
+/* ===== SETUP START BUTTON ===== */
+
+function setupLevel4CrisisStart(){
+
+  const button =
+    document.getElementById(
+      "level4StartCrisisBtn"
+    );
+
+
+  if(!button) return;
+
+
+  if(
+    level4ResolvedCrises.has(
+      "food"
+    )
+  ){
+
+    button.textContent =
+      "REVIEW CRISIS 01 →";
+
+  }
+
+
+  button.addEventListener(
+    "click",
+    function(){
+
+      renderLevel4Crisis(0);
+
+    }
+  );
+
+}
+
+
+/* ===== RENDER CRISIS ===== */
+
+function renderLevel4Crisis(index){
+
+  const crisis =
+    level4Crises[index];
+
+
+  if(!crisis) return;
+
+
+  level4DecisionLocked =
+    false;
+
+
+  const reviewMode =
+    level4ResolvedCrises.has(
+      crisis.id
+    );
+
+
+  screen.innerHTML = `
+
+    <div class="content level4Wrap">
+
+
+      <div class="level4Header">
+
+
+        <div class="level4HeaderText">
+
+          <div class="small">
+            LEVEL 04 · CRISIS MANAGEMENT
+          </div>
+
+          <div class="level4Title">
+
+            GIỮ VỮNG<br>
+
+            <span class="red">
+              NỀN ĐỘC LẬP
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <div class="level4Period">
+
+          CRISIS ${crisis.number} / 05
+
+        </div>
+
+
+      </div>
+
+
+      <div class="level4CrisisStage">
+
+
+        <div class="level4SituationPanel">
+
+
+          <div class="level4CrisisCode">
+
+            ${crisis.code}
+
+          </div>
+
+
+          <div class="level4CrisisDate">
+
+            ${crisis.date}
+
+          </div>
+
+
+          <div class="level4CrisisIcon">
+
+            <svg viewBox="0 0 24 24">
+
+              <path d="
+                M4 12
+                C5 17 8 20 12 20
+                C16 20 19 17 20 12
+                Z
+              ">
+              </path>
+
+              <path d="
+                M7 12
+                C8 9 10 8 12 8
+                C14 8 16 9 17 12
+              ">
+              </path>
+
+              <path d="M12 8V3"></path>
+
+              <path d="
+                M12 5
+                C10 5 9 4 9 3
+              ">
+              </path>
+
+              <path d="
+                M12 5
+                C14 5 15 4 15 3
+              ">
+              </path>
+
+            </svg>
+
+          </div>
+
+
+          <div class="level4CrisisName">
+
+            ${crisis.name}
+
+          </div>
+
+
+          <div class="level4CrisisContext">
+
+            ${crisis.context}
+
+          </div>
+
+
+          <div class="level4SituationSignal">
+
+            ${
+              reviewMode
+              ? "ARCHIVE REVIEW MODE"
+              : "NATIONAL STABILITY AT RISK"
+            }
+
+          </div>
+
+
+        </div>
+
+
+        <div class="level4DecisionCard">
+
+
+          <div class="level4DecisionLabel">
+
+            DECISION REQUIRED
+
+          </div>
+
+
+          <div class="level4DecisionQuestion">
+
+            ${crisis.question}
+
+          </div>
+
+
+          <div class="level4ChoiceGrid">
+
+            ${crisis.choices
+              .map(
+                function(choice,choiceIndex){
+
+                  const letters =
+                    ["A","B","C","D"];
+
+
+                  return `
+
+                    <button
+                      class="level4DecisionChoice"
+                      data-choice="${choiceIndex}">
+
+                      <span class="level4ChoiceLetter">
+
+                        ${letters[choiceIndex]}
+
+                      </span>
+
+                      ${choice.text}
+
+                    </button>
+
+                  `;
+
+                }
+              )
+              .join("")}
+
+          </div>
+
+
+          <div id="level4DecisionFeedback">
+          </div>
+
+
+        </div>
+
+
+      </div>
+
+
+    </div>
+
+  `;
+
+
+  document
+    .querySelectorAll(
+      ".level4DecisionChoice"
+    )
+    .forEach(
+      function(button){
+
+        button.addEventListener(
+          "click",
+          function(){
+
+            handleLevel4Decision(
+
+              index,
+
+              Number(
+                button.dataset.choice
+              )
+
+            );
+
+          }
+        );
+
+      }
+    );
+
+}
+
+
+/* ===== HANDLE DECISION ===== */
+
+function handleLevel4Decision(
+  crisisIndex,
+  choiceIndex
+){
+
+  if(level4DecisionLocked) return;
+
+
+  level4DecisionLocked =
+    true;
+
+
+  const crisis =
+    level4Crises[
+      crisisIndex
+    ];
+
+
+  const choice =
+    crisis.choices[
+      choiceIndex
+    ];
+
+
+  const firstResolution =
+    !level4ResolvedCrises.has(
+      crisis.id
+    );
+
+
+  const buttons =
+    [
+      ...document
+        .querySelectorAll(
+          ".level4DecisionChoice"
+        )
+    ];
+
+
+  buttons.forEach(
+    function(button){
+
+      button.disabled =
+        true;
+
+    }
+  );
+
+
+  const selectedButton =
+    buttons[
+      choiceIndex
+    ];
+
+
+  const correctIndex =
+    crisis.choices
+      .findIndex(
+        function(item){
+
+          return item.correct;
+
+        }
+      );
+
+
+  if(choice.correct){
+
+    selectedButton
+      .classList.add(
+        "correctDecision"
+      );
+
+  }
+
+  else{
+
+    selectedButton
+      .classList.add(
+        "wrongDecision"
+      );
+
+
+    if(
+      buttons[
+        correctIndex
+      ]
+    ){
+
+      buttons[
+        correctIndex
+      ]
+      .classList.add(
+        "answerReveal"
+      );
+
+    }
+
+  }
+
+
+  if(firstResolution){
+
+    level4ResolvedCrises
+      .add(
+        crisis.id
+      );
+
+
+    applyLevel4DecisionEffects(
+      choice.effects
+    );
+
+
+    if(choice.correct){
+
+      xp += 120;
+
+      level4LevelXP +=
+        120;
+
+      updateHUD();
+
+    }
+
+  }
+
+
+  renderLevel4DecisionFeedback(
+
+    crisis,
+
+    choice,
+
+    firstResolution
+
+  );
+
+}
+
+
+/* ===== APPLY EFFECTS ===== */
+
+function applyLevel4DecisionEffects(
+  effects
+){
+
+  Object
+    .keys(effects)
+    .forEach(
+      function(key,index){
+
+        setTimeout(
+          function(){
+
+            const delta =
+              effects[key];
+
+
+            level4Metrics[key] =
+              Math.max(
+                0,
+                Math.min(
+                  100,
+                  level4Metrics[key]
+                  + delta
+                )
+              );
+
+
+            setLevel4MetricVisual(
+
+              key,
+
+              level4Metrics[key],
+
+              delta
+
+            );
+
+
+            if(delta < 0){
+
+              const card =
+                document
+                  .getElementById(
+                    "level4Card-" + key
+                  );
+
+
+              if(card){
+
+                card.classList.remove(
+                  "boost"
+                );
+
+                void card.offsetWidth;
+
+                card.classList.add(
+                  "damage"
+                );
+
+
+                setTimeout(
+                  function(){
+
+                    card.classList.remove(
+                      "damage"
+                    );
+
+                  },
+                  600
+                );
+
+              }
+
+            }
+
+          },
+
+          index * 180
+
+        );
+
+      }
+    );
+
+}
+
+
+/* ===== EFFECT CHIPS ===== */
+
+function getLevel4MetricName(
+  key
+){
+
+  const item =
+    level4MetricData
+      .find(
+        function(metric){
+
+          return metric.key === key;
+
+        }
+      );
+
+
+  return item
+    ? item.name
+    : key;
+
+}
+
+
+/* ===== FEEDBACK ===== */
+
+function renderLevel4DecisionFeedback(
+  crisis,
+  choice,
+  firstResolution
+){
+
+  const feedback =
+    document.getElementById(
+      "level4DecisionFeedback"
+    );
+
+
+  if(!feedback) return;
+
+
+  const effectsHTML =
+    Object
+      .keys(choice.effects)
+      .map(
+        function(key){
+
+          const delta =
+            choice.effects[key];
+
+
+          return `
+
+            <div
+              class="
+                level4EffectChip
+                ${
+                  delta > 0
+                  ? "positive"
+                  : "negative"
+                }
+              ">
+
+              ${getLevel4MetricName(key)}
+
+              ${delta > 0 ? "+" : ""}
+
+              ${delta}
+
+            </div>
+
+          `;
+
+        }
+      )
+      .join("");
+
+
+  feedback.innerHTML = `
+
+    <div
+      class="
+        level4DecisionFeedback
+        ${
+          choice.correct
+          ? "success"
+          : "failure"
+        }
+      ">
+
+
+      <div class="level4DecisionStamp">
+
+        ${
+          choice.correct
+          ? "POLICY EFFECTIVE"
+          : "POLICY INEFFECTIVE"
+        }
+
+      </div>
+
+
+      <div class="level4DecisionExplanation">
+
+        ${choice.explanation}
+
+        <br><br>
+
+        ${
+          choice.correct
+          && firstResolution
+
+          ? `
+            <strong>
+              +120 XP
+            </strong>
+          `
+
+          : choice.correct
+
+            ? `
+              <strong>
+                REVIEW MODE · XP KHÔNG CỘNG LẠI
+              </strong>
+            `
+
+            : `
+              <strong>
+                +0 XP
+              </strong>
+            `
+        }
+
+      </div>
+
+
+      ${
+        firstResolution
+
+        ? `
+          <div class="level4EffectRow">
+
+            ${effectsHTML}
+
+          </div>
+        `
+
+        : ""
+      }
+
+
+      <div class="level4HistoricalNote">
+
+        <span>
+          HISTORICAL NOTE
+        </span>
+
+        <br><br>
+
+        ${crisis.historicalNote}
+
+      </div>
+
+
+      <button
+        class="btn level4DecisionContinue"
+        id="level4CrisisContinueBtn">
+
+        TRỞ VỀ CRISIS ROOM →
+
+      </button>
+
+
+    </div>
+
+  `;
+
+
+  document
+    .getElementById(
+      "level4CrisisContinueBtn"
+    )
+    .addEventListener(
+      "click",
+      function(){
+
+        renderLevel4Dashboard();
+
+
+        setTimeout(
+          function(){
+
+            const status =
+              document
+                .getElementById(
+                  "level4ConsoleStatus"
+                );
+
+
+            if(status){
+
+              status.innerHTML = `
+
+                <strong>
+                  CRISIS 01 RESOLVED
+                </strong>
+
+                <br>
+
+                Quyết định đã được
+                ghi vào National Archive.
+
+                <br>
+
+                Crisis tiếp theo
+                đang chờ mở khóa.
+
+              `;
+
+            }
+
+          },
+          0
+        );
+
+      }
+    );
+
+}
 /* ===== PREVIEW ANIMATION ===== */
 
 let level4PreviewMode =

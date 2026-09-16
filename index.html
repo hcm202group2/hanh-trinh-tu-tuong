@@ -6630,59 +6630,9 @@ function completeFinalTopic1(){
     `;
 
 
-  document
-    .getElementById(
-      "finalTopic2Btn"
-    )
-    .addEventListener(
-      "click",
-      function(){
-
-        screen.innerHTML = `
-
-          <div class="content">
-
-            <div class="small">
-              FINAL JOURNEY · TOPIC 02
-            </div>
-
-
-            <h1>
-
-              NĂM
-
-              <span class="red">
-                1945
-              </span>
-
-            </h1>
-
-
-            <p class="subtitle">
-
-              TOPIC 01 COMPLETE
-
-              <br><br>
-
-              Chặng tiếp theo sẽ khám phá
-              độc lập dân tộc,
-              quyền làm chủ của nhân dân
-              và sự ra đời của Nhà nước mới.
-
-              <br><br>
-
-              <span class="gold">
-                TOPIC 02 · COMING NEXT
-              </span>
-
-            </p>
-
-          </div>
-
-        `;
-
-      }
-    );
+document
+  .getElementById("finalTopic2Btn")
+  .addEventListener("click", startFinalTopic2);
 }
 
 
@@ -6702,6 +6652,766 @@ if(
     0
   );
 
+}
+  /* ==================================================
+   TOPIC 02 · 1945 → 1946
+================================================== */
+
+let finalTopic2Visited = new Set();
+
+let finalTopic2QuizActive = false;
+
+let finalTopic2QuizTarget = null;
+
+let finalTopic2Complete = false;
+
+
+const finalTopic2Points = [
+
+  {
+    id:"declaration",
+
+    x:50,
+    y:32,
+
+    title:"2/9/1945 · TUYÊN NGÔN ĐỘC LẬP",
+
+    body:`
+      Ngày 2/9/1945,
+      tại Quảng trường Ba Đình,
+      Chủ tịch Hồ Chí Minh thay mặt
+      Chính phủ lâm thời đọc
+      <strong class="gold">
+        Tuyên ngôn Độc lập
+      </strong>,
+      tuyên bố sự ra đời của
+      nước Việt Nam Dân chủ Cộng hòa.
+
+      <br><br>
+
+      Đây là mốc khẳng định
+      nền độc lập của dân tộc Việt Nam
+      trước quốc dân và thế giới.
+    `,
+
+    question:
+      "Hãy chọn chi tiết gắn với sự kiện tuyên bố nền độc lập của Việt Nam ngày 2/9/1945."
+  },
+
+
+  {
+    id:"document",
+
+    x:63,
+    y:42,
+
+    title:"VĂN KIỆN KHẲNG ĐỊNH QUYỀN ĐỘC LẬP",
+
+    body:`
+      Tuyên ngôn Độc lập không chỉ tuyên bố
+      sự ra đời của một nhà nước mới,
+      mà còn khẳng định quyền tự do,
+      độc lập của dân tộc Việt Nam.
+
+      <br><br>
+
+      Nội dung này thể hiện rõ tư tưởng
+      <strong class="gold">
+        độc lập dân tộc
+      </strong>
+      là quyền thiêng liêng,
+      không thể bị xâm phạm.
+    `,
+
+    question:
+      "Hãy chọn văn kiện khẳng định trước quốc dân và thế giới quyền độc lập của dân tộc Việt Nam."
+  },
+
+
+  {
+    id:"people",
+
+    x:24,
+    y:60,
+
+    title:"NHÂN DÂN LÀ CHỦ THỂ CỦA NHÀ NƯỚC MỚI",
+
+    body:`
+      Sau thắng lợi của Cách mạng Tháng Tám,
+      chính quyền đã về tay nhân dân.
+
+      <br><br>
+
+      Trong tư tưởng Hồ Chí Minh,
+      nhà nước mới phải là
+      <strong class="gold">
+        nhà nước của dân,
+        do dân,
+        vì dân
+      </strong>.
+
+      <br><br>
+
+      Nhân dân không còn là đối tượng bị cai trị,
+      mà trở thành chủ thể của quyền lực.
+    `,
+
+    question:
+      "Hãy chọn chi tiết thể hiện nhân dân trở thành chủ thể của chính quyền sau Cách mạng Tháng Tám."
+  },
+
+
+  {
+    id:"ballot",
+
+    x:79,
+    y:73,
+
+    title:"TỔNG TUYỂN CỬ · QUYỀN LÀM CHỦ BẰNG BẦU CỬ",
+
+    body:`
+      Sau khi giành độc lập,
+      Hồ Chí Minh chủ trương sớm tổ chức
+      Tổng tuyển cử với chế độ
+      phổ thông đầu phiếu.
+
+      <br><br>
+
+      Điều đó thể hiện tinh thần dân chủ:
+      nhân dân trực tiếp lựa chọn
+      người đại diện cho mình,
+      qua đó thực hiện quyền làm chủ nhà nước.
+    `,
+
+    question:
+      "Hãy chọn chi tiết thể hiện quyền làm chủ của nhân dân thông qua việc trực tiếp lựa chọn người đại diện."
+  },
+
+
+  {
+    id:"happiness",
+
+    x:36,
+    y:78,
+
+    title:"ĐỘC LẬP GẮN VỚI TỰ DO, HẠNH PHÚC",
+
+    body:`
+      Trong tư tưởng Hồ Chí Minh,
+      độc lập dân tộc không chỉ dừng ở việc
+      thoát khỏi ách thống trị,
+      mà còn phải gắn với
+      <strong class="gold">
+        tự do,
+        hạnh phúc
+        và đời sống của nhân dân
+      </strong>.
+
+      <br><br>
+
+      Vì vậy sau khi giành độc lập,
+      nhà nước mới phải chăm lo
+      đời sống nhân dân,
+      chống đói,
+      chống dốt,
+      xây dựng xã hội tốt đẹp hơn.
+    `,
+
+    question:
+      "Hãy chọn chi tiết thể hiện ý nghĩa của độc lập gắn với quyền lợi và đời sống của nhân dân."
+  }
+
+];
+
+
+/* ===== BẮT ĐẦU TOPIC 02 ===== */
+
+function startFinalTopic2(){
+
+  finalTopic2Visited =
+    new Set();
+
+  finalTopic2QuizActive =
+    false;
+
+  finalTopic2QuizTarget =
+    null;
+
+  finalTopic2Complete =
+    false;
+
+
+  hud.style.display =
+    "flex";
+
+
+  document
+    .getElementById("hearts")
+    .style.visibility =
+    "hidden";
+
+
+  document
+    .querySelector(
+      "#hud .hudBlock:last-child"
+    )
+    .firstChild.textContent =
+    "LEVEL 5 / 5";
+
+
+  document
+    .getElementById("progress")
+    .style.width =
+    "100%";
+
+
+  renderFinalTopic2();
+}
+
+
+/* ===== HIỂN THỊ TOPIC 02 ===== */
+
+function renderFinalTopic2(){
+
+  screen.innerHTML = `
+
+    <div class="content finalJourney">
+
+      <div class="finalJourneyTop">
+
+        <div class="finalJourneyHeading">
+
+          <div class="small">
+            FINAL JOURNEY · TOPIC 02
+          </div>
+
+          <div class="finalJourneyTitle">
+
+            1945 → 1946<br>
+
+            <span class="red">
+              ĐỘC LẬP & QUYỀN LÀM CHỦ
+            </span>
+
+          </div>
+
+        </div>
+
+        <div class="finalTopicProgress">
+
+          KHÁM PHÁ
+
+          <span id="finalTopic2ReadCount">
+            ${finalTopic2Visited.size}
+          </span>
+
+          / 5
+
+        </div>
+
+      </div>
+
+
+      <div class="finalTimeline">
+
+        <div class="finalTimelineItem">
+          1911–1930
+        </div>
+
+        <div class="finalTimelineItem active">
+          1945
+        </div>
+
+        <div class="finalTimelineItem locked">
+          1954–1969
+        </div>
+
+        <div class="finalTimelineItem locked">
+          1969–2026
+        </div>
+
+      </div>
+
+
+      <div
+        class="finalSceneFrame"
+        id="finalTopic2SceneFrame">
+
+        <img
+          class="finalSceneImage"
+          src="topic2-1945.png"
+          alt="Độc lập và quyền làm chủ của nhân dân giai đoạn 1945 đến 1946">
+
+        ${finalTopic2Points
+          .map(function(point){
+
+            return `
+              <button
+                class="
+                  finalHotspot
+                  ${
+                    finalTopic2Visited.has(point.id)
+                    ? "read"
+                    : ""
+                  }
+                "
+                data-final-topic2-point="${point.id}"
+                style="
+                  left:${point.x}%;
+                  top:${point.y}%;
+                "
+                aria-label="${point.title}">
+              </button>
+            `;
+
+          })
+          .join("")
+        }
+
+      </div>
+
+
+      <div class="finalDiscoverCount">
+
+        <span>
+          HỒ SƠ KIẾN THỨC · 1945–1946
+        </span>
+
+        <span id="finalTopic2DiscoverText">
+
+          ${
+            finalTopic2Visited.size < 5
+            ?
+            `ĐÃ KHÁM PHÁ ${finalTopic2Visited.size}/5`
+            :
+            "ĐỦ DỮ LIỆU"
+          }
+
+        </span>
+
+      </div>
+
+
+      <div
+        class="finalKnowledgePanel"
+        id="finalTopic2KnowledgePanel">
+
+        <div class="finalKnowledgeLabel">
+          DISCOVERY MODE
+        </div>
+
+        <div class="finalKnowledgeTitle">
+          KHÁM PHÁ BỨC ẢNH
+        </div>
+
+        Quan sát bức ảnh và tìm
+        <strong class="gold">5 điểm kiến thức</strong>.
+
+        <br><br>
+
+        Chủ đề này tập trung vào
+        <strong class="gold">
+          độc lập dân tộc
+        </strong>
+        và
+        <strong class="gold">
+          quyền làm chủ của nhân dân
+        </strong>
+        trong giai đoạn 1945–1946.
+
+      </div>
+
+
+      <button
+        class="btn finalMemoryBtn"
+        id="finalTopic2MemoryBtn"
+        style="
+          display:
+          ${
+            finalTopic2Visited.size === 5
+            ? "inline-block"
+            : "none"
+          };
+        ">
+
+        KIỂM TRA GHI NHỚ →
+
+      </button>
+
+    </div>
+  `;
+
+  setupFinalTopic2();
+}
+
+
+/* ===== GẮN SỰ KIỆN HOTSPOT ===== */
+
+function setupFinalTopic2(){
+
+  document
+    .querySelectorAll(
+      "[data-final-topic2-point]"
+    )
+    .forEach(function(hotspot){
+
+      hotspot.addEventListener(
+        "click",
+        function(){
+
+          const id =
+            hotspot.dataset.finalTopic2Point;
+
+          handleFinalTopic2Point(
+            id,
+            hotspot
+          );
+
+        }
+      );
+
+    });
+
+
+  const memoryBtn =
+    document.getElementById(
+      "finalTopic2MemoryBtn"
+    );
+
+  if(memoryBtn){
+
+    memoryBtn.addEventListener(
+      "click",
+      startFinalTopic2MemoryCheck
+    );
+
+  }
+}
+
+
+/* ===== CLICK VÀO CHI TIẾT ===== */
+
+function handleFinalTopic2Point(
+  id,
+  hotspot
+){
+
+  const point =
+    finalTopic2Points.find(
+      function(item){
+        return item.id === id;
+      }
+    );
+
+  if(!point) return;
+
+
+  if(finalTopic2QuizActive){
+
+    checkFinalTopic2Answer(
+      point,
+      hotspot
+    );
+
+    return;
+  }
+
+
+  const isNew =
+    !finalTopic2Visited.has(
+      point.id
+    );
+
+
+  if(isNew){
+
+    finalTopic2Visited.add(
+      point.id
+    );
+
+    xp += 50;
+
+    updateHUD();
+
+    hotspot.classList.add("read");
+  }
+
+
+  document
+    .getElementById(
+      "finalTopic2ReadCount"
+    )
+    .textContent =
+    finalTopic2Visited.size;
+
+
+  document
+    .getElementById(
+      "finalTopic2DiscoverText"
+    )
+    .textContent =
+
+    finalTopic2Visited.size === 5
+
+    ?
+
+    "ĐỦ DỮ LIỆU"
+
+    :
+
+    `ĐÃ KHÁM PHÁ ${finalTopic2Visited.size}/5`;
+
+
+  document
+    .getElementById(
+      "finalTopic2KnowledgePanel"
+    )
+    .innerHTML = `
+
+      <div class="finalKnowledgeLabel">
+        ${
+          isNew
+          ? "NEW DISCOVERY · +50 XP"
+          : "DISCOVERY REVIEW"
+        }
+      </div>
+
+      <div class="finalKnowledgeTitle">
+        ${point.title}
+      </div>
+
+      ${point.body}
+    `;
+
+
+  if(
+    finalTopic2Visited.size ===
+    finalTopic2Points.length
+  ){
+    document
+      .getElementById(
+        "finalTopic2MemoryBtn"
+      )
+      .style.display =
+      "inline-block";
+  }
+}
+
+
+/* ===== MEMORY CHECK ===== */
+
+function startFinalTopic2MemoryCheck(){
+
+  finalTopic2QuizActive =
+    true;
+
+
+  finalTopic2QuizTarget =
+
+    finalTopic2Points[
+      Math.floor(
+        Math.random()
+        *
+        finalTopic2Points.length
+      )
+    ];
+
+
+  document
+    .getElementById(
+      "finalTopic2MemoryBtn"
+    )
+    .style.display =
+    "none";
+
+
+  document
+    .getElementById(
+      "finalTopic2KnowledgePanel"
+    )
+    .innerHTML = `
+
+      <div class="finalKnowledgeLabel">
+        MEMORY CHECK · RANDOM QUESTION
+      </div>
+
+      <div class="finalQuizQuestion">
+        ${finalTopic2QuizTarget.question}
+      </div>
+
+      <div class="finalQuizHint">
+
+        Không có đáp án A / B / C.
+
+        <br><br>
+
+        Hãy bấm trực tiếp
+        vào chi tiết đúng
+        trên bức ảnh.
+
+      </div>
+    `;
+}
+
+
+/* ===== KIỂM TRA ĐÁP ÁN ===== */
+
+function checkFinalTopic2Answer(
+  selectedPoint,
+  hotspot
+){
+
+  if(
+    selectedPoint.id ===
+    finalTopic2QuizTarget.id
+  ){
+    completeFinalTopic2();
+    return;
+  }
+
+
+  hotspot.classList.remove(
+    "finalWrong"
+  );
+
+  void hotspot.offsetWidth;
+
+  hotspot.classList.add(
+    "finalWrong"
+  );
+
+
+  document
+    .getElementById(
+      "finalTopic2KnowledgePanel"
+    )
+    .innerHTML = `
+
+      <div
+        class="finalKnowledgeLabel"
+        style="color:#d86661">
+
+        MEMORY CHECK · CHƯA ĐÚNG
+
+      </div>
+
+      <div class="finalQuizQuestion">
+        ${finalTopic2QuizTarget.question}
+      </div>
+
+      <div class="finalQuizHint">
+
+        Chi tiết vừa chọn
+        chưa phải dữ liệu được hỏi.
+
+        <br><br>
+
+        Hãy quan sát lại bức ảnh
+        và thử một vị trí khác.
+
+      </div>
+    `;
+}
+
+
+/* ===== TOPIC 02 COMPLETE ===== */
+
+function completeFinalTopic2(){
+
+  if(finalTopic2Complete) return;
+
+  finalTopic2Complete =
+    true;
+
+  finalTopic2QuizActive =
+    false;
+
+  xp += 250;
+
+  updateHUD();
+
+
+  document
+    .getElementById(
+      "finalTopic2KnowledgePanel"
+    )
+    .innerHTML = `
+
+      <div class="finalSuccess">
+
+        <div class="finalSuccessStamp">
+          TOPIC 02 COMPLETE
+        </div>
+
+        <div class="finalKnowledgeTitle">
+          1945 → 1946
+        </div>
+
+        Bạn đã hoàn thành chặng thứ hai.
+
+        <br><br>
+
+        <span class="gold">
+
+          Từ Tuyên ngôn Độc lập
+          đến quyền làm chủ của nhân dân
+          trong nhà nước mới.
+
+        </span>
+
+        <br><br>
+
+        <strong class="gold">
+          MEMORY CHECK PASSED · +250 XP
+        </strong>
+
+        <br><br>
+
+        <button
+          class="btn"
+          id="finalTopic3Btn">
+
+          MỞ TOPIC 03 · 1954–1969 →
+
+        </button>
+
+      </div>
+    `;
+
+
+  document
+    .getElementById(
+      "finalTopic3Btn"
+    )
+    .addEventListener(
+      "click",
+      function(){
+
+        screen.innerHTML = `
+          <div class="content">
+
+            <div class="small">
+              FINAL JOURNEY · TOPIC 03
+            </div>
+
+            <h1>
+              1954–1969<br>
+              <span class="red">
+                COMING NEXT
+              </span>
+            </h1>
+
+            <p class="subtitle">
+              Topic 03 sẽ tiếp tục với:
+              xây dựng chủ nghĩa xã hội,
+              đại đoàn kết toàn dân tộc
+              và đạo đức cách mạng.
+            </p>
+
+          </div>
+        `;
+      }
+    );
 }
 </script>
 

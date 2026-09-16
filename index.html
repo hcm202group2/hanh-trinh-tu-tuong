@@ -2807,6 +2807,478 @@ button.finalHubCard:hover
   }
 
 }
+  /* ==================================================
+   LEVEL 4 · NATIONAL CRISIS ROOM
+================================================== */
+
+.level4Wrap{
+  width:min(1180px,100%);
+  margin:auto;
+}
+
+.level4Header{
+  width:min(1120px,100%);
+  margin:0 auto 24px;
+
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:25px;
+}
+
+.level4HeaderText{
+  text-align:left;
+}
+
+.level4HeaderText .small{
+  margin-bottom:10px;
+}
+
+.level4Title{
+  font-size:clamp(34px,5.5vw,64px);
+  line-height:.98;
+}
+
+.level4Period{
+  flex-shrink:0;
+
+  padding:12px 18px;
+
+  border:1px solid rgba(200,164,92,.35);
+  border-radius:8px;
+
+  background:rgba(200,164,92,.06);
+
+  color:#d4b66e;
+
+  font-size:12px;
+  letter-spacing:3px;
+}
+
+.level4Intro{
+  max-width:790px;
+  margin:0 auto 22px;
+
+  color:#a99d90;
+
+  font-size:14px;
+  line-height:1.7;
+}
+
+.level4IndexNote{
+  width:min(1120px,100%);
+  margin:0 auto 13px;
+
+  display:flex;
+  justify-content:space-between;
+  gap:15px;
+
+  color:#70665e;
+
+  font-size:9px;
+  letter-spacing:2px;
+  text-align:left;
+}
+
+.level4IndexNote strong{
+  color:#a98d50;
+  font-weight:normal;
+}
+
+
+/* ===== METERS ===== */
+
+.level4MeterGrid{
+  width:min(1120px,100%);
+  margin:0 auto;
+
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:13px;
+}
+
+.level4MeterCard{
+  position:relative;
+  overflow:hidden;
+
+  min-height:180px;
+
+  padding:18px;
+
+  border:
+    1px solid
+    rgba(200,164,92,.16);
+
+  border-radius:12px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255,255,255,.04),
+      rgba(255,255,255,.012)
+    );
+
+  text-align:left;
+
+  transition:
+    transform .25s ease,
+    border-color .25s ease,
+    box-shadow .25s ease;
+}
+
+.level4MeterCard:hover{
+  transform:translateY(-4px);
+
+  border-color:
+    rgba(200,164,92,.42);
+}
+
+.level4MeterCard::after{
+  content:"";
+
+  position:absolute;
+
+  top:-30%;
+  left:-55%;
+
+  width:35%;
+  height:160%;
+
+  transform:rotate(20deg);
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(236,205,126,.16),
+      transparent
+    );
+
+  opacity:0;
+}
+
+.level4MeterCard.boost::after{
+  animation:
+    level4MeterSweep .9s ease;
+}
+
+.level4MeterTop{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  margin-bottom:18px;
+}
+
+.level4MeterIcon{
+  width:42px;
+  height:42px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  border:
+    1px solid
+    rgba(200,164,92,.28);
+
+  border-radius:10px;
+
+  background:
+    rgba(200,164,92,.055);
+
+  color:#c8a45c;
+
+  transition:.3s;
+}
+
+.level4MeterCard.boost
+.level4MeterIcon{
+  box-shadow:
+    0 0 24px
+    rgba(200,164,92,.28);
+
+  transform:scale(1.08);
+}
+
+.level4MeterIcon svg{
+  width:24px;
+  height:24px;
+
+  fill:none;
+  stroke:currentColor;
+  stroke-width:1.7;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+
+.level4MeterValueWrap{
+  display:flex;
+  align-items:baseline;
+  gap:3px;
+}
+
+.level4MeterValue{
+  color:#ead5a0;
+
+  font-size:31px;
+  font-weight:bold;
+}
+
+.level4MeterMax{
+  color:#665e57;
+
+  font-size:10px;
+}
+
+.level4MeterName{
+  margin-bottom:5px;
+
+  color:#e8ddce;
+
+  font-size:13px;
+  letter-spacing:2px;
+}
+
+.level4MeterDesc{
+  min-height:29px;
+
+  color:#776d64;
+
+  font-size:10px;
+  line-height:1.45;
+}
+
+.level4MeterTrack{
+  position:relative;
+
+  height:6px;
+
+  margin-top:17px;
+
+  overflow:hidden;
+
+  border-radius:20px;
+
+  background:#2c2220;
+}
+
+.level4MeterFill{
+  width:0%;
+  height:100%;
+
+  border-radius:20px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #8d3733,
+      #c8a45c,
+      #e0c67f
+    );
+
+  box-shadow:
+    0 0 14px
+    rgba(200,164,92,.25);
+
+  transition:
+    width 1s
+    cubic-bezier(.2,.8,.2,1);
+}
+
+.level4Delta{
+  position:absolute;
+
+  right:17px;
+  bottom:37px;
+
+  color:#8fca84;
+
+  font-size:13px;
+  font-weight:bold;
+
+  opacity:0;
+  transform:translateY(8px);
+
+  pointer-events:none;
+}
+
+.level4Delta.show{
+  animation:
+    level4DeltaRise 1.25s ease;
+}
+
+
+/* ===== STATE CONSOLE ===== */
+
+.level4Console{
+  width:min(1120px,100%);
+
+  margin:18px auto 0;
+  padding:17px 19px;
+
+  display:grid;
+  grid-template-columns:1fr auto;
+  align-items:center;
+  gap:20px;
+
+  border-top:
+    1px solid
+    rgba(200,164,92,.16);
+
+  border-bottom:
+    1px solid
+    rgba(200,164,92,.16);
+
+  background:
+    rgba(0,0,0,.09);
+}
+
+.level4ConsoleText{
+  text-align:left;
+}
+
+.level4ConsoleLabel{
+  margin-bottom:6px;
+
+  color:#b83b38;
+
+  font-size:9px;
+  letter-spacing:4px;
+}
+
+.level4ConsoleStatus{
+  color:#c7bbad;
+
+  font-size:13px;
+  line-height:1.55;
+}
+
+.level4ConsoleStatus strong{
+  color:#d9bc75;
+}
+
+.level4PhaseRail{
+  width:min(1120px,100%);
+
+  margin:17px auto 0;
+
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:7px;
+}
+
+.level4Phase{
+  padding:9px 8px;
+
+  border-bottom:
+    2px solid
+    #352a27;
+
+  color:#615952;
+
+  font-size:9px;
+  letter-spacing:2px;
+}
+
+.level4Phase.active{
+  border-color:#c8a45c;
+  color:#c8a45c;
+}
+
+.level4PreviewActions{
+  margin-top:20px;
+
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  flex-wrap:wrap;
+}
+
+
+/* ===== ANIMATIONS ===== */
+
+@keyframes level4MeterSweep{
+
+  0%{
+    left:-55%;
+    opacity:0;
+  }
+
+  25%{
+    opacity:1;
+  }
+
+  100%{
+    left:130%;
+    opacity:0;
+  }
+
+}
+
+@keyframes level4DeltaRise{
+
+  0%{
+    opacity:0;
+    transform:
+      translateY(10px);
+  }
+
+  25%{
+    opacity:1;
+    transform:
+      translateY(0);
+  }
+
+  75%{
+    opacity:1;
+  }
+
+  100%{
+    opacity:0;
+    transform:
+      translateY(-10px);
+  }
+
+}
+
+
+/* ===== MOBILE ===== */
+
+@media(max-width:900px){
+
+  .level4MeterGrid{
+    grid-template-columns:
+      repeat(2,1fr);
+  }
+
+}
+
+@media(max-width:620px){
+
+  .level4Header{
+    flex-direction:column;
+    align-items:center;
+  }
+
+  .level4HeaderText{
+    text-align:center;
+  }
+
+  .level4MeterGrid{
+    grid-template-columns:1fr;
+  }
+
+  .level4Console{
+    grid-template-columns:1fr;
+  }
+
+  .level4IndexNote{
+    flex-direction:column;
+    text-align:center;
+  }
+
+}
 </style>
 </head>
 
@@ -6241,6 +6713,823 @@ function discoverEvidence(
 
       </div>
     `;
+}
+  /* ==================================================
+   LEVEL 4 · NATIONAL CRISIS ROOM
+   1945 → 1946
+================================================== */
+
+const level4InitialMetrics = {
+
+  welfare:20,
+  knowledge:10,
+  democracy:25,
+  trust:40
+
+};
+
+
+let level4Metrics = {
+  ...level4InitialMetrics
+};
+
+
+const level4MetricData = [
+
+  {
+    key:"welfare",
+
+    name:"DÂN SINH",
+
+    desc:
+      "Đời sống · lương thực · ổn định xã hội",
+
+    icon:`
+      <svg viewBox="0 0 24 24">
+
+        <path d="
+          M4 11
+          C5 17 8 20 12 20
+          C16 20 19 17 20 11
+          Z
+        "></path>
+
+        <path d="
+          M7 11
+          C8 8 10 7 12 7
+          C14 7 16 8 17 11
+        "></path>
+
+        <path d="M12 7V3"></path>
+
+        <path d="
+          M12 5
+          C10 5 9 4 9 3
+        "></path>
+
+        <path d="
+          M12 5
+          C14 5 15 4 15 3
+        "></path>
+
+      </svg>
+    `
+  },
+
+
+  {
+    key:"knowledge",
+
+    name:"TRI THỨC",
+
+    desc:
+      "Giáo dục · học chữ · năng lực con người",
+
+    icon:`
+      <svg viewBox="0 0 24 24">
+
+        <path d="
+          M3 5
+          C6 4 9 4 12 6
+          V19
+          C9 17 6 17 3 18
+          Z
+        "></path>
+
+        <path d="
+          M21 5
+          C18 4 15 4 12 6
+          V19
+          C15 17 18 17 21 18
+          Z
+        "></path>
+
+      </svg>
+    `
+  },
+
+
+  {
+    key:"democracy",
+
+    name:"DÂN CHỦ",
+
+    desc:
+      "Quyền làm chủ · đại diện · thể chế",
+
+    icon:`
+      <svg viewBox="0 0 24 24">
+
+        <rect
+          x="4"
+          y="10"
+          width="16"
+          height="10"
+          rx="1">
+        </rect>
+
+        <path d="M8 10V6H16V10"></path>
+
+        <path d="M9 15H15"></path>
+
+        <path d="M10 6L12 8L16 4"></path>
+
+      </svg>
+    `
+  },
+
+
+  {
+    key:"trust",
+
+    name:"NIỀM TIN",
+
+    desc:
+      "Đoàn kết · đồng thuận · gắn kết xã hội",
+
+    icon:`
+      <svg viewBox="0 0 24 24">
+
+        <circle
+          cx="8"
+          cy="7"
+          r="3">
+        </circle>
+
+        <circle
+          cx="16"
+          cy="7"
+          r="3">
+        </circle>
+
+        <path d="
+          M3 19
+          C3 14 5 12 8 12
+          C10 12 11 13 12 15
+        "></path>
+
+        <path d="
+          M21 19
+          C21 14 19 12 16 12
+          C14 12 13 13 12 15
+        "></path>
+
+        <path d="M8 17L12 20L16 17"></path>
+
+      </svg>
+    `
+  }
+
+];
+
+
+/* ===== START LEVEL 4 ===== */
+
+function startLevel4(){
+
+  level4Metrics = {
+    ...level4InitialMetrics
+  };
+
+
+  hud.style.display =
+    "flex";
+
+
+  document
+    .getElementById("hearts")
+    .style.visibility =
+    "hidden";
+
+
+  document
+    .querySelector(
+      "#hud .hudBlock:last-child"
+    )
+    .firstChild.textContent =
+    "LEVEL 4 / 5";
+
+
+  document
+    .getElementById("progress")
+    .style.width =
+    "80%";
+
+
+  renderLevel4Dashboard();
+
+}
+
+
+/* ===== RENDER DASHBOARD ===== */
+
+function renderLevel4Dashboard(){
+
+  screen.innerHTML = `
+
+    <div class="content level4Wrap">
+
+
+      <div class="level4Header">
+
+
+        <div class="level4HeaderText">
+
+          <div class="small">
+            LEVEL 04 · NATIONAL CRISIS ROOM
+          </div>
+
+          <div class="level4Title">
+
+            GIỮ VỮNG<br>
+
+            <span class="red">
+              NỀN ĐỘC LẬP
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <div class="level4Period">
+          1945 → 1946
+        </div>
+
+
+      </div>
+
+
+      <p class="level4Intro">
+
+        Một Nhà nước mới đã ra đời.
+
+        <br>
+
+        Trước mắt là những vấn đề
+        phải được giải quyết bằng
+        những quyết định có trách nhiệm.
+
+      </p>
+
+
+      <div class="level4IndexNote">
+
+        <span>
+          NATIONAL STABILITY INDEX
+        </span>
+
+        <strong>
+          CHỈ SỐ MÔ PHỎNG PHỤC VỤ GAMEPLAY
+          · KHÔNG PHẢI SỐ LIỆU THỐNG KÊ
+        </strong>
+
+      </div>
+
+
+      <div class="level4MeterGrid">
+
+        ${level4MetricData
+          .map(function(metric){
+
+            return `
+
+              <div
+                class="level4MeterCard"
+                id="level4Card-${metric.key}">
+
+
+                <div class="level4MeterTop">
+
+
+                  <div class="level4MeterIcon">
+
+                    ${metric.icon}
+
+                  </div>
+
+
+                  <div class="level4MeterValueWrap">
+
+                    <span
+                      class="level4MeterValue"
+                      id="level4Value-${metric.key}">
+                      0
+                    </span>
+
+                    <span class="level4MeterMax">
+                      /100
+                    </span>
+
+                  </div>
+
+
+                </div>
+
+
+                <div class="level4MeterName">
+
+                  ${metric.name}
+
+                </div>
+
+
+                <div class="level4MeterDesc">
+
+                  ${metric.desc}
+
+                </div>
+
+
+                <div class="level4MeterTrack">
+
+                  <div
+                    class="level4MeterFill"
+                    id="level4Fill-${metric.key}">
+                  </div>
+
+                </div>
+
+
+                <div
+                  class="level4Delta"
+                  id="level4Delta-${metric.key}">
+                </div>
+
+
+              </div>
+
+            `;
+
+          })
+          .join("")}
+
+      </div>
+
+
+      <div class="level4PhaseRail">
+
+        <div class="level4Phase active">
+          01 · CRISIS MANAGEMENT
+        </div>
+
+        <div class="level4Phase">
+          02 · STATE RECOVERY
+        </div>
+
+        <div class="level4Phase">
+          03 · STATE ARCHITECTURE
+        </div>
+
+      </div>
+
+
+      <div class="level4Console">
+
+
+        <div class="level4ConsoleText">
+
+          <div class="level4ConsoleLabel">
+            STATE CONSOLE
+          </div>
+
+          <div
+            class="level4ConsoleStatus"
+            id="level4ConsoleStatus">
+
+            Dashboard đã trực tuyến.
+
+            <br>
+
+            <strong>
+              5 NATIONAL CRISES
+            </strong>
+
+            đang chờ xử lý.
+
+          </div>
+
+        </div>
+
+
+        <div>
+          <span class="gold">
+            SYSTEM READY
+          </span>
+        </div>
+
+
+      </div>
+
+
+      <div class="level4PreviewActions">
+
+        <button
+          class="btn"
+          id="level4PreviewBtn">
+
+          CHẠY THỬ METER ANIMATION →
+
+        </button>
+
+      </div>
+
+
+    </div>
+
+  `;
+
+
+  /* animation lúc dashboard mở */
+
+  level4MetricData
+    .forEach(function(metric,index){
+
+      setTimeout(
+        function(){
+
+          setLevel4MetricVisual(
+
+            metric.key,
+
+            level4Metrics[
+              metric.key
+            ],
+
+            null
+
+          );
+
+        },
+
+        180 + index * 110
+
+      );
+
+    });
+
+
+  setupLevel4Preview();
+
+}
+
+
+/* ===== ANIMATE NUMBER ===== */
+
+function animateLevel4Number(
+  element,
+  from,
+  to,
+  duration = 850
+){
+
+  const start =
+    performance.now();
+
+
+  function frame(now){
+
+    const progress =
+      Math.min(
+        (now - start) / duration,
+        1
+      );
+
+
+    const eased =
+      1 -
+      Math.pow(
+        1 - progress,
+        3
+      );
+
+
+    element.textContent =
+      Math.round(
+        from +
+        (to - from) * eased
+      );
+
+
+    if(progress < 1){
+
+      requestAnimationFrame(
+        frame
+      );
+
+    }
+
+  }
+
+
+  requestAnimationFrame(
+    frame
+  );
+
+}
+
+
+/* ===== UPDATE VISUAL ===== */
+
+function setLevel4MetricVisual(
+  key,
+  newValue,
+  delta
+){
+
+  const value =
+    document.getElementById(
+      "level4Value-" + key
+    );
+
+
+  const fill =
+    document.getElementById(
+      "level4Fill-" + key
+    );
+
+
+  const card =
+    document.getElementById(
+      "level4Card-" + key
+    );
+
+
+  const deltaBox =
+    document.getElementById(
+      "level4Delta-" + key
+    );
+
+
+  if(
+    !value ||
+    !fill ||
+    !card
+  ){
+    return;
+  }
+
+
+  const current =
+    Number(
+      value.textContent
+    ) || 0;
+
+
+  const safeValue =
+    Math.max(
+      0,
+      Math.min(
+        100,
+        newValue
+      )
+    );
+
+
+  fill.style.width =
+    safeValue + "%";
+
+
+  animateLevel4Number(
+    value,
+    current,
+    safeValue
+  );
+
+
+  card.classList.remove(
+    "boost"
+  );
+
+
+  void card.offsetWidth;
+
+
+  card.classList.add(
+    "boost"
+  );
+
+
+  setTimeout(
+    function(){
+
+      card.classList.remove(
+        "boost"
+      );
+
+    },
+    950
+  );
+
+
+  if(
+    delta !== null &&
+    delta !== 0 &&
+    deltaBox
+  ){
+
+    deltaBox.textContent =
+      delta > 0
+      ? "+" + delta
+      : delta;
+
+
+    deltaBox.classList.remove(
+      "show"
+    );
+
+
+    void deltaBox.offsetWidth;
+
+
+    deltaBox.classList.add(
+      "show"
+    );
+
+  }
+
+}
+
+
+/* ===== PREVIEW ANIMATION ===== */
+
+let level4PreviewMode =
+  false;
+
+
+function setupLevel4Preview(){
+
+  const button =
+    document.getElementById(
+      "level4PreviewBtn"
+    );
+
+
+  if(!button) return;
+
+
+  button.addEventListener(
+    "click",
+    function(){
+
+
+      if(!level4PreviewMode){
+
+        level4PreviewMode =
+          true;
+
+
+        const preview = {
+
+          welfare:12,
+          knowledge:16,
+          democracy:10,
+          trust:8
+
+        };
+
+
+        Object
+          .keys(preview)
+          .forEach(
+            function(key,index){
+
+              setTimeout(
+                function(){
+
+                  const delta =
+                    preview[key];
+
+
+                  level4Metrics[key] =
+                    Math.min(
+                      100,
+                      level4Metrics[key]
+                      + delta
+                    );
+
+
+                  setLevel4MetricVisual(
+
+                    key,
+
+                    level4Metrics[key],
+
+                    delta
+
+                  );
+
+                },
+
+                index * 180
+
+              );
+
+            }
+          );
+
+
+        document
+          .getElementById(
+            "level4ConsoleStatus"
+          )
+          .innerHTML = `
+
+            <strong>
+              POLICY EFFECT SIMULATION
+            </strong>
+
+            <br>
+
+            Các chỉ số đang phản ứng
+            với quyết định của người chơi.
+
+          `;
+
+
+        button.textContent =
+          "RESET DASHBOARD →";
+
+      }
+
+      else{
+
+        level4PreviewMode =
+          false;
+
+
+        level4Metrics = {
+          ...level4InitialMetrics
+        };
+
+
+        Object
+          .keys(level4Metrics)
+          .forEach(
+            function(key){
+
+              setLevel4MetricVisual(
+
+                key,
+
+                level4Metrics[key],
+
+                null
+
+              );
+
+            }
+          );
+
+
+        document
+          .getElementById(
+            "level4ConsoleStatus"
+          )
+          .innerHTML = `
+
+            Dashboard đã được reset.
+
+            <br>
+
+            <strong>
+              5 NATIONAL CRISES
+            </strong>
+
+            đang chờ xử lý.
+
+          `;
+
+
+        button.textContent =
+          "CHẠY THỬ METER ANIMATION →";
+
+      }
+
+    }
+  );
+
+}
+
+
+/* ==================================================
+   TEST RIÊNG LEVEL 4
+   KHÔNG ẢNH HƯỞNG FLOW CHÍNH
+================================================== */
+
+if(
+
+  new URLSearchParams(
+    window.location.search
+  ).get("level4test") === "1"
+
+){
+
+  setTimeout(
+    startLevel4,
+    0
+  );
+
 }
   /* ==================================================
    LEVEL 5 · FINAL JOURNEY

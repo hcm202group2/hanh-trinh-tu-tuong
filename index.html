@@ -4102,7 +4102,387 @@ button.level4DecisionChoice.answerReveal{
   /* ==================================================
    LEVEL 4 · CRISIS TRANSITION
 ================================================== */
+/* ==================================================
+   CRISIS 02 · LITERACY VISUAL
+================================================== */
 
+.level4LiteracyVisual{
+  position:relative;
+
+  height:170px;
+
+  margin:22px 0 5px;
+
+  overflow:hidden;
+
+  border:
+    1px solid
+    rgba(200,164,92,.14);
+
+  border-radius:12px;
+
+  background:
+    radial-gradient(
+      circle at 50% 55%,
+      rgba(200,164,92,.07),
+      rgba(0,0,0,.22) 68%
+    );
+}
+
+
+/* ===== FADED LETTERS ===== */
+
+.literacyLetter{
+  position:absolute;
+
+  color:#8f8172;
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-weight:bold;
+
+  opacity:.22;
+
+  filter:blur(2px);
+
+  transition:
+    color .7s ease,
+    opacity .7s ease,
+    filter .7s ease,
+    transform .7s ease,
+    text-shadow .7s ease;
+
+  animation:
+    literacyFloat 3.2s
+    ease-in-out infinite alternate;
+}
+
+.literacyLetter.l1{
+  left:11%;
+  top:25px;
+
+  font-size:34px;
+}
+
+.literacyLetter.l2{
+  left:28%;
+  bottom:31px;
+
+  font-size:26px;
+
+  animation-delay:.5s;
+}
+
+.literacyLetter.l3{
+  right:29%;
+  top:28px;
+
+  font-size:29px;
+
+  animation-delay:1s;
+}
+
+.literacyLetter.l4{
+  right:10%;
+  bottom:29px;
+
+  font-size:35px;
+
+  animation-delay:1.5s;
+}
+
+
+/* ===== CENTRAL BOOK ===== */
+
+.literacyBook{
+  position:absolute;
+
+  left:50%;
+  top:48%;
+
+  width:78px;
+  height:58px;
+
+  transform:
+    translate(-50%,-50%);
+
+  color:#a98a55;
+
+  opacity:.55;
+
+  transition:
+    color .7s ease,
+    opacity .7s ease,
+    filter .7s ease,
+    transform .7s ease;
+}
+
+.literacyBook svg{
+  width:100%;
+  height:100%;
+
+  fill:none;
+
+  stroke:currentColor;
+  stroke-width:1.4;
+
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+
+
+/* ===== CLASSROOM NODES ===== */
+
+.literacyNode{
+  position:absolute;
+
+  width:8px;
+  height:8px;
+
+  border-radius:50%;
+
+  background:#813a37;
+
+  box-shadow:
+    0 0 0 5px
+    rgba(184,59,56,.06);
+
+  transition:
+    background .6s ease,
+    box-shadow .6s ease,
+    transform .6s ease;
+}
+
+.literacyNode.n1{
+  left:15%;
+  top:52%;
+}
+
+.literacyNode.n2{
+  left:33%;
+  top:25%;
+}
+
+.literacyNode.n3{
+  right:33%;
+  top:25%;
+}
+
+.literacyNode.n4{
+  right:15%;
+  top:52%;
+}
+
+
+/* ===== CONNECTION LINES ===== */
+
+.literacyLine{
+  position:absolute;
+
+  height:1px;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(184,59,56,.55),
+      transparent
+    );
+
+  opacity:.35;
+
+  transition:
+    background .7s ease,
+    opacity .7s ease,
+    box-shadow .7s ease;
+}
+
+.literacyLine.line1{
+  width:120px;
+
+  left:18%;
+  top:55%;
+
+  transform:
+    rotate(-14deg);
+}
+
+.literacyLine.line2{
+  width:120px;
+
+  right:18%;
+  top:55%;
+
+  transform:
+    rotate(194deg);
+}
+
+
+/* ===== STATUS ===== */
+
+.literacyVisualStatus{
+  position:absolute;
+
+  left:0;
+  right:0;
+  bottom:8px;
+
+  text-align:center;
+
+  color:#95534f;
+
+  font-size:8px;
+  letter-spacing:3px;
+
+  transition:
+    color .6s ease,
+    text-shadow .6s ease;
+}
+
+
+/* ==================================================
+   SUCCESS · KNOWLEDGE NETWORK ACTIVE
+================================================== */
+
+.level4LiteracyVisual.literacySuccess
+.literacyLetter{
+  color:#e3ca83;
+
+  opacity:.95;
+
+  filter:blur(0);
+
+  transform:
+    translateY(-3px);
+
+  text-shadow:
+    0 0 15px
+    rgba(200,164,92,.35);
+}
+
+.level4LiteracyVisual.literacySuccess
+.literacyBook{
+  color:#e4c870;
+
+  opacity:1;
+
+  transform:
+    translate(-50%,-50%)
+    scale(1.08);
+
+  filter:
+    drop-shadow(
+      0 0 10px
+      rgba(200,164,92,.35)
+    );
+}
+
+.level4LiteracyVisual.literacySuccess
+.literacyNode{
+  background:#83ad78;
+
+  box-shadow:
+    0 0 0 7px
+    rgba(100,160,90,.1),
+    0 0 18px
+    rgba(100,160,90,.28);
+
+  transform:scale(1.15);
+}
+
+.level4LiteracyVisual.literacySuccess
+.literacyLine{
+  opacity:1;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      #c8a45c,
+      transparent
+    );
+
+  box-shadow:
+    0 0 10px
+    rgba(200,164,92,.45);
+}
+
+.level4LiteracyVisual.literacySuccess
+.literacyVisualStatus{
+  color:#9fc895;
+
+  text-shadow:
+    0 0 14px
+    rgba(90,150,80,.28);
+}
+
+
+/* ==================================================
+   FAILURE
+================================================== */
+
+.level4LiteracyVisual.literacyFailure{
+  animation:
+    literacyFailureFlash
+    .45s ease;
+}
+
+.level4LiteracyVisual.literacyFailure
+.literacyLetter{
+  color:#b6534f;
+
+  opacity:.32;
+
+  filter:blur(3px);
+}
+
+.level4LiteracyVisual.literacyFailure
+.literacyNode{
+  background:#b83b38;
+
+  box-shadow:
+    0 0 15px
+    rgba(184,59,56,.22);
+}
+
+.level4LiteracyVisual.literacyFailure
+.literacyVisualStatus{
+  color:#d05b57;
+}
+
+
+/* ===== ANIMATIONS ===== */
+
+@keyframes literacyFloat{
+
+  from{
+    transform:
+      translateY(-2px);
+  }
+
+  to{
+    transform:
+      translateY(5px);
+  }
+
+}
+
+@keyframes literacyFailureFlash{
+
+  0%,100%{
+    background-color:
+      transparent;
+  }
+
+  45%{
+    background-color:
+      rgba(184,59,56,.13);
+  }
+
+}
 .level4TransitionScreen{
   position:relative;
   overflow:hidden;
@@ -8834,6 +9214,163 @@ const level4Crises = [
       phát động tăng gia sản xuất
       và tổ chức cứu đói,
       lạc quyên lương thực.
+    `
+
+  },
+
+
+  {
+    id:"literacy",
+
+    number:"02",
+
+    code:"NATIONAL EMERGENCY · 02",
+
+    date:"THÁNG 9 · 1945",
+
+    name:"GIẶC DỐT",
+
+    title:
+      "KHẨN CẤP DÂN TRÍ",
+
+    context:`
+      Sau khi giành được độc lập,
+      nạn mù chữ vẫn là một thách thức
+      rất lớn đối với xã hội.
+
+      <br><br>
+
+      Một nhà nước mới không chỉ
+      cần giải quyết đời sống trước mắt,
+      mà còn phải giúp người dân
+      biết đọc, biết viết và có khả năng
+      tham gia vào công cuộc xây dựng đất nước.
+    `,
+
+    question:
+      "Quyết định nào phù hợp nhất để nhanh chóng mở rộng việc học chữ trong điều kiện đất nước còn thiếu thốn?",
+
+    choices:[
+
+
+      {
+        text:
+          "Chờ xây dựng đủ trường lớp và ngân sách rồi mới triển khai chương trình xóa mù chữ trên quy mô lớn.",
+
+        correct:false,
+
+        effects:{
+          knowledge:-6,
+          trust:-3
+        },
+
+        explanation:`
+          Nếu chờ đầy đủ cơ sở vật chất
+          mới hành động,
+          chiến dịch chống nạn mù chữ
+          sẽ bị trì hoãn.
+
+          Trong hoàn cảnh lúc đó,
+          yêu cầu đặt ra là phải
+          huy động nguồn lực xã hội
+          và triển khai ngay.
+        `
+      },
+
+
+      {
+        text:
+          "Tổ chức Bình dân học vụ rộng khắp, mở lớp học chữ Quốc ngữ, miễn học phí và huy động người biết chữ tham gia dạy học.",
+
+        correct:true,
+
+        effects:{
+          knowledge:20,
+          democracy:4,
+          trust:3
+        },
+
+        explanation:`
+          Đây là hướng phù hợp với
+          chính sách chống nạn mù chữ
+          được triển khai sau khi
+          nước Việt Nam mới giành độc lập.
+
+          Bình dân học vụ giúp mở rộng
+          việc học chữ trong nhân dân,
+          tận dụng sức dân
+          trong điều kiện Nhà nước
+          còn rất thiếu nguồn lực.
+        `
+      },
+
+
+      {
+        text:
+          "Chỉ tập trung đào tạo cán bộ trong bộ máy nhà nước, chưa cần phổ cập việc biết chữ trong nhân dân.",
+
+        correct:false,
+
+        effects:{
+          knowledge:-4,
+          democracy:-3
+        },
+
+        explanation:`
+          Nâng cao trình độ của cán bộ
+          là cần thiết,
+          nhưng chống nạn mù chữ
+          được đặt ra như một nhiệm vụ
+          rộng khắp trong toàn dân.
+
+          Chỉ giới hạn giáo dục
+          trong bộ máy nhà nước
+          sẽ không đáp ứng mục tiêu đó.
+        `
+      },
+
+
+      {
+        text:
+          "Chủ yếu tuyên truyền về lợi ích của việc học chữ, chưa cần tổ chức hệ thống lớp học cụ thể.",
+
+        correct:false,
+
+        effects:{
+          knowledge:-3,
+          trust:-2
+        },
+
+        explanation:`
+          Tuyên truyền có thể tạo
+          động lực học tập,
+          nhưng không thể thay thế
+          việc tổ chức lớp học,
+          người dạy và cơ chế
+          triển khai trên thực tế.
+        `
+      }
+
+    ],
+
+
+    historicalNote:`
+      Ngày 3/9/1945,
+      tại phiên họp đầu tiên
+      của Chính phủ lâm thời,
+      Chủ tịch Hồ Chí Minh đề nghị
+      mở một chiến dịch
+      chống nạn mù chữ.
+
+      <br><br>
+
+      Ngày 8/9/1945,
+      các chính sách về
+      Bình dân học vụ được ban hành,
+      trong đó có việc tổ chức
+      các lớp học bình dân
+      và học chữ Quốc ngữ
+      không mất tiền.
     `
 
   }

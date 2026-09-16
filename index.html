@@ -3680,7 +3680,425 @@ button.level4DecisionChoice.answerReveal{
 
 
 /* ===== CRISIS ANIMATIONS ===== */
+/* ==================================================
+   CRISIS 01 · FOOD RELIEF VISUAL
+================================================== */
 
+.level4FoodVisual{
+  position:relative;
+
+  height:155px;
+
+  margin:22px 0 5px;
+
+  overflow:hidden;
+
+  border:
+    1px solid
+    rgba(200,164,92,.14);
+
+  border-radius:12px;
+
+  background:
+    radial-gradient(
+      circle at 50% 70%,
+      rgba(200,164,92,.08),
+      rgba(0,0,0,.2) 65%
+    );
+}
+
+
+/* ===== ROUTES ===== */
+
+.foodRoute{
+  position:absolute;
+
+  height:1px;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(184,59,56,.15),
+      rgba(184,59,56,.75),
+      rgba(184,59,56,.15)
+    );
+
+  transform-origin:left center;
+
+  transition:
+    background .6s ease,
+    box-shadow .6s ease;
+}
+
+.foodRoute.r1{
+  width:95px;
+  left:24px;
+  top:53px;
+
+  transform:
+    rotate(22deg);
+}
+
+.foodRoute.r2{
+  width:105px;
+  right:24px;
+  top:52px;
+
+  transform:
+    rotate(158deg);
+}
+
+.foodRoute.r3{
+  width:82px;
+  left:52px;
+  bottom:34px;
+
+  transform:
+    rotate(-17deg);
+}
+
+.foodRoute.r4{
+  width:82px;
+  right:52px;
+  bottom:34px;
+
+  transform:
+    rotate(197deg);
+}
+
+
+/* ===== SUPPLY POINTS ===== */
+
+.foodNode{
+  position:absolute;
+
+  width:9px;
+  height:9px;
+
+  border-radius:50%;
+
+  background:#963d39;
+
+  box-shadow:
+    0 0 0 5px
+    rgba(184,59,56,.07);
+
+  animation:
+    foodNodePulse 1.7s infinite;
+
+  transition:
+    background .5s,
+    box-shadow .5s;
+}
+
+.foodNode.n1{
+  left:21px;
+  top:42px;
+}
+
+.foodNode.n2{
+  right:21px;
+  top:42px;
+}
+
+.foodNode.n3{
+  left:46px;
+  bottom:27px;
+}
+
+.foodNode.n4{
+  right:46px;
+  bottom:27px;
+}
+
+
+/* ===== CENTRAL STORE ===== */
+
+.foodStore{
+  position:absolute;
+
+  left:50%;
+  top:50%;
+
+  width:64px;
+  height:64px;
+
+  transform:
+    translate(-50%,-44%);
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  border:
+    1px solid
+    rgba(200,164,92,.3);
+
+  border-radius:50%;
+
+  background:
+    rgba(200,164,92,.055);
+
+  color:#c8a45c;
+
+  transition:
+    .65s ease;
+}
+
+.foodStore svg{
+  width:31px;
+  height:31px;
+
+  fill:none;
+  stroke:currentColor;
+  stroke-width:1.6;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+
+
+/* ===== MOVING GRAINS ===== */
+
+.foodGrain{
+  position:absolute;
+
+  width:5px;
+  height:9px;
+
+  border-radius:
+    60% 40% 60% 40%;
+
+  background:#b89158;
+
+  opacity:.35;
+
+  pointer-events:none;
+}
+
+.foodGrain.g1{
+  left:18%;
+  top:31%;
+
+  animation:
+    foodGrain1 3.2s
+    infinite linear;
+}
+
+.foodGrain.g2{
+  right:18%;
+  top:31%;
+
+  animation:
+    foodGrain2 2.8s
+    infinite linear;
+}
+
+.foodGrain.g3{
+  left:28%;
+  bottom:20%;
+
+  animation:
+    foodGrain3 3.5s
+    infinite linear;
+}
+
+.foodGrain.g4{
+  right:28%;
+  bottom:20%;
+
+  animation:
+    foodGrain4 3s
+    infinite linear;
+}
+
+
+/* ===== STATUS ===== */
+
+.foodVisualStatus{
+  position:absolute;
+
+  left:0;
+  right:0;
+  bottom:8px;
+
+  text-align:center;
+
+  color:#9b5a55;
+
+  font-size:8px;
+  letter-spacing:3px;
+
+  transition:
+    color .5s;
+}
+
+
+/* ===== SUCCESS STATE ===== */
+
+.level4FoodVisual.relief
+.foodRoute{
+  background:
+    linear-gradient(
+      90deg,
+      rgba(200,164,92,.1),
+      #c8a45c,
+      rgba(200,164,92,.1)
+    );
+
+  box-shadow:
+    0 0 10px
+    rgba(200,164,92,.45);
+}
+
+.level4FoodVisual.relief
+.foodNode{
+  background:#88b27d;
+
+  box-shadow:
+    0 0 13px
+    rgba(105,165,90,.55);
+}
+
+.level4FoodVisual.relief
+.foodStore{
+  color:#e2c979;
+
+  border-color:#c8a45c;
+
+  background:
+    rgba(200,164,92,.13);
+
+  box-shadow:
+    0 0 32px
+    rgba(200,164,92,.28);
+
+  transform:
+    translate(-50%,-44%)
+    scale(1.08);
+}
+
+.level4FoodVisual.relief
+.foodGrain{
+  opacity:1;
+
+  background:#e0c277;
+}
+
+.level4FoodVisual.relief
+.foodVisualStatus{
+  color:#91b98b;
+}
+
+
+/* ===== FAILURE STATE ===== */
+
+.level4FoodVisual.supplyFailure{
+  animation:
+    foodFailureFlash .65s ease;
+}
+
+.level4FoodVisual.supplyFailure
+.foodNode{
+  background:#d45e59;
+
+  box-shadow:
+    0 0 18px
+    rgba(184,59,56,.55);
+}
+
+.level4FoodVisual.supplyFailure
+.foodVisualStatus{
+  color:#dc706b;
+}
+
+
+/* ===== ANIMATION ===== */
+
+@keyframes foodNodePulse{
+
+  0%,100%{
+    transform:scale(1);
+  }
+
+  50%{
+    transform:scale(1.35);
+  }
+
+}
+
+@keyframes foodGrain1{
+
+  from{
+    transform:
+      translate(0,0)
+      rotate(0deg);
+  }
+
+  to{
+    transform:
+      translate(95px,37px)
+      rotate(180deg);
+  }
+
+}
+
+@keyframes foodGrain2{
+
+  from{
+    transform:
+      translate(0,0)
+      rotate(0deg);
+  }
+
+  to{
+    transform:
+      translate(-95px,37px)
+      rotate(-180deg);
+  }
+
+}
+
+@keyframes foodGrain3{
+
+  from{
+    transform:
+      translate(0,0);
+  }
+
+  to{
+    transform:
+      translate(56px,-42px);
+  }
+
+}
+
+@keyframes foodGrain4{
+
+  from{
+    transform:
+      translate(0,0);
+  }
+
+  to{
+    transform:
+      translate(-56px,-42px);
+  }
+
+}
+
+@keyframes foodFailureFlash{
+
+  0%,100%{
+    background-color:
+      transparent;
+  }
+
+  45%{
+    background-color:
+      rgba(184,59,56,.14);
+  }
+
+}
 @keyframes level4WrongDecision{
 
   0%,100%{
@@ -8326,7 +8744,69 @@ function renderLevel4Crisis(index){
             ${crisis.name}
 
           </div>
+${crisis.id === "food" ? `
 
+  <div
+    class="level4FoodVisual"
+    id="level4FoodVisual">
+
+
+    <div class="foodRoute r1"></div>
+    <div class="foodRoute r2"></div>
+    <div class="foodRoute r3"></div>
+    <div class="foodRoute r4"></div>
+
+
+    <div class="foodNode n1"></div>
+    <div class="foodNode n2"></div>
+    <div class="foodNode n3"></div>
+    <div class="foodNode n4"></div>
+
+
+    <div class="foodGrain g1"></div>
+    <div class="foodGrain g2"></div>
+    <div class="foodGrain g3"></div>
+    <div class="foodGrain g4"></div>
+
+
+    <div class="foodStore">
+
+      <svg viewBox="0 0 24 24">
+
+        <path d="
+          M4 12
+          C5 17 8 20 12 20
+          C16 20 19 17 20 12
+          Z
+        ">
+        </path>
+
+        <path d="
+          M7 12
+          C8 9 10 8 12 8
+          C14 8 16 9 17 12
+        ">
+        </path>
+
+        <path d="M12 8V3"></path>
+
+      </svg>
+
+    </div>
+
+
+    <div
+      class="foodVisualStatus"
+      id="foodVisualStatus">
+
+      FOOD SUPPLY NETWORK · CRITICAL
+
+    </div>
+
+
+  </div>
+
+` : ""}
 
           <div class="level4CrisisContext">
 
@@ -8572,7 +9052,58 @@ function handleLevel4Decision(
 
   }
 
+  const foodVisual =
+    document.getElementById(
+      "level4FoodVisual"
+    );
 
+
+  const foodStatus =
+    document.getElementById(
+      "foodVisualStatus"
+    );
+
+
+  if(
+    crisis.id === "food" &&
+    foodVisual
+  ){
+
+    if(choice.correct){
+
+      foodVisual
+        .classList.add(
+          "relief"
+        );
+
+
+      if(foodStatus){
+
+        foodStatus.textContent =
+          "RELIEF NETWORK ACTIVE · SUPPLY FLOW IMPROVING";
+
+      }
+
+    }
+
+    else{
+
+      foodVisual
+        .classList.add(
+          "supplyFailure"
+        );
+
+
+      if(foodStatus){
+
+        foodStatus.textContent =
+          "SUPPLY PRESSURE INCREASING";
+
+      }
+
+    }
+
+  }
   if(firstResolution){
 
     level4ResolvedCrises

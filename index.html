@@ -7379,40 +7379,816 @@ function completeFinalTopic2(){
     `;
 
 
+ document
+  .getElementById("finalTopic3Btn")
+  .addEventListener("click", startFinalTopic3);
+}
+  /* ==================================================
+   TOPIC 03 · 1954 → 1969
+================================================== */
+
+let finalTopic3Visited = new Set();
+
+let finalTopic3QuizActive = false;
+
+let finalTopic3QuizTarget = null;
+
+let finalTopic3Complete = false;
+
+  const finalTopic3Points = [
+
+  {
+    id:"socialism",
+
+    x:22,
+    y:27,
+
+    title:"XÂY DỰNG CHỦ NGHĨA XÃ HỘI Ở MIỀN BẮC",
+
+    body:`
+      Sau năm 1954,
+      miền Bắc bước vào thời kỳ
+      xây dựng chủ nghĩa xã hội.
+
+      <br><br>
+
+      Trong tư tưởng Hồ Chí Minh,
+      nhiệm vụ này gắn với phát triển sản xuất,
+      nâng cao đời sống nhân dân
+      và xây dựng những cơ sở
+      cho một xã hội mới.
+
+      <br><br>
+
+      Miền Bắc đồng thời trở thành
+      cơ sở quan trọng cho mục tiêu
+      thống nhất đất nước.
+    `,
+
+    question:
+      "Hãy chọn chi tiết thể hiện công cuộc lao động, sản xuất và xây dựng miền Bắc trong thời kỳ quá độ lên chủ nghĩa xã hội."
+  },
+
+
+  {
+    id:"unityNation",
+
+    x:51,
+    y:36,
+
+    title:"XÂY DỰNG MIỀN BẮC · HƯỚNG TỚI THỐNG NHẤT",
+
+    body:`
+      Hồ Chí Minh xác định
+      xây dựng miền Bắc tiến lên chủ nghĩa xã hội
+      có quan hệ chặt chẽ với
+      nhiệm vụ đấu tranh thống nhất nước nhà.
+
+      <br><br>
+
+      Miền Bắc được xây dựng vững mạnh
+      để tạo cơ sở cho sự nghiệp
+      giải phóng miền Nam
+      và thống nhất đất nước.
+    `,
+
+    question:
+      "Hãy chọn chi tiết biểu tượng cho mối liên hệ giữa xây dựng miền Bắc và mục tiêu thống nhất đất nước."
+  },
+
+
+  {
+    id:"peoplePower",
+
+    x:79,
+    y:28,
+
+    title:"SỨC MẠNH NHÂN DÂN VÀ TINH THẦN TẬP THỂ",
+
+    body:`
+      Hồ Chí Minh đặc biệt coi trọng
+      việc phát huy vai trò của nhân dân.
+
+      <br><br>
+
+      Con người trong xã hội mới
+      cần có ý thức làm chủ,
+      tinh thần tập thể,
+      trách nhiệm với cộng đồng
+      và cùng tham gia xây dựng đất nước.
+
+      <br><br>
+
+      Đó là một cơ sở quan trọng
+      để phát huy sức mạnh đoàn kết.
+    `,
+
+    question:
+      "Hãy chọn chi tiết thể hiện sức mạnh của cộng đồng và tinh thần cùng tham gia xây dựng đất nước."
+  },
+
+
+  {
+    id:"ethics",
+
+    x:28,
+    y:74,
+
+    title:"ĐẠO ĐỨC CÁCH MẠNG",
+
+    body:`
+      Hồ Chí Minh nhấn mạnh
+      đạo đức cách mạng phải được
+      rèn luyện thường xuyên
+      trong thực tiễn.
+
+      <br><br>
+
+      Người cách mạng cần đặt
+      lợi ích chung,
+      lợi ích của nhân dân
+      lên trên lợi ích cá nhân
+      và chống chủ nghĩa cá nhân.
+
+      <br><br>
+
+      Đạo đức cách mạng
+      không tự nhiên mà có,
+      mà được hình thành qua
+      quá trình tu dưỡng bền bỉ.
+    `,
+
+    question:
+      "Hãy chọn chi tiết gắn với tư tưởng về quá trình tu dưỡng và rèn luyện đạo đức cách mạng."
+  },
+
+
+  {
+    id:"education",
+
+    x:78,
+    y:76,
+
+    title:"GIÁO DỤC VÀ XÂY DỰNG CON NGƯỜI",
+
+    body:`
+      Hồ Chí Minh coi giáo dục
+      và việc bồi dưỡng con người
+      là nội dung quan trọng
+      trong xây dựng xã hội mới.
+
+      <br><br>
+
+      Ngay trong hoàn cảnh khó khăn,
+      Người vẫn nhấn mạnh
+      việc tiếp tục
+      <strong class="gold">
+        dạy tốt và học tốt
+      </strong>.
+
+      <br><br>
+
+      Xây dựng đất nước
+      không chỉ cần cơ sở vật chất,
+      mà còn cần những con người
+      có tri thức,
+      đạo đức và trách nhiệm.
+    `,
+
+    question:
+      "Hãy chọn chi tiết thể hiện vai trò của giáo dục và bồi dưỡng con người trong xây dựng xã hội mới."
+  }
+
+];
+
+
+/* ===== BẮT ĐẦU TOPIC 03 ===== */
+
+function startFinalTopic3(){
+
+  finalTopic3Visited = new Set();
+
+  finalTopic3QuizActive = false;
+
+  finalTopic3QuizTarget = null;
+
+  finalTopic3Complete = false;
+
+
+  hud.style.display = "flex";
+
+
+  document
+    .getElementById("hearts")
+    .style.visibility = "hidden";
+
+
+  document
+    .querySelector(
+      "#hud .hudBlock:last-child"
+    )
+    .firstChild.textContent =
+    "LEVEL 5 / 5";
+
+
+  document
+    .getElementById("progress")
+    .style.width =
+    "100%";
+
+
+  renderFinalTopic3();
+}
+
+
+/* ===== HIỂN THỊ TOPIC 03 ===== */
+
+function renderFinalTopic3(){
+
+  screen.innerHTML = `
+
+    <div class="content finalJourney">
+
+      <div class="finalJourneyTop">
+
+        <div class="finalJourneyHeading">
+
+          <div class="small">
+            FINAL JOURNEY · TOPIC 03
+          </div>
+
+          <div class="finalJourneyTitle">
+
+            1954 → 1969<br>
+
+            <span class="red">
+              XÂY DỰNG CNXH · CON NGƯỜI
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <div class="finalTopicProgress">
+
+          KHÁM PHÁ
+
+          <span id="finalTopic3ReadCount">
+            ${finalTopic3Visited.size}
+          </span>
+
+          / 5
+
+        </div>
+
+      </div>
+
+
+      <div class="finalTimeline">
+
+        <div class="finalTimelineItem">
+          1911–1930
+        </div>
+
+        <div class="finalTimelineItem">
+          1945
+        </div>
+
+        <div class="finalTimelineItem active">
+          1954–1969
+        </div>
+
+        <div class="finalTimelineItem locked">
+          1969–2026
+        </div>
+
+      </div>
+
+
+      <div
+        class="finalSceneFrame"
+        id="finalTopic3SceneFrame">
+
+        <img
+          class="finalSceneImage"
+          src="topic3-1954-1969.png"
+          alt="Giai đoạn 1954 đến 1969">
+
+        ${finalTopic3Points
+          .map(function(point){
+
+            return `
+              <button
+                class="
+                  finalHotspot
+                  ${
+                    finalTopic3Visited.has(point.id)
+                    ? "read"
+                    : ""
+                  }
+                "
+
+                data-final-topic3-point="${point.id}"
+
+                style="
+                  left:${point.x}%;
+                  top:${point.y}%;
+                "
+
+                aria-label="${point.title}">
+              </button>
+            `;
+
+          })
+          .join("")
+        }
+
+      </div>
+
+
+      <div class="finalDiscoverCount">
+
+        <span>
+          HỒ SƠ KIẾN THỨC · 1954–1969
+        </span>
+
+        <span id="finalTopic3DiscoverText">
+
+          ${
+            finalTopic3Visited.size < 5
+
+            ?
+
+            `ĐÃ KHÁM PHÁ ${finalTopic3Visited.size}/5`
+
+            :
+
+            "ĐỦ DỮ LIỆU"
+          }
+
+        </span>
+
+      </div>
+
+
+      <div
+        class="finalKnowledgePanel"
+        id="finalTopic3KnowledgePanel">
+
+        <div class="finalKnowledgeLabel">
+          DISCOVERY MODE
+        </div>
+
+        <div class="finalKnowledgeTitle">
+          KHÁM PHÁ BỨC ẢNH
+        </div>
+
+        Quan sát bức ảnh
+        và mở đủ
+        <strong class="gold">
+          5 điểm kiến thức
+        </strong>.
+
+        <br><br>
+
+        Chặng này tập trung vào
+        xây dựng chủ nghĩa xã hội,
+        sức mạnh nhân dân,
+        đạo đức,
+        giáo dục
+        và xây dựng con người.
+
+      </div>
+
+
+      <button
+        class="btn finalMemoryBtn"
+        id="finalTopic3MemoryBtn"
+
+        style="
+          display:
+          ${
+            finalTopic3Visited.size === 5
+            ? "inline-block"
+            : "none"
+          };
+        ">
+
+        KIỂM TRA GHI NHỚ →
+
+      </button>
+
+    </div>
+  `;
+
+
+  setupFinalTopic3();
+}
+
+
+/* ===== GẮN SỰ KIỆN HOTSPOT ===== */
+
+function setupFinalTopic3(){
+
+  document
+    .querySelectorAll(
+      "[data-final-topic3-point]"
+    )
+    .forEach(function(hotspot){
+
+      hotspot.addEventListener(
+        "click",
+        function(){
+
+          const id =
+            hotspot.dataset.finalTopic3Point;
+
+          handleFinalTopic3Point(
+            id,
+            hotspot
+          );
+
+        }
+      );
+
+    });
+
+
+  const memoryBtn =
+    document.getElementById(
+      "finalTopic3MemoryBtn"
+    );
+
+
+  if(memoryBtn){
+
+    memoryBtn.addEventListener(
+      "click",
+      startFinalTopic3MemoryCheck
+    );
+
+  }
+}
+
+
+/* ===== CLICK HOTSPOT ===== */
+
+function handleFinalTopic3Point(
+  id,
+  hotspot
+){
+
+  const point =
+    finalTopic3Points.find(
+      function(item){
+
+        return item.id === id;
+
+      }
+    );
+
+
+  if(!point) return;
+
+
+  if(finalTopic3QuizActive){
+
+    checkFinalTopic3Answer(
+      point,
+      hotspot
+    );
+
+    return;
+  }
+
+
+  const isNew =
+    !finalTopic3Visited.has(
+      point.id
+    );
+
+
+  if(isNew){
+
+    finalTopic3Visited.add(
+      point.id
+    );
+
+
+    xp += 50;
+
+
+    updateHUD();
+
+
+    hotspot.classList.add(
+      "read"
+    );
+
+  }
+
+
   document
     .getElementById(
-      "finalTopic3Btn"
+      "finalTopic3ReadCount"
+    )
+    .textContent =
+    finalTopic3Visited.size;
+
+
+  document
+    .getElementById(
+      "finalTopic3DiscoverText"
+    )
+    .textContent =
+
+    finalTopic3Visited.size === 5
+
+    ?
+
+    "ĐỦ DỮ LIỆU"
+
+    :
+
+    `ĐÃ KHÁM PHÁ ${finalTopic3Visited.size}/5`;
+
+
+  document
+    .getElementById(
+      "finalTopic3KnowledgePanel"
+    )
+    .innerHTML = `
+
+      <div class="finalKnowledgeLabel">
+
+        ${
+          isNew
+          ? "NEW DISCOVERY · +50 XP"
+          : "DISCOVERY REVIEW"
+        }
+
+      </div>
+
+      <div class="finalKnowledgeTitle">
+        ${point.title}
+      </div>
+
+      ${point.body}
+    `;
+
+
+  if(
+    finalTopic3Visited.size ===
+    finalTopic3Points.length
+  ){
+
+    document
+      .getElementById(
+        "finalTopic3MemoryBtn"
+      )
+      .style.display =
+      "inline-block";
+
+  }
+}
+
+
+/* ===== MEMORY CHECK ===== */
+
+function startFinalTopic3MemoryCheck(){
+
+  finalTopic3QuizActive =
+    true;
+
+
+  finalTopic3QuizTarget =
+
+    finalTopic3Points[
+      Math.floor(
+        Math.random()
+        *
+        finalTopic3Points.length
+      )
+    ];
+
+
+  document
+    .getElementById(
+      "finalTopic3MemoryBtn"
+    )
+    .style.display =
+    "none";
+
+
+  document
+    .getElementById(
+      "finalTopic3KnowledgePanel"
+    )
+    .innerHTML = `
+
+      <div class="finalKnowledgeLabel">
+        MEMORY CHECK · RANDOM QUESTION
+      </div>
+
+      <div class="finalQuizQuestion">
+        ${finalTopic3QuizTarget.question}
+      </div>
+
+      <div class="finalQuizHint">
+
+        Không có đáp án A / B / C.
+
+        <br><br>
+
+        Hãy bấm trực tiếp
+        vào chi tiết đúng
+        trên bức ảnh.
+
+      </div>
+
+    `;
+}
+
+
+/* ===== KIỂM TRA ĐÁP ÁN ===== */
+
+function checkFinalTopic3Answer(
+  selectedPoint,
+  hotspot
+){
+
+  if(
+    selectedPoint.id ===
+    finalTopic3QuizTarget.id
+  ){
+
+    completeFinalTopic3();
+
+    return;
+  }
+
+
+  hotspot.classList.remove(
+    "finalWrong"
+  );
+
+
+  void hotspot.offsetWidth;
+
+
+  hotspot.classList.add(
+    "finalWrong"
+  );
+
+
+  document
+    .getElementById(
+      "finalTopic3KnowledgePanel"
+    )
+    .innerHTML = `
+
+      <div
+        class="finalKnowledgeLabel"
+        style="color:#d86661">
+
+        MEMORY CHECK · CHƯA ĐÚNG
+
+      </div>
+
+      <div class="finalQuizQuestion">
+        ${finalTopic3QuizTarget.question}
+      </div>
+
+      <div class="finalQuizHint">
+
+        Chi tiết vừa chọn chưa đúng.
+
+        <br><br>
+
+        Hãy quan sát lại
+        và chọn một chi tiết khác.
+
+      </div>
+
+    `;
+}
+
+
+/* ===== TOPIC 03 COMPLETE ===== */
+
+function completeFinalTopic3(){
+
+  if(finalTopic3Complete) return;
+
+
+  finalTopic3Complete =
+    true;
+
+
+  finalTopic3QuizActive =
+    false;
+
+
+  xp += 250;
+
+
+  updateHUD();
+
+
+  document
+    .getElementById(
+      "finalTopic3KnowledgePanel"
+    )
+    .innerHTML = `
+
+      <div class="finalSuccess">
+
+        <div class="finalSuccessStamp">
+          TOPIC 03 COMPLETE
+        </div>
+
+        <div class="finalKnowledgeTitle">
+          1954 → 1969
+        </div>
+
+        Bạn đã hoàn thành
+        chặng thứ ba.
+
+        <br><br>
+
+        <span class="gold">
+
+          Từ xây dựng chủ nghĩa xã hội ở miền Bắc
+          đến tư tưởng về con người,
+          đạo đức,
+          giáo dục
+          và sức mạnh nhân dân.
+
+        </span>
+
+        <br><br>
+
+        <strong class="gold">
+          MEMORY CHECK PASSED · +250 XP
+        </strong>
+
+        <br><br>
+
+        <button
+          class="btn"
+          id="finalTopic4Btn">
+
+          MỞ TOPIC 04 · 1969–2026 →
+
+        </button>
+
+      </div>
+    `;
+
+
+  document
+    .getElementById(
+      "finalTopic4Btn"
     )
     .addEventListener(
       "click",
       function(){
 
         screen.innerHTML = `
+
           <div class="content">
 
             <div class="small">
-              FINAL JOURNEY · TOPIC 03
+              FINAL JOURNEY · TOPIC 04
             </div>
 
             <h1>
-              1954–1969<br>
+
+              1969–2026<br>
+
               <span class="red">
                 COMING NEXT
               </span>
+
             </h1>
 
             <p class="subtitle">
-              Topic 03 sẽ tiếp tục với:
-              xây dựng chủ nghĩa xã hội,
-              đại đoàn kết toàn dân tộc
-              và đạo đức cách mạng.
+
+              Chặng cuối sẽ khám phá
+              việc vận dụng tư tưởng Hồ Chí Minh
+              trong Việt Nam hiện đại.
+
             </p>
 
           </div>
+
         `;
+
       }
     );
 }
+  
 </script>
 
 </body>

@@ -2059,6 +2059,666 @@ button.dropSlot.matched{
     height:420px;
   }
 }
+  /* ==================================================
+   LEVEL 3 · REVOLUTION NETWORK · NEW
+================================================== */
+
+.l3nWrap{
+  width:min(1120px,100%);
+  margin:auto;
+}
+
+.l3nHeader{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-end;
+  gap:28px;
+  margin-bottom:22px;
+}
+
+.l3nHeaderText{
+  text-align:left;
+}
+
+.l3nKicker{
+  margin-bottom:8px;
+  color:#c8a45c;
+  font-size:11px;
+  letter-spacing:5px;
+}
+
+.l3nTitle{
+  font-size:clamp(34px,5.5vw,66px);
+  line-height:1;
+}
+
+.l3nStatus{
+  min-width:190px;
+  padding:13px 16px;
+  border:1px solid rgba(200,164,92,.28);
+  border-radius:8px;
+  background:rgba(200,164,92,.045);
+  text-align:right;
+}
+
+.l3nStatusLabel{
+  margin-bottom:7px;
+  color:#807468;
+  font-size:9px;
+  letter-spacing:3px;
+}
+
+.l3nStatusValue{
+  color:#d7bb74;
+  font-size:13px;
+  letter-spacing:2px;
+}
+
+
+/* ===== STAGE RAIL ===== */
+
+.l3nStageRail{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+  margin-bottom:18px;
+}
+
+.l3nStageChip{
+  padding:10px 12px;
+  border-bottom:2px solid #352826;
+  color:#675d55;
+  font-size:10px;
+  letter-spacing:2px;
+  transition:.3s;
+}
+
+.l3nStageChip.active{
+  border-color:#c8a45c;
+  color:#d9bd77;
+}
+
+.l3nStageChip.done{
+  border-color:#6f9f68;
+  color:#91bb89;
+}
+
+
+/* ===== NETWORK BOARD ===== */
+
+.l3nBoard{
+  position:relative;
+  overflow:hidden;
+  padding:26px;
+  border:1px solid rgba(200,164,92,.18);
+  border-radius:15px;
+
+  background:
+    radial-gradient(
+      circle at 50% 35%,
+      rgba(146,44,40,.13),
+      transparent 38%
+    ),
+    linear-gradient(
+      145deg,
+      rgba(255,255,255,.025),
+      rgba(0,0,0,.14)
+    );
+
+  box-shadow:
+    0 25px 80px rgba(0,0,0,.28);
+}
+
+.l3nBoard::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+
+  background:
+    linear-gradient(
+      rgba(200,164,92,.018) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(200,164,92,.018) 1px,
+      transparent 1px
+    );
+
+  background-size:36px 36px;
+}
+
+.l3nCore{
+  position:relative;
+  z-index:2;
+
+  width:150px;
+  height:150px;
+
+  margin:0 auto 24px;
+
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+
+  border:1px solid rgba(200,164,92,.55);
+  border-radius:50%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(200,164,92,.14),
+      rgba(40,10,10,.42)
+    );
+
+  box-shadow:
+    0 0 35px rgba(200,164,92,.08);
+}
+
+.l3nCoreYear{
+  color:#c8a45c;
+  font-size:30px;
+  font-weight:bold;
+}
+
+.l3nCoreText{
+  margin-top:6px;
+  color:#908276;
+  font-size:9px;
+  letter-spacing:2px;
+}
+
+.l3nCore.online{
+  border-color:#77a771;
+
+  box-shadow:
+    0 0 25px rgba(80,140,70,.16),
+    0 0 70px rgba(200,164,92,.08);
+}
+
+
+/* ===== INSTRUCTION ===== */
+
+.l3nInstruction{
+  position:relative;
+  z-index:2;
+
+  max-width:760px;
+  margin:0 auto 22px;
+
+  color:#b8ac9f;
+  font-size:14px;
+  line-height:1.65;
+}
+
+
+/* ===== STAGE 1 · UNIFICATION ===== */
+
+.l3nCardGrid{
+  position:relative;
+  z-index:2;
+
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+}
+
+.l3nCard{
+  appearance:none;
+  -webkit-appearance:none;
+
+  min-height:105px;
+  padding:16px;
+
+  border:1px solid rgba(184,59,56,.28);
+  border-radius:10px;
+
+  background:rgba(184,59,56,.035);
+
+  color:#dfd2c3;
+  font-family:Arial,sans-serif;
+  font-size:12px;
+  line-height:1.5;
+  letter-spacing:1px;
+
+  cursor:pointer;
+
+  transition:.22s;
+}
+
+.l3nCard:hover{
+  transform:translateY(-4px);
+  border-color:#c8a45c;
+}
+
+.l3nCard.active{
+  border-color:#c8a45c;
+  background:rgba(200,164,92,.12);
+
+  box-shadow:
+    0 0 22px rgba(200,164,92,.1);
+}
+
+.l3nCard.done{
+  border-color:#6f9f68;
+  background:rgba(70,120,60,.12);
+  color:#9ec598;
+  pointer-events:none;
+}
+
+.l3nRouteGrid{
+  position:relative;
+  z-index:2;
+
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+
+  width:min(760px,100%);
+  margin:18px auto 0;
+}
+
+.l3nRoute{
+  appearance:none;
+  -webkit-appearance:none;
+
+  padding:16px;
+
+  border:1px dashed rgba(200,164,92,.32);
+  border-radius:9px;
+
+  background:rgba(0,0,0,.12);
+
+  color:#d3c6b5;
+  font-family:Arial,sans-serif;
+  font-size:11px;
+  letter-spacing:2px;
+
+  cursor:pointer;
+  transition:.22s;
+}
+
+.l3nRoute:hover{
+  border-color:#c8a45c;
+  background:rgba(200,164,92,.07);
+}
+
+
+/* ===== STAGE 2 · SIGNAL ROUTING ===== */
+
+.l3nSignalLayout{
+  position:relative;
+  z-index:2;
+
+  display:grid;
+  grid-template-columns:1.05fr .95fr;
+  gap:20px;
+}
+
+.l3nSignalList{
+  display:flex;
+  flex-direction:column;
+  gap:9px;
+}
+
+.l3nSignal{
+  appearance:none;
+  -webkit-appearance:none;
+
+  width:100%;
+  padding:13px 15px;
+
+  border:1px solid rgba(200,164,92,.16);
+  border-radius:8px;
+
+  background:rgba(255,255,255,.025);
+
+  color:#d9cdbf;
+  font-family:Arial,sans-serif;
+  font-size:12px;
+  line-height:1.45;
+  text-align:left;
+
+  cursor:pointer;
+  transition:.2s;
+}
+
+.l3nSignal:hover{
+  transform:translateX(5px);
+  border-color:#c8a45c;
+}
+
+.l3nSignal.selected{
+  border-color:#d0ad5d;
+  background:rgba(200,164,92,.11);
+}
+
+.l3nSignal.done{
+  opacity:.32;
+  pointer-events:none;
+}
+
+.l3nNodeGrid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:9px;
+}
+
+.l3nNode{
+  appearance:none;
+  -webkit-appearance:none;
+
+  min-height:83px;
+  padding:12px;
+
+  border:1px dashed rgba(200,164,92,.25);
+  border-radius:9px;
+
+  background:rgba(0,0,0,.14);
+
+  color:#a99c8e;
+  font-family:Arial,sans-serif;
+  font-size:10px;
+  line-height:1.4;
+  letter-spacing:1px;
+
+  cursor:pointer;
+  transition:.2s;
+}
+
+.l3nNode:hover{
+  border-color:#c8a45c;
+}
+
+.l3nNode.done{
+  border-style:solid;
+  border-color:#6f9f68;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(70,120,60,.17),
+      rgba(70,120,60,.045)
+    );
+
+  color:#9dc497;
+}
+
+
+/* ===== STAGE 3 · EVIDENCE ===== */
+
+.l3nEvidenceGrid{
+  position:relative;
+  z-index:2;
+
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:14px;
+}
+
+.l3nEvidence{
+  position:relative;
+  overflow:hidden;
+
+  border:1px solid rgba(200,164,92,.17);
+  border-radius:11px;
+
+  background:#0d0908;
+
+  cursor:pointer;
+  transition:.25s;
+}
+
+.l3nEvidence:hover{
+  transform:translateY(-5px);
+  border-color:#c8a45c;
+}
+
+.l3nEvidenceArt{
+  height:155px;
+  overflow:hidden;
+
+  filter:
+    sepia(.65)
+    contrast(1.08)
+    brightness(.82);
+}
+
+.l3nEvidenceArt svg{
+  width:100%;
+  height:100%;
+}
+
+.l3nEvidenceMeta{
+  padding:14px 15px 16px;
+  text-align:left;
+}
+
+.l3nEvidenceCode{
+  margin-bottom:6px;
+
+  color:#b84e49;
+  font-size:9px;
+  letter-spacing:3px;
+}
+
+.l3nEvidenceName{
+  color:#e3d7c7;
+  font-size:13px;
+  line-height:1.45;
+}
+
+.l3nEvidenceHint{
+  margin-top:6px;
+
+  color:#786e64;
+  font-size:10px;
+  line-height:1.45;
+}
+
+.l3nEvidence.done{
+  border-color:#709b69;
+}
+
+.l3nEvidence.done::after{
+  content:"VERIFIED";
+
+  position:absolute;
+  top:15px;
+  right:-35px;
+
+  width:145px;
+  padding:5px 0;
+
+  background:#6f9f68;
+  color:#0c0807;
+
+  font-size:9px;
+  font-weight:bold;
+  letter-spacing:1px;
+
+  transform:rotate(35deg);
+}
+
+
+/* ===== FEEDBACK / PROGRESS ===== */
+
+.l3nFeedback{
+  position:relative;
+  z-index:2;
+
+  min-height:72px;
+
+  margin-top:18px;
+  padding:14px 17px;
+
+  border-left:2px solid #c8a45c;
+
+  background:rgba(200,164,92,.035);
+
+  color:#bdb1a3;
+
+  font-size:13px;
+  line-height:1.65;
+  text-align:left;
+}
+
+.l3nFeedback.error{
+  border-color:#b83b38;
+  color:#d07874;
+}
+
+.l3nFeedback.success{
+  border-color:#6f9f68;
+  color:#9fc895;
+}
+
+.l3nMeter{
+  position:relative;
+  z-index:2;
+
+  width:100%;
+  height:6px;
+
+  margin-top:18px;
+
+  overflow:hidden;
+  border-radius:20px;
+
+  background:#302321;
+}
+
+.l3nMeterFill{
+  width:0%;
+  height:100%;
+
+  background:
+    linear-gradient(
+      90deg,
+      #8e302d,
+      #c8a45c,
+      #739c6d
+    );
+
+  transition:width .45s ease;
+}
+
+.l3nFooter{
+  position:relative;
+  z-index:2;
+
+  margin-top:18px;
+  text-align:center;
+}
+
+.l3nComplete{
+  max-width:760px;
+  margin:auto;
+
+  padding:35px 25px;
+
+  border:1px solid rgba(200,164,92,.3);
+  border-radius:13px;
+
+  background:
+    radial-gradient(
+      circle at top,
+      rgba(200,164,92,.08),
+      rgba(255,255,255,.015)
+    );
+}
+
+.l3nCompleteStamp{
+  width:max-content;
+  margin:20px auto;
+
+  padding:11px 20px;
+
+  border:2px solid #739c6d;
+
+  color:#92be8b;
+
+  font-weight:bold;
+  letter-spacing:4px;
+
+  transform:rotate(-2deg);
+}
+
+
+/* ===== WRONG FEEDBACK ===== */
+
+.l3nWrong{
+  animation:l3nShake .32s;
+  border-color:#b83b38 !important;
+}
+
+@keyframes l3nShake{
+
+  0%,100%{
+    transform:translateX(0);
+  }
+
+  25%{
+    transform:translateX(-6px);
+  }
+
+  75%{
+    transform:translateX(6px);
+  }
+}
+
+
+/* ===== MOBILE ===== */
+
+@media(max-width:780px){
+
+  .l3nHeader{
+    flex-direction:column;
+    align-items:center;
+  }
+
+  .l3nHeaderText{
+    text-align:center;
+  }
+
+  .l3nStatus{
+    width:100%;
+    text-align:center;
+  }
+
+  .l3nCardGrid,
+  .l3nEvidenceGrid{
+    grid-template-columns:1fr;
+  }
+
+  .l3nSignalLayout{
+    grid-template-columns:1fr;
+  }
+
+  .l3nNodeGrid{
+    grid-template-columns:1fr 1fr;
+  }
+
+}
+
+@media(max-width:520px){
+
+  .l3nStageRail{
+    grid-template-columns:1fr;
+  }
+
+  .l3nRouteGrid,
+  .l3nNodeGrid{
+    grid-template-columns:1fr;
+  }
+
+  .l3nBoard{
+    padding:18px 14px;
+  }
+
+}
   /* ===== LEVEL 5 · FINAL JOURNEY ===== */
 
 .finalJourney{

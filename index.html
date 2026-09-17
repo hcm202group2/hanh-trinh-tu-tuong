@@ -12356,6 +12356,55 @@ if(
   }
 
 }
+  const solidarityVisual =
+  document.getElementById(
+    "level4SolidarityVisual"
+  );
+
+const solidarityStatus =
+  document.getElementById(
+    "solidarityVisualStatus"
+  );
+
+
+if(
+  crisis.id === "solidarity" &&
+  solidarityVisual
+){
+
+  if(choice.correct){
+
+    solidarityVisual
+      .classList.add(
+        "solidaritySuccess"
+      );
+
+    if(solidarityStatus){
+
+      solidarityStatus.textContent =
+        "NATIONAL UNITY NETWORK ACTIVE";
+
+    }
+
+  }
+
+  else{
+
+    solidarityVisual
+      .classList.add(
+        "solidarityFailure"
+      );
+
+    if(solidarityStatus){
+
+      solidarityStatus.textContent =
+        "NATIONAL UNITY NETWORK REMAINS FRAGMENTED";
+
+    }
+
+  }
+
+}
   if(firstResolution){
 
     level4ResolvedCrises

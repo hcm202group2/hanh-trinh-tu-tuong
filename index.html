@@ -8843,43 +8843,34 @@ function handleL3NClick(event){
   }
 
 
-  /* ===== NEXT STAGE ===== */
+/* ===== NEXT STAGE ===== */
 
-  if(action === "next-stage"){
+if(action === "next-stage"){
 
-    if(
-      l3nStage === 1 &&
-      l3nRoutedOrgs.size ===
-      l3nOrganizations.length
-    ){
+  if(
+    l3nStage === 1 &&
+    l3nRoutedOrgs.size ===
+    l3nOrganizations.length
+  ){
 
-      l3nStage = 2;
+    showL3NStageTransition(2);
 
-      l3nSelectedSignal = null;
-
-      renderLevel3Network();
-
-      return;
-    }
-
-
-    if(
-      l3nStage === 2 &&
-      l3nSolvedSignals.size ===
-      phase2Pieces.length
-    ){
-
-      l3nStage = 3;
-
-      l3nSelectedSignal = null;
-
-      renderLevel3Network();
-
-      return;
-    }
-
+    return;
   }
 
+
+  if(
+    l3nStage === 2 &&
+    l3nSolvedSignals.size ===
+    phase2Pieces.length
+  ){
+
+    showL3NStageTransition(3);
+
+    return;
+  }
+
+}
 
   /* ===== SELECT SIGNAL ===== */
 
@@ -9090,7 +9081,92 @@ function handleL3NClick(event){
 
 }
 
+/* ==================================================
+   LEVEL 3 · STAGE TRANSITION
+================================================== */
 
+function showL3NStageTransition(nextStage){
+
+  const data =
+    nextStage === 2
+    ?
+    {
+      code:"LINK 01 · VERIFIED",
+      title:"STRATEGY NETWORK",
+      text:
+        "Lớp thống nhất đã được đồng bộ. Hệ thống chuyển sang giải mã các tín hiệu chiến lược.",
+      stamp:"NETWORK LINK ESTABLISHED"
+    }
+    :
+    {
+      code:"LINK 02 · VERIFIED",
+      title:"EVIDENCE ARCHIVE",
+      text:
+        "Các tín hiệu chiến lược đã được đồng bộ. Hệ thống mở kho hồ sơ xác minh.",
+      stamp:"ARCHIVE ACCESS GRANTED"
+    };
+
+
+  screen.innerHTML = `
+
+    <div class="content">
+
+      <div class="l3nComplete">
+
+        <div class="small">
+          ${data.code}
+        </div>
+
+
+        <h1 style="
+          font-size:clamp(36px,6vw,70px);
+        ">
+
+          ${data.title}
+
+        </h1>
+
+
+        <p class="subtitle">
+
+          ${data.text}
+
+        </p>
+
+
+        <div class="l3nCompleteStamp">
+
+          ${data.stamp}
+
+        </div>
+
+      </div>
+
+    </div>
+
+  `;
+
+
+  setTimeout(
+    function(){
+
+      l3nStage = nextStage;
+
+      l3nSelectedOrg = null;
+      l3nSelectedSignal = null;
+
+      window.scrollTo(
+        0,
+        0
+      );
+
+      renderLevel3Network();
+
+    },
+    900
+  );
+
+}
 /* ===== FEEDBACK ===== */
 
 function showL3NFeedback(

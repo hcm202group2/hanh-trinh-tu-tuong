@@ -4922,6 +4922,490 @@ button.level4DecisionChoice.answerReveal{
   }
 
 }
+  /* ==================================================
+   CRISIS 04 · PUBLIC SERVICE NETWORK
+================================================== */
+
+.level4ServiceVisual{
+  position:relative;
+
+  height:185px;
+
+  margin:22px 0 5px;
+
+  overflow:hidden;
+
+  border:
+    1px solid
+    rgba(200,164,92,.14);
+
+  border-radius:12px;
+
+  background:
+    radial-gradient(
+      circle at 50% 52%,
+      rgba(200,164,92,.075),
+      rgba(0,0,0,.24) 68%
+    );
+}
+
+
+/* ===== CENTRAL PEOPLE NODE ===== */
+
+.servicePeopleCore{
+  position:absolute;
+
+  left:50%;
+  top:50%;
+
+  width:88px;
+  height:88px;
+
+  transform:
+    translate(-50%,-50%);
+
+  display:flex;
+
+  align-items:center;
+  justify-content:center;
+
+  border-radius:50%;
+
+  border:
+    1px solid
+    rgba(200,164,92,.38);
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(200,164,92,.12),
+      rgba(40,18,18,.52)
+    );
+
+  color:#b89c68;
+
+  font-size:9px;
+  font-weight:bold;
+
+  letter-spacing:2px;
+
+  box-shadow:
+    0 0 0 8px
+    rgba(200,164,92,.025);
+
+  transition:
+    border-color .6s ease,
+    color .6s ease,
+    box-shadow .6s ease,
+    transform .6s ease;
+}
+
+
+/* ===== GOVERNMENT NODES ===== */
+
+.serviceOfficeNode{
+  position:absolute;
+
+  min-width:78px;
+
+  padding:9px 10px;
+
+  border:
+    1px solid
+    rgba(184,59,56,.28);
+
+  border-radius:6px;
+
+  background:
+    rgba(55,20,20,.52);
+
+  color:#9b7771;
+
+  font-size:8px;
+  letter-spacing:1.5px;
+
+  text-align:center;
+
+  opacity:.72;
+
+  transition:
+    opacity .55s ease,
+    border-color .55s ease,
+    background .55s ease,
+    color .55s ease,
+    box-shadow .55s ease,
+    transform .55s ease;
+}
+
+
+.serviceOfficeNode.s1{
+  left:7%;
+  top:25px;
+}
+
+
+.serviceOfficeNode.s2{
+  right:7%;
+  top:25px;
+}
+
+
+.serviceOfficeNode.s3{
+  left:8%;
+  bottom:30px;
+}
+
+
+.serviceOfficeNode.s4{
+  right:8%;
+  bottom:30px;
+}
+
+
+/* ===== CONNECTION LINES ===== */
+
+.serviceLink{
+  position:absolute;
+
+  left:50%;
+  top:50%;
+
+  width:145px;
+  height:1px;
+
+  transform-origin:left center;
+
+  opacity:.18;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(184,59,56,.85),
+      transparent
+    );
+
+  transition:
+    opacity .6s ease,
+    background .6s ease,
+    box-shadow .6s ease;
+}
+
+
+.serviceLink.sl1{
+  transform:
+    rotate(-150deg);
+}
+
+
+.serviceLink.sl2{
+  transform:
+    rotate(-30deg);
+}
+
+
+.serviceLink.sl3{
+  transform:
+    rotate(150deg);
+}
+
+
+.serviceLink.sl4{
+  transform:
+    rotate(30deg);
+}
+
+
+/* ===== DATA PULSES ===== */
+
+.servicePulse{
+  position:absolute;
+
+  left:50%;
+  top:50%;
+
+  width:6px;
+  height:6px;
+
+  margin-left:-3px;
+  margin-top:-3px;
+
+  border-radius:50%;
+
+  background:#c8a45c;
+
+  opacity:0;
+
+  box-shadow:
+    0 0 12px
+    rgba(200,164,92,.65);
+
+  pointer-events:none;
+}
+
+
+.servicePulse.sp1{
+  --serviceX:-120px;
+  --serviceY:-68px;
+}
+
+
+.servicePulse.sp2{
+  --serviceX:120px;
+  --serviceY:-68px;
+}
+
+
+.servicePulse.sp3{
+  --serviceX:-120px;
+  --serviceY:68px;
+}
+
+
+.servicePulse.sp4{
+  --serviceX:120px;
+  --serviceY:68px;
+}
+
+
+/* ===== STATUS ===== */
+
+.serviceVisualStatus{
+  position:absolute;
+
+  left:0;
+  right:0;
+
+  bottom:7px;
+
+  text-align:center;
+
+  color:#96504c;
+
+  font-size:8px;
+  letter-spacing:3px;
+
+  transition:
+    color .6s ease,
+    text-shadow .6s ease;
+}
+
+
+/* ==================================================
+   SUCCESS
+================================================== */
+
+.level4ServiceVisual.serviceSuccess
+.servicePeopleCore{
+
+  border-color:#c8a45c;
+
+  color:#e1c475;
+
+  transform:
+    translate(-50%,-50%)
+    scale(1.08);
+
+  box-shadow:
+    0 0 0 9px
+    rgba(200,164,92,.04),
+    0 0 28px
+    rgba(200,164,92,.27);
+}
+
+
+.level4ServiceVisual.serviceSuccess
+.serviceOfficeNode{
+
+  opacity:1;
+
+  border-color:
+    rgba(115,160,105,.62);
+
+  background:
+    rgba(55,95,50,.16);
+
+  color:#a9ce9f;
+
+  box-shadow:
+    0 0 16px
+    rgba(80,140,70,.13);
+
+  transform:
+    translateY(-2px);
+}
+
+
+.level4ServiceVisual.serviceSuccess
+.serviceLink{
+
+  opacity:1;
+
+  background:
+    linear-gradient(
+      90deg,
+      #c8a45c,
+      rgba(105,155,95,.8)
+    );
+
+  box-shadow:
+    0 0 10px
+    rgba(200,164,92,.25);
+}
+
+
+.level4ServiceVisual.serviceSuccess
+.servicePulse{
+
+  animation:
+    servicePulseFlow
+    1.15s ease
+    forwards;
+}
+
+
+.level4ServiceVisual.serviceSuccess
+.servicePulse.sp2{
+
+  animation-delay:.12s;
+}
+
+
+.level4ServiceVisual.serviceSuccess
+.servicePulse.sp3{
+
+  animation-delay:.24s;
+}
+
+
+.level4ServiceVisual.serviceSuccess
+.servicePulse.sp4{
+
+  animation-delay:.36s;
+}
+
+
+.level4ServiceVisual.serviceSuccess
+.serviceVisualStatus{
+
+  color:#9fc895;
+
+  text-shadow:
+    0 0 14px
+    rgba(90,150,80,.28);
+}
+
+
+/* ==================================================
+   FAILURE
+================================================== */
+
+.level4ServiceVisual.serviceFailure{
+
+  animation:
+    serviceFailureFlash
+    .45s ease;
+}
+
+
+.level4ServiceVisual.serviceFailure
+.serviceOfficeNode{
+
+  opacity:.48;
+
+  border-color:
+    rgba(184,59,56,.55);
+
+  color:#ca6762;
+}
+
+
+.level4ServiceVisual.serviceFailure
+.serviceLink{
+
+  opacity:.08;
+}
+
+
+.level4ServiceVisual.serviceFailure
+.servicePeopleCore{
+
+  border-color:
+    rgba(184,59,56,.5);
+
+  color:#c35f5a;
+
+  box-shadow:
+    0 0 18px
+    rgba(184,59,56,.12);
+}
+
+
+.level4ServiceVisual.serviceFailure
+.serviceVisualStatus{
+
+  color:#d05b57;
+}
+
+
+/* ==================================================
+   ANIMATIONS
+================================================== */
+
+@keyframes servicePulseFlow{
+
+  0%{
+
+    opacity:0;
+
+    transform:
+      translate(0,0)
+      scale(.7);
+  }
+
+
+  20%{
+
+    opacity:1;
+  }
+
+
+  80%{
+
+    opacity:1;
+  }
+
+
+  100%{
+
+    opacity:0;
+
+    transform:
+      translate(
+        var(--serviceX),
+        var(--serviceY)
+      )
+      scale(1.15);
+  }
+
+}
+
+
+@keyframes serviceFailureFlash{
+
+  0%,100%{
+
+    background-color:
+      transparent;
+  }
+
+
+  45%{
+
+    background-color:
+      rgba(184,59,56,.12);
+  }
+
+}
 .level4TransitionScreen{
   position:relative;
   overflow:hidden;

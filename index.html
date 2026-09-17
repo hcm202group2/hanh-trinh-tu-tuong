@@ -9676,6 +9676,95 @@ ${crisis.id === "food" ? `
   </div>
 
 ` : ""}
+${crisis.id === "literacy" ? `
+
+  <div
+    class="level4LiteracyVisual"
+    id="level4LiteracyVisual">
+
+
+    <div class="literacyLetter l1">
+      A
+    </div>
+
+    <div class="literacyLetter l2">
+      B
+    </div>
+
+    <div class="literacyLetter l3">
+      C
+    </div>
+
+    <div class="literacyLetter l4">
+      Quốc ngữ
+    </div>
+
+
+    <div class="literacyLine line1">
+    </div>
+
+    <div class="literacyLine line2">
+    </div>
+
+
+    <div class="literacyNode n1">
+    </div>
+
+    <div class="literacyNode n2">
+    </div>
+
+    <div class="literacyNode n3">
+    </div>
+
+    <div class="literacyNode n4">
+    </div>
+
+
+    <div class="literacyBook">
+
+      <svg viewBox="0 0 64 48">
+
+        <path d="
+          M32 10
+          C23 5 13 6 7 10
+          V38
+          C14 34 23 34 32 39
+          Z
+        ">
+        </path>
+
+        <path d="
+          M32 10
+          C41 5 51 6 57 10
+          V38
+          C50 34 41 34 32 39
+          Z
+        ">
+        </path>
+
+        <path d="
+          M32 10
+          V39
+        ">
+        </path>
+
+      </svg>
+
+    </div>
+
+
+    <div
+      class="literacyVisualStatus"
+      id="literacyVisualStatus">
+
+      LITERACY NETWORK · CRITICAL
+
+    </div>
+
+
+  </div>
+
+` : ""}
           <div class="level4SituationSignal">
 
             ${
@@ -9965,6 +10054,54 @@ function handleLevel4Decision(
     }
 
   }
+  const literacyVisual =
+  document.getElementById(
+    "level4LiteracyVisual"
+  );
+
+const literacyStatus =
+  document.getElementById(
+    "literacyVisualStatus"
+  );
+
+if(
+  crisis.id === "literacy" &&
+  literacyVisual
+){
+
+  if(choice.correct){
+
+    literacyVisual
+      .classList.add(
+        "literacySuccess"
+      );
+
+    if(literacyStatus){
+
+      literacyStatus.textContent =
+        "LITERACY NETWORK ACTIVE · KNOWLEDGE SPREADING";
+
+    }
+
+  }
+
+  else{
+
+    literacyVisual
+      .classList.add(
+        "literacyFailure"
+      );
+
+    if(literacyStatus){
+
+      literacyStatus.textContent =
+        "LITERACY ACCESS REMAINS LIMITED";
+
+    }
+
+  }
+
+}
   if(firstResolution){
 
     level4ResolvedCrises

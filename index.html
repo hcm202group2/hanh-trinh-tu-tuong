@@ -10745,6 +10745,54 @@ if(
   }
 
 }
+  const electionVisual =
+  document.getElementById(
+    "level4ElectionVisual"
+  );
+
+const electionStatus =
+  document.getElementById(
+    "electionVisualStatus"
+  );
+
+if(
+  crisis.id === "election" &&
+  electionVisual
+){
+
+  if(choice.correct){
+
+    electionVisual
+      .classList.add(
+        "electionSuccess"
+      );
+
+    if(electionStatus){
+
+      electionStatus.textContent =
+        "DEMOCRATIC MANDATE ESTABLISHED";
+
+    }
+
+  }
+
+  else{
+
+    electionVisual
+      .classList.add(
+        "electionFailure"
+      );
+
+    if(electionStatus){
+
+      electionStatus.textContent =
+        "ELECTORAL MANDATE REMAINS UNRESOLVED";
+
+    }
+
+  }
+
+}
   if(firstResolution){
 
     level4ResolvedCrises

@@ -11653,9 +11653,7 @@ function startLevel4Recovery(){
                       class="
                         level4RecoveryMetricValue
                       "
-                      id="
-                        recoveryValue-${metric.key}
-                      ">
+                    id="recoveryValue-${metric.key}">
 
                       ${level4Metrics[
                         metric.key
@@ -11699,9 +11697,7 @@ function startLevel4Recovery(){
                     class="
                       level4RecoveryChoice
                     "
-                    data-key="
-                      ${metric.key}
-                    ">
+                   data-key="${metric.key}">
 
                     <strong>
                       ${metric.name}
@@ -11724,15 +11720,10 @@ function startLevel4Recovery(){
 
         </div>
 
-
-        <div
-          class="
-            level4RecoveryFeedback
-          "
-          id="
-            level4RecoveryFeedback
-          ">
-
+<div
+  class="level4RecoveryFeedback"
+  id="level4RecoveryFeedback">
+  
           Đọc các chỉ số hiện tại
           và xác định khu vực
           có mức thấp nhất.
@@ -11740,11 +11731,9 @@ function startLevel4Recovery(){
         </div>
 
 
-        <button
-          class="btn"
-          id="
-            level4RecoveryContinue
-          ">
+       <button
+  class="btn"
+  id="level4RecoveryContinue">
 
           KIỂM TRA LẠI HỆ THỐNG →
 
@@ -11785,8 +11774,8 @@ function startLevel4Recovery(){
         "click",
         function(){
 
-          const selectedKey =
-            button.dataset.key;
+         const selectedKey =
+  button.dataset.key.trim();
 
 
           if(

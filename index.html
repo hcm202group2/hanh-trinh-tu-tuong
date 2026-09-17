@@ -12126,9 +12126,7 @@ function startLevel4Architecture(){
                       class="
                         architectureSlot
                       "
-                      data-key="
-                        ${principle.key}
-                      ">
+                     data-key="${principle.key}">
 
                       <div class="
                         architectureSlotNumber
@@ -12224,9 +12222,7 @@ function startLevel4Architecture(){
                       architectureFragment
                     "
                     draggable="true"
-                    data-key="
-                      ${principle.key}
-                    ">
+             data-key="${principle.key}">
 
                     ${principle.label}
 
@@ -12355,9 +12351,8 @@ function startLevel4Architecture(){
     );
 
 
-    selectedKey =
-      fragment.dataset.key;
-
+   selectedKey =
+  fragment.dataset.key.trim();
 
     fragment.classList.add(
       "selectedArchitectureFragment"
@@ -12406,8 +12401,8 @@ function startLevel4Architecture(){
     }
 
 
-    const correctKey =
-      slot.dataset.key;
+  const correctKey =
+  slot.dataset.key.trim();
 
 
     if(
@@ -12678,8 +12673,8 @@ if(architectureContinue){
         "dragstart",
         function(event){
 
-          const key =
-            fragment.dataset.key;
+     const key =
+  fragment.dataset.key.trim();
 
 
           event.dataTransfer

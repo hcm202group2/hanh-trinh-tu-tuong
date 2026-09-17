@@ -10442,21 +10442,59 @@ function renderPhase3Archive(){
               </span>
             </h1>
 
-            <p class="subtitle">
+           <p class="subtitle">
 
-              Bạn đã tìm đủ bằng chứng.
+  Bạn đã tìm đủ bằng chứng.
 
-              <br><br>
+  <br><br>
 
-              Bước tiếp theo:
-              kết nối chúng thành
-              một mạng lưới tư tưởng hoàn chỉnh.
+  Các dấu vết đã được kết nối
+  thành một hệ thống hoàn chỉnh.
 
-            </p>
+</p>
 
-          </div>
-        `;
 
+<div
+  style="
+    margin:24px 0 20px;
+    color:#9fc895;
+    font-size:11px;
+    letter-spacing:4px;
+  "
+>
+
+  MISSION 03 COMPLETE
+
+</div>
+
+
+<button
+  class="btn"
+  id="level3ToLevel4"
+>
+
+  TIẾP TỤC · LEVEL 04 →
+
+</button>
+
+
+</div>
+`;
+const level3ToLevel4 =
+  document.getElementById(
+    "level3ToLevel4"
+  );
+
+
+if(level3ToLevel4){
+
+  level3ToLevel4
+    .addEventListener(
+      "click",
+      startLevel4
+    );
+
+}
       }
     );
 

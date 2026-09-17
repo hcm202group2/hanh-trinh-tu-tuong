@@ -12032,9 +12032,12 @@ function renderLevel4DecisionFeedback(
     ? "TIẾP TỤC · CRISIS 03 →"
 
   : crisis.id === "election"
-    ? "TIẾP TỤC · CRISIS 04 →"
+  ? "TIẾP TỤC · CRISIS 04 →"
 
-  : "TIẾP TỤC →"
+: crisis.id === "service"
+  ? "TIẾP TỤC · CRISIS 05 →"
+
+: "TIẾP TỤC →"
 }
       </button>
 
@@ -12072,6 +12075,13 @@ if(crisis.id === "literacy"){
 if(crisis.id === "election"){
 
   showLevel4CrisisTransition34();
+
+  return;
+
+}
+        if(crisis.id === "service"){
+
+  showLevel4CrisisTransition45();
 
   return;
 
@@ -12550,6 +12560,163 @@ function showLevel4CrisisTransition34(){
           id="level4OpenNextCrisis">
 
           MỞ HỒ SƠ →
+
+        </button>
+
+
+      </div>
+
+    </section>
+
+  `;
+
+
+  document
+    .getElementById(
+      "level4OpenNextCrisis"
+    )
+    .addEventListener(
+      "click",
+      function(){
+
+        const nextIndex =
+          level4Crises
+            .findIndex(
+              function(item){
+
+                return !level4ResolvedCrises
+                  .has(item.id);
+
+              }
+            );
+
+
+        if(nextIndex >= 0){
+
+          renderLevel4Crisis(
+            nextIndex
+          );
+
+        }
+
+        else{
+
+          renderLevel4Dashboard();
+
+        }
+
+      }
+    );
+
+}
+  /* ==================================================
+   CRISIS 04 → CRISIS 05 TRANSITION
+================================================== */
+
+function showLevel4CrisisTransition45(){
+
+  screen.innerHTML = `
+
+    <section class="
+      screen
+      level4TransitionScreen
+    ">
+
+      <div class="
+        level4CrisisTransition
+      ">
+
+
+        <div
+          class="level4TransitionScan">
+        </div>
+
+
+        <div
+          class="level4TransitionResolved">
+
+          CRISIS 04 RESOLVED
+
+        </div>
+
+
+        <div
+          class="level4TransitionPath">
+
+
+          <div
+            class="
+              level4TransitionNode
+              done
+            ">
+
+            04
+
+          </div>
+
+
+          <div
+            class="level4TransitionTrack">
+
+            <div
+              class="
+                level4TransitionTrackFill
+              ">
+            </div>
+
+          </div>
+
+
+          <div
+            class="
+              level4TransitionNode
+              next
+            ">
+
+            05
+
+          </div>
+
+
+        </div>
+
+
+        <div class="level4NextPriority">
+
+          FINAL NATIONAL PRIORITY
+
+        </div>
+
+
+        <div class="level4NextCrisisNumber">
+
+          CRISIS 05
+
+        </div>
+
+
+        <div class="level4NextCrisisTitle">
+
+          ĐẠI ĐOÀN KẾT · SỨC MẠNH NHÂN DÂN
+
+        </div>
+
+
+        <div class="level4NextCrisisDate">
+
+          1945 · 1946
+
+        </div>
+
+
+        <button
+          class="
+            btn
+            level4OpenDossier
+          "
+          id="level4OpenNextCrisis">
+
+          MỞ HỒ SƠ CUỐI →
 
         </button>
 

@@ -11514,6 +11514,55 @@ if(
   }
 
 }
+  const serviceVisual =
+  document.getElementById(
+    "level4ServiceVisual"
+  );
+
+const serviceStatus =
+  document.getElementById(
+    "serviceVisualStatus"
+  );
+
+
+if(
+  crisis.id === "service" &&
+  serviceVisual
+){
+
+  if(choice.correct){
+
+    serviceVisual
+      .classList.add(
+        "serviceSuccess"
+      );
+
+    if(serviceStatus){
+
+      serviceStatus.textContent =
+        "PUBLIC SERVICE NETWORK ACTIVE";
+
+    }
+
+  }
+
+  else{
+
+    serviceVisual
+      .classList.add(
+        "serviceFailure"
+      );
+
+    if(serviceStatus){
+
+      serviceStatus.textContent =
+        "PUBLIC SERVICE NETWORK REMAINS FRAGMENTED";
+
+    }
+
+  }
+
+}
   if(firstResolution){
 
     level4ResolvedCrises

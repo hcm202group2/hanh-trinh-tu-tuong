@@ -10915,7 +10915,11 @@ level4DecisionLocked =
 
 level4LevelXP =
   0;
+level4ArchitectureCompleted =
+  false;
 
+level4MissionCompleted =
+  false;
 
   hud.style.display =
     "flex";
@@ -12592,7 +12596,24 @@ function startLevel4Architecture(){
           +300 XP
 
         </span>
+const architectureContinue =
+  document.getElementById(
+    "level4ArchitectureContinue"
+  );
 
+
+if(architectureContinue){
+
+  architectureContinue
+    .style.display =
+    "inline-block";
+
+
+  architectureContinue
+    .onclick =
+    showLevel4MissionReport;
+
+}
       `;
 
     }
@@ -12692,6 +12713,432 @@ function startLevel4Architecture(){
 
     }
   );
+
+}
+  /* ==================================================
+   LEVEL 4 · MISSION REPORT
+================================================== */
+
+function showLevel4MissionReport(){
+
+  if(
+    !level4MissionCompleted
+  ){
+
+    level4MissionCompleted =
+      true;
+
+
+    xp += 100;
+
+
+    level4LevelXP +=
+      100;
+
+
+    updateHUD();
+
+  }
+
+
+  screen.innerHTML = `
+
+    <section class="screen">
+
+      <div class="
+        content
+        level4Wrap
+      ">
+
+
+        <div class="small">
+
+          MISSION 04 REPORT
+
+        </div>
+
+
+        <div class="
+          level4Title
+        ">
+
+          NATIONAL
+          <br>
+
+          <span class="gold">
+
+            STABILITY REPORT
+
+          </span>
+
+        </div>
+
+
+        <p class="
+          level4Intro
+        ">
+
+          Năm cuộc khủng hoảng
+          đã được xử lý.
+
+          <br>
+
+          State Architecture
+          đã hoàn thành.
+
+        </p>
+
+
+        <div class="
+          level4IndexNote
+        ">
+
+          <span>
+
+            NATIONAL STABILITY INDEX
+
+          </span>
+
+          <strong>
+
+            CHỈ SỐ MÔ PHỎNG
+            PHỤC VỤ GAMEPLAY ·
+            KHÔNG PHẢI
+            SỐ LIỆU THỐNG KÊ
+
+          </strong>
+
+        </div>
+
+
+        <div class="
+          level4MeterGrid
+        ">
+
+          ${level4MetricData
+            .map(
+              function(metric){
+
+                return `
+
+                  <div class="
+                    level4MeterCard
+                  ">
+
+                    <div class="
+                      level4MeterName
+                    ">
+
+                      ${metric.name}
+
+                    </div>
+
+
+                    <div
+                      style="
+                        margin-top:12px;
+                        color:#d9bc75;
+                        font-size:34px;
+                        font-weight:bold;
+                      "
+                    >
+
+                      ${
+                        level4Metrics[
+                          metric.key
+                        ]
+                      }
+
+                      <span
+                        style="
+                          color:#74685d;
+                          font-size:11px;
+                        "
+                      >
+
+                        /100
+
+                      </span>
+
+                    </div>
+
+                  </div>
+
+                `;
+
+              }
+            )
+            .join("")}
+
+        </div>
+
+
+        <div
+          class="completeBox"
+          style="
+            margin-top:25px;
+          "
+        >
+
+          <div class="small">
+
+            MISSION STATUS
+
+          </div>
+
+
+          <div
+            style="
+              font-size:18px;
+              line-height:1.9;
+            "
+          >
+
+            5 CRISIS RESOLVED
+
+            <br>
+
+            STATE RECOVERY
+            ${
+              level4NeedsRecovery()
+              ? "REQUIRED"
+              : "STABLE"
+            }
+
+            <br>
+
+            STATE ARCHITECTURE
+            COMPLETE
+
+          </div>
+
+
+          <div class="
+            scoreBig
+          ">
+
+            +${level4LevelXP}
+
+          </div>
+
+
+          <div
+            style="
+              color:#8f8376;
+              font-size:10px;
+              letter-spacing:3px;
+            "
+          >
+
+            XP EARNED ·
+            MAX 1000
+
+          </div>
+
+
+          <div
+            style="
+              margin-top:18px;
+              color:#9fc895;
+              letter-spacing:3px;
+              font-size:11px;
+            "
+          >
+
+            MISSION 04 COMPLETE
+
+          </div>
+
+        </div>
+
+
+        <button
+          class="btn"
+          id="
+            level4ReportContinue
+          "
+          style="
+            margin-top:22px;
+          "
+        >
+
+          TIẾP TỤC →
+
+        </button>
+
+
+      </div>
+
+    </section>
+
+  `;
+
+
+  document
+    .getElementById(
+      "level4ReportContinue"
+    )
+    .addEventListener(
+      "click",
+      showLevel4MissionCinematic
+    );
+
+}
+
+
+/* ==================================================
+   LEVEL 4 · END CINEMATIC
+================================================== */
+
+function showLevel4MissionCinematic(){
+
+  screen.innerHTML = `
+
+    <section class="screen">
+
+      <div class="cinematic">
+
+
+        <div class="cineTitle">
+
+          1945 → 1946
+
+        </div>
+
+
+        <div
+          class="c1930Title"
+          style="
+            font-size:
+              clamp(36px,6vw,70px);
+          "
+        >
+
+          TỪ ĐỘC LẬP
+
+          <br>
+
+          <span class="gold">
+
+            ĐẾN NHÀ NƯỚC MỚI
+
+          </span>
+
+        </div>
+
+
+        <div
+          class="cineText"
+          id="
+            level4MissionCineText
+          "
+        >
+
+        </div>
+
+
+        <div class="
+          c1930Stamp
+        ">
+
+          MISSION 04 COMPLETE
+
+        </div>
+
+
+        <button
+          class="btn"
+          id="cineContinue"
+        >
+
+          TIẾP TỤC · LEVEL 05 →
+
+        </button>
+
+
+      </div>
+
+    </section>
+
+  `;
+
+
+  const cinematicText =
+    document.getElementById(
+      "level4MissionCineText"
+    );
+
+
+  setTimeout(
+    function(){
+
+      cinematicText.innerHTML = `
+
+        GIÀNH ĐƯỢC ĐỘC LẬP
+        <br>
+
+        LÀ MỘT BƯỚC NGOẶT.
+
+      `;
+
+    },
+    450
+  );
+
+
+  setTimeout(
+    function(){
+
+      cinematicText.innerHTML = `
+
+        GIỮ VỮNG ĐỘC LẬP
+
+        <br>
+
+        VÀ GIẢI QUYẾT
+        NHỮNG NHIỆM VỤ CẤP BÁCH
+
+        <br>
+
+        LÀ THỬ THÁCH TIẾP THEO.
+
+      `;
+
+    },
+    2400
+  );
+
+
+  setTimeout(
+    function(){
+
+      cinematicText.innerHTML = `
+
+        XÂY DỰNG MỘT NHÀ NƯỚC
+
+        <br>
+
+        PHỤC VỤ NHÂN DÂN
+
+        <br>
+
+        LÀ MỘT HÀNH TRÌNH KHÁC.
+
+      `;
+
+    },
+    4300
+  );
+
+
+  document
+    .getElementById(
+      "cineContinue"
+    )
+    .addEventListener(
+      "click",
+      startFinalGame
+    );
 
 }
 /* ===== ANIMATE NUMBER ===== */
@@ -12884,7 +13331,8 @@ let level4LevelXP =
   0;
 let level4ArchitectureCompleted =
   false;
-
+let level4MissionCompleted =
+  false;
 /* ===== CRISIS DATA ===== */
 
 const level4Crises = [

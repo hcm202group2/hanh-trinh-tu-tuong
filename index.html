@@ -4483,6 +4483,445 @@ button.level4DecisionChoice.answerReveal{
   }
 
 }
+  /* ==================================================
+   CRISIS 03 · ELECTION VISUAL
+================================================== */
+
+.level4ElectionVisual{
+  position:relative;
+
+  height:175px;
+
+  margin:22px 0 5px;
+
+  overflow:hidden;
+
+  border:
+    1px solid
+    rgba(200,164,92,.14);
+
+  border-radius:12px;
+
+  background:
+    radial-gradient(
+      circle at 50% 60%,
+      rgba(200,164,92,.08),
+      rgba(0,0,0,.23) 70%
+    );
+}
+
+
+/* ===== VOTER NODES ===== */
+
+.electionVoter{
+  position:absolute;
+
+  width:10px;
+  height:10px;
+
+  border-radius:50%;
+
+  background:#7c403c;
+
+  box-shadow:
+    0 0 0 5px
+    rgba(184,59,56,.06);
+
+  transition:
+    background .6s ease,
+    transform .6s ease,
+    box-shadow .6s ease;
+}
+
+.electionVoter.v1{
+  left:10%;
+  top:30px;
+}
+
+.electionVoter.v2{
+  left:18%;
+  bottom:38px;
+}
+
+.electionVoter.v3{
+  right:18%;
+  bottom:38px;
+}
+
+.electionVoter.v4{
+  right:10%;
+  top:30px;
+}
+
+
+/* ===== PATHS TO BALLOT BOX ===== */
+
+.electionPath{
+  position:absolute;
+
+  height:1px;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(184,59,56,.5),
+      transparent
+    );
+
+  opacity:.35;
+
+  transform-origin:center;
+
+  transition:
+    opacity .6s ease,
+    background .6s ease,
+    box-shadow .6s ease;
+}
+
+.electionPath.p1{
+  width:145px;
+
+  left:14%;
+  top:53%;
+
+  transform:
+    rotate(14deg);
+}
+
+.electionPath.p2{
+  width:145px;
+
+  right:14%;
+  top:53%;
+
+  transform:
+    rotate(-14deg);
+}
+
+
+/* ===== BALLOT BOX ===== */
+
+.electionBox{
+  position:absolute;
+
+  left:50%;
+  bottom:26px;
+
+  width:92px;
+  height:62px;
+
+  transform:
+    translateX(-50%);
+
+  border:
+    1px solid
+    rgba(200,164,92,.48);
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(200,164,92,.08),
+      rgba(0,0,0,.22)
+    );
+
+  box-shadow:
+    0 12px 30px
+    rgba(0,0,0,.22);
+
+  transition:
+    border-color .6s ease,
+    box-shadow .6s ease,
+    transform .6s ease;
+}
+
+.electionBox::before{
+  content:"";
+
+  position:absolute;
+
+  left:17px;
+  right:17px;
+  top:8px;
+
+  height:3px;
+
+  border-radius:4px;
+
+  background:#5c4136;
+}
+
+.electionBoxLabel{
+  position:absolute;
+
+  left:0;
+  right:0;
+  bottom:13px;
+
+  color:#9d835d;
+
+  font-size:8px;
+  letter-spacing:2px;
+
+  text-align:center;
+
+  transition:
+    color .6s ease,
+    text-shadow .6s ease;
+}
+
+
+/* ===== BALLOT ===== */
+
+.electionBallot{
+  position:absolute;
+
+  left:50%;
+  top:20px;
+
+  width:44px;
+  height:30px;
+
+  transform:
+    translateX(-50%)
+    rotate(-4deg);
+
+  border:
+    1px solid
+    rgba(220,205,175,.5);
+
+  background:
+    linear-gradient(
+      135deg,
+      #b8aa90,
+      #796c5c
+    );
+
+  opacity:.55;
+
+  box-shadow:
+    0 8px 20px
+    rgba(0,0,0,.2);
+
+  transition:
+    opacity .5s ease,
+    box-shadow .5s ease;
+}
+
+.electionBallot::before,
+.electionBallot::after{
+  content:"";
+
+  position:absolute;
+
+  left:7px;
+
+  height:1px;
+
+  background:
+    rgba(60,45,35,.6);
+}
+
+.electionBallot::before{
+  top:10px;
+  width:27px;
+}
+
+.electionBallot::after{
+  top:17px;
+  width:20px;
+}
+
+
+/* ===== STATUS ===== */
+
+.electionVisualStatus{
+  position:absolute;
+
+  left:0;
+  right:0;
+  bottom:6px;
+
+  text-align:center;
+
+  color:#96504c;
+
+  font-size:8px;
+  letter-spacing:3px;
+
+  transition:
+    color .6s ease,
+    text-shadow .6s ease;
+}
+
+
+/* ==================================================
+   SUCCESS
+================================================== */
+
+.level4ElectionVisual.electionSuccess
+.electionBallot{
+  opacity:1;
+
+  animation:
+    electionBallotDrop
+    1s cubic-bezier(.4,0,.2,1)
+    forwards;
+}
+
+.level4ElectionVisual.electionSuccess
+.electionBox{
+  border-color:#c8a45c;
+
+  box-shadow:
+    0 0 20px
+    rgba(200,164,92,.3),
+    0 12px 30px
+    rgba(0,0,0,.28);
+
+  transform:
+    translateX(-50%)
+    scale(1.06);
+}
+
+.level4ElectionVisual.electionSuccess
+.electionBoxLabel{
+  color:#e0c477;
+
+  text-shadow:
+    0 0 12px
+    rgba(200,164,92,.3);
+}
+
+.level4ElectionVisual.electionSuccess
+.electionVoter{
+  background:#80ad77;
+
+  transform:scale(1.18);
+
+  box-shadow:
+    0 0 0 7px
+    rgba(80,150,70,.08),
+    0 0 16px
+    rgba(80,150,70,.3);
+}
+
+.level4ElectionVisual.electionSuccess
+.electionPath{
+  opacity:1;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      #c8a45c,
+      transparent
+    );
+
+  box-shadow:
+    0 0 12px
+    rgba(200,164,92,.4);
+}
+
+.level4ElectionVisual.electionSuccess
+.electionVisualStatus{
+  color:#9fc895;
+
+  text-shadow:
+    0 0 14px
+    rgba(90,150,80,.28);
+}
+
+
+/* ==================================================
+   FAILURE
+================================================== */
+
+.level4ElectionVisual.electionFailure{
+  animation:
+    electionFailureFlash
+    .45s ease;
+}
+
+.level4ElectionVisual.electionFailure
+.electionVoter{
+  background:#b83b38;
+
+  box-shadow:
+    0 0 15px
+    rgba(184,59,56,.22);
+}
+
+.level4ElectionVisual.electionFailure
+.electionPath{
+  opacity:.18;
+}
+
+.level4ElectionVisual.electionFailure
+.electionBallot{
+  opacity:.25;
+
+  transform:
+    translateX(-50%)
+    rotate(8deg);
+}
+
+.level4ElectionVisual.electionFailure
+.electionVisualStatus{
+  color:#d05b57;
+}
+
+
+/* ===== ANIMATION ===== */
+
+@keyframes electionBallotDrop{
+
+  0%{
+    top:20px;
+
+    opacity:1;
+
+    transform:
+      translateX(-50%)
+      rotate(-4deg);
+  }
+
+  65%{
+    top:74px;
+
+    opacity:1;
+
+    transform:
+      translateX(-50%)
+      rotate(1deg);
+  }
+
+  100%{
+    top:80px;
+
+    opacity:0;
+
+    transform:
+      translateX(-50%)
+      rotate(0deg)
+      scale(.75);
+  }
+
+}
+
+@keyframes electionFailureFlash{
+
+  0%,100%{
+    background-color:
+      transparent;
+  }
+
+  45%{
+    background-color:
+      rgba(184,59,56,.13);
+  }
+
+}
 .level4TransitionScreen{
   position:relative;
   overflow:hidden;

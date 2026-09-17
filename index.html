@@ -10399,8 +10399,13 @@ function renderLevel4DecisionFeedback(
         class="btn level4DecisionContinue"
         id="level4CrisisContinueBtn">
 
-      TIẾP TỤC · CRISIS 02 →
-
+     ${
+  crisis.id === "food"
+  ? "TIẾP TỤC · CRISIS 02 →"
+  : crisis.id === "literacy"
+    ? "TIẾP TỤC · CRISIS 03 →"
+    : "TIẾP TỤC →"
+}
       </button>
 
 
@@ -10417,7 +10422,25 @@ function renderLevel4DecisionFeedback(
       "click",
       function(){
 
-      showLevel4CrisisTransition();
+    if(crisis.id === "food"){
+
+  showLevel4CrisisTransition();
+
+  return;
+
+}
+
+
+if(crisis.id === "literacy"){
+
+  showLevel4CrisisTransition23();
+
+  return;
+
+}
+
+
+renderLevel4Dashboard();
 
 
         setTimeout(
@@ -10560,6 +10583,167 @@ function showLevel4CrisisTransition(){
           class="level4NextCrisisDate">
 
           THÁNG 9 · 1945
+
+        </div>
+
+
+        <button
+          class="
+            btn
+            level4OpenDossier
+          "
+          id="level4OpenNextCrisis">
+
+          MỞ HỒ SƠ →
+
+        </button>
+
+
+      </div>
+
+    </section>
+
+  `;
+
+
+  document
+    .getElementById(
+      "level4OpenNextCrisis"
+    )
+    .addEventListener(
+      "click",
+      function(){
+
+        const nextIndex =
+          level4Crises
+            .findIndex(
+              function(item){
+
+                return !level4ResolvedCrises
+                  .has(item.id);
+
+              }
+            );
+
+
+        if(nextIndex >= 0){
+
+          renderLevel4Crisis(
+            nextIndex
+          );
+
+        }
+
+        else{
+
+          renderLevel4Dashboard();
+
+        }
+
+      }
+    );
+
+}
+  /* ==================================================
+   CRISIS 02 → CRISIS 03 TRANSITION
+================================================== */
+
+function showLevel4CrisisTransition23(){
+
+  screen.innerHTML = `
+
+    <section class="
+      screen
+      level4TransitionScreen
+    ">
+
+      <div class="
+        level4CrisisTransition
+      ">
+
+
+        <div
+          class="level4TransitionScan">
+        </div>
+
+
+        <div
+          class="level4TransitionResolved">
+
+          CRISIS 02 RESOLVED
+
+        </div>
+
+
+        <div
+          class="level4TransitionPath">
+
+
+          <div
+            class="
+              level4TransitionNode
+              done
+            ">
+
+            02
+
+          </div>
+
+
+          <div
+            class="level4TransitionTrack">
+
+            <div
+              class="
+                level4TransitionTrackFill
+              ">
+            </div>
+
+          </div>
+
+
+          <div
+            class="
+              level4TransitionNode
+              next
+            ">
+
+            03
+
+          </div>
+
+
+        </div>
+
+
+        <div
+          class="level4NextPriority">
+
+          NEXT NATIONAL PRIORITY
+
+        </div>
+
+
+        <div
+          class="level4NextCrisisNumber">
+
+          CRISIS 03
+
+        </div>
+
+
+        <div
+          class="level4NextCrisisTitle">
+
+          TỔNG TUYỂN CỬ
+
+        </div>
+
+
+        <div
+          class="level4NextCrisisDate">
+
+          06 · 01 · 1946
 
         </div>
 

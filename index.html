@@ -10353,6 +10353,251 @@ function renderLevel4Dashboard(){
 setupLevel4CrisisStart();
 }
 
+  /* ==================================================
+   LEVEL 4 · POST CRISIS ASSESSMENT
+================================================== */
+
+function getLevel4MetricAverage(){
+
+  const values =
+    Object.values(
+      level4Metrics
+    );
+
+  const total =
+    values.reduce(
+      function(sum,value){
+
+        return sum + value;
+
+      },
+      0
+    );
+
+  return Math.round(
+    total / values.length
+  );
+
+}
+
+
+function level4NeedsRecovery(){
+
+  const values =
+    Object.values(
+      level4Metrics
+    );
+
+
+  const criticalMetric =
+    values.some(
+      function(value){
+
+        return value < 25;
+
+      }
+    );
+
+
+  const average =
+    getLevel4MetricAverage();
+
+
+  return (
+    criticalMetric ||
+    average < 35
+  );
+
+}
+
+
+function showLevel4PostCrisisAssessment(){
+
+  renderLevel4Dashboard();
+
+
+  const average =
+    getLevel4MetricAverage();
+
+
+  const lowest =
+    Math.min(
+      ...Object.values(
+        level4Metrics
+      )
+    );
+
+
+  const needsRecovery =
+    level4NeedsRecovery();
+
+
+  const status =
+    document.getElementById(
+      "level4ConsoleStatus"
+    );
+
+
+  if(status){
+
+    if(needsRecovery){
+
+      status.innerHTML = `
+
+        <strong>
+          5 / 5 CRISES RESOLVED
+        </strong>
+
+        <br>
+
+        NATIONAL STABILITY REVIEW COMPLETE
+
+        <br><br>
+
+        LOWEST INDEX:
+        <strong>
+          ${lowest}
+        </strong>
+
+        · AVERAGE:
+        <strong>
+          ${average}
+        </strong>
+
+        <br>
+
+        <span style="color:#d05b57">
+          STATE RECOVERY REQUIRED
+        </span>
+
+      `;
+
+    }
+
+    else{
+
+      status.innerHTML = `
+
+        <strong>
+          5 / 5 CRISES RESOLVED
+        </strong>
+
+        <br>
+
+        NATIONAL STABILITY REVIEW COMPLETE
+
+        <br><br>
+
+        LOWEST INDEX:
+        <strong>
+          ${lowest}
+        </strong>
+
+        · AVERAGE:
+        <strong>
+          ${average}
+        </strong>
+
+        <br>
+
+        <span style="color:#9fc895">
+          SYSTEM STABLE ·
+          STATE ARCHITECTURE READY
+        </span>
+
+      `;
+
+    }
+
+  }
+
+
+  const phases =
+    document.querySelectorAll(
+      ".level4Phase"
+    );
+
+
+  phases.forEach(
+    function(phase){
+
+      phase.classList.remove(
+        "active"
+      );
+
+    }
+  );
+
+
+  if(needsRecovery){
+
+    if(phases[1]){
+
+      phases[1]
+        .classList.add(
+          "active"
+        );
+
+    }
+
+  }
+
+  else{
+
+    if(phases[2]){
+
+      phases[2]
+        .classList.add(
+          "active"
+        );
+
+    }
+
+  }
+
+
+  const actionButton =
+    document.getElementById(
+      "level4StartCrisisBtn"
+    );
+
+
+  if(actionButton){
+
+    actionButton.textContent =
+      needsRecovery
+      ? "STATE RECOVERY REQUIRED →"
+      : "STATE ARCHITECTURE READY →";
+
+
+    actionButton.disabled =
+      true;
+
+
+    actionButton.style.opacity =
+      ".52";
+
+
+    actionButton.style.cursor =
+      "default";
+
+  }
+
+
+  const previewButton =
+    document.getElementById(
+      "level4PreviewBtn"
+    );
+
+
+  if(previewButton){
+
+    previewButton.style.display =
+      "none";
+
+  }
+
+}
 
 /* ===== ANIMATE NUMBER ===== */
 
@@ -12764,6 +13009,9 @@ function renderLevel4DecisionFeedback(
 : crisis.id === "service"
   ? "TIẾP TỤC · CRISIS 05 →"
 
+: crisis.id === "solidarity"
+  ? "ĐÁNH GIÁ TÌNH TRẠNG QUỐC GIA →"
+
 : "TIẾP TỤC →"
 }
       </button>
@@ -12809,6 +13057,13 @@ if(crisis.id === "election"){
         if(crisis.id === "service"){
 
   showLevel4CrisisTransition45();
+
+  return;
+
+}
+        if(crisis.id === "solidarity"){
+
+  showLevel4PostCrisisAssessment();
 
   return;
 

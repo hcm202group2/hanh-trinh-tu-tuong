@@ -11425,11 +11425,10 @@ function showLevel4PostCrisisAssessment(){
   );
 
 
-  freshActionButton.textContent =
-    needsRecovery
-    ? "BẮT ĐẦU STATE RECOVERY →"
-    : "STATE ARCHITECTURE READY →";
-
+ freshActionButton.textContent =
+  needsRecovery
+  ? "BẮT ĐẦU STATE RECOVERY →"
+  : "BẮT ĐẦU STATE ARCHITECTURE →";
 
   if(needsRecovery){
 
@@ -11457,15 +11456,25 @@ function showLevel4PostCrisisAssessment(){
 
   else{
 
-    freshActionButton.disabled =
-      true;
+   freshActionButton.disabled =
+  false;
 
-    freshActionButton.style.opacity =
-      ".52";
+freshActionButton.style.opacity =
+  "1";
 
-    freshActionButton.style.cursor =
-      "default";
+freshActionButton.style.cursor =
+  "pointer";
 
+
+freshActionButton
+  .addEventListener(
+    "click",
+    function(){
+
+      startLevel4Architecture();
+
+    }
+  );
   }
 
 }
@@ -11896,7 +11905,795 @@ function startLevel4Recovery(){
     );
 
 }
+/* ==================================================
+   LEVEL 4 · STATE ARCHITECTURE
+================================================== */
 
+function startLevel4Architecture(){
+
+  const principles = [
+
+    {
+      key:"of",
+
+      label:"CỦA DÂN",
+
+      definition:
+        "QUYỀN LỰC THUỘC VỀ NHÂN DÂN",
+
+      explanation:
+        "Nhân dân là chủ thể của quyền lực nhà nước."
+    },
+
+    {
+      key:"by",
+
+      label:"DO DÂN",
+
+      definition:
+        "NHÂN DÂN THAM GIA LỰA CHỌN VÀ XÂY DỰNG CHÍNH QUYỀN",
+
+      explanation:
+        "Nhân dân tham gia lựa chọn đại diện và xây dựng bộ máy nhà nước."
+    },
+
+    {
+      key:"for",
+
+      label:"VÌ DÂN",
+
+      definition:
+        "BỘ MÁY NHÀ NƯỚC PHỤC VỤ LỢI ÍCH NHÂN DÂN",
+
+      explanation:
+        "Hoạt động của bộ máy nhà nước hướng tới quyền lợi của nhân dân."
+    }
+
+  ];
+
+
+  const trayOrder = [
+    "by",
+    "for",
+    "of"
+  ];
+
+
+  let selectedKey = null;
+
+  const matched =
+    new Set();
+
+
+  screen.innerHTML = `
+
+    <section class="screen">
+
+      <div class="
+        level4ArchitectureWrap
+      ">
+
+
+        <div class="
+          level4ArchitectureHeader
+        ">
+
+          <div class="small">
+
+            LEVEL 04 ·
+            STATE ARCHITECTURE
+
+          </div>
+
+
+          <div class="
+            level4ArchitectureTitle
+          ">
+
+            XÂY DỰNG
+            <br>
+
+            <span>
+              CẤU TRÚC NHÀ NƯỚC
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <p class="
+          level4ArchitectureIntro
+        ">
+
+          Hoàn thiện ba nguyên tắc
+          của mô hình Nhà nước.
+
+          <br>
+
+          Kéo thả trên máy tính
+          hoặc chọn khái niệm
+          rồi bấm vào ô phù hợp.
+
+        </p>
+
+
+        <div class="
+          level4ArchitectureProgress
+        ">
+
+          <span>
+            GOVERNMENT ARCHITECTURE
+          </span>
+
+          <strong
+            id="
+              level4ArchitectureCount
+            ">
+
+            0 / 3
+
+          </strong>
+
+        </div>
+
+
+        <div
+          class="
+            level4ArchitectureBoard
+          "
+          id="
+            level4ArchitectureBoard
+          ">
+
+
+          <div class="
+            architectureStateCore
+          ">
+
+            NHÀ NƯỚC
+
+          </div>
+
+
+          <div class="
+            architectureTrunk
+          ">
+          </div>
+
+
+          <div class="
+            architectureNetworkLine
+          ">
+          </div>
+
+
+          <div class="
+            architectureSlotGrid
+          ">
+
+            ${principles
+              .map(
+                function(
+                  principle,
+                  index
+                ){
+
+                  return `
+
+                    <button
+                      class="
+                        architectureSlot
+                      "
+                      data-key="
+                        ${principle.key}
+                      ">
+
+                      <div class="
+                        architectureSlotNumber
+                      ">
+
+                        NODE
+                        ${
+                          String(
+                            index + 1
+                          )
+                          .padStart(
+                            2,
+                            "0"
+                          )
+                        }
+
+                      </div>
+
+
+                      <div class="
+                        architectureSlotTarget
+                      ">
+
+                        ${
+                          principle
+                            .definition
+                        }
+
+                      </div>
+
+
+                      <div class="
+                        architectureSlotDesc
+                      ">
+
+                        CHƯA KẾT NỐI
+
+                      </div>
+
+                    </button>
+
+                  `;
+
+                }
+              )
+              .join("")}
+
+          </div>
+
+
+          <div
+            class="
+              architectureSystemStatus
+            "
+            id="
+              architectureSystemStatus
+            ">
+
+            GOVERNMENT ARCHITECTURE ·
+            0%
+
+          </div>
+
+
+        </div>
+
+
+        <div class="
+          level4ArchitectureTray
+        ">
+
+          ${trayOrder
+            .map(
+              function(key){
+
+                const principle =
+                  principles.find(
+                    function(item){
+
+                      return (
+                        item.key ===
+                        key
+                      );
+
+                    }
+                  );
+
+
+                return `
+
+                  <button
+                    class="
+                      architectureFragment
+                    "
+                    draggable="true"
+                    data-key="
+                      ${principle.key}
+                    ">
+
+                    ${principle.label}
+
+                  </button>
+
+                `;
+
+              }
+            )
+            .join("")}
+
+        </div>
+
+
+        <div
+          class="
+            level4ArchitectureFeedback
+          "
+          id="
+            level4ArchitectureFeedback
+          ">
+
+          Chọn một nguyên tắc
+          và kết nối với
+          ý nghĩa phù hợp.
+
+        </div>
+
+
+        <button
+          class="btn"
+          id="
+            level4ArchitectureContinue
+          ">
+
+          MISSION REPORT →
+
+        </button>
+
+
+      </div>
+
+    </section>
+
+  `;
+
+
+  const fragments =
+    Array.from(
+      document.querySelectorAll(
+        ".architectureFragment"
+      )
+    );
+
+
+  const slots =
+    Array.from(
+      document.querySelectorAll(
+        ".architectureSlot"
+      )
+    );
+
+
+  const feedback =
+    document.getElementById(
+      "level4ArchitectureFeedback"
+    );
+
+
+  const count =
+    document.getElementById(
+      "level4ArchitectureCount"
+    );
+
+
+  const status =
+    document.getElementById(
+      "architectureSystemStatus"
+    );
+
+
+  const board =
+    document.getElementById(
+      "level4ArchitectureBoard"
+    );
+
+
+  function clearArchitectureSelection(){
+
+    fragments.forEach(
+      function(fragment){
+
+        fragment.classList.remove(
+          "selectedArchitectureFragment"
+        );
+
+      }
+    );
+
+    selectedKey = null;
+
+  }
+
+
+  function selectArchitectureFragment(
+    fragment
+  ){
+
+    if(
+      fragment.classList.contains(
+        "usedArchitectureFragment"
+      )
+    ){
+      return;
+    }
+
+
+    fragments.forEach(
+      function(item){
+
+        item.classList.remove(
+          "selectedArchitectureFragment"
+        );
+
+      }
+    );
+
+
+    selectedKey =
+      fragment.dataset.key;
+
+
+    fragment.classList.add(
+      "selectedArchitectureFragment"
+    );
+
+
+    feedback.innerHTML = `
+
+      <strong
+        style="
+          color:#d9bc75
+        "
+      >
+
+        ${
+          fragment.textContent
+            .trim()
+        }
+
+      </strong>
+
+      đã được chọn.
+
+      <br>
+
+      Hãy bấm vào
+      định nghĩa phù hợp.
+
+    `;
+
+  }
+
+
+  function tryArchitectureMatch(
+    slot,
+    key
+  ){
+
+    if(
+      !key ||
+      slot.classList.contains(
+        "architectureMatched"
+      )
+    ){
+      return;
+    }
+
+
+    const correctKey =
+      slot.dataset.key;
+
+
+    if(
+      key !==
+      correctKey
+    ){
+
+      slot.classList.add(
+        "architectureWrong"
+      );
+
+
+      feedback.innerHTML = `
+
+        <strong
+          style="
+            color:#d05b57
+          "
+        >
+
+          CONNECTION REJECTED
+
+        </strong>
+
+        <br>
+
+        Khái niệm này
+        chưa phù hợp với
+        ý nghĩa đang chọn.
+
+      `;
+
+
+      setTimeout(
+        function(){
+
+          slot.classList.remove(
+            "architectureWrong"
+          );
+
+        },
+        420
+      );
+
+
+      return;
+
+    }
+
+
+    const principle =
+      principles.find(
+        function(item){
+
+          return (
+            item.key ===
+            key
+          );
+
+        }
+      );
+
+
+    const fragment =
+      document.querySelector(
+        `.architectureFragment[data-key="${key}"]`
+      );
+
+
+    matched.add(
+      key
+    );
+
+
+    slot.classList.add(
+      "architectureMatched"
+    );
+
+
+    slot
+      .querySelector(
+        ".architectureSlotNumber"
+      )
+      .textContent =
+      principle.label;
+
+
+    slot
+      .querySelector(
+        ".architectureSlotDesc"
+      )
+      .textContent =
+      principle.explanation;
+
+
+    if(fragment){
+
+      fragment.classList.add(
+        "usedArchitectureFragment"
+      );
+
+      fragment.classList.remove(
+        "selectedArchitectureFragment"
+      );
+
+      fragment.draggable =
+        false;
+
+    }
+
+
+    count.textContent =
+      matched.size +
+      " / 3";
+
+
+    const percent =
+      matched.size === 3
+      ? 100
+      : Math.round(
+          (
+            matched.size /
+            3
+          ) *
+          100
+        );
+
+
+    status.textContent =
+      "GOVERNMENT ARCHITECTURE · " +
+      percent +
+      "%";
+
+
+    feedback.innerHTML = `
+
+      <strong
+        style="
+          color:#9fc895
+        "
+      >
+
+        CONNECTION ESTABLISHED
+
+      </strong>
+
+      <br>
+
+      ${principle.label}
+      đã được kết nối
+      đúng với ý nghĩa.
+
+    `;
+
+
+    clearArchitectureSelection();
+
+
+    if(
+      matched.size ===
+      3
+    ){
+
+      board.classList.add(
+        "architectureComplete"
+      );
+
+
+      status.classList.add(
+        "systemStable"
+      );
+
+
+      status.textContent =
+        "GOVERNMENT ARCHITECTURE · 100% · SYSTEM STABLE";
+
+
+      if(
+        !level4ArchitectureCompleted
+      ){
+
+        level4ArchitectureCompleted =
+          true;
+
+
+        xp += 300;
+
+
+        level4LevelXP +=
+          300;
+
+
+        updateHUD();
+
+      }
+
+
+      feedback.innerHTML = `
+
+        <strong
+          style="
+            color:#9fc895
+          "
+        >
+
+          STATE ARCHITECTURE COMPLETE
+
+        </strong>
+
+        <br>
+
+        CỦA DÂN · DO DÂN · VÌ DÂN
+
+        <br>
+
+        GOVERNMENT ARCHITECTURE
+        đã đạt 100%.
+
+        <br><br>
+
+        <span class="gold">
+
+          +300 XP
+
+        </span>
+
+      `;
+
+    }
+
+  }
+
+
+  fragments.forEach(
+    function(fragment){
+
+
+      fragment.addEventListener(
+        "click",
+        function(){
+
+          selectArchitectureFragment(
+            fragment
+          );
+
+        }
+      );
+
+
+      fragment.addEventListener(
+        "dragstart",
+        function(event){
+
+          const key =
+            fragment.dataset.key;
+
+
+          event.dataTransfer
+            .setData(
+              "text/plain",
+              key
+            );
+
+
+          selectedKey =
+            key;
+
+        }
+      );
+
+    }
+  );
+
+
+  slots.forEach(
+    function(slot){
+
+
+      slot.addEventListener(
+        "click",
+        function(){
+
+          tryArchitectureMatch(
+            slot,
+            selectedKey
+          );
+
+        }
+      );
+
+
+      slot.addEventListener(
+        "dragover",
+        function(event){
+
+          event.preventDefault();
+
+        }
+      );
+
+
+      slot.addEventListener(
+        "drop",
+        function(event){
+
+          event.preventDefault();
+
+
+          const key =
+            event.dataTransfer
+              .getData(
+                "text/plain"
+              );
+
+
+          tryArchitectureMatch(
+            slot,
+            key
+          );
+
+        }
+      );
+
+    }
+  );
+
+}
 /* ===== ANIMATE NUMBER ===== */
 
 function animateLevel4Number(
@@ -12085,7 +12882,8 @@ let level4DecisionLocked =
 
 let level4LevelXP =
   0;
-
+let level4ArchitectureCompleted =
+  false;
 
 /* ===== CRISIS DATA ===== */
 

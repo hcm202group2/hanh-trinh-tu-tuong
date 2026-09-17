@@ -5406,6 +5406,561 @@ button.level4DecisionChoice.answerReveal{
   }
 
 }
+  /* ==================================================
+   CRISIS 05 · SOLIDARITY NETWORK
+================================================== */
+
+.level4SolidarityVisual{
+  position:relative;
+
+  height:195px;
+
+  margin:22px 0 5px;
+
+  overflow:hidden;
+
+  border:
+    1px solid
+    rgba(200,164,92,.14);
+
+  border-radius:12px;
+
+  background:
+    radial-gradient(
+      circle at 50% 50%,
+      rgba(200,164,92,.07),
+      rgba(0,0,0,.28) 68%
+    );
+}
+
+
+/* ===== CENTRAL CORE ===== */
+
+.solidarityCore{
+  position:absolute;
+
+  left:50%;
+  top:50%;
+
+  width:105px;
+  height:105px;
+
+  transform:
+    translate(-50%,-50%);
+
+  display:flex;
+
+  align-items:center;
+  justify-content:center;
+
+  padding:15px;
+
+  border-radius:50%;
+
+  border:
+    1px solid
+    rgba(200,164,92,.32);
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(200,164,92,.11),
+      rgba(35,15,15,.62)
+    );
+
+  color:#a88e62;
+
+  font-size:9px;
+  font-weight:bold;
+
+  line-height:1.45;
+  letter-spacing:1.6px;
+
+  text-align:center;
+
+  z-index:4;
+
+  transition:
+    color .65s ease,
+    border-color .65s ease,
+    box-shadow .65s ease,
+    transform .65s ease;
+}
+
+
+/* ===== OUTER GROUP NODES ===== */
+
+.solidarityNode{
+  position:absolute;
+
+  width:14px;
+  height:14px;
+
+  border-radius:50%;
+
+  border:
+    1px solid
+    rgba(184,59,56,.5);
+
+  background:
+    rgba(184,59,56,.2);
+
+  box-shadow:
+    0 0 10px
+    rgba(184,59,56,.08);
+
+  opacity:.62;
+
+  z-index:3;
+
+  transition:
+    opacity .55s ease,
+    border-color .55s ease,
+    background .55s ease,
+    box-shadow .55s ease,
+    transform .55s ease;
+}
+
+
+.solidarityNode.sn1{
+  left:14%;
+  top:27px;
+}
+
+
+.solidarityNode.sn2{
+  left:50%;
+  top:17px;
+
+  transform:
+    translateX(-50%);
+}
+
+
+.solidarityNode.sn3{
+  right:14%;
+  top:27px;
+}
+
+
+.solidarityNode.sn4{
+  left:14%;
+  bottom:29px;
+}
+
+
+.solidarityNode.sn5{
+  left:50%;
+  bottom:18px;
+
+  transform:
+    translateX(-50%);
+}
+
+
+.solidarityNode.sn6{
+  right:14%;
+  bottom:29px;
+}
+
+
+/* ===== NETWORK LINKS ===== */
+
+.solidarityLink{
+  position:absolute;
+
+  left:50%;
+  top:50%;
+
+  width:150px;
+  height:1px;
+
+  transform-origin:left center;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(184,59,56,.55),
+      transparent
+    );
+
+  opacity:.12;
+
+  z-index:1;
+
+  transition:
+    opacity .6s ease,
+    background .6s ease,
+    box-shadow .6s ease;
+}
+
+
+.solidarityLink.slink1{
+  transform:
+    rotate(-154deg);
+}
+
+
+.solidarityLink.slink2{
+  transform:
+    rotate(-90deg);
+}
+
+
+.solidarityLink.slink3{
+  transform:
+    rotate(-26deg);
+}
+
+
+.solidarityLink.slink4{
+  transform:
+    rotate(154deg);
+}
+
+
+.solidarityLink.slink5{
+  transform:
+    rotate(90deg);
+}
+
+
+.solidarityLink.slink6{
+  transform:
+    rotate(26deg);
+}
+
+
+/* ===== UNITY RING ===== */
+
+.solidarityRing{
+  position:absolute;
+
+  left:50%;
+  top:50%;
+
+  width:150px;
+  height:150px;
+
+  transform:
+    translate(-50%,-50%)
+    scale(.82);
+
+  border-radius:50%;
+
+  border:
+    1px dashed
+    rgba(200,164,92,.16);
+
+  opacity:.22;
+
+  z-index:2;
+
+  transition:
+    opacity .7s ease,
+    border-color .7s ease,
+    box-shadow .7s ease,
+    transform .7s ease;
+}
+
+
+/* ===== SIGNAL ===== */
+
+.solidaritySignal{
+  position:absolute;
+
+  left:50%;
+  top:50%;
+
+  width:8px;
+  height:8px;
+
+  margin-left:-4px;
+  margin-top:-4px;
+
+  border-radius:50%;
+
+  background:#c8a45c;
+
+  box-shadow:
+    0 0 12px
+    rgba(200,164,92,.7);
+
+  opacity:0;
+
+  z-index:5;
+
+  pointer-events:none;
+}
+
+
+/* ===== STATUS ===== */
+
+.solidarityVisualStatus{
+  position:absolute;
+
+  left:0;
+  right:0;
+
+  bottom:7px;
+
+  color:#96504c;
+
+  font-size:8px;
+  letter-spacing:3px;
+
+  text-align:center;
+
+  transition:
+    color .6s ease,
+    text-shadow .6s ease;
+}
+
+
+/* ==================================================
+   SUCCESS
+================================================== */
+
+.level4SolidarityVisual.solidaritySuccess
+.solidarityCore{
+
+  color:#e4c978;
+
+  border-color:#c8a45c;
+
+  transform:
+    translate(-50%,-50%)
+    scale(1.08);
+
+  box-shadow:
+    0 0 0 10px
+    rgba(200,164,92,.035),
+    0 0 32px
+    rgba(200,164,92,.27);
+}
+
+
+.level4SolidarityVisual.solidaritySuccess
+.solidarityNode{
+
+  opacity:1;
+
+  border-color:#88b47e;
+
+  background:#6f9f68;
+
+  box-shadow:
+    0 0 15px
+    rgba(100,160,90,.55);
+
+  transform:
+    scale(1.22);
+}
+
+
+.level4SolidarityVisual.solidaritySuccess
+.solidarityNode.sn2,
+.level4SolidarityVisual.solidaritySuccess
+.solidarityNode.sn5{
+
+  transform:
+    translateX(-50%)
+    scale(1.22);
+}
+
+
+.level4SolidarityVisual.solidaritySuccess
+.solidarityLink{
+
+  opacity:.85;
+
+  background:
+    linear-gradient(
+      90deg,
+      #c8a45c,
+      #789f70
+    );
+
+  box-shadow:
+    0 0 9px
+    rgba(200,164,92,.24);
+}
+
+
+.level4SolidarityVisual.solidaritySuccess
+.solidarityRing{
+
+  opacity:1;
+
+  border-color:
+    rgba(200,164,92,.7);
+
+  transform:
+    translate(-50%,-50%)
+    scale(1);
+
+  box-shadow:
+    0 0 24px
+    rgba(200,164,92,.12);
+
+  animation:
+    solidarityRingPulse
+    1.5s ease
+    infinite alternate;
+}
+
+
+.level4SolidarityVisual.solidaritySuccess
+.solidaritySignal{
+
+  animation:
+    solidaritySignalPulse
+    1.2s ease
+    forwards;
+}
+
+
+.level4SolidarityVisual.solidaritySuccess
+.solidarityVisualStatus{
+
+  color:#9fc895;
+
+  text-shadow:
+    0 0 14px
+    rgba(90,150,80,.3);
+}
+
+
+/* ==================================================
+   FAILURE
+================================================== */
+
+.level4SolidarityVisual.solidarityFailure{
+
+  animation:
+    solidarityFailureFlash
+    .45s ease;
+}
+
+
+.level4SolidarityVisual.solidarityFailure
+.solidarityNode{
+
+  opacity:.35;
+
+  border-color:
+    rgba(184,59,56,.7);
+
+  background:
+    rgba(184,59,56,.3);
+}
+
+
+.level4SolidarityVisual.solidarityFailure
+.solidarityLink{
+
+  opacity:.05;
+}
+
+
+.level4SolidarityVisual.solidarityFailure
+.solidarityRing{
+
+  opacity:.08;
+
+  border-color:
+    rgba(184,59,56,.35);
+}
+
+
+.level4SolidarityVisual.solidarityFailure
+.solidarityCore{
+
+  color:#cb6661;
+
+  border-color:
+    rgba(184,59,56,.55);
+
+  box-shadow:
+    0 0 20px
+    rgba(184,59,56,.12);
+}
+
+
+.level4SolidarityVisual.solidarityFailure
+.solidarityVisualStatus{
+
+  color:#d05b57;
+}
+
+
+/* ==================================================
+   ANIMATIONS
+================================================== */
+
+@keyframes solidarityRingPulse{
+
+  from{
+
+    box-shadow:
+      0 0 12px
+      rgba(200,164,92,.08);
+  }
+
+  to{
+
+    box-shadow:
+      0 0 32px
+      rgba(200,164,92,.28);
+  }
+
+}
+
+
+@keyframes solidaritySignalPulse{
+
+  0%{
+
+    opacity:0;
+
+    transform:
+      scale(.4);
+  }
+
+  35%{
+
+    opacity:1;
+
+    transform:
+      scale(1.8);
+  }
+
+  100%{
+
+    opacity:0;
+
+    transform:
+      scale(8);
+  }
+
+}
+
+
+@keyframes solidarityFailureFlash{
+
+  0%,100%{
+
+    background-color:
+      transparent;
+  }
+
+  45%{
+
+    background-color:
+      rgba(184,59,56,.13);
+  }
+
+}
 .level4TransitionScreen{
   position:relative;
   overflow:hidden;

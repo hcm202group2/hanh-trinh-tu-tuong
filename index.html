@@ -640,6 +640,21 @@ button.dropSlot.matched{
   left:40px;
   bottom:10px;
   animation:orgEnterLeft .7s 1.7s forwards;
+
+  flex-direction:column;
+  gap:6px;
+
+  border-style:dashed;
+  border-color:rgba(200,164,92,.28);
+
+  color:#93877c;
+  background:rgba(200,164,92,.025);
+}
+
+.org3 .lateJoin{
+  color:#c8a45c;
+  font-size:9px;
+  letter-spacing:2px;
 }
 
 .unityCore{
@@ -709,12 +724,6 @@ button.dropSlot.matched{
   transform:rotate(0deg);
   animation:lineGrow .8s 4.1s forwards;
 }
-
-.line3{
-  transform:rotate(155deg);
-  animation:lineGrow .8s 4.4s forwards;
-}
-
 .c1930Text{
   min-height:70px;
 
@@ -8092,9 +8101,15 @@ document.getElementById("to1930")
           AN NAM<br>CỘNG SẢN ĐẢNG
         </div>
 
-        <div class="orgStream org3">
-          ĐÔNG DƯƠNG CỘNG SẢN<br>LIÊN ĐOÀN
-        </div>
+       <div class="orgStream org3">
+  <span>
+    ĐÔNG DƯƠNG CỘNG SẢN<br>LIÊN ĐOÀN
+  </span>
+
+  <span class="lateJoin">
+    GIA NHẬP SAU
+  </span>
+</div>
 
         <div class="unityCore">
           THỐNG<br>NHẤT
@@ -10490,11 +10505,14 @@ const level3ToLevel4 =
 
 if(level3ToLevel4){
 
-  level3ToLevel4
-    .addEventListener(
-      "click",
-      startLevel4
-    );
+  level3ToLevel4.onclick =
+    function(){
+
+      window.scrollTo(0,0);
+
+      startLevel4();
+
+    };
 
 }
       }

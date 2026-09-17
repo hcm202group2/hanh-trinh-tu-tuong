@@ -8843,14 +8843,1381 @@ screen.insertAdjacentHTML("beforeend", `
 .getElementById("enter1930Boss")
 .addEventListener("click",function(){
 
-  startPhase1();
+startLevel3Network();
 
 });
 
   },7000);
 }
   /* ===== LEVEL 3 · BOSS PHASE 1 ===== */
+/* ==================================================
+   LEVEL 3 · REVOLUTION NETWORK · NEW ENGINE
+================================================== */
 
+let l3nStage = 1;
+
+let l3nSelectedOrg = null;
+let l3nSelectedSignal = null;
+
+let l3nRoutedOrgs = new Set();
+let l3nSolvedSignals = new Set();
+let l3nVerifiedEvidence = new Set();
+
+let l3nLevelXP = 0;
+
+
+const l3nOrganizations = [
+
+  {
+    id:"dongduong",
+    name:"ĐÔNG DƯƠNG CỘNG SẢN ĐẢNG",
+    route:"conference"
+  },
+
+  {
+    id:"annam",
+    name:"AN NAM CỘNG SẢN ĐẢNG",
+    route:"conference"
+  },
+
+  {
+    id:"liendoan",
+    name:"ĐÔNG DƯƠNG CỘNG SẢN LIÊN ĐOÀN",
+    route:"later"
+  }
+
+];
+
+
+/* ===== START ===== */
+
+function startLevel3Network(){
+
+  l3nStage = 1;
+
+  l3nSelectedOrg = null;
+  l3nSelectedSignal = null;
+
+  l3nRoutedOrgs = new Set();
+  l3nSolvedSignals = new Set();
+  l3nVerifiedEvidence = new Set();
+
+  l3nLevelXP = 0;
+
+
+  hud.style.display = "flex";
+
+
+  document
+    .getElementById("hearts")
+    .style.visibility =
+    "hidden";
+
+
+  document
+    .querySelector(
+      "#hud .hudBlock:last-child"
+    )
+    .firstChild.textContent =
+    "LEVEL 3 / 5";
+
+
+  document
+    .getElementById("progress")
+    .style.width =
+    "60%";
+
+
+  updateHUD();
+
+  renderLevel3Network();
+}
+
+
+/* ===== PROGRESS ===== */
+
+function l3nOverallProgress(){
+
+  const stage1 =
+    l3nRoutedOrgs.size /
+    l3nOrganizations.length;
+
+
+  const stage2 =
+    l3nSolvedSignals.size /
+    phase2Pieces.length;
+
+
+  const stage3 =
+    l3nVerifiedEvidence.size /
+    phase3Cases.length;
+
+
+  return Math.round(
+    (
+      stage1 +
+      stage2 +
+      stage3
+    )
+    / 3
+    * 100
+  );
+}
+
+
+function l3nRailClass(stage){
+
+  if(stage < l3nStage){
+    return "done";
+  }
+
+  if(stage === l3nStage){
+    return "active";
+  }
+
+  return "";
+}
+
+
+/* ===== MAIN RENDER ===== */
+
+function renderLevel3Network(){
+
+  const overall =
+    l3nOverallProgress();
+
+
+  screen.innerHTML = `
+
+    <div
+      class="content l3nWrap"
+      id="l3nRoot"
+    >
+
+      <div class="l3nHeader">
+
+        <div class="l3nHeaderText">
+
+          <div class="l3nKicker">
+            LEVEL 03 · 1930
+          </div>
+
+          <div class="l3nTitle">
+
+            REVOLUTION
+
+            <span class="red">
+              NETWORK
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <div class="l3nStatus">
+
+          <div class="l3nStatusLabel">
+            NETWORK INTEGRITY
+          </div>
+
+          <div class="l3nStatusValue">
+
+            ${overall}%
+            ·
+            +${l3nLevelXP} XP
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="l3nStageRail">
+
+        <div
+          class="
+            l3nStageChip
+            ${l3nRailClass(1)}
+          "
+        >
+          01 · UNIFICATION
+        </div>
+
+        <div
+          class="
+            l3nStageChip
+            ${l3nRailClass(2)}
+          "
+        >
+          02 · STRATEGY
+        </div>
+
+        <div
+          class="
+            l3nStageChip
+            ${l3nRailClass(3)}
+          "
+        >
+          03 · EVIDENCE
+        </div>
+
+      </div>
+
+
+      <div class="l3nBoard">
+
+        <div
+          class="
+            l3nCore
+            ${overall === 100 ? "online" : ""}
+          "
+        >
+
+          <div class="l3nCoreYear">
+            1930
+          </div>
+
+          <div class="l3nCoreText">
+            COMMAND CORE
+          </div>
+
+        </div>
+
+
+        ${
+          l3nStage === 1
+          ?
+          renderL3NStage1()
+          :
+          l3nStage === 2
+          ?
+          renderL3NStage2()
+          :
+          renderL3NStage3()
+        }
+
+
+        <div class="l3nMeter">
+
+          <div
+            class="l3nMeterFill"
+            style="
+              width:${overall}%;
+            "
+          >
+          </div>
+
+        </div>
+
+
+        <div class="l3nFooter">
+
+          ${
+            l3nStage === 1 &&
+            l3nRoutedOrgs.size ===
+            l3nOrganizations.length
+            ?
+            `
+
+              <button
+                class="btn"
+                data-l3n-action="next-stage"
+              >
+
+                MỞ STRATEGY NETWORK →
+
+              </button>
+
+            `
+            :
+            ""
+          }
+
+
+          ${
+            l3nStage === 2 &&
+            l3nSolvedSignals.size ===
+            phase2Pieces.length
+            ?
+            `
+
+              <button
+                class="btn"
+                data-l3n-action="next-stage"
+              >
+
+                MỞ EVIDENCE ARCHIVE →
+
+              </button>
+
+            `
+            :
+            ""
+          }
+
+
+          ${
+            l3nStage === 3 &&
+            l3nVerifiedEvidence.size ===
+            phase3Cases.length
+            ?
+            `
+
+              <button
+                class="btn"
+                data-l3n-action="complete-level"
+              >
+
+                HOÀN TẤT REVOLUTION NETWORK →
+
+              </button>
+
+            `
+            :
+            ""
+          }
+
+        </div>
+
+      </div>
+
+    </div>
+
+  `;
+
+
+  const root =
+    document.getElementById(
+      "l3nRoot"
+    );
+
+
+  if(root){
+
+    root.addEventListener(
+      "click",
+      handleL3NClick
+    );
+
+  }
+
+}
+
+
+/* ==================================================
+   STAGE 01 · UNIFICATION
+================================================== */
+
+function renderL3NStage1(){
+
+  return `
+
+    <div class="l3nInstruction">
+
+      Năm 1929,
+      yêu cầu cấp thiết là
+
+      <strong class="gold">
+        thống nhất lực lượng lãnh đạo.
+      </strong>
+
+      <br>
+
+      Chọn từng tổ chức,
+      sau đó xác định tổ chức đó
+
+      <strong>
+        trực tiếp tham dự Hội nghị hợp nhất
+      </strong>
+
+      hay
+
+      <strong>
+        gia nhập sau.
+      </strong>
+
+    </div>
+
+
+    <div class="l3nCardGrid">
+
+      ${l3nOrganizations
+        .map(function(org){
+
+          const done =
+            l3nRoutedOrgs.has(
+              org.id
+            );
+
+
+          const active =
+            l3nSelectedOrg ===
+            org.id;
+
+
+          return `
+
+            <button
+              class="
+                l3nCard
+                ${done ? "done" : ""}
+                ${active ? "active" : ""}
+              "
+              data-l3n-action="select-org"
+              data-l3n-id="${org.id}"
+            >
+
+              ${org.name}
+
+            </button>
+
+          `;
+
+        })
+        .join("")
+      }
+
+    </div>
+
+
+    <div class="l3nRouteGrid">
+
+      <button
+        class="l3nRoute"
+        data-l3n-action="route-org"
+        data-l3n-route="conference"
+      >
+
+        THAM DỰ HỘI NGHỊ HỢP NHẤT
+
+      </button>
+
+
+      <button
+        class="l3nRoute"
+        data-l3n-action="route-org"
+        data-l3n-route="later"
+      >
+
+        GIA NHẬP SAU
+
+      </button>
+
+    </div>
+
+
+    <div
+      class="l3nFeedback"
+      id="l3nFeedback"
+    >
+
+      ${
+        l3nRoutedOrgs.size ===
+        l3nOrganizations.length
+        ?
+        `
+
+          <strong class="gold">
+            UNIFICATION VERIFIED
+          </strong>
+
+          <br>
+
+          Đông Dương Cộng sản Đảng
+          và An Nam Cộng sản Đảng
+          trực tiếp tham dự Hội nghị hợp nhất.
+
+          <br>
+
+          Đông Dương Cộng sản Liên đoàn
+          gia nhập sau.
+
+          <br><br>
+
+          Nguyễn Ái Quốc giữ vai trò
+          chủ trì Hội nghị hợp nhất.
+
+        `
+        :
+        `
+
+          Chọn một tổ chức,
+          rồi chọn đúng tuyến lịch sử
+          của tổ chức đó.
+
+        `
+      }
+
+    </div>
+
+  `;
+
+}
+
+
+/* ==================================================
+   STAGE 02 · STRATEGY NETWORK
+================================================== */
+
+function renderL3NStage2(){
+
+  const nodes = [
+
+    {
+      key:"goal",
+      label:"MỤC TIÊU"
+    },
+
+    {
+      key:"path",
+      label:"PHƯƠNG HƯỚNG"
+    },
+
+    {
+      key:"leader",
+      label:"LÃNH ĐẠO"
+    },
+
+    {
+      key:"force",
+      label:"LỰC LƯỢNG"
+    },
+
+    {
+      key:"world",
+      label:"QUỐC TẾ"
+    },
+
+    {
+      key:"noise",
+      label:"REJECT · NHIỄU"
+    }
+
+  ];
+
+
+  return `
+
+    <div class="l3nInstruction">
+
+      Cương lĩnh đang được truyền về
+      dưới dạng
+
+      <strong class="gold">
+        7 tín hiệu.
+      </strong>
+
+      <br>
+
+      Chọn một tín hiệu bên trái,
+      sau đó kết nối với
+      node nội dung phù hợp.
+
+    </div>
+
+
+    <div class="l3nSignalLayout">
+
+
+      <div class="l3nSignalList">
+
+        ${phase2Pieces
+          .map(function(piece){
+
+            const done =
+              l3nSolvedSignals.has(
+                piece.id
+              );
+
+
+            const selected =
+              l3nSelectedSignal ===
+              piece.id;
+
+
+            return `
+
+              <button
+                class="
+                  l3nSignal
+                  ${done ? "done" : ""}
+                  ${selected ? "selected" : ""}
+                "
+                data-l3n-action="select-signal"
+                data-l3n-id="${piece.id}"
+              >
+
+                <strong>
+                  ${piece.icon}
+                </strong>
+
+                ${piece.text}
+
+              </button>
+
+            `;
+
+          })
+          .join("")
+        }
+
+      </div>
+
+
+      <div class="l3nNodeGrid">
+
+        ${nodes
+          .map(function(node){
+
+            const total =
+              phase2Pieces
+                .filter(function(piece){
+
+                  return (
+                    piece.target ===
+                    node.key
+                  );
+
+                })
+                .length;
+
+
+            const solved =
+              phase2Pieces
+                .filter(function(piece){
+
+                  return (
+                    piece.target ===
+                    node.key &&
+                    l3nSolvedSignals.has(
+                      piece.id
+                    )
+                  );
+
+                })
+                .length;
+
+
+            const done =
+              total > 0 &&
+              solved === total;
+
+
+            return `
+
+              <button
+                class="
+                  l3nNode
+                  ${done ? "done" : ""}
+                "
+                data-l3n-action="connect-signal"
+                data-l3n-target="${node.key}"
+              >
+
+                ${node.label}
+
+                <br><br>
+
+                ${solved}/${total}
+                SIGNAL VERIFIED
+
+              </button>
+
+            `;
+
+          })
+          .join("")
+        }
+
+      </div>
+
+    </div>
+
+
+    <div
+      class="l3nFeedback"
+      id="l3nFeedback"
+    >
+
+      ${
+        l3nSolvedSignals.size ===
+        phase2Pieces.length
+        ?
+        `
+
+          <strong class="gold">
+            STRATEGY NETWORK COMPLETE
+          </strong>
+
+          <br>
+
+          Các nội dung về mục tiêu,
+          phương hướng,
+          lãnh đạo,
+          lực lượng
+          và quan hệ quốc tế
+          đã được phục dựng.
+
+          <br>
+
+          Hai tín hiệu sai
+          đã được loại bỏ.
+
+        `
+        :
+        `
+
+          Chọn một SIGNAL,
+          sau đó chọn node phù hợp.
+
+          <br>
+
+          Chọn sai không làm mất tiến độ.
+
+        `
+      }
+
+    </div>
+
+  `;
+
+}
+
+
+/* ==================================================
+   STAGE 03 · EVIDENCE
+================================================== */
+
+function renderL3NStage3(){
+
+  return `
+
+    <div class="l3nInstruction">
+
+      Bốn hồ sơ cuối cùng
+      cần được
+
+      <strong class="gold">
+        xác minh
+      </strong>
+
+      trước khi hệ thống
+      đạt toàn vẹn.
+
+      <br>
+
+      Mở từng dossier
+      để đưa bằng chứng
+      vào mạng lưới.
+
+    </div>
+
+
+    <div class="l3nEvidenceGrid">
+
+      ${phase3Cases
+        .map(function(item){
+
+          const done =
+            l3nVerifiedEvidence.has(
+              item.id
+            );
+
+
+          return `
+
+            <button
+              class="
+                l3nEvidence
+                ${done ? "done" : ""}
+              "
+              data-l3n-action="verify-evidence"
+              data-l3n-id="${item.id}"
+            >
+
+              <div class="l3nEvidenceArt">
+
+                ${item.art}
+
+              </div>
+
+
+              <div class="l3nEvidenceMeta">
+
+                <div class="l3nEvidenceCode">
+
+                  ${item.code}
+
+                </div>
+
+
+                <div class="l3nEvidenceName">
+
+                  ${item.name}
+
+                </div>
+
+
+                <div class="l3nEvidenceHint">
+
+                  ${
+                    done
+                    ?
+                    item.evidence
+                    :
+                    item.hint
+                  }
+
+                </div>
+
+              </div>
+
+            </button>
+
+          `;
+
+        })
+        .join("")
+      }
+
+    </div>
+
+
+    <div
+      class="l3nFeedback"
+      id="l3nFeedback"
+    >
+
+      ${
+        l3nVerifiedEvidence.size ===
+        phase3Cases.length
+        ?
+        `
+
+          <strong class="gold">
+            EVIDENCE SYSTEM VERIFIED
+          </strong>
+
+          <br>
+
+          Công nhân ·
+          nông dân ·
+          thống nhất lãnh đạo ·
+          Cương lĩnh chính trị
+          đã được xác minh.
+
+        `
+        :
+        `
+
+          Chọn một dossier
+          để xác minh bằng chứng.
+
+        `
+      }
+
+    </div>
+
+  `;
+
+}
+
+
+/* ==================================================
+   CLICK ENGINE
+================================================== */
+
+function handleL3NClick(event){
+
+  const target =
+    event.target.closest(
+      "[data-l3n-action]"
+    );
+
+
+  if(!target){
+    return;
+  }
+
+
+  const action =
+    target.dataset.l3nAction;
+
+
+  /* ===== SELECT ORGANIZATION ===== */
+
+  if(action === "select-org"){
+
+    const id =
+      target.dataset.l3nId;
+
+
+    if(
+      l3nRoutedOrgs.has(id)
+    ){
+      return;
+    }
+
+
+    l3nSelectedOrg = id;
+
+    renderLevel3Network();
+
+    return;
+  }
+
+
+  /* ===== ROUTE ORGANIZATION ===== */
+
+  if(action === "route-org"){
+
+    if(!l3nSelectedOrg){
+
+      showL3NFeedback(
+        "Hãy chọn một tổ chức trước.",
+        true
+      );
+
+      return;
+    }
+
+
+    const org =
+      l3nOrganizations.find(
+        function(item){
+
+          return (
+            item.id ===
+            l3nSelectedOrg
+          );
+
+        }
+      );
+
+
+    const route =
+      target.dataset.l3nRoute;
+
+
+    if(
+      !org ||
+      org.route !== route
+    ){
+
+      target.classList.add(
+        "l3nWrong"
+      );
+
+
+      showL3NFeedback(
+        "ROUTING ERROR · Tuyến vừa chọn chưa đúng. Hãy thử lại.",
+        true
+      );
+
+      return;
+    }
+
+
+    l3nRoutedOrgs.add(
+      org.id
+    );
+
+
+    l3nSelectedOrg = null;
+
+
+    xp += 300;
+
+    l3nLevelXP += 300;
+
+
+    updateHUD();
+
+    renderLevel3Network();
+
+    return;
+  }
+
+
+  /* ===== NEXT STAGE ===== */
+
+  if(action === "next-stage"){
+
+    if(
+      l3nStage === 1 &&
+      l3nRoutedOrgs.size ===
+      l3nOrganizations.length
+    ){
+
+      l3nStage = 2;
+
+      l3nSelectedSignal = null;
+
+      renderLevel3Network();
+
+      return;
+    }
+
+
+    if(
+      l3nStage === 2 &&
+      l3nSolvedSignals.size ===
+      phase2Pieces.length
+    ){
+
+      l3nStage = 3;
+
+      l3nSelectedSignal = null;
+
+      renderLevel3Network();
+
+      return;
+    }
+
+  }
+
+
+  /* ===== SELECT SIGNAL ===== */
+
+  if(action === "select-signal"){
+
+    const id =
+      target.dataset.l3nId;
+
+
+    if(
+      l3nSolvedSignals.has(id)
+    ){
+      return;
+    }
+
+
+    l3nSelectedSignal = id;
+
+    renderLevel3Network();
+
+    return;
+  }
+
+
+  /* ===== CONNECT SIGNAL ===== */
+
+  if(action === "connect-signal"){
+
+    if(!l3nSelectedSignal){
+
+      showL3NFeedback(
+        "Hãy chọn một SIGNAL trước.",
+        true
+      );
+
+      return;
+    }
+
+
+    const piece =
+      phase2Pieces.find(
+        function(item){
+
+          return (
+            item.id ===
+            l3nSelectedSignal
+          );
+
+        }
+      );
+
+
+    const node =
+      target.dataset.l3nTarget;
+
+
+    if(
+      !piece ||
+      piece.target !== node
+    ){
+
+      target.classList.add(
+        "l3nWrong"
+      );
+
+
+      showL3NFeedback(
+        "ROUTING ERROR · Tín hiệu chưa thuộc node này. Hãy thử lại.",
+        true
+      );
+
+      return;
+    }
+
+
+    l3nSolvedSignals.add(
+      piece.id
+    );
+
+
+    const reward =
+      piece.target === "noise"
+      ?
+      75
+      :
+      150;
+
+
+    xp += reward;
+
+    l3nLevelXP += reward;
+
+
+    l3nSelectedSignal = null;
+
+
+    updateHUD();
+
+    renderLevel3Network();
+
+    return;
+  }
+
+
+  /* ===== VERIFY EVIDENCE ===== */
+
+  if(action === "verify-evidence"){
+
+    const id =
+      target.dataset.l3nId;
+
+
+    if(
+      l3nVerifiedEvidence.has(id)
+    ){
+      return;
+    }
+
+
+    const item =
+      phase3Cases.find(
+        function(entry){
+
+          return (
+            entry.id === id
+          );
+
+        }
+      );
+
+
+    if(!item){
+      return;
+    }
+
+
+    l3nVerifiedEvidence.add(
+      id
+    );
+
+
+    xp += 125;
+
+    l3nLevelXP += 125;
+
+
+    updateHUD();
+
+    renderLevel3Network();
+
+
+    const feedback =
+      document.getElementById(
+        "l3nFeedback"
+      );
+
+
+    if(
+      feedback &&
+      l3nVerifiedEvidence.size <
+      phase3Cases.length
+    ){
+
+      feedback.innerHTML = `
+
+        <strong class="gold">
+
+          ${item.evidence}
+
+        </strong>
+
+        <br>
+
+        ${item.note}
+
+        <br><br>
+
+        EVIDENCE VERIFIED · +125 XP
+
+      `;
+
+
+      feedback.classList.add(
+        "success"
+      );
+
+    }
+
+
+    return;
+  }
+
+
+  /* ===== COMPLETE ===== */
+
+  if(action === "complete-level"){
+
+    if(
+      l3nVerifiedEvidence.size ===
+      phase3Cases.length
+    ){
+
+      completeLevel3Network();
+
+    }
+
+  }
+
+}
+
+
+/* ===== FEEDBACK ===== */
+
+function showL3NFeedback(
+  message,
+  isError = false
+){
+
+  const feedback =
+    document.getElementById(
+      "l3nFeedback"
+    );
+
+
+  if(!feedback){
+    return;
+  }
+
+
+  feedback.innerHTML =
+    message;
+
+
+  feedback.classList.toggle(
+    "error",
+    isError
+  );
+
+}
+
+
+/* ==================================================
+   LEVEL 3 COMPLETE
+================================================== */
+
+function completeLevel3Network(){
+
+  screen.innerHTML = `
+
+    <div class="content">
+
+      <div class="l3nComplete">
+
+        <div class="small">
+          LEVEL 03 · COMPLETE
+        </div>
+
+
+        <h1>
+
+          REVOLUTION
+
+          <br>
+
+          <span class="red">
+            NETWORK
+          </span>
+
+        </h1>
+
+
+        <div class="l3nCompleteStamp">
+
+          SYSTEM VERIFIED
+
+        </div>
+
+
+        <p class="subtitle">
+
+          Ba lớp dữ liệu
+          đã được hoàn tất:
+
+          <br><br>
+
+          THỐNG NHẤT TỔ CHỨC ·
+          CƯƠNG LĨNH CHÍNH TRỊ ·
+          LỰC LƯỢNG CÁCH MẠNG
+
+          <br><br>
+
+          <span class="gold">
+
+            LEVEL 03 XP ·
+            +${l3nLevelXP}
+
+          </span>
+
+        </p>
+
+
+        <button
+          class="btn"
+          id="l3nToLevel4"
+        >
+
+          TIẾP TỤC · LEVEL 04 →
+
+        </button>
+
+      </div>
+
+    </div>
+
+  `;
+
+
+  const next =
+    document.getElementById(
+      "l3nToLevel4"
+    );
+
+
+  if(next){
+
+    next.onclick =
+      function(){
+
+        window.scrollTo(
+          0,
+          0
+        );
+
+        startLevel4();
+
+      };
+
+  }
+
+}
 let phase1Index = 0;
 let phase1Timer = null;
 let phase1Time = 12;

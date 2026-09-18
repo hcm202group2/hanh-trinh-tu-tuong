@@ -13913,7 +13913,7 @@ const phase2Pieces = [
   {
     id:"goal",
 
-  icon:"MT"
+  icon:"MT",
 
     target:"goal",
 
@@ -13928,7 +13928,7 @@ const phase2Pieces = [
   {
     id:"path",
 
-  icon:"PH"
+  icon:"PH",
 
     target:"path",
 
@@ -13943,7 +13943,7 @@ const phase2Pieces = [
   {
     id:"leader",
 
-  icon:"LĐ"
+  icon:"LĐ",
 
     target:"leader",
 
@@ -13958,7 +13958,7 @@ const phase2Pieces = [
   {
     id:"force",
 
-icon:"LL"
+icon:"LL",
 
     target:"force",
 
@@ -13973,7 +13973,7 @@ icon:"LL"
   {
     id:"world",
 
- icon:"QT"
+ icon:"QT",
 
     target:"world",
 
@@ -13988,7 +13988,7 @@ icon:"LL"
   {
     id:"noise1",
 
- icon:"!"
+ icon:"!",
 
     target:"noise",
 
@@ -14003,7 +14003,7 @@ icon:"LL"
   {
     id:"noise2",
 
-  icon:"!"
+  icon:"!",
 
     target:"noise",
 
@@ -20207,10 +20207,10 @@ function renderFinalJourneyHub(){
             <div class="finalHubStatus">
 
               ${
-                finalJourneyCompleted.topic1
-              "TOPIC COMPLETE"
-             "KHÁM PHÁ"
-              }
+  finalJourneyCompleted.topic1
+    ? " TOPIC COMPLETE"
+    : " KHÁM PHÁ"
+}
 
             </div>
 

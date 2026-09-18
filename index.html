@@ -11017,6 +11017,627 @@ button.finalHubCard:hover
   }
 
 }
+  /* ==================================================
+   FINAL JOURNEY · CINEMATIC RANKED ENDING
+================================================== */
+
+.finalEndingScene{
+  position:relative;
+  width:min(1280px,calc(100vw - 32px));
+  min-height:720px;
+
+  margin:0 auto;
+  padding:310px 48px 34px;
+
+  overflow:hidden;
+
+  border:1px solid rgba(200,164,92,.34);
+  border-radius:22px;
+
+  background-image:
+    linear-gradient(
+      180deg,
+      rgba(5,3,3,.04) 0%,
+      rgba(5,3,3,.10) 38%,
+      rgba(5,3,3,.56) 68%,
+      rgba(5,3,3,.88) 100%
+    ),
+    url("final-journey-ending.png");
+
+  background-position:center;
+  background-size:cover;
+  background-repeat:no-repeat;
+
+  box-shadow:
+    0 35px 110px rgba(0,0,0,.48),
+    inset 0 0 90px rgba(0,0,0,.18);
+
+  animation:
+    endingSceneIn .9s ease both;
+}
+
+
+/* xóa watermark cũ "1911 · 2026" */
+.finalEndingScene::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:0;
+
+  background:
+    radial-gradient(
+      circle at 50% 61%,
+      rgba(200,164,92,.09),
+      transparent 34%
+    );
+
+  pointer-events:none;
+}
+
+
+/* đảm bảo nội dung nằm trên ảnh */
+.finalEndingScene > *{
+  position:relative;
+  z-index:2;
+}
+
+
+/* ===== RESULT PANEL ===== */
+
+.finalEndingResult{
+  width:min(900px,100%);
+  margin:0 auto;
+
+  padding:24px 26px 22px;
+
+  border:
+    1px solid rgba(200,164,92,.32);
+
+  border-radius:16px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(20,11,9,.88),
+      rgba(7,4,4,.78)
+    );
+
+  -webkit-backdrop-filter:
+    blur(12px);
+
+  backdrop-filter:
+    blur(12px);
+
+  box-shadow:
+    0 22px 75px rgba(0,0,0,.38),
+    inset 0 1px 0 rgba(255,255,255,.035);
+
+  animation:
+    endingCardRise .8s .25s ease both;
+}
+
+
+/* ===== TOP STATUS ===== */
+
+.endingResultTop{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:15px;
+
+  padding-bottom:14px;
+
+  border-bottom:
+    1px solid rgba(200,164,92,.14);
+}
+
+.endingResultLabel{
+  color:#9f9284;
+  font-size:10px;
+  letter-spacing:4px;
+}
+
+.endingPerfectBadge{
+  padding:7px 11px;
+
+  border:
+    1px solid rgba(224,188,95,.55);
+
+  border-radius:5px;
+
+  background:
+    rgba(200,164,92,.09);
+
+  color:#e2bf69;
+
+  font-size:9px;
+  font-weight:bold;
+  letter-spacing:2px;
+}
+
+
+/* ===== RANK ===== */
+
+.endingRankBlock{
+  padding:18px 0 16px;
+  text-align:center;
+}
+
+.endingRankEyebrow{
+  margin-bottom:8px;
+
+  color:#c8a45c;
+
+  font-size:10px;
+  letter-spacing:5px;
+}
+
+.endingRankTitle{
+  color:#f0e4d2;
+
+  font-size:
+    clamp(27px,4vw,46px);
+
+  font-weight:bold;
+
+  line-height:1.05;
+  letter-spacing:2px;
+
+  text-shadow:
+    0 4px 28px rgba(0,0,0,.45);
+}
+
+.endingRankDescription{
+  max-width:650px;
+
+  margin:
+    11px auto 0;
+
+  color:#bdb0a2;
+
+  font-size:13px;
+  line-height:1.65;
+}
+
+
+/* ===== XP ===== */
+
+.endingScoreRow{
+  display:flex;
+  justify-content:center;
+  align-items:baseline;
+  gap:10px;
+
+  margin-top:3px;
+}
+
+.endingScoreValue{
+  color:#d9b351;
+
+  font-size:
+    clamp(38px,6vw,64px);
+
+  font-weight:bold;
+
+  line-height:1;
+}
+
+.endingScoreMax{
+  color:#786d62;
+
+  font-size:11px;
+  letter-spacing:2px;
+}
+
+
+/* ===== XP TRACK ===== */
+
+.endingXpArea{
+  position:relative;
+
+  width:100%;
+
+  margin:
+    22px auto 0;
+
+  padding-bottom:28px;
+}
+
+.endingXpTrack{
+  position:relative;
+
+  width:100%;
+  height:7px;
+
+  border-radius:20px;
+
+  background:
+    rgba(255,255,255,.075);
+
+  box-shadow:
+    inset 0 0 12px rgba(0,0,0,.45);
+}
+
+.endingXpFill{
+  width:0;
+  height:100%;
+
+  border-radius:20px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #87312e 0%,
+      #c89e49 58%,
+      #e5c76f 100%
+    );
+
+  box-shadow:
+    0 0 16px rgba(200,164,92,.35);
+
+  transition:
+    width 1.5s cubic-bezier(.2,.8,.2,1);
+}
+
+
+/* marker của người chơi */
+
+.endingXpMarker{
+  position:absolute;
+
+  left:0;
+  top:50%;
+
+  width:17px;
+  height:17px;
+
+  transform:
+    translate(-50%,-50%);
+
+  border:
+    2px solid #edd17c;
+
+  border-radius:50%;
+
+  background:#24120e;
+
+  box-shadow:
+    0 0 0 5px rgba(200,164,92,.10),
+    0 0 22px rgba(230,194,101,.65);
+
+  transition:
+    left 1.5s cubic-bezier(.2,.8,.2,1);
+
+  animation:
+    endingMarkerPulse 1.6s ease-in-out infinite;
+}
+
+
+/* các chấm mốc */
+
+.endingXpTick{
+  position:absolute;
+
+  top:50%;
+
+  width:9px;
+  height:9px;
+
+  transform:
+    translate(-50%,-50%);
+
+  border:
+    1px solid rgba(200,164,92,.75);
+
+  border-radius:50%;
+
+  background:#160b09;
+}
+
+.endingXpTick.t3000{
+  left:49.59%;
+}
+
+.endingXpTick.t5000{
+  left:82.64%;
+}
+
+.endingXpTick.t6050{
+  left:100%;
+}
+
+
+/* số dưới thanh */
+
+.endingXpScale{
+  position:relative;
+
+  height:22px;
+
+  margin-top:7px;
+
+  color:#74695f;
+
+  font-size:8px;
+  letter-spacing:1px;
+}
+
+.endingXpScale span{
+  position:absolute;
+  transform:translateX(-50%);
+}
+
+.endingXpScale .s0{
+  left:0;
+  transform:none;
+}
+
+.endingXpScale .s3000{
+  left:49.59%;
+}
+
+.endingXpScale .s5000{
+  left:82.64%;
+}
+
+.endingXpScale .s6050{
+  right:0;
+  left:auto;
+  transform:none;
+}
+
+
+/* ===== 3 RANKS ===== */
+
+.endingTiers{
+  display:grid;
+
+  grid-template-columns:
+    repeat(3,1fr);
+
+  gap:9px;
+
+  margin-top:10px;
+}
+
+.endingTier{
+  min-height:78px;
+
+  padding:
+    12px 10px;
+
+  border:
+    1px solid rgba(200,164,92,.13);
+
+  border-radius:9px;
+
+  background:
+    rgba(255,255,255,.018);
+
+  opacity:.46;
+
+  transition:.35s;
+}
+
+.endingTier.active{
+  opacity:1;
+
+  border-color:
+    rgba(215,180,92,.72);
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(200,164,92,.13),
+      rgba(200,164,92,.035)
+    );
+
+  box-shadow:
+    0 0 24px rgba(200,164,92,.09);
+}
+
+.endingTierRange{
+  margin-bottom:7px;
+
+  color:#82776c;
+
+  font-size:8px;
+  letter-spacing:2px;
+}
+
+.endingTier.active
+.endingTierRange{
+  color:#c8a45c;
+}
+
+.endingTierName{
+  color:#bfb2a3;
+
+  font-size:10px;
+  line-height:1.4;
+
+  letter-spacing:1.4px;
+}
+
+.endingTier.active
+.endingTierName{
+  color:#f0dfc3;
+}
+
+
+/* ===== PERFECT ===== */
+
+.endingPerfectMessage{
+  margin-top:15px;
+
+  padding:11px 14px;
+
+  border-top:
+    1px solid rgba(200,164,92,.22);
+
+  border-bottom:
+    1px solid rgba(200,164,92,.22);
+
+  color:#e0bc63;
+
+  font-size:10px;
+  font-weight:bold;
+  letter-spacing:4px;
+
+  text-align:center;
+
+  animation:
+    endingPerfectPulse 1.8s ease-in-out infinite;
+}
+
+
+/* ===== FINAL ACTIONS ===== */
+
+.endingActions{
+  display:flex;
+  justify-content:center;
+  gap:12px;
+
+  margin-top:18px;
+}
+
+.endingActions .btn{
+  min-width:220px;
+
+  padding:
+    13px 18px;
+
+  font-size:10px;
+}
+
+.endingReplayBtn{
+  border-color:
+    rgba(184,59,56,.55);
+
+  color:#d99a94;
+}
+
+.endingReplayBtn:hover{
+  border-color:#b83b38;
+  background:#b83b38;
+  color:#fff;
+}
+
+
+/* ===== ANIMATION ===== */
+
+@keyframes endingSceneIn{
+
+  from{
+    opacity:0;
+    transform:
+      scale(1.025);
+  }
+
+  to{
+    opacity:1;
+    transform:
+      scale(1);
+  }
+
+}
+
+@keyframes endingCardRise{
+
+  from{
+    opacity:0;
+
+    transform:
+      translateY(26px);
+  }
+
+  to{
+    opacity:1;
+
+    transform:
+      translateY(0);
+  }
+
+}
+
+@keyframes endingMarkerPulse{
+
+  0%,100%{
+    box-shadow:
+      0 0 0 4px rgba(200,164,92,.08),
+      0 0 16px rgba(230,194,101,.35);
+  }
+
+  50%{
+    box-shadow:
+      0 0 0 8px rgba(200,164,92,.03),
+      0 0 28px rgba(230,194,101,.70);
+  }
+
+}
+
+@keyframes endingPerfectPulse{
+
+  0%,100%{
+    text-shadow:
+      0 0 8px rgba(200,164,92,.12);
+  }
+
+  50%{
+    text-shadow:
+      0 0 22px rgba(230,194,101,.55);
+  }
+
+}
+
+
+/* ===== MOBILE ===== */
+
+@media(max-width:760px){
+
+  .finalEndingScene{
+    width:100%;
+
+    min-height:720px;
+
+    padding:
+      245px 12px 18px;
+
+    border-radius:13px;
+
+    background-position:center top;
+  }
+
+  .finalEndingResult{
+    padding:
+      20px 14px;
+  }
+
+  .endingRankTitle{
+    font-size:26px;
+  }
+
+  .endingRankDescription{
+    font-size:12px;
+  }
+
+  .endingTiers{
+    grid-template-columns:1fr;
+  }
+
+  .endingTier{
+    min-height:0;
+  }
+
+  .endingActions{
+    flex-direction:column;
+  }
+
+  .endingActions .btn{
+    width:100%;
+  }
+
+}
 </style>
 </head>
 
@@ -23360,72 +23981,500 @@ function completeFinalTopic4(){
 /* ===== FINAL ENDING ===== */
 
 function showFinalJourneyEnding(){
+
   hud.style.display = "none";
-  window.scrollTo(0,0);
+
+  window.scrollTo(
+    0,
+    0
+  );
+
+
+  /* =========================
+     FINAL RANK SYSTEM
+  ========================= */
+
+  const FINAL_MAX_XP = 6050;
+
+  const finalScore =
+    Math.max(
+      0,
+      Math.min(
+        xp,
+        FINAL_MAX_XP
+      )
+    );
+
+  const finalPercent =
+    (
+      finalScore /
+      FINAL_MAX_XP
+    ) * 100;
+
+
+  let finalRank;
+
+  if(finalScore < 3000){
+
+    finalRank = {
+
+      level:1,
+
+      eyebrow:
+        "TIER 01 · JOURNEY COMPLETE",
+
+      title:
+        "NGƯỜI MỞ ĐƯỜNG",
+
+      description:
+        "Bạn đã hoàn thành hành trình và nắm được những cột mốc chính xuyên suốt trò chơi."
+
+    };
+
+  }
+
+  else if(finalScore < 5000){
+
+    finalRank = {
+
+      level:2,
+
+      eyebrow:
+        "TIER 02 · JOURNEY COMPLETE",
+
+      title:
+        "NGƯỜI KẾT NỐI TƯ TƯỞNG",
+
+      description:
+        "Bạn đã kết nối được các giai đoạn, mục tiêu, lực lượng và những lựa chọn cốt lõi của hành trình."
+
+    };
+
+  }
+
+  else{
+
+    finalRank = {
+
+      level:3,
+
+      eyebrow:
+        "TIER 03 · JOURNEY COMPLETE",
+
+      title:
+        "NGƯỜI DẪN ĐƯỜNG",
+
+      description:
+        "Bạn đã làm chủ gần như toàn bộ hành trình và đưa ra phần lớn những lựa chọn chính xác."
+
+    };
+
+  }
+
+
+  const isPerfect =
+    finalScore >=
+    FINAL_MAX_XP;
+
+
+  /* =========================
+     RENDER ENDING
+  ========================= */
+
   screen.innerHTML = `
 
-<div class="content finalEndingScene">
+    <div
+      class="
+        content
+        finalEndingScene
+      "
+    >
 
-      <div class="small">
-        FINAL JOURNEY · COMPLETE
-      </div>
-
-
-      <h1>
-
-        HÀNH TRÌNH<br>
-
-        <span class="red">
-          1911 → 2026
-        </span>
-
-      </h1>
+      <div class="finalEndingResult">
 
 
-      <p class="subtitle">
+        <div class="endingResultTop">
 
-        Bạn đã đi qua
-        bốn giai đoạn lớn
-        của hành trình.
+          <div class="endingResultLabel">
+            FINAL JOURNEY · RESULT
+          </div>
 
-        <br><br>
+          <div class="endingPerfectBadge">
 
-        Từ quá trình hình thành
-        con đường cách mạng,
-        giành độc lập,
-        xây dựng con người
-        và đất nước,
+            ${
+              isPerfect
+              ? "★ MAXIMUM SCORE"
+              : "JOURNEY COMPLETE"
+            }
 
-        <br>
+          </div>
 
-        đến những vấn đề
-        của phát triển
-        và hội nhập hiện đại.
-
-      </p>
-
-
-<div class="completeBox finalEndingCard">
-
-        <div class="small">
-          FINAL XP
         </div>
 
-        <div class="scoreBig">
-          ${xp}
+
+        <div class="endingRankBlock">
+
+          <div class="endingRankEyebrow">
+
+            ${finalRank.eyebrow}
+
+          </div>
+
+
+          <div class="endingRankTitle">
+
+            ${finalRank.title}
+
+          </div>
+
+
+          <p class="endingRankDescription">
+
+            ${finalRank.description}
+
+          </p>
+
         </div>
 
-        <div class="gold">
-          HÀNH TRÌNH HOÀN TẤT
+
+        <div class="endingScoreRow">
+
+          <div
+            class="endingScoreValue"
+            id="endingXpValue"
+          >
+            0
+          </div>
+
+          <div class="endingScoreMax">
+            / ${FINAL_MAX_XP} XP
+          </div>
+
         </div>
+
+
+        <div class="endingXpArea">
+
+          <div class="endingXpTrack">
+
+            <div
+              class="endingXpFill"
+              id="endingXpFill"
+            >
+            </div>
+
+
+            <div
+              class="
+                endingXpTick
+                t3000
+              "
+            >
+            </div>
+
+
+            <div
+              class="
+                endingXpTick
+                t5000
+              "
+            >
+            </div>
+
+
+            <div
+              class="
+                endingXpTick
+                t6050
+              "
+            >
+            </div>
+
+
+            <div
+              class="endingXpMarker"
+              id="endingXpMarker"
+            >
+            </div>
+
+          </div>
+
+
+          <div class="endingXpScale">
+
+            <span class="s0">
+              0
+            </span>
+
+            <span class="s3000">
+              3000
+            </span>
+
+            <span class="s5000">
+              5000
+            </span>
+
+            <span class="s6050">
+              6050
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <div class="endingTiers">
+
+
+          <div
+            class="
+              endingTier
+              ${
+                finalRank.level === 1
+                ? "active"
+                : ""
+              }
+            "
+          >
+
+            <div class="endingTierRange">
+              0 — 2999 XP
+            </div>
+
+            <div class="endingTierName">
+              NGƯỜI MỞ ĐƯỜNG
+            </div>
+
+          </div>
+
+
+          <div
+            class="
+              endingTier
+              ${
+                finalRank.level === 2
+                ? "active"
+                : ""
+              }
+            "
+          >
+
+            <div class="endingTierRange">
+              3000 — 4999 XP
+            </div>
+
+            <div class="endingTierName">
+              NGƯỜI KẾT NỐI TƯ TƯỞNG
+            </div>
+
+          </div>
+
+
+          <div
+            class="
+              endingTier
+              ${
+                finalRank.level === 3
+                ? "active"
+                : ""
+              }
+            "
+          >
+
+            <div class="endingTierRange">
+              5000 — 6050 XP
+            </div>
+
+            <div class="endingTierName">
+              NGƯỜI DẪN ĐƯỜNG
+            </div>
+
+          </div>
+
+
+        </div>
+
+
+        ${
+          isPerfect
+          ? `
+
+            <div class="endingPerfectMessage">
+
+              ★ PERFECT RUN · MAX XP ·
+              TOÀN BỘ HÀNH TRÌNH ĐÃ ĐƯỢC CHINH PHỤC ★
+
+            </div>
+
+          `
+          : ""
+        }
+
+
+        <div class="endingActions">
+
+          <button
+            class="btn"
+            id="endingReviewBtn"
+          >
+            XEM LẠI 4 GIAI ĐOẠN
+          </button>
+
+
+          <button
+            class="
+              btn
+              endingReplayBtn
+            "
+            id="endingReplayBtn"
+          >
+            CHƠI LẠI TỪ ĐẦU
+          </button>
+
+        </div>
+
 
       </div>
 
     </div>
 
   `;
+
+
+  /* =========================
+     XP BAR ANIMATION
+  ========================= */
+
+  const xpFill =
+    document.getElementById(
+      "endingXpFill"
+    );
+
+  const xpMarker =
+    document.getElementById(
+      "endingXpMarker"
+    );
+
+
+  requestAnimationFrame(
+    function(){
+
+      requestAnimationFrame(
+        function(){
+
+          xpFill.style.width =
+            finalPercent + "%";
+
+          xpMarker.style.left =
+            finalPercent + "%";
+
+        }
+      );
+
+    }
+  );
+
+
+  /* =========================
+     XP COUNT-UP
+  ========================= */
+
+  const xpValue =
+    document.getElementById(
+      "endingXpValue"
+    );
+
+
+  const countDuration =
+    1500;
+
+  const countStart =
+    performance.now();
+
+
+  function animateEndingScore(
+    now
+  ){
+
+    const progress =
+      Math.min(
+        1,
+        (
+          now -
+          countStart
+        ) /
+        countDuration
+      );
+
+
+    const eased =
+      1 -
+      Math.pow(
+        1 - progress,
+        3
+      );
+
+
+    xpValue.textContent =
+      Math.round(
+        finalScore *
+        eased
+      );
+
+
+    if(progress < 1){
+
+      requestAnimationFrame(
+        animateEndingScore
+      );
+
+    }
+
+  }
+
+
+  requestAnimationFrame(
+    animateEndingScore
+  );
+
+
+  /* =========================
+     BUTTONS
+  ========================= */
+
+  document
+    .getElementById(
+      "endingReviewBtn"
+    )
+    .addEventListener(
+      "click",
+      function(){
+
+        window.scrollTo(
+          0,
+          0
+        );
+
+        renderFinalJourneyHub();
+
+      }
+    );
+
+
+  document
+    .getElementById(
+      "endingReplayBtn"
+    )
+    .addEventListener(
+      "click",
+      function(){
+
+        window.location.reload();
+
+      }
+    );
+
 }
-  
 </script>
 
 </body>

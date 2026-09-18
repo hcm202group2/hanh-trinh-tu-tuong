@@ -8911,7 +8911,240 @@ button.dropSlot.matched::before{
   margin:
     18px auto 0;
 }
+/* ===== CINEMATIC JOURNEY · WOW POLISH ===== */
 
+/* điểm sáng chạy ở đầu timeline */
+.timelineFill{
+  overflow:visible;
+}
+
+.timelineFill::after{
+  content:"";
+
+  position:absolute;
+  right:-6px;
+  top:50%;
+
+  width:12px;
+  height:12px;
+
+  transform:translateY(-50%);
+
+  border-radius:50%;
+
+  background:#efd17c;
+
+  box-shadow:
+    0 0 8px rgba(239,209,124,.95),
+    0 0 22px rgba(200,164,92,.65);
+
+  animation:
+    routeHeadPulse .8s ease-in-out infinite;
+}
+
+
+/* con tàu sáng nhẹ */
+.ship{
+  z-index:4;
+
+  color:#e3c269;
+
+  filter:
+    drop-shadow(
+      0 0 8px
+      rgba(200,164,92,.38)
+    );
+}
+
+
+/* giữ SVG tàu sắc nét */
+.ship svg{
+  display:block;
+
+  width:48px;
+  height:48px;
+}
+
+
+/* vệt sáng phía sau tàu */
+.ship::before{
+  content:"";
+
+  position:absolute;
+
+  left:-58px;
+  top:50%;
+
+  width:60px;
+  height:2px;
+
+  transform:
+    translateY(-50%);
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(200,164,92,.08),
+      rgba(226,193,105,.75)
+    );
+
+  opacity:.7;
+
+  pointer-events:none;
+}
+
+
+/* text đổi mốc mềm hơn */
+.cineText.logSwap{
+  animation:
+    cineLogSwap .42s ease both;
+}
+
+
+/* khi tàu tới 1920 */
+.timelineScene.arrived
+.p1920{
+  animation:
+    checkpointBurst 1s ease-out forwards;
+}
+
+
+/* đầu timeline dừng rung khi đã đến nơi */
+.timelineScene.arrived
+.timelineFill::after{
+  animation:none;
+
+  transform:
+    translateY(-50%)
+    scale(1.25);
+
+  box-shadow:
+    0 0 10px rgba(239,209,124,1),
+    0 0 34px rgba(200,164,92,.85);
+}
+
+
+/* toàn panel lóe nhẹ lúc unlock */
+.cinematic.arrived{
+  animation:
+    cineArrivalGlow 1.15s ease;
+}
+
+
+@keyframes routeHeadPulse{
+
+  0%,100%{
+    transform:
+      translateY(-50%)
+      scale(.82);
+
+    opacity:.7;
+  }
+
+  50%{
+    transform:
+      translateY(-50%)
+      scale(1.18);
+
+    opacity:1;
+  }
+
+}
+
+
+@keyframes cineLogSwap{
+
+  from{
+    opacity:.15;
+
+    transform:
+      translateY(8px);
+
+    filter:
+      blur(3px);
+  }
+
+  to{
+    opacity:1;
+
+    transform:
+      translateY(0);
+
+    filter:
+      blur(0);
+  }
+
+}
+
+
+@keyframes checkpointBurst{
+
+  0%{
+    background:#c8a45c;
+
+    border-color:#f1d28e;
+
+    transform:
+      translateX(-50%)
+      scale(1);
+
+    box-shadow:
+      0 0 20px
+      rgba(200,164,92,.7);
+  }
+
+  45%{
+    transform:
+      translateX(-50%)
+      scale(1.42);
+
+    box-shadow:
+      0 0 0 16px
+      rgba(200,164,92,.07),
+
+      0 0 38px
+      rgba(239,209,124,.9);
+  }
+
+  100%{
+    background:#c8a45c;
+
+    border-color:#f1d28e;
+
+    transform:
+      translateX(-50%)
+      scale(1);
+
+    box-shadow:
+      0 0 28px
+      rgba(200,164,92,.82);
+  }
+
+}
+
+
+@keyframes cineArrivalGlow{
+
+  0%,100%{
+    box-shadow:
+      0 28px 90px
+      rgba(0,0,0,.22);
+  }
+
+  45%{
+    box-shadow:
+      0 28px 90px
+      rgba(0,0,0,.22),
+
+      inset 0 0 70px
+      rgba(200,164,92,.07),
+
+      0 0 55px
+      rgba(200,164,92,.08);
+  }
+
+}
 
 /* ==================================================
    LEVEL TRANSITION SCREENS
@@ -12701,66 +12934,182 @@ function cinematicJourney(){
 
   hud.style.display = "none";
 
+
   screen.innerHTML = `
+
     <div class="content cinematic">
 
       <div class="cineTitle">
         HÀNH TRÌNH ĐANG TIẾP DIỄN
       </div>
 
+
       <div class="timelineScene">
 
         <div class="timelineBase"></div>
+
         <div class="timelineFill"></div>
 
-        <div class="yearPoint p1911" data-year="1911"></div>
 
-        <div class="yearPoint p1919" data-year="1919"></div>
+        <div
+          class="yearPoint p1911"
+          data-year="1911">
+        </div>
 
-        <div class="yearPoint p1920" data-year="1920"></div>
 
-    <div class="ship">${archiveIcon("ship")}</div>
+        <div
+          class="yearPoint p1919"
+          data-year="1919">
+        </div>
+
+
+        <div
+          class="yearPoint p1920"
+          data-year="1920">
+        </div>
+
+
+        <div class="ship">
+          ${archiveIcon("ship")}
+        </div>
 
       </div>
 
-      <div class="cineText" id="cineText">
+
+      <div
+        class="cineText"
+        id="cineText">
+
         Rời Bến Nhà Rồng...
+
       </div>
 
-      <button class="btn" id="cineContinue">
+
+      <button
+        class="btn"
+        id="cineContinue">
+
         MỞ CHECKPOINT 1920 →
+
       </button>
 
     </div>
+
   `;
 
-  const text = document.getElementById("cineText");
 
-  setTimeout(function(){
+  const text =
+    document.getElementById(
+      "cineText"
+    );
+
+
+  function updateJourneyLog(
+    content
+  ){
+
+    text.classList.remove(
+      "logSwap"
+    );
+
+
+    void text.offsetWidth;
+
+
     text.innerHTML =
-      "1911 — Một hành trình vượt ra ngoài biên giới bắt đầu.";
-  },700);
+      content;
 
-  setTimeout(function(){
-    text.innerHTML =
-      "1919 — Tiếng nói của nhân dân An Nam được gửi tới Hội nghị Versailles.";
-  },3000);
 
-  setTimeout(function(){
-    text.innerHTML =
-      "<span class='gold'>1920</span> — Một bước ngoặt trong nhận thức về con đường giải phóng dân tộc.";
-  },5200);
+    text.classList.add(
+      "logSwap"
+    );
 
-  setTimeout(function(){
+  }
 
-    document.getElementById("cineContinue")
-      .addEventListener("click", checkpoint1920);
 
-  },6200);
+  setTimeout(
+    function(){
+
+      updateJourneyLog(
+        "<span class='gold'>1911</span> — Một hành trình vượt ra ngoài biên giới bắt đầu."
+      );
+
+    },
+    700
+  );
+
+
+  setTimeout(
+    function(){
+
+      updateJourneyLog(
+        "<span class='gold'>1919</span> — Tiếng nói của nhân dân An Nam được gửi tới Hội nghị Versailles."
+      );
+
+    },
+    3000
+  );
+
+
+  setTimeout(
+    function(){
+
+      updateJourneyLog(
+        "<span class='gold'>1920</span> — Một bước ngoặt trong nhận thức về con đường giải phóng dân tộc."
+      );
+
+
+      const route =
+        document.querySelector(
+          ".timelineScene"
+        );
+
+
+      const cinematic =
+        document.querySelector(
+          ".cinematic"
+        );
+
+
+      if(route){
+
+        route.classList.add(
+          "arrived"
+        );
+
+      }
+
+
+      if(cinematic){
+
+        cinematic.classList.add(
+          "arrived"
+        );
+
+      }
+
+    },
+    5200
+  );
+
+
+  setTimeout(
+    function(){
+
+      document
+        .getElementById(
+          "cineContinue"
+        )
+        .addEventListener(
+          "click",
+          checkpoint1920
+        );
+
+    },
+    6200
+  );
+
 }
-
-
-function checkpoint1920(){
 
   screen.innerHTML = `
   <div class="content levelBridge checkpoint1920Scene">

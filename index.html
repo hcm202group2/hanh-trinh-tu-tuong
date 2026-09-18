@@ -7128,7 +7128,456 @@ body::after{
     opacity:.035;
   }
 }
+/* ==================================================
+   FINAL POLISH PACK · RESPONSIVE + VISUAL
+================================================== */
 
+
+/* ===== LEVEL 1 / CINEMATIC EMOJI TONE ===== */
+
+.object .icon,
+.ship{
+  filter:
+    grayscale(1)
+    sepia(.7)
+    saturate(.75)
+    brightness(1.35);
+
+  text-shadow:
+    0 0 18px rgba(200,164,92,.14);
+}
+
+.object .icon{
+  transition:
+    transform .22s ease,
+    filter .22s ease;
+}
+
+.object:hover .icon{
+  transform:scale(1.08);
+
+  filter:
+    grayscale(1)
+    sepia(.75)
+    saturate(.85)
+    brightness(1.5);
+}
+
+
+/* ==================================================
+   CINEMATIC 1930 · FINAL LAYOUT
+================================================== */
+
+.c1930 #enter1930Boss{
+  display:block;
+
+  width:max-content;
+  max-width:100%;
+
+  margin:
+    18px auto 0 !important;
+}
+
+
+/* ===== GAMEPLAY GLASS DEPTH ===== */
+
+.l3nBoard,
+.level4MeterCard,
+.level4Console,
+.level4SituationPanel,
+.level4DecisionCard,
+.level4RecoveryMetric,
+.level4ArchitectureBoard,
+.finalHubCard,
+.finalSceneFrame{
+  -webkit-backdrop-filter:
+    blur(6px);
+
+  backdrop-filter:
+    blur(6px);
+}
+
+
+/* LEVEL 3 */
+
+.l3nBoard{
+  background:
+
+    radial-gradient(
+      circle at 50% 35%,
+      rgba(146,44,40,.16),
+      transparent 38%
+    ),
+
+    linear-gradient(
+      145deg,
+      rgba(18,9,8,.80),
+      rgba(7,4,4,.68)
+    );
+}
+
+
+/* LEVEL 4 */
+
+.level4MeterCard,
+.level4DecisionCard{
+  background:
+
+    linear-gradient(
+      145deg,
+      rgba(22,13,11,.74),
+      rgba(8,5,5,.62)
+    );
+}
+
+
+.level4SituationPanel{
+  background:
+
+    linear-gradient(
+      145deg,
+      rgba(90,25,22,.22),
+      rgba(8,5,5,.66)
+    );
+}
+
+
+.level4Console{
+  background:
+    rgba(8,5,5,.55);
+}
+
+
+/* ==================================================
+   FINAL JOURNEY · IMAGE FALLBACK
+================================================== */
+
+.finalHubCard,
+.finalSceneFrame{
+
+  background:
+
+    radial-gradient(
+      circle at 75% 20%,
+      rgba(184,59,56,.13),
+      transparent 35%
+    ),
+
+    repeating-linear-gradient(
+      135deg,
+      rgba(200,164,92,.018) 0 1px,
+      transparent 1px 18px
+    ),
+
+    #0b0707;
+}
+
+
+/* ==================================================
+   1930 · SHORT LAPTOP SCREENS
+================================================== */
+
+@media(
+  max-height:820px
+)
+and
+(
+  min-width:751px
+){
+
+  .c1930{
+    min-height:auto;
+  }
+
+
+  .c1930Tag{
+    margin-bottom:10px;
+  }
+
+
+  .c1930Title{
+    font-size:
+      clamp(42px,5.8vw,66px);
+
+    margin-bottom:10px;
+  }
+
+
+  .c1930Sub{
+    margin-bottom:18px;
+  }
+
+
+  .fractureScene{
+    height:220px;
+  }
+
+
+  .c1930Text{
+    min-height:58px;
+
+    margin-top:10px;
+
+    font-size:16px;
+  }
+
+
+  .c1930Stamp{
+    margin-top:12px;
+
+    padding:
+      10px 20px;
+  }
+
+
+  .c1930 #enter1930Boss{
+    margin-top:
+      14px !important;
+  }
+
+}
+
+
+/* ==================================================
+   1930 · MOBILE CORE ANIMATION
+================================================== */
+
+@keyframes coreAwakeMobile{
+
+  to{
+
+    opacity:1;
+
+    transform:
+      scale(1);
+
+    box-shadow:
+
+      0 0 20px
+      rgba(200,164,92,.35),
+
+      0 0 55px
+      rgba(200,164,92,.14);
+
+  }
+
+}
+
+
+/* ==================================================
+   1930 · REAL MOBILE LAYOUT
+================================================== */
+
+@media(max-width:750px){
+
+  .c1930{
+    width:100%;
+
+    min-height:auto;
+
+    overflow:visible;
+  }
+
+
+  .c1930Tag{
+
+    margin-bottom:12px;
+
+    font-size:10px;
+
+    letter-spacing:4px;
+
+    line-height:1.55;
+  }
+
+
+  .c1930Title{
+
+    font-size:
+      clamp(
+        36px,
+        11vw,
+        48px
+      );
+
+    line-height:.98;
+
+    margin-bottom:12px;
+  }
+
+
+  .c1930Sub{
+
+    margin-bottom:20px;
+
+    font-size:12px;
+  }
+
+
+  /* NETWORK */
+
+  .fractureScene{
+
+    height:auto;
+
+    display:grid;
+
+    grid-template-columns:
+      1fr 1fr;
+
+    grid-template-areas:
+
+      "org1 org2"
+
+      "core core"
+
+      "org3 org3";
+
+    gap:10px;
+
+    align-items:stretch;
+  }
+
+
+  .orgStream,
+  .unityCore{
+
+    position:relative;
+
+    left:auto;
+    right:auto;
+
+    top:auto;
+    bottom:auto;
+  }
+
+
+  .orgStream{
+
+    width:100%;
+
+    min-height:72px;
+
+    padding:
+      11px 9px;
+
+    font-size:9px;
+
+    line-height:1.45;
+  }
+
+
+  .org1{
+    grid-area:org1;
+  }
+
+
+  .org2{
+    grid-area:org2;
+  }
+
+
+  .org3{
+
+    grid-area:org3;
+
+    width:
+      min(
+        290px,
+        100%
+      );
+
+    justify-self:center;
+  }
+
+
+  .unityCore{
+
+    grid-area:core;
+
+    width:96px;
+    height:96px;
+
+    margin:
+      4px auto;
+
+    transform:
+      scale(.65);
+
+    opacity:0;
+
+    animation:
+      coreAwakeMobile
+      .8s
+      3.2s
+      forwards;
+  }
+
+
+  /* TEXT */
+
+  .c1930Text{
+
+    min-height:0;
+
+    margin-top:18px;
+
+    font-size:15px;
+
+    line-height:1.65;
+  }
+
+
+  .c1930Stamp{
+
+    margin-top:16px;
+
+    padding:
+      10px 15px;
+
+    font-size:11px;
+
+    letter-spacing:3px;
+  }
+
+
+  .c1930 #enter1930Boss{
+
+    width:100%;
+
+    margin-top:
+      18px !important;
+  }
+
+}
+
+
+/* ==================================================
+   MOBILE GLOBAL BACKGROUND
+================================================== */
+
+@media(max-width:700px){
+
+  body{
+
+    background:
+
+      linear-gradient(
+        180deg,
+        rgba(8,4,4,.58) 0%,
+        rgba(6,3,3,.80) 100%
+      ),
+
+      url("global-bg-history.png")
+      68% center /
+      auto 100%
+      no-repeat;
+
+    background-color:
+      #080404;
+  }
+
+}
 </style>
 </head>
 
@@ -7183,7 +7632,22 @@ body::after{
 <script>
 const screen = document.getElementById("screen");
 const hud = document.getElementById("hud");
+/* FINAL JOURNEY · IMAGE FALLBACK */
+document.addEventListener("error",function(event){
 
+  const target = event.target;
+
+  if(
+    target instanceof HTMLImageElement &&
+    (
+      target.classList.contains("finalHubImage") ||
+      target.classList.contains("finalSceneImage")
+    )
+  ){
+    target.style.display = "none";
+  }
+
+},true);
 let hearts = 3;
 let xp = 0;
 let found = 0;
@@ -7994,7 +8458,7 @@ trực tiếp tham dự;
 
   setTimeout(function(){
 
-screen.insertAdjacentHTML("beforeend", `
+document.querySelector(".c1930").insertAdjacentHTML("beforeend", `
       <button
         class="btn"
         id="enter1930Boss"

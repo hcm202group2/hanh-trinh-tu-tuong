@@ -7630,6 +7630,725 @@ and
   }
 
 }
+  /* ==================================================
+   STEP 03 · UI SYSTEM POLISH · HUD + LEVEL 1 + LEVEL 2
+================================================== */
+
+
+/* ===== GLOBAL BUTTON SYSTEM ===== */
+
+.btn{
+  position:relative;
+
+  border:
+    1px solid rgba(224,191,111,.78);
+
+  border-radius:7px;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(200,164,92,.08),
+      rgba(200,164,92,.025)
+    );
+
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.035),
+    0 10px 30px rgba(0,0,0,.18);
+
+  text-transform:uppercase;
+
+  transition:
+    transform .22s ease,
+    border-color .22s ease,
+    background .22s ease,
+    color .22s ease,
+    box-shadow .22s ease;
+}
+
+
+.btn:hover{
+  transform:translateY(-3px);
+
+  border-color:#e0bf6f;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(200,164,92,.19),
+      rgba(200,164,92,.09)
+    );
+
+  color:#fff1cf;
+
+  box-shadow:
+    0 0 0 1px rgba(200,164,92,.08),
+    0 12px 34px rgba(0,0,0,.25),
+    0 0 24px rgba(200,164,92,.08);
+}
+
+
+.btn:focus-visible,
+button.conceptCard:focus-visible,
+button.dropSlot:focus-visible{
+  outline:
+    2px solid #e3c06b;
+
+  outline-offset:4px;
+}
+
+
+/* ===== HUD · ARCHIVE STATUS BAR ===== */
+
+#hud{
+  min-height:68px;
+
+  padding:11px 24px 10px;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(9,5,5,.94),
+      rgba(9,5,5,.80)
+    );
+
+  border-bottom:
+    1px solid rgba(200,164,92,.24);
+
+  box-shadow:
+    0 12px 38px rgba(0,0,0,.26);
+}
+
+
+.hudBlock{
+  min-width:115px;
+
+  color:#d7c9b7;
+
+  font-size:12px;
+  letter-spacing:2px;
+  line-height:1.25;
+}
+
+
+.hudBlock::before{
+  display:block;
+
+  margin-bottom:5px;
+
+  color:#756a60;
+
+  font-size:8px;
+  letter-spacing:2.5px;
+}
+
+
+.hudBlock:nth-child(1)::before{
+  content:"STATUS";
+}
+
+
+.hudBlock:nth-child(2)::before{
+  content:"ARCHIVE SCORE";
+}
+
+
+.hudBlock:nth-child(3)::before{
+  content:"MISSION PROGRESS";
+}
+
+
+#hearts{
+  color:#d8665f;
+
+  font-size:17px;
+  letter-spacing:5px;
+
+  text-shadow:
+    0 0 12px rgba(216,102,95,.16);
+}
+
+
+.progressWrap{
+  width:210px;
+  height:4px;
+
+  margin-top:7px;
+
+  overflow:hidden;
+
+  border-radius:20px;
+
+  background:#2d2422;
+}
+
+
+#progress{
+  border-radius:20px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #8f302d,
+      #c8a45c
+    );
+
+  box-shadow:
+    0 0 12px rgba(200,164,92,.22);
+
+  transition:
+    width .45s ease;
+}
+
+
+/* ===== LEVEL 1 · ARCHIVE OBJECT CARDS ===== */
+
+.objects{
+  gap:14px;
+}
+
+
+.object{
+  position:relative;
+  overflow:hidden;
+
+  min-height:158px;
+
+  border:
+    1px solid rgba(200,164,92,.22);
+
+  border-radius:11px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(18,11,10,.76),
+      rgba(8,5,5,.56)
+    );
+
+  -webkit-backdrop-filter:
+    blur(6px);
+
+  backdrop-filter:
+    blur(6px);
+
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.02),
+    0 16px 45px rgba(0,0,0,.12);
+}
+
+
+.object::before{
+  content:"";
+
+  position:absolute;
+
+  left:0;
+  right:0;
+  top:0;
+
+  height:1px;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(200,164,92,.42),
+      transparent
+    );
+
+  opacity:.55;
+}
+
+
+.object::after{
+  position:absolute;
+
+  top:10px;
+  right:11px;
+
+  color:#62594f;
+
+  font-size:8px;
+  letter-spacing:2px;
+}
+
+
+.object:nth-child(1)::after{content:"OBJ 01";}
+.object:nth-child(2)::after{content:"OBJ 02";}
+.object:nth-child(3)::after{content:"OBJ 03";}
+.object:nth-child(4)::after{content:"OBJ 04";}
+.object:nth-child(5)::after{content:"OBJ 05";}
+.object:nth-child(6)::after{content:"OBJ 06";}
+
+
+.object:hover{
+  transform:
+    translateY(-5px);
+
+  border-color:
+    rgba(224,191,111,.72);
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(44,27,19,.72),
+      rgba(12,7,7,.62)
+    );
+
+  box-shadow:
+    0 18px 50px rgba(0,0,0,.21),
+    0 0 28px rgba(200,164,92,.06);
+}
+
+
+.object .label{
+  color:#bfb2a2;
+
+  font-size:11px;
+  letter-spacing:2.6px;
+}
+
+
+.object.correct-found{
+  opacity:.74;
+
+  border-color:
+    rgba(112,159,104,.65);
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(48,84,44,.24),
+      rgba(8,12,7,.56)
+    );
+}
+
+
+.object.correct-found::before{
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(126,181,116,.65),
+      transparent
+    );
+}
+
+
+.object.wrong{
+  background:
+    linear-gradient(
+      145deg,
+      rgba(110,29,25,.20),
+      rgba(12,6,6,.58)
+    );
+}
+
+
+#message{
+  width:min(760px,100%);
+
+  min-height:48px;
+
+  margin:
+    18px auto 0;
+
+  padding:
+    12px 15px;
+
+  border-left:
+    2px solid rgba(200,164,92,.66);
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(200,164,92,.055),
+      transparent
+    );
+
+  color:#aea295;
+
+  font-size:13px;
+  line-height:1.6;
+
+  text-align:left;
+}
+
+
+/* ===== LEVEL 2 · DECODE CONSOLE ===== */
+
+.level2Top{
+  padding-bottom:14px;
+
+  border-bottom:
+    1px solid rgba(200,164,92,.13);
+}
+
+
+.timerBox{
+  min-width:132px;
+
+  border-color:
+    rgba(200,164,92,.34);
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(200,164,92,.09),
+      rgba(8,5,5,.38)
+    );
+
+  color:#dfc276;
+
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.025),
+    0 10px 30px rgba(0,0,0,.12);
+}
+
+
+#level2Timer{
+  display:inline-block;
+
+  min-width:25px;
+
+  color:#f0d58b;
+
+  font-weight:bold;
+
+  font-variant-numeric:
+    tabular-nums;
+}
+
+
+.matchBoard{
+  gap:18px;
+}
+
+
+.cardColumn,
+.slotColumn{
+  position:relative;
+
+  padding:18px;
+
+  border:
+    1px solid rgba(200,164,92,.14);
+
+  border-radius:12px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(15,9,8,.78),
+      rgba(7,4,4,.56)
+    );
+
+  -webkit-backdrop-filter:
+    blur(7px);
+
+  backdrop-filter:
+    blur(7px);
+
+  box-shadow:
+    0 18px 55px rgba(0,0,0,.13);
+}
+
+
+.columnTitle{
+  padding-bottom:10px;
+
+  border-bottom:
+    1px solid rgba(200,164,92,.12);
+
+  color:#bfa35e;
+
+  font-size:9px;
+  letter-spacing:3.5px;
+}
+
+
+button.conceptCard,
+button.dropSlot{
+  position:relative;
+
+  min-height:84px;
+
+  border-color:
+    rgba(200,164,92,.17);
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255,255,255,.035),
+      rgba(0,0,0,.08)
+    );
+
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.018);
+}
+
+
+button.conceptCard{
+  padding-left:68px;
+}
+
+
+button.conceptCard::before{
+  position:absolute;
+
+  left:14px;
+  top:50%;
+
+  width:40px;
+  height:40px;
+
+  display:grid;
+  place-items:center;
+
+  transform:
+    translateY(-50%);
+
+  border:
+    1px solid rgba(200,164,92,.24);
+
+  border-radius:7px;
+
+  background:
+    rgba(200,164,92,.045);
+
+  color:#c3a65f;
+
+  font-size:8px;
+  font-weight:bold;
+
+  letter-spacing:1px;
+}
+
+
+button.conceptCard[data-match="theory"]::before{
+  content:"DOC";
+}
+
+
+button.conceptCard[data-match="path"]::before{
+  content:"PATH";
+}
+
+
+button.conceptCard[data-match="tours"]::before{
+  content:"1920";
+}
+
+
+button.dropSlot{
+  padding-left:40px;
+}
+
+
+button.dropSlot::before{
+  content:"+";
+
+  position:absolute;
+
+  left:15px;
+  top:50%;
+
+  transform:
+    translateY(-50%);
+
+  color:#71665a;
+
+  font-size:18px;
+  font-weight:300;
+}
+
+
+button.conceptCard:hover,
+button.dropSlot:hover{
+  border-color:
+    rgba(224,191,111,.62);
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(200,164,92,.095),
+      rgba(200,164,92,.025)
+    );
+}
+
+
+button.conceptCard.selected{
+  border-color:#d4ad58;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(200,164,92,.16),
+      rgba(200,164,92,.045)
+    );
+
+  box-shadow:
+    0 0 0 1px rgba(200,164,92,.08),
+    0 10px 32px rgba(0,0,0,.22),
+    0 0 22px rgba(200,164,92,.06);
+}
+
+
+button.conceptCard.matched,
+button.dropSlot.matched{
+  border-color:
+    rgba(111,159,104,.70);
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(74,120,67,.22),
+      rgba(31,65,27,.08)
+    );
+
+  color:#acd3a6;
+}
+
+
+button.dropSlot.matched::before{
+  content:"✓";
+  color:#8fc486;
+}
+
+
+.level2Feedback{
+  min-height:54px;
+
+  padding:
+    13px 16px;
+
+  border-top:0;
+
+  border-left:
+    2px solid rgba(200,164,92,.55);
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(200,164,92,.05),
+      transparent
+    );
+
+  color:#a99e91;
+
+  font-size:13px;
+  line-height:1.6;
+
+  text-align:left;
+}
+
+
+.timerDanger{
+  background:
+    linear-gradient(
+      145deg,
+      rgba(184,59,56,.20),
+      rgba(9,4,4,.60)
+    ) !important;
+}
+
+
+/* ===== STEP 03 · MOBILE ===== */
+
+@media(max-width:650px){
+
+  #hud{
+    padding:
+      9px 10px 8px;
+  }
+
+
+  .hudBlock{
+    min-width:0;
+
+    font-size:9px;
+    letter-spacing:1px;
+  }
+
+
+  .hudBlock::before{
+    display:none;
+  }
+
+
+  #hearts{
+    font-size:13px;
+    letter-spacing:2px;
+  }
+
+
+  .progressWrap{
+    width:82px;
+  }
+
+
+  .objects{
+    gap:10px;
+  }
+
+
+  .object{
+    min-height:142px;
+
+    padding:
+      15px 10px;
+  }
+
+
+  .object::after{
+    top:8px;
+    right:8px;
+
+    font-size:7px;
+  }
+
+
+  #message{
+    font-size:12px;
+  }
+
+
+  .level2Top{
+    gap:14px;
+  }
+
+
+  .timerBox{
+    min-width:0;
+  }
+
+
+  .cardColumn,
+  .slotColumn{
+    padding:14px;
+  }
+
+
+  button.conceptCard,
+  button.dropSlot{
+    min-height:74px;
+  }
+
+
+  button.conceptCard{
+    padding-left:60px;
+  }
+
+
+  button.conceptCard::before{
+    left:11px;
+
+    width:36px;
+    height:36px;
+  }
+
+}
 </style>
 </head>
 
@@ -8389,7 +9108,7 @@ function levelTwo(resetBase = true){
         </div>
 
         <div class="timerBox" id="timerBox">
-          ⏱ <span id="level2Timer">45</span>s
+        TIME · <span id="level2Timer">45</span>s
         </div>
 
       </div>
@@ -8411,19 +9130,19 @@ function levelTwo(resetBase = true){
           <button class="conceptCard"
                   draggable="true"
                   data-match="theory">
-            📜 Luận cương về vấn đề dân tộc và thuộc địa
+        Luận cương về vấn đề dân tộc và thuộc địa
           </button>
 
           <button class="conceptCard"
                   draggable="true"
                   data-match="path">
-            🧭 Con đường cách mạng vô sản
+         Con đường cách mạng vô sản
           </button>
 
           <button class="conceptCard"
                   draggable="true"
                   data-match="tours">
-            🏛 Đại hội Tours năm 1920
+          Đại hội Tours năm 1920
           </button>
 
         </div>

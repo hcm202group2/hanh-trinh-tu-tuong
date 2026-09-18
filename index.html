@@ -8035,54 +8035,37 @@ button.conceptCard{
   padding-left:68px;
 }
 
-
-button.conceptCard::before{
+.conceptMiniIcon{
   position:absolute;
 
-  left:14px;
+  left:16px;
   top:50%;
 
-  width:40px;
-  height:40px;
+  width:36px;
+  height:36px;
 
-  display:grid;
-  place-items:center;
+  transform:translateY(-50%);
 
-  transform:
-    translateY(-50%);
+  display:flex;
+  align-items:center;
+  justify-content:center;
 
-  border:
-    1px solid rgba(200,164,92,.24);
+  color:#d3b45f;
 
-  border-radius:7px;
-
-  background:
-    rgba(200,164,92,.045);
-
-  color:#c3a65f;
-
-  font-size:8px;
-  font-weight:bold;
-
-  letter-spacing:1px;
+  opacity:.9;
 }
 
+.conceptMiniIcon svg{
+  width:30px;
+  height:30px;
 
-button.conceptCard[data-match="theory"]::before{
-  content:"DOC";
+  fill:none;
+  stroke:currentColor;
+
+  stroke-width:1.8;
+  stroke-linecap:round;
+  stroke-linejoin:round;
 }
-
-
-button.conceptCard[data-match="path"]::before{
-  content:"PATH";
-}
-
-
-button.conceptCard[data-match="tours"]::before{
-  content:"1920";
-}
-
-
 button.dropSlot{
   padding-left:40px;
 }
@@ -12495,23 +12478,58 @@ function levelTwo(resetBase = true){
             MẢNH GHÉP
           </div>
 
-          <button class="conceptCard"
-                  draggable="true"
-                  data-match="theory">
-        Luận cương về vấn đề dân tộc và thuộc địa
-          </button>
+       <button class="conceptCard"
+        draggable="true"
+        data-match="theory">
 
-          <button class="conceptCard"
-                  draggable="true"
-                  data-match="path">
-         Con đường cách mạng vô sản
-          </button>
+  <span class="conceptMiniIcon">
+    <svg viewBox="0 0 32 32" aria-hidden="true">
+      <path d="M9 5h10l5 5v17H9z"></path>
+      <path d="M19 5v6h5"></path>
+      <path d="M12 16h9"></path>
+      <path d="M12 20h9"></path>
+    </svg>
+  </span>
 
-          <button class="conceptCard"
-                  draggable="true"
-                  data-match="tours">
-          Đại hội Tours năm 1920
-          </button>
+  Luận cương về vấn đề dân tộc và thuộc địa
+
+</button>
+      <button class="conceptCard"
+        draggable="true"
+        data-match="path">
+
+  <span class="conceptMiniIcon">
+    <svg viewBox="0 0 32 32" aria-hidden="true">
+      <path d="M7 25c4-9 8-4 11-12"></path>
+      <path d="M18 13h7"></path>
+      <path d="M25 13v7"></path>
+      <path d="M18 20l7-7"></path>
+      <circle cx="7" cy="25" r="2"></circle>
+    </svg>
+  </span>
+
+  Con đường cách mạng vô sản
+
+</button>
+
+       <button class="conceptCard"
+        draggable="true"
+        data-match="tours">
+
+  <span class="conceptMiniIcon">
+    <svg viewBox="0 0 32 32" aria-hidden="true">
+      <path d="M6 25h20"></path>
+      <path d="M8 22h16"></path>
+      <path d="M10 11v11"></path>
+      <path d="M16 11v11"></path>
+      <path d="M22 11v11"></path>
+      <path d="M7 11l9-5 9 5z"></path>
+    </svg>
+  </span>
+
+  Đại hội Tours năm 1920
+
+</button>
 
         </div>
 

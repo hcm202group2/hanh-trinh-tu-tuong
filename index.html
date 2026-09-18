@@ -8837,9 +8837,59 @@ function handleL3NClick(event){
 
     updateHUD();
 
-    renderLevel3Network();
+renderLevel3Network();
 
-    return;
+
+if(
+  l3nRoutedOrgs.size <
+  l3nOrganizations.length
+){
+
+  const feedback =
+    document.getElementById(
+      "l3nFeedback"
+    );
+
+
+  if(feedback){
+
+    feedback.innerHTML = `
+
+      <strong class="gold">
+        ROUTE VERIFIED
+      </strong>
+
+      <br>
+
+      ${org.name}
+
+      <br>
+
+      ${
+        org.route === "conference"
+        ?
+        "ĐÃ KẾT NỐI · THAM DỰ HỘI NGHỊ HỢP NHẤT"
+        :
+        "ĐÃ KẾT NỐI · GIA NHẬP SAU"
+      }
+
+      <br><br>
+
+      ROUTE VERIFIED · +300 XP
+
+    `;
+
+
+    feedback.classList.add(
+      "success"
+    );
+
+  }
+
+}
+
+
+return;
   }
 
 
@@ -8967,11 +9017,54 @@ if(action === "next-stage"){
     l3nSelectedSignal = null;
 
 
-    updateHUD();
+   updateHUD();
 
-    renderLevel3Network();
+renderLevel3Network();
 
-    return;
+
+if(
+  l3nSolvedSignals.size <
+  phase2Pieces.length
+){
+
+  const feedback =
+    document.getElementById(
+      "l3nFeedback"
+    );
+
+
+  if(feedback){
+
+    feedback.innerHTML = `
+
+      <strong class="gold">
+
+        ${piece.icon}
+        SIGNAL VERIFIED
+
+      </strong>
+
+      <br>
+
+      ${piece.knowledge}
+
+      <br><br>
+
+      +${reward} XP
+
+    `;
+
+
+    feedback.classList.add(
+      "success"
+    );
+
+  }
+
+}
+
+
+return;
   }
 
 

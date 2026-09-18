@@ -22610,101 +22610,34 @@ function startFinalTopic2MemoryCheck(){
     "none";
 
 
-  const panel =
-    document.getElementById(
-      "finalTopic2KnowledgePanel"
-    );
-
-
-  panel.innerHTML = `
-
-    <div class="finalKnowledgeLabel">
-      MEMORY CHECK · CHỌN ĐÁP ÁN
-    </div>
-
-    <div class="finalQuizQuestion">
-      ${finalTopic2QuizTarget.question}
-    </div>
-
-    <div
-      style="
-        display:grid;
-        grid-template-columns:1fr;
-        gap:10px;
-        margin-top:18px;
-      "
-    >
-
-      ${finalTopic2Points
-        .map(function(point){
-
-          return `
-            <button
-              class="btn finalTopic2MemoryChoice"
-              data-final-topic2-answer="${point.id}"
-              style="
-                width:100%;
-                text-align:left;
-                padding:14px 16px;
-              "
-            >
-              ${point.title}
-            </button>
-          `;
-
-        })
-        .join("")
-      }
-
-    </div>
-
-    <div
-      class="finalQuizHint"
-      id="finalTopic2MemoryFeedback"
-      style="margin-top:14px"
-    >
-      Chọn một đáp án bên trên.
-      Bạn vẫn có thể bấm hotspot trên ảnh.
-    </div>
-  `;
-
-
   document
-    .querySelectorAll(
-      "[data-final-topic2-answer]"
+    .getElementById(
+      "finalTopic2KnowledgePanel"
     )
-    .forEach(function(button){
+    .innerHTML = `
 
-      button.addEventListener(
-        "click",
-        function(){
+      <div class="finalKnowledgeLabel">
+        MEMORY CHECK · RANDOM QUESTION
+      </div>
 
-          const selectedPoint =
-            finalTopic2Points.find(
-              function(point){
-                return (
-                  point.id ===
-                  button.dataset.finalTopic2Answer
-                );
-              }
-            );
+      <div class="finalQuizQuestion">
+        ${finalTopic2QuizTarget.question}
+      </div>
 
+      <div class="finalQuizHint">
 
-          if(!selectedPoint) return;
+        Không có đáp án A / B / C.
 
+        <br><br>
 
-          checkFinalTopic2Answer(
-            selectedPoint,
-            null
-          );
+        Hãy bấm trực tiếp
+        vào chi tiết đúng
+        trên bức ảnh.
 
-        }
-      );
+      </div>
 
-    });
+    `;
 }
-
-
 /* ===== KIỂM TRA ĐÁP ÁN ===== */
 
 function checkFinalTopic2Answer(
@@ -22716,7 +22649,9 @@ function checkFinalTopic2Answer(
     selectedPoint.id ===
     finalTopic2QuizTarget.id
   ){
+
     completeFinalTopic2();
+
     return;
   }
 
@@ -22727,7 +22662,9 @@ function checkFinalTopic2Answer(
       "finalWrong"
     );
 
+
     void hotspot.offsetWidth;
+
 
     hotspot.classList.add(
       "finalWrong"
@@ -22736,26 +22673,38 @@ function checkFinalTopic2Answer(
   }
 
 
-  const feedback =
-    document.getElementById(
-      "finalTopic2MemoryFeedback"
-    );
+  document
+    .getElementById(
+      "finalTopic2KnowledgePanel"
+    )
+    .innerHTML = `
 
+      <div
+        class="finalKnowledgeLabel"
+        style="color:#d86661">
 
-  if(feedback){
-
-    feedback.innerHTML = `
-      <strong style="color:#d86661">
         MEMORY CHECK · CHƯA ĐÚNG
-      </strong>
 
-      <br><br>
+      </div>
 
-      Đáp án vừa chọn chưa phù hợp.
-      Hãy thử một đáp án khác.
+      <div class="finalQuizQuestion">
+
+        ${finalTopic2QuizTarget.question}
+
+      </div>
+
+      <div class="finalQuizHint">
+
+        Chi tiết vừa chọn chưa đúng.
+
+        <br><br>
+
+        Hãy quan sát lại bức ảnh
+        và chọn một chi tiết khác.
+
+      </div>
+
     `;
-
-  }
 }
 /* ===== TOPIC 02 COMPLETE ===== */
 

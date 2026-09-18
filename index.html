@@ -698,13 +698,9 @@ button.dropSlot.matched{
 .unityLine{
   position:absolute;
   z-index:1;
-  left:50%;
-  top:50%;
-
   width:0;
   height:2px;
-
-  transform-origin:left center;
+  opacity:0;
 
   background:linear-gradient(
     90deg,
@@ -713,26 +709,47 @@ button.dropSlot.matched{
   );
 
   box-shadow:0 0 14px rgba(200,164,92,.55);
-
-  opacity:0;
 }
 
+/* line từ box trái trên -> mép trái của vòng tròn */
 .line1{
-  --line-length:245px;
-  transform:rotate(-155deg);
-  animation:lineGrow .8s 3.8s forwards;
+  --line-length:210px;
+  left:calc(50% - 210px);
+  top:calc(50% - 52px);
+  transform:rotate(27deg);
+  transform-origin:right center;
+  animation:lineGrowClean .8s 3.8s forwards;
 }
 
+/* line từ vòng tròn -> box phải */
 .line2{
-  --line-length:220px;
-  transform:rotate(0deg);
-  animation:lineGrow .8s 4.1s forwards;
+  --line-length:275px;
+  left:calc(50% + 52px);
+  top:50%;
+  transform:translateY(-50%);
+  transform-origin:left center;
+  animation:lineGrowClean .8s 4.1s forwards;
 }
 
+/* line từ box trái dưới -> mép trái của vòng tròn */
 .line3{
-  --line-length:245px;
-  transform:rotate(157deg);
-  animation:lineGrow .8s 4.4s forwards;
+  --line-length:210px;
+  left:calc(50% - 210px);
+  top:calc(50% + 52px);
+  transform:rotate(-27deg);
+  transform-origin:right center;
+  animation:lineGrowClean .8s 4.4s forwards;
+}
+
+@keyframes lineGrowClean{
+  from{
+    width:0;
+    opacity:0;
+  }
+  to{
+    width:var(--line-length);
+    opacity:1;
+  }
 }
 .c1930Text{
   min-height:70px;

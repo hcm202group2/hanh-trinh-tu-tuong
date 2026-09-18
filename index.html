@@ -8923,6 +8923,530 @@ button.dropSlot.matched::before{
   }
 
 }
+  /* ==================================================
+   STEP 05 · LEVEL 3 · REVOLUTION NETWORK POLISH
+================================================== */
+
+
+/* ===== ROOT / STATUS ===== */
+
+.l3nWrap{
+  position:relative;
+}
+
+
+.l3nStatus{
+  background:
+    linear-gradient(
+      145deg,
+      rgba(200,164,92,.075),
+      rgba(8,5,5,.52)
+    );
+
+  -webkit-backdrop-filter:blur(7px);
+  backdrop-filter:blur(7px);
+
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.025),
+    0 12px 35px rgba(0,0,0,.12);
+}
+
+
+/* ===== STAGE RAIL ===== */
+
+.l3nStageRail{
+  position:relative;
+}
+
+
+.l3nStageChip{
+  border:1px solid transparent;
+  border-bottom:2px solid #352826;
+
+  border-radius:8px 8px 0 0;
+
+  background:
+    rgba(8,5,5,.22);
+}
+
+
+.l3nStageChip.active{
+  border-color:
+    rgba(200,164,92,.16);
+
+  border-bottom-color:#c8a45c;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(200,164,92,.085),
+      rgba(200,164,92,.018)
+    );
+}
+
+
+.l3nStageChip.done::before{
+  content:"✓";
+
+  margin-right:7px;
+
+  color:#85b27e;
+}
+
+
+/* ===== STAGE COLOR SYSTEM ===== */
+
+#l3nRoot[data-l3n-stage="1"]{
+  --l3-accent:184,59,56;
+}
+
+#l3nRoot[data-l3n-stage="2"]{
+  --l3-accent:200,164,92;
+}
+
+#l3nRoot[data-l3n-stage="3"]{
+  --l3-accent:111,159,104;
+}
+
+
+/* ===== MAIN BOARD ===== */
+
+.l3nBoard{
+  border-color:
+    rgba(
+      var(--l3-accent,200,164,92),
+      .25
+    );
+
+  box-shadow:
+    0 28px 90px rgba(0,0,0,.32),
+    inset 0 1px 0 rgba(255,255,255,.018),
+    0 0 45px
+      rgba(
+        var(--l3-accent,200,164,92),
+        .035
+      );
+}
+
+
+.l3nInstruction{
+  padding:
+    11px 14px;
+
+  border-top:
+    1px solid rgba(200,164,92,.08);
+
+  border-bottom:
+    1px solid rgba(200,164,92,.08);
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(200,164,92,.028),
+      transparent
+    );
+}
+
+
+/* ===== INTERACTION SYSTEM ===== */
+
+.l3nCard,
+.l3nRoute,
+.l3nSignal,
+.l3nNode,
+.l3nEvidence{
+  transition:
+    transform .2s ease,
+    border-color .2s ease,
+    background .2s ease,
+    box-shadow .2s ease,
+    opacity .2s ease;
+}
+
+
+.l3nCard:focus-visible,
+.l3nRoute:focus-visible,
+.l3nSignal:focus-visible,
+.l3nNode:focus-visible,
+.l3nEvidence:focus-visible{
+  outline:
+    2px solid #e0bd68;
+
+  outline-offset:3px;
+}
+
+
+/* ===== STAGE 1 ===== */
+
+.l3nCard{
+  background:
+    linear-gradient(
+      145deg,
+      rgba(184,59,56,.055),
+      rgba(8,5,5,.36)
+    );
+}
+
+
+.l3nCard:hover{
+  box-shadow:
+    0 14px 34px rgba(0,0,0,.18),
+    0 0 22px rgba(200,164,92,.055);
+}
+
+
+.l3nRoute{
+  min-height:58px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(200,164,92,.045),
+      rgba(7,4,4,.32)
+    );
+}
+
+
+.l3nRoute:hover{
+  transform:
+    translateY(-3px);
+
+  box-shadow:
+    0 12px 28px rgba(0,0,0,.16);
+}
+
+
+/* ===== STAGE 2 ===== */
+
+.l3nSignal{
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255,255,255,.032),
+      rgba(7,4,4,.28)
+    );
+}
+
+
+.l3nSignal strong{
+  display:inline-flex;
+
+  width:27px;
+  height:27px;
+
+  margin-right:8px;
+
+  align-items:center;
+  justify-content:center;
+
+  border:
+    1px solid rgba(200,164,92,.14);
+
+  border-radius:6px;
+
+  background:
+    rgba(200,164,92,.035);
+
+  filter:
+    grayscale(1)
+    sepia(.7)
+    saturate(.7);
+}
+
+
+.l3nSignal.selected{
+  transform:
+    translateX(5px);
+
+  box-shadow:
+    0 0 0 1px rgba(200,164,92,.08),
+    0 10px 28px rgba(0,0,0,.16);
+}
+
+
+.l3nNode{
+  background:
+    linear-gradient(
+      145deg,
+      rgba(0,0,0,.22),
+      rgba(200,164,92,.018)
+    );
+}
+
+
+.l3nNode:hover{
+  transform:
+    translateY(-2px);
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(200,164,92,.06),
+      rgba(0,0,0,.18)
+    );
+}
+
+
+/* ===== STAGE 3 ===== */
+
+.l3nEvidence{
+  box-shadow:
+    0 15px 38px rgba(0,0,0,.12);
+}
+
+
+.l3nEvidence:hover{
+  box-shadow:
+    0 22px 48px rgba(0,0,0,.22),
+    0 0 25px rgba(200,164,92,.045);
+}
+
+
+/* ===== SYSTEM LOG ===== */
+
+.l3nFeedback{
+  position:relative;
+
+  padding-top:30px;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(200,164,92,.055),
+      rgba(8,5,5,.22)
+    );
+}
+
+
+.l3nFeedback::before{
+  content:"SYSTEM LOG";
+
+  position:absolute;
+
+  left:17px;
+  top:10px;
+
+  color:#766a5f;
+
+  font-size:8px;
+  letter-spacing:2.4px;
+}
+
+
+.l3nMeter{
+  margin-top:24px;
+
+  box-shadow:
+    inset 0 0 0 1px
+    rgba(255,255,255,.015);
+}
+
+
+.l3nFooter .btn{
+  min-width:260px;
+}
+
+
+/* ==================================================
+   LEVEL 3 TRANSITION / COMPLETE
+================================================== */
+
+.l3nStageTransition,
+.l3nLevelComplete{
+  width:min(780px,100%);
+
+  margin:auto;
+}
+
+
+.l3nTransitionCard,
+.l3nFinalCard{
+  position:relative;
+  overflow:hidden;
+
+  padding:
+    42px 30px;
+
+  background:
+
+    radial-gradient(
+      circle at 50% 0%,
+      rgba(200,164,92,.09),
+      transparent 40%
+    ),
+
+    linear-gradient(
+      145deg,
+      rgba(16,10,9,.90),
+      rgba(7,4,4,.74)
+    );
+
+  -webkit-backdrop-filter:blur(8px);
+  backdrop-filter:blur(8px);
+
+  box-shadow:
+    0 28px 90px rgba(0,0,0,.30);
+
+  animation:
+    l3nTransitionReveal
+    .5s ease both;
+}
+
+
+.l3nTransitionCard::before,
+.l3nFinalCard::before{
+  content:"";
+
+  position:absolute;
+
+  left:12%;
+  right:12%;
+  top:0;
+
+  height:1px;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      #c8a45c,
+      transparent
+    );
+}
+
+
+.l3nFinalCard{
+  border-color:
+    rgba(111,159,104,.45);
+}
+
+
+@keyframes l3nTransitionReveal{
+
+  from{
+    opacity:0;
+
+    transform:
+      translateY(12px)
+      scale(.985);
+  }
+
+  to{
+    opacity:1;
+
+    transform:
+      translateY(0)
+      scale(1);
+  }
+
+}
+
+
+/* ===== TABLET / MOBILE ===== */
+
+@media(max-width:780px){
+
+  .l3nHeader{
+    gap:14px;
+    margin-bottom:16px;
+  }
+
+
+  .l3nTitle{
+    font-size:
+      clamp(34px,10vw,52px);
+  }
+
+
+  .l3nStatus{
+    padding:
+      10px 12px;
+  }
+
+
+  .l3nBoard{
+    padding:
+      20px 16px;
+  }
+
+
+  .l3nCore{
+    width:122px;
+    height:122px;
+
+    margin-bottom:18px;
+  }
+
+
+  .l3nInstruction{
+    margin-bottom:16px;
+
+    font-size:13px;
+  }
+
+
+  .l3nEvidenceArt{
+    height:135px;
+  }
+
+
+  .l3nFooter .btn{
+    width:100%;
+
+    min-width:0;
+  }
+
+}
+
+
+@media(max-width:520px){
+
+  .l3nStageRail{
+    grid-template-columns:
+      repeat(3,1fr);
+
+    gap:5px;
+  }
+
+
+  .l3nStageChip{
+    padding:
+      8px 4px;
+
+    font-size:7.5px;
+    letter-spacing:.5px;
+    line-height:1.35;
+  }
+
+
+  .l3nStageChip.done::before{
+    display:none;
+  }
+
+
+  .l3nRouteGrid{
+    grid-template-columns:1fr;
+  }
+
+
+  .l3nNodeGrid{
+    grid-template-columns:1fr;
+  }
+
+
+  .l3nFeedback{
+    font-size:12px;
+  }
+
+
+  .l3nTransitionCard,
+  .l3nFinalCard{
+    padding:
+      32px 18px;
+  }
+
+}
 </style>
 </head>
 
@@ -10275,10 +10799,11 @@ function renderLevel3Network(){
 
   screen.innerHTML = `
 
-    <div
-      class="content l3nWrap"
-      id="l3nRoot"
-    >
+   <div
+  class="content l3nWrap"
+  id="l3nRoot"
+  data-l3n-stage="${l3nStage}"
+>
 
       <div class="l3nHeader">
 
@@ -11486,9 +12011,9 @@ function showL3NStageTransition(nextStage){
 
   screen.innerHTML = `
 
-    <div class="content">
+   <div class="content l3nStageTransition">
 
-      <div class="l3nComplete">
+    <div class="l3nComplete l3nTransitionCard">
 
         <div class="small">
           ${data.code}
@@ -11540,7 +12065,7 @@ function showL3NStageTransition(nextStage){
       renderLevel3Network();
 
     },
-    900
+  1200
   );
 
 }
@@ -11579,13 +12104,12 @@ function showL3NFeedback(
 ================================================== */
 
 function completeLevel3Network(){
-
+  hud.style.display = "none";
   screen.innerHTML = `
 
-    <div class="content">
+   <div class="content l3nLevelComplete">
 
-      <div class="l3nComplete">
-
+    <div class="l3nComplete l3nFinalCard">
         <div class="small">
           LEVEL 03 · COMPLETE
         </div>

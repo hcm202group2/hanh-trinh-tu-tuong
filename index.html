@@ -7133,34 +7133,86 @@ body::after{
 ================================================== */
 
 
-/* ===== LEVEL 1 / CINEMATIC EMOJI TONE ===== */
-
-.object .icon,
-.ship{
-  filter:
-    grayscale(1)
-    sepia(.7)
-    saturate(.75)
-    brightness(1.35);
-
-  text-shadow:
-    0 0 18px rgba(200,164,92,.14);
-}
+/* ===== LEVEL 1 / CINEMATIC · ARCHIVE ICON SYSTEM ===== */
 
 .object .icon{
+  width:58px;
+  height:58px;
+  margin-bottom:14px;
+
+  display:grid;
+  place-items:center;
+
+  color:#d7b86c;
+  font-size:0;
+
   transition:
     transform .22s ease,
-    filter .22s ease;
+    color .22s ease;
 }
 
-.object:hover .icon{
-  transform:scale(1.08);
+
+.archiveIcon{
+  display:block;
+
+  width:100%;
+  height:100%;
+}
+
+
+.archiveIcon svg{
+  display:block;
+
+  width:100%;
+  height:100%;
+
+  overflow:visible;
 
   filter:
-    grayscale(1)
-    sepia(.75)
-    saturate(.85)
-    brightness(1.5);
+    drop-shadow(
+      0 0 10px
+      rgba(200,164,92,.12)
+    );
+}
+
+
+.object:hover .icon{
+  transform:
+    translateY(-2px)
+    scale(1.07);
+
+  color:#efd48d;
+}
+
+
+.object.correct-found .icon{
+  color:#8eb785;
+}
+
+
+.ship{
+  width:54px;
+  height:54px;
+
+  font-size:0;
+
+  color:#d7b86c;
+}
+
+
+.ship .archiveIcon{
+  width:100%;
+  height:100%;
+}
+
+
+@media(max-width:650px){
+
+  .ship{
+    width:44px;
+    height:44px;
+  }
+
 }
 
 
@@ -7651,6 +7703,319 @@ document.addEventListener("error",function(event){
 let hearts = 3;
 let xp = 0;
 let found = 0;
+  function archiveIcon(name){
+
+  const icons = {
+
+    ship:`
+      <svg viewBox="0 0 64 64" aria-hidden="true">
+
+        <g
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.4"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+
+          <path d="M10 38h44l-6 12H18z"/>
+
+          <path d="M19 38V25h27v13"/>
+
+          <path d="M26 25V17h13v8"/>
+
+          <path d="M32.5 17V10"/>
+
+          <path
+            d="
+              M13 54
+              c4 0 4-2 8-2
+              s4 2 8 2
+              4-2 8-2
+              4 2 8 2
+              4-2 8-2
+            "
+          />
+
+          <path
+            d="
+              M23 31h4
+              M31 31h4
+              M39 31h4
+            "
+          />
+
+        </g>
+
+      </svg>
+    `,
+
+
+    map:`
+      <svg viewBox="0 0 64 64" aria-hidden="true">
+
+        <g
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.4"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+
+          <path
+            d="
+              M8 14
+              l16-5
+              16 6
+              16-5
+              v40
+              l-16 5
+              -16-6
+              -16 5
+              z
+            "
+          />
+
+          <path d="M24 9v40"/>
+
+          <path d="M40 15v40"/>
+
+          <path
+            d="
+              M14 39
+              c7-9
+              13-15
+              22-12
+              5 2
+              7 7
+              13 8
+            "
+            stroke-dasharray="3.5 4"
+          />
+
+          <circle cx="14" cy="39" r="2.2"/>
+
+          <circle cx="49" cy="35" r="2.2"/>
+
+        </g>
+
+      </svg>
+    `,
+
+
+    crown:`
+      <svg viewBox="0 0 64 64" aria-hidden="true">
+
+        <g
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.4"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+
+          <path
+            d="
+              M10 22
+              l12 10
+              10-18
+              10 18
+              12-10
+              -5 25
+              H15
+              z
+            "
+          />
+
+          <path d="M16 47h32v7H16z"/>
+
+          <circle cx="10" cy="20" r="2"/>
+
+          <circle cx="32" cy="12" r="2"/>
+
+          <circle cx="54" cy="20" r="2"/>
+
+        </g>
+
+      </svg>
+    `,
+
+
+    luggage:`
+      <svg viewBox="0 0 64 64" aria-hidden="true">
+
+        <g
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.4"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+
+          <rect
+            x="13"
+            y="19"
+            width="38"
+            height="34"
+            rx="4"
+          />
+
+          <path d="M24 19v-7h16v7"/>
+
+          <path d="M23 27v18"/>
+
+          <path d="M41 27v18"/>
+
+          <path d="M13 34h38"/>
+
+          <circle cx="22" cy="56" r="2"/>
+
+          <circle cx="42" cy="56" r="2"/>
+
+        </g>
+
+      </svg>
+    `,
+
+
+    asset:`
+      <svg viewBox="0 0 64 64" aria-hidden="true">
+
+        <g
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.4"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+
+          <ellipse
+            cx="32"
+            cy="18"
+            rx="16"
+            ry="7"
+          />
+
+          <path
+            d="
+              M16 18v9
+              c0 4
+              7 7
+              16 7
+              s16-3
+              16-7
+              v-9
+            "
+          />
+
+          <path
+            d="
+              M16 28v9
+              c0 4
+              7 7
+              16 7
+              s16-3
+              16-7
+              v-9
+            "
+          />
+
+          <path
+            d="
+              M16 38v8
+              c0 4
+              7 7
+              16 7
+              s16-3
+              16-7
+              v-8
+            "
+          />
+
+          <path d="M29 15h6"/>
+
+          <path d="M32 12v12"/>
+
+        </g>
+
+      </svg>
+    `,
+
+
+    trophy:`
+      <svg viewBox="0 0 64 64" aria-hidden="true">
+
+        <g
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.4"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+
+          <path
+            d="
+              M21 12h22v12
+              c0 10-5 17-11 17
+              s-11-7-11-17
+              z
+            "
+          />
+
+          <path
+            d="
+              M21 17H12v5
+              c0 8 5 12 12 12
+            "
+          />
+
+          <path
+            d="
+              M43 17h9v5
+              c0 8-5 12-12 12
+            "
+          />
+
+          <path d="M32 41v8"/>
+
+          <path d="M23 54h18"/>
+
+          <path d="M27 49h10"/>
+
+          <path
+            d="
+              M32 18
+              l2 4
+              5 .7
+              -3.5 3.4
+              .8 4.9
+              -4.3-2.3
+              -4.3 2.3
+              .8-4.9
+              -3.5-3.4
+              5-.7
+              z
+            "
+          />
+
+        </g>
+
+      </svg>
+    `
+
+  };
+
+
+  return `
+    <span
+      class="archiveIcon archiveIcon-${name}"
+      aria-hidden="true"
+    >
+      ${icons[name] || ""}
+    </span>
+  `;
+
+}
 
 document.getElementById("startBtn").addEventListener("click", intro1911);
 
@@ -7709,32 +8074,32 @@ function levelOne(){
       <div class="objects">
 
         <div class="object" data-correct="true">
-          <div class="icon">🚢</div>
+        <div class="icon">${archiveIcon("ship")}</div>
           <div class="label">CON TÀU</div>
         </div>
 
         <div class="object" data-correct="true">
-          <div class="icon">🗺️</div>
+      <div class="icon">${archiveIcon("map")}</div>
           <div class="label">BẢN ĐỒ</div>
         </div>
 
         <div class="object" data-correct="false">
-          <div class="icon">👑</div>
+        <div class="icon">${archiveIcon("crown")}</div>
           <div class="label">VƯƠNG MIỆN</div>
         </div>
 
         <div class="object" data-correct="true">
-          <div class="icon">🧳</div>
+        <div class="icon">${archiveIcon("luggage")}</div>
           <div class="label">HÀNH TRANG</div>
         </div>
 
         <div class="object" data-correct="false">
-          <div class="icon">💰</div>
+  <div class="icon">${archiveIcon("asset")}</div>
           <div class="label">TÀI SẢN</div>
         </div>
 
         <div class="object" data-correct="false">
-          <div class="icon">🏆</div>
+<div class="icon">${archiveIcon("trophy")}</div>
           <div class="label">VINH QUANG</div>
         </div>
 
@@ -7906,7 +8271,7 @@ function cinematicJourney(){
 
         <div class="yearPoint p1920" data-year="1920"></div>
 
-        <div class="ship">🚢</div>
+    <div class="ship">${archiveIcon("ship")}</div>
 
       </div>
 

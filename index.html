@@ -6967,185 +6967,107 @@ button.level4DecisionChoice.answerReveal{
   }
 
 }
-  /* ==================================================
-   GLOBAL ATMOSPHERE · ARCHIVE CINEMATIC BACKGROUND
+/* ==================================================
+   GLOBAL BACKGROUND IMAGE · FINAL
 ================================================== */
 
 body{
   position:relative;
   isolation:isolate;
-
   min-height:100vh;
   overflow-x:hidden;
 
   background:
-    radial-gradient(
-      circle at 50% 16%,
-      rgba(128,38,34,.30) 0%,
-      rgba(89,22,22,.16) 24%,
-      transparent 43%
-    ),
-
-    radial-gradient(
-      circle at 12% 72%,
-      rgba(159,101,50,.075) 0%,
-      transparent 30%
-    ),
-
-    radial-gradient(
-      circle at 88% 60%,
-      rgba(120,31,29,.15) 0%,
-      transparent 32%
-    ),
-
-    radial-gradient(
-      ellipse at center,
-      transparent 34%,
-      rgba(3,2,2,.18) 72%,
-      rgba(2,1,1,.58) 100%
-    ),
-
     linear-gradient(
       180deg,
-      #160a09 0%,
-      #100707 34%,
-      #090505 70%,
-      #050303 100%
-    );
-
-  background-attachment:fixed;
+      rgba(8,4,4,.58) 0%,
+      rgba(10,4,4,.72) 45%,
+      rgba(5,3,3,.82) 100%
+    ),
+    url("global-bg-history.png") center center / cover fixed no-repeat;
 
   color:#f3eadb;
 }
 
 
-/* ===== ARCHIVE GRID / MAP GHOST ===== */
-
 body::before{
   content:"";
-
   position:fixed;
   inset:0;
-
   z-index:0;
-
-  pointer-events:none;
-
-  background-image:
-
-    linear-gradient(
-      rgba(200,164,92,.017) 1px,
-      transparent 1px
-    ),
-
-    linear-gradient(
-      90deg,
-      rgba(200,164,92,.017) 1px,
-      transparent 1px
-    ),
-
-    repeating-linear-gradient(
-      116deg,
-      transparent 0,
-      transparent 54px,
-      rgba(200,164,92,.012) 55px,
-      rgba(200,164,92,.012) 56px
-    ),
-
-    radial-gradient(
-      ellipse at 50% 115%,
-      rgba(200,164,92,.065),
-      transparent 50%
-    );
-
-  background-size:
-    76px 76px,
-    76px 76px,
-    auto,
-    auto;
-
-  opacity:.72;
-}
-
-
-/* ===== CINEMATIC VIGNETTE ===== */
-
-body::after{
-  content:"";
-
-  position:fixed;
-  inset:0;
-
-  z-index:0;
-
   pointer-events:none;
 
   background:
-
+    radial-gradient(
+      circle at 50% 22%,
+      rgba(155,42,36,.22) 0%,
+      rgba(120,30,27,.10) 28%,
+      transparent 58%
+    ),
     linear-gradient(
       90deg,
-      rgba(0,0,0,.30) 0%,
-      transparent 16%,
-      transparent 84%,
-      rgba(0,0,0,.30) 100%
-    ),
-
-    radial-gradient(
-      ellipse at 50% 45%,
-      transparent 42%,
-      rgba(0,0,0,.11) 67%,
-      rgba(0,0,0,.36) 100%
+      rgba(0,0,0,.28) 0%,
+      transparent 18%,
+      transparent 82%,
+      rgba(0,0,0,.28) 100%
     );
+
+  opacity:1;
 }
 
 
-/* ===== GAME ABOVE BACKGROUND ===== */
+body::after{
+  content:"";
+  position:fixed;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
+
+  background:
+    radial-gradient(
+      ellipse at center,
+      transparent 38%,
+      rgba(0,0,0,.10) 68%,
+      rgba(0,0,0,.34) 100%
+    );
+
+  opacity:1;
+}
+
 
 #game{
   position:relative;
   z-index:1;
-
   min-height:100vh;
-
   overflow:hidden;
-
   background:transparent;
 }
 
 
-/* ===== GLOBAL FILM GRAIN ===== */
-
 .noise{
   position:fixed;
   inset:0;
-
   z-index:15;
-
   pointer-events:none;
-
-  opacity:.055;
+  opacity:.045;
 
   background-image:
-
     repeating-linear-gradient(
       0deg,
       transparent,
       transparent 2px,
-      rgba(255,255,255,.055) 3px
+      rgba(255,255,255,.04) 3px
     ),
-
     repeating-linear-gradient(
       90deg,
       transparent,
-      transparent 5px,
-      rgba(200,164,92,.025) 6px
+      transparent 6px,
+      rgba(200,164,92,.02) 7px
     );
 
   mix-blend-mode:soft-light;
 }
 
-
-/* ===== KEEP PLAY AREA ABOVE ATMOSPHERE ===== */
 
 .screen{
   position:relative;
@@ -7153,66 +7075,49 @@ body::after{
 }
 
 
-/* ===== SUBTLE GLOBAL LIGHT ===== */
-
 .content{
   position:relative;
 }
 
+
 .content::before{
   content:"";
-
   position:absolute;
-
   left:50%;
-  top:46%;
-
-  width:min(900px,92vw);
-  height:min(650px,80vh);
-
+  top:50%;
   transform:translate(-50%,-50%);
-
+  width:min(920px,92vw);
+  height:min(680px,82vh);
   z-index:-1;
-
   pointer-events:none;
 
   background:
     radial-gradient(
       ellipse at center,
-      rgba(112,36,31,.055) 0%,
-      rgba(80,24,22,.025) 42%,
+      rgba(90,28,24,.08) 0%,
+      rgba(60,18,18,.04) 40%,
       transparent 72%
     );
 
-  filter:blur(8px);
+  filter:blur(10px);
 }
 
 
-/* ===== MOBILE ATMOSPHERE ===== */
-
 @media(max-width:700px){
-
   body{
     background:
-      radial-gradient(
-        circle at 50% 13%,
-        rgba(128,38,34,.27),
-        transparent 38%
-      ),
-
-      radial-gradient(
-        circle at 50% 78%,
-        rgba(145,91,45,.055),
-        transparent 35%
-      ),
-
       linear-gradient(
         180deg,
-        #150908,
-        #0c0606 55%,
-        #050303
-      );
+        rgba(8,4,4,.66) 0%,
+        rgba(6,3,3,.84) 100%
+      ),
+      url("global-bg-history.png") center center / cover no-repeat;
   }
+
+  .noise{
+    opacity:.035;
+  }
+}
 
 
   body::before{

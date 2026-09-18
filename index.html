@@ -697,7 +697,7 @@ button.dropSlot.matched{
 
 .unityLine{
   position:absolute;
- z-index:1;
+  z-index:1;
   left:50%;
   top:50%;
 
@@ -10974,6 +10974,86 @@ button.finalHubCard:hover
   }
 
 }
+  /* ==================================================
+   STEP 08 · FINAL AUDIT · ACCESSIBILITY + PERFORMANCE
+================================================== */
+
+
+/* ===== LEVEL 1 · KEYBOARD FOCUS ===== */
+
+.object:focus-visible{
+
+  outline:
+    2px solid #e0bd68;
+
+  outline-offset:4px;
+
+  border-color:#e0bd68;
+
+  box-shadow:
+    0 0 0 4px
+      rgba(200,164,92,.08),
+
+    0 18px 50px
+      rgba(0,0,0,.20);
+
+}
+
+
+/* ===== FINAL HUB ===== */
+
+.finalHubStatus{
+  min-height:30px;
+}
+
+
+/* ===== MOBILE / TOUCH ===== */
+
+@media(pointer:coarse){
+
+  .finalHotspot{
+    min-width:44px;
+    min-height:44px;
+  }
+
+}
+
+
+/* ===== REDUCED DECORATIVE MOTION ===== */
+
+@media(prefers-reduced-motion:reduce){
+
+  .l3nBoard::after,
+  .l3nCore,
+  .l3nCore.online,
+  .l3nStageChip.active::after,
+  .level4Phase.active::after,
+  .finalHotspot,
+  .finalTimelineItem.active::after{
+
+    animation:none !important;
+
+  }
+
+
+  .btn,
+  .object,
+  button.conceptCard,
+  button.dropSlot,
+  .l3nCard,
+  .l3nRoute,
+  .l3nSignal,
+  .l3nNode,
+  .l3nEvidence,
+  button.finalHubCard,
+  .finalHubImage,
+  .finalHotspot{
+
+    transition:none !important;
+
+  }
+
+}
 </style>
 </head>
 
@@ -11028,6 +11108,62 @@ button.finalHubCard:hover
 <script>
 const screen = document.getElementById("screen");
 const hud = document.getElementById("hud");
+  /* FINAL AUDIT · ACCESSIBLE LIVE REGIONS */
+
+const feedbackLiveSelectors =
+  "#message," +
+  ".level2Feedback," +
+  ".l3nFeedback," +
+  ".level4DecisionFeedback," +
+  ".level4RecoveryFeedback," +
+  ".level4ArchitectureFeedback," +
+  ".finalKnowledgePanel";
+
+
+function syncFeedbackLiveRegions(){
+
+  document
+    .querySelectorAll(
+      feedbackLiveSelectors
+    )
+    .forEach(function(region){
+
+      region.setAttribute(
+        "role",
+        "status"
+      );
+
+      region.setAttribute(
+        "aria-live",
+        "polite"
+      );
+
+      region.setAttribute(
+        "aria-atomic",
+        "true"
+      );
+
+    });
+
+}
+
+
+const feedbackLiveObserver =
+  new MutationObserver(
+    syncFeedbackLiveRegions
+  );
+
+
+feedbackLiveObserver.observe(
+
+  screen,
+
+  {
+    childList:true,
+    subtree:true
+  }
+
+);
 /* FINAL JOURNEY · IMAGE FALLBACK */
 document.addEventListener("error",function(event){
 
@@ -11456,8 +11592,46 @@ function levelOne(){
     </div>
   `;
 
-  document.querySelectorAll(".object")
-    .forEach(item => item.addEventListener("click", chooseObject));
+  document
+  .querySelectorAll(".object")
+  .forEach(function(item){
+
+    item.setAttribute(
+      "role",
+      "button"
+    );
+
+    item.tabIndex = 0;
+
+
+    item.addEventListener(
+      "click",
+      chooseObject
+    );
+
+
+    item.addEventListener(
+      "keydown",
+      function(event){
+
+        if(
+          event.key === "Enter" ||
+          event.key === " "
+        ){
+
+          event.preventDefault();
+
+          item.click();
+
+        }
+
+      }
+    );
+
+  });
+
+
+syncFeedbackLiveRegions();
 }
 
 function chooseObject(e){
@@ -11468,7 +11642,14 @@ function chooseObject(e){
 
     if(item.classList.contains("correct-found")) return;
 
-    item.classList.add("correct-found");
+   item.classList.add("correct-found");
+
+    item.setAttribute(
+      "aria-disabled",
+      "true"
+    );
+
+    item.tabIndex = -1;
 
     found++;
     xp += 100;
@@ -13732,7 +13913,7 @@ const phase2Pieces = [
   {
     id:"goal",
 
-    icon:"🎯",
+  icon:"MT"
 
     target:"goal",
 
@@ -13747,7 +13928,7 @@ const phase2Pieces = [
   {
     id:"path",
 
-    icon:"🧭",
+  icon:"PH"
 
     target:"path",
 
@@ -13762,7 +13943,7 @@ const phase2Pieces = [
   {
     id:"leader",
 
-    icon:"⭐",
+  icon:"LĐ"
 
     target:"leader",
 
@@ -13777,7 +13958,7 @@ const phase2Pieces = [
   {
     id:"force",
 
-    icon:"🤝",
+icon:"LL"
 
     target:"force",
 
@@ -13792,7 +13973,7 @@ const phase2Pieces = [
   {
     id:"world",
 
-    icon:"🌍",
+ icon:"QT"
 
     target:"world",
 
@@ -13807,7 +13988,7 @@ const phase2Pieces = [
   {
     id:"noise1",
 
-    icon:"⚠",
+ icon:"!"
 
     target:"noise",
 
@@ -13822,7 +14003,7 @@ const phase2Pieces = [
   {
     id:"noise2",
 
-    icon:"⚠",
+  icon:"!"
 
     target:"noise",
 
@@ -20003,7 +20184,9 @@ function renderFinalJourneyHub(){
           data-final-hub-topic="1">
 
           <img
-            class="finalHubImage"
+           class="finalHubImage"
+            loading="lazy"
+            decoding="async"
             src="topic1-1911-1930.png"
             alt="Topic 1">
 
@@ -20025,8 +20208,8 @@ function renderFinalJourneyHub(){
 
               ${
                 finalJourneyCompleted.topic1
-                ? "✓ TOPIC COMPLETE"
-                : "● KHÁM PHÁ"
+              "TOPIC COMPLETE"
+             "KHÁM PHÁ"
               }
 
             </div>
@@ -20051,7 +20234,9 @@ function renderFinalJourneyHub(){
           data-final-hub-topic="2">
 
           <img
-            class="finalHubImage"
+         class="finalHubImage"
+            loading="lazy"
+            decoding="async"
             src="topic2-1945.png"
             alt="Topic 2">
 
@@ -20099,7 +20284,9 @@ function renderFinalJourneyHub(){
           data-final-hub-topic="3">
 
           <img
-            class="finalHubImage"
+           class="finalHubImage"
+            loading="lazy"
+            decoding="async"
             src="topic3-1954-1969.png"
             alt="Topic 3">
 
@@ -20147,7 +20334,9 @@ function renderFinalJourneyHub(){
           data-final-hub-topic="4">
 
           <img
-            class="finalHubImage"
+          class="finalHubImage"
+            loading="lazy"
+            decoding="async"
             src="topic4-1969-2026.png"
             alt="Topic 4">
 
@@ -20216,7 +20405,7 @@ function renderFinalJourneyHub(){
 
             <div class="finalHubEndingLocked">
 
-              🔒 FINAL ARCHIVE LOCKED
+              FINAL ARCHIVE · LOCKED
 
               <br><br>
 

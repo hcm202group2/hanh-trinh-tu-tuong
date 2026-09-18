@@ -600,6 +600,7 @@ button.dropSlot.matched{
 
 .orgStream{
   position:absolute;
+  z-index:2;
   width:230px;
   min-height:58px;
 
@@ -658,6 +659,8 @@ button.dropSlot.matched{
 }
 
 .unityCore{
+  z-index:3;
+  z-index:1;
   position:absolute;
 
   left:50%;
@@ -716,13 +719,21 @@ button.dropSlot.matched{
 }
 
 .line1{
+  --line-length:245px;
   transform:rotate(-155deg);
   animation:lineGrow .8s 3.8s forwards;
 }
 
 .line2{
+  --line-length:220px;
   transform:rotate(0deg);
   animation:lineGrow .8s 4.1s forwards;
+}
+
+.line3{
+  --line-length:245px;
+  transform:rotate(157deg);
+  animation:lineGrow .8s 4.4s forwards;
 }
 .c1930Text{
   min-height:70px;
@@ -800,7 +811,7 @@ button.dropSlot.matched{
   }
 
   to{
-    width:230px;
+    width:var(--line-length,230px);
     opacity:1;
   }
 }
@@ -7930,7 +7941,8 @@ document.getElementById("to1930")
         </div>
 
         <div class="unityLine line1"></div>
-        <div class="unityLine line2"></div>
+<div class="unityLine line2"></div>
+<div class="unityLine line3"></div>
     
 
       </div>

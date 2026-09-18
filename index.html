@@ -1246,102 +1246,475 @@ button.dropSlot.matched{
 }
 
 
-/* ===== STAGE 3 · EVIDENCE ===== */
+/* ===== STAGE 3 · NETWORK SYNCHRONIZATION ===== */
 
-.l3nEvidenceGrid{
+#l3nRoot[data-l3n-stage="3"]
+.l3nBoard > .l3nCore{
+  display:none;
+}
+
+.l3nSyncArena{
   position:relative;
   z-index:2;
 
+  width:min(920px,100%);
+  min-height:390px;
+
+  margin:4px auto 24px;
+  padding:18px;
+
   display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:14px;
-}
+  grid-template-columns:
+    minmax(190px,1fr)
+    150px
+    minmax(190px,1fr);
+  grid-template-rows:
+    122px
+    122px
+    122px;
+  gap:8px 22px;
 
-.l3nEvidence{
-  position:relative;
+  border:1px solid rgba(111,159,104,.16);
+  border-radius:14px;
+
+  background:
+    radial-gradient(
+      circle at center,
+      rgba(111,159,104,.08),
+      transparent 34%
+    ),
+    linear-gradient(
+      145deg,
+      rgba(255,255,255,.018),
+      rgba(0,0,0,.12)
+    );
+
   overflow:hidden;
-
-  border:1px solid rgba(200,164,92,.17);
-  border-radius:11px;
-
-  background:#0d0908;
-
-  cursor:pointer;
-  transition:.25s;
 }
 
-.l3nEvidence:hover{
-  transform:translateY(-5px);
-  border-color:#c8a45c;
-}
-
-.l3nEvidenceArt{
-  height:155px;
-  overflow:hidden;
-
-  filter:
-    sepia(.65)
-    contrast(1.08)
-    brightness(.82);
-}
-
-.l3nEvidenceArt svg{
-  width:100%;
-  height:100%;
-}
-
-.l3nEvidenceMeta{
-  padding:14px 15px 16px;
-  text-align:left;
-}
-
-.l3nEvidenceCode{
-  margin-bottom:6px;
-
-  color:#b84e49;
-  font-size:9px;
-  letter-spacing:3px;
-}
-
-.l3nEvidenceName{
-  color:#e3d7c7;
-  font-size:13px;
-  line-height:1.45;
-}
-
-.l3nEvidenceHint{
-  margin-top:6px;
-
-  color:#786e64;
-  font-size:10px;
-  line-height:1.45;
-}
-
-.l3nEvidence.done{
-  border-color:#709b69;
-}
-
-.l3nEvidence.done::after{
-  content:"VERIFIED";
+.l3nSyncArena::before{
+  content:"SYNC MATRIX · 4 NODES / 8 SIGNALS";
 
   position:absolute;
-  top:15px;
-  right:-35px;
+  left:16px;
+  top:12px;
 
-  width:145px;
-  padding:5px 0;
+  color:#665f56;
+  font-size:8px;
+  letter-spacing:2.2px;
+}
 
-  background:#6f9f68;
-  color:#0c0807;
+.l3nSyncLines{
+  position:absolute;
+  inset:0;
+  z-index:0;
 
+  width:100%;
+  height:100%;
+
+  pointer-events:none;
+}
+
+.l3nSyncLine{
+  stroke:rgba(111,159,104,.13);
+  stroke-width:1.2;
+  stroke-dasharray:3 3;
+  vector-effect:non-scaling-stroke;
+
+  transition:
+    stroke .35s ease,
+    filter .35s ease,
+    opacity .35s ease;
+}
+
+.l3nSyncLine.active{
+  stroke:rgba(200,164,92,.58);
+  stroke-dasharray:0;
+}
+
+.l3nSyncLine.done{
+  stroke:#78a471;
+  stroke-width:1.8;
+  filter:drop-shadow(0 0 4px rgba(111,159,104,.7));
+}
+
+.l3nSyncNode{
+  appearance:none;
+  -webkit-appearance:none;
+
+  position:relative;
+  z-index:2;
+
+  width:100%;
+  min-height:108px;
+
+  padding:14px;
+
+  border:1px dashed rgba(200,164,92,.22);
+  border-radius:10px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(8,5,5,.84),
+      rgba(200,164,92,.025)
+    );
+
+  color:#b7aa9d;
+  font-family:Arial,sans-serif;
+  text-align:left;
+
+  cursor:pointer;
+
+  transition:
+    transform .22s ease,
+    border-color .22s ease,
+    background .22s ease,
+    box-shadow .22s ease;
+}
+
+.l3nSyncNode.nw{grid-column:1;grid-row:1;}
+.l3nSyncNode.ne{grid-column:3;grid-row:1;}
+.l3nSyncNode.sw{grid-column:1;grid-row:3;}
+.l3nSyncNode.se{grid-column:3;grid-row:3;}
+
+.l3nSyncNode:hover:not(:disabled){
+  transform:translateY(-3px);
+  border-color:rgba(200,164,92,.66);
+
+  box-shadow:
+    0 14px 32px rgba(0,0,0,.22),
+    0 0 20px rgba(200,164,92,.06);
+}
+
+.l3nSyncNode.primed{
+  border-style:solid;
+  border-color:rgba(200,164,92,.58);
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(200,164,92,.075),
+      rgba(8,5,5,.76)
+    );
+}
+
+.l3nSyncNode.done{
+  border-style:solid;
+  border-color:rgba(111,159,104,.75);
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(70,120,60,.15),
+      rgba(8,5,5,.72)
+    );
+
+  box-shadow:
+    0 0 24px rgba(111,159,104,.08);
+
+  cursor:default;
+}
+
+.l3nSyncNodeTop{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+
+  margin-bottom:9px;
+}
+
+.l3nSyncNodeCode,
+.l3nSyncNodeState{
+  font-size:8px;
+  letter-spacing:2px;
+}
+
+.l3nSyncNodeCode{color:#7c7166;}
+.l3nSyncNodeState{color:#a18a55;}
+.l3nSyncNode.done .l3nSyncNodeState{color:#8fc187;}
+
+.l3nSyncNodeCue{
+  color:#ddd0c0;
+  font-size:11px;
+  letter-spacing:1.6px;
+  line-height:1.35;
+}
+
+.l3nSyncSlots{
+  display:flex;
+  gap:7px;
+
+  margin-top:10px;
+}
+
+.l3nSyncSlot{
+  min-width:46px;
+  padding:4px 7px;
+
+  border:1px solid rgba(200,164,92,.12);
+  border-radius:4px;
+
+  color:#5f574f;
+  font-size:8px;
+  letter-spacing:1px;
+  text-align:center;
+}
+
+.l3nSyncSlot.filled{
+  border-color:rgba(200,164,92,.42);
+  color:#d2b568;
+  background:rgba(200,164,92,.055);
+}
+
+.l3nSyncNode.done .l3nSyncSlot.filled{
+  border-color:rgba(111,159,104,.55);
+  color:#93be8c;
+  background:rgba(111,159,104,.07);
+}
+
+.l3nSyncNodeResult{
+  margin-top:8px;
+
+  color:#6f665e;
+  font-size:8px;
+  letter-spacing:1.5px;
+}
+
+.l3nSyncNode.done .l3nSyncNodeResult{
+  color:#9ac493;
+}
+
+.l3nSyncCore{
+  position:relative;
+  z-index:3;
+
+  grid-column:2;
+  grid-row:2;
+
+  width:118px;
+  height:118px;
+
+  place-self:center;
+
+  padding:3px;
+
+  border-radius:50%;
+
+  background:
+    conic-gradient(
+      #7aa473 var(--sync-angle),
+      rgba(111,159,104,.10) 0
+    );
+
+  box-shadow:
+    0 0 38px rgba(111,159,104,.09);
+}
+
+.l3nSyncCoreInner{
+  width:100%;
+  height:100%;
+
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+
+  border:1px solid rgba(200,164,92,.38);
+  border-radius:50%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(200,164,92,.12),
+      #160d0b 70%
+    );
+
+  text-align:center;
+}
+
+.l3nSyncCore strong{
+  color:#d2ad55;
+  font-size:25px;
+}
+
+.l3nSyncCore span{
+  margin-top:4px;
+
+  color:#8d8175;
+  font-size:7px;
+  letter-spacing:1.6px;
+}
+
+.l3nSyncCore small{
+  margin-top:8px;
+
+  color:#8fb888;
+  font-size:7px;
+  letter-spacing:1.2px;
+}
+
+.l3nFragmentHeader{
+  position:relative;
+  z-index:2;
+
+  width:min(920px,100%);
+  margin:0 auto 9px;
+
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+
+  color:#776c61;
+  font-size:8px;
+  letter-spacing:2px;
+}
+
+.l3nFragmentHeader strong{
+  color:#a68e55;
+  font-weight:normal;
+}
+
+.l3nFragmentGrid{
+  position:relative;
+  z-index:2;
+
+  width:min(920px,100%);
+  margin:auto;
+
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:8px;
+}
+
+.l3nFragment{
+  appearance:none;
+  -webkit-appearance:none;
+
+  display:grid;
+  grid-template-columns:58px 1fr auto;
+  align-items:center;
+  gap:10px;
+
+  min-height:58px;
+  padding:10px 12px;
+
+  border:1px solid rgba(200,164,92,.14);
+  border-radius:8px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255,255,255,.026),
+      rgba(7,4,4,.30)
+    );
+
+  color:#d1c5b6;
+  font-family:Arial,sans-serif;
+  text-align:left;
+
+  cursor:pointer;
+
+  transition:
+    transform .2s ease,
+    border-color .2s ease,
+    background .2s ease,
+    opacity .2s ease,
+    box-shadow .2s ease;
+}
+
+.l3nFragment:hover:not(:disabled){
+  transform:translateX(4px);
+  border-color:rgba(200,164,92,.54);
+}
+
+.l3nFragment.selected{
+  border-color:#d0ad5d;
+  background:rgba(200,164,92,.10);
+
+  box-shadow:
+    0 0 0 1px rgba(200,164,92,.06),
+    0 9px 25px rgba(0,0,0,.16);
+}
+
+.l3nFragment.linked{
+  opacity:.34;
+  border-color:rgba(111,159,104,.28);
+  cursor:default;
+}
+
+.l3nFragmentCode{
+  color:#c2a45c;
   font-size:9px;
   font-weight:bold;
   letter-spacing:1px;
-
-  transform:rotate(35deg);
 }
 
+.l3nFragmentText{
+  font-size:11px;
+  line-height:1.45;
+}
 
+.l3nFragmentState{
+  color:#625a52;
+  font-size:7px;
+  letter-spacing:1.4px;
+}
+
+.l3nFragment.selected .l3nFragmentState{
+  color:#d3b560;
+}
+
+.l3nFragment.linked .l3nFragmentState{
+  color:#86ad80;
+}
+
+.l3nSyncNode:focus-visible,
+.l3nFragment:focus-visible{
+  outline:2px solid #e0bd68;
+  outline-offset:3px;
+}
+
+@media(max-width:780px){
+
+  .l3nSyncArena{
+    min-height:0;
+
+    grid-template-columns:1fr;
+    grid-template-rows:auto;
+    gap:9px;
+
+    padding:34px 12px 12px;
+  }
+
+  .l3nSyncLines{
+    display:none;
+  }
+
+  .l3nSyncNode,
+  .l3nSyncCore{
+    grid-column:1 !important;
+    grid-row:auto !important;
+  }
+
+  .l3nSyncCore{
+    order:-1;
+    margin-bottom:8px;
+  }
+
+  .l3nFragmentGrid{
+    grid-template-columns:1fr;
+  }
+
+  .l3nFragment{
+    grid-template-columns:54px 1fr;
+  }
+
+  .l3nFragmentState{
+    display:none;
+  }
+
+}
 /* ===== FEEDBACK / PROGRESS ===== */
 
 .l3nFeedback{
@@ -12965,7 +13338,13 @@ let l3nSelectedSignal = null;
 let l3nRoutedOrgs = new Set();
 let l3nSolvedSignals = new Set();
 let l3nVerifiedEvidence = new Set();
-
+  l3nSelectedEvidenceSignal = null;
+l3nLinkedEvidenceSignals = new Set();
+l3nEvidenceNodeSignals = {};
+/* STAGE 03 · NETWORK SYNCHRONIZATION */
+let l3nSelectedEvidenceSignal = null;
+let l3nLinkedEvidenceSignals = new Set();
+let l3nEvidenceNodeSignals = {};
 let l3nLevelXP = 0;
 
 
@@ -13694,89 +14073,294 @@ function renderL3NStage2(){
    STAGE 03 · EVIDENCE
 ================================================== */
 
+/* ==================================================
+   STAGE 03 · NETWORK SYNCHRONIZATION
+================================================== */
+
 function renderL3NStage3(){
+
+  const syncedCount =
+    l3nVerifiedEvidence.size;
+
+  const allSynced =
+    syncedCount ===
+    phase3Cases.length;
+
+
+  function nodeLinks(id){
+
+    return (
+      l3nEvidenceNodeSignals[id] ||
+      []
+    );
+
+  }
+
+
+  function lineClass(id){
+
+    const count =
+      nodeLinks(id).length;
+
+    const done =
+      l3nVerifiedEvidence.has(id);
+
+    return [
+      "l3nSyncLine",
+      count > 0 ? "active" : "",
+      done ? "done" : ""
+    ].join(" " );
+
+  }
+
+
+  const selectedSignal =
+    phase3Signals.find(
+      function(signal){
+        return (
+          signal.id ===
+          l3nSelectedEvidenceSignal
+        );
+      }
+    );
+
 
   return `
 
     <div class="l3nInstruction">
 
-      Bốn hồ sơ cuối cùng
-      cần được
-
-      <strong class="gold">
-        xác minh
-      </strong>
-
-      trước khi hệ thống
-      đạt toàn vẹn.
+      Bốn node cuối cùng đang ở trạng thái
+      <strong class="gold">OFFLINE</strong>.
 
       <br>
 
-      Mở từng dossier
-      để đưa bằng chứng
-      vào mạng lưới.
+      Mỗi node cần
+      <strong>2 mảnh tín hiệu phù hợp</strong>
+      để đồng bộ với COMMAND CORE.
+
+      <br>
+
+      Chọn một SIGNAL FRAGMENT,
+      sau đó truyền nó tới node phù hợp.
 
     </div>
 
 
-    <div class="l3nEvidenceGrid">
+    <div class="l3nSyncArena">
+
+      <svg
+        class="l3nSyncLines"
+        viewBox="0 0 100 100"
+        preserveAspectRatio="none"
+        aria-hidden="true"
+      >
+
+        <line
+          class="${lineClass("worker")}"
+          x1="50" y1="50"
+          x2="18" y2="18"
+        />
+
+        <line
+          class="${lineClass("conference")}"
+          x1="50" y1="50"
+          x2="82" y2="18"
+        />
+
+        <line
+          class="${lineClass("peasant")}"
+          x1="50" y1="50"
+          x2="18" y2="82"
+        />
+
+        <line
+          class="${lineClass("document")}"
+          x1="50" y1="50"
+          x2="82" y2="82"
+        />
+
+      </svg>
+
 
       ${phase3Cases
-        .map(function(item){
+        .map(function(node){
+
+          const links =
+            nodeLinks(node.id);
 
           const done =
             l3nVerifiedEvidence.has(
-              item.id
+              node.id
             );
 
+          const primed =
+            !done &&
+            links.length > 0;
 
           return `
 
             <button
               class="
-                l3nEvidence
+                l3nSyncNode
+                ${node.position}
                 ${done ? "done" : ""}
+                ${primed ? "primed" : ""}
               "
-              data-l3n-action="verify-evidence"
-              data-l3n-id="${item.id}"
+              data-l3n-action="connect-evidence-node"
+              data-l3n-id="${node.id}"
+              ${done ? "disabled" : ""}
             >
 
-              <div class="l3nEvidenceArt">
+              <div class="l3nSyncNodeTop">
 
-                ${item.art}
+                <span class="l3nSyncNodeCode">
+                  ${node.code}
+                </span>
 
-              </div>
-
-
-              <div class="l3nEvidenceMeta">
-
-                <div class="l3nEvidenceCode">
-
-                  ${item.code}
-
-                </div>
-
-
-                <div class="l3nEvidenceName">
-
-                  ${item.name}
-
-                </div>
-
-
-                <div class="l3nEvidenceHint">
-
+                <span class="l3nSyncNodeState">
                   ${
                     done
-                    ?
-                    item.evidence
-                    :
-                    item.hint
+                    ? "SYNCHRONIZED"
+                    : links.length + " / " + node.required
                   }
-
-                </div>
+                </span>
 
               </div>
+
+              <div class="l3nSyncNodeCue">
+                ${node.socket}
+              </div>
+
+              <div class="l3nSyncSlots">
+
+                ${[0,1]
+                  .map(function(index){
+
+                    const linkedId =
+                      links[index];
+
+                    const signal =
+                      phase3Signals.find(
+                        function(item){
+                          return (
+                            item.id ===
+                            linkedId
+                          );
+                        }
+                      );
+
+                    return `
+                      <span
+                        class="
+                          l3nSyncSlot
+                          ${signal ? "filled" : ""}
+                        "
+                      >
+                        ${signal ? signal.code : "—"}
+                      </span>
+                    `;
+
+                  })
+                  .join("")
+                }
+
+              </div>
+
+              <div class="l3nSyncNodeResult">
+                ${
+                  done
+                  ? node.evidence
+                  : "AWAITING EVIDENCE"
+                }
+              </div>
+
+            </button>
+
+          `;
+
+        })
+        .join("")
+      }
+
+
+      <div
+        class="l3nSyncCore"
+        style="--sync-angle:${syncedCount * 90}deg"
+      >
+
+        <div class="l3nSyncCoreInner">
+
+          <strong>1930</strong>
+
+          <span>COMMAND CORE</span>
+
+          <small>
+            ${syncedCount} / 4 NODES
+          </small>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="l3nFragmentHeader">
+
+      <span>SIGNAL FRAGMENTS</span>
+
+      <strong>
+        ${l3nLinkedEvidenceSignals.size} /
+        ${phase3Signals.length} LINKED
+      </strong>
+
+    </div>
+
+
+    <div class="l3nFragmentGrid">
+
+      ${phase3Signals
+        .map(function(signal){
+
+          const linked =
+            l3nLinkedEvidenceSignals.has(
+              signal.id
+            );
+
+          const selected =
+            l3nSelectedEvidenceSignal ===
+            signal.id;
+
+          return `
+
+            <button
+              class="
+                l3nFragment
+                ${linked ? "linked" : ""}
+                ${selected ? "selected" : ""}
+              "
+              data-l3n-action="select-evidence-signal"
+              data-l3n-id="${signal.id}"
+              ${linked ? "disabled" : ""}
+            >
+
+              <span class="l3nFragmentCode">
+                ${signal.code}
+              </span>
+
+              <span class="l3nFragmentText">
+                ${signal.text}
+              </span>
+
+              <span class="l3nFragmentState">
+                ${
+                  linked
+                  ? "LINKED"
+                  : selected
+                  ? "ARMED"
+                  : "READY"
+                }
+              </span>
 
             </button>
 
@@ -13795,29 +14379,45 @@ function renderL3NStage3(){
     >
 
       ${
-        l3nVerifiedEvidence.size ===
-        phase3Cases.length
-        ?
-        `
+        allSynced
+        ? `
 
           <strong class="gold">
-            EVIDENCE SYSTEM VERIFIED
+            NETWORK SYNCHRONIZATION COMPLETE
           </strong>
 
           <br>
 
-          Công nhân ·
-          nông dân ·
+          Công nhân · nông dân ·
           thống nhất lãnh đạo ·
           Cương lĩnh chính trị
-          đã được xác minh.
+          đã được kết nối vào COMMAND CORE.
+
+          <br><br>
+
+          NETWORK INTEGRITY · 100%
 
         `
-        :
-        `
+        : selectedSignal
+        ? `
 
-          Chọn một dossier
-          để xác minh bằng chứng.
+          <strong class="gold">
+            ${selectedSignal.code} · SIGNAL ARMED
+          </strong>
+
+          <br>
+
+          Chọn node phù hợp để truyền mảnh tín hiệu này.
+
+        `
+        : `
+
+          Chọn một SIGNAL FRAGMENT bên dưới,
+          sau đó chọn node phù hợp.
+
+          <br>
+
+          Mỗi node cần đủ 2 liên kết để SYNCHRONIZE.
 
         `
       }
@@ -13825,13 +14425,7 @@ function renderL3NStage3(){
     </div>
 
   `;
-
 }
-
-
-/* ==================================================
-   CLICK ENGINE
-================================================== */
 
 function handleL3NClick(event){
 
@@ -14170,96 +14764,214 @@ return;
   }
 
 
-  /* ===== VERIFY EVIDENCE ===== */
+ /* ===== SELECT EVIDENCE SIGNAL ===== */
 
-  if(action === "verify-evidence"){
+  if(action === "select-evidence-signal"){
 
     const id =
       target.dataset.l3nId;
 
 
     if(
-      l3nVerifiedEvidence.has(id)
+      l3nLinkedEvidenceSignals.has(id)
     ){
       return;
     }
 
 
-    const item =
-      phase3Cases.find(
-        function(entry){
+    l3nSelectedEvidenceSignal =
+      l3nSelectedEvidenceSignal === id
+      ? null
+      : id;
 
+
+    renderLevel3Network();
+
+    return;
+  }
+
+
+  /* ===== CONNECT EVIDENCE NODE ===== */
+
+  if(action === "connect-evidence-node"){
+
+    if(!l3nSelectedEvidenceSignal){
+
+      showL3NFeedback(
+        "SYNC WAITING · Hãy chọn một SIGNAL FRAGMENT trước.",
+        true
+      );
+
+      return;
+    }
+
+
+    const signal =
+      phase3Signals.find(
+        function(item){
           return (
-            entry.id === id
+            item.id ===
+            l3nSelectedEvidenceSignal
           );
-
         }
       );
 
 
-    if(!item){
+    const nodeId =
+      target.dataset.l3nId;
+
+
+    const node =
+      phase3Cases.find(
+        function(item){
+          return (
+            item.id === nodeId
+          );
+        }
+      );
+
+
+    if(!signal || !node){
       return;
     }
 
 
-    l3nVerifiedEvidence.add(
-      id
-    );
+    if(signal.node !== node.id){
+
+      target.classList.remove(
+        "l3nWrong"
+      );
+
+      void target.offsetWidth;
+
+      target.classList.add(
+        "l3nWrong"
+      );
 
 
-    xp += 125;
+      showL3NFeedback(
+        "SYNC ERROR · Mảnh tín hiệu này không hỗ trợ node vừa chọn. Tín hiệu vẫn được giữ để bạn thử lại.",
+        true
+      );
 
-    l3nLevelXP += 125;
+      return;
+    }
 
 
-    updateHUD();
+    const links =
+      l3nEvidenceNodeSignals[node.id] ||
+      [];
+
+
+    if(!links.includes(signal.id)){
+
+      links.push(signal.id);
+
+      l3nEvidenceNodeSignals[node.id] =
+        links;
+
+      l3nLinkedEvidenceSignals.add(
+        signal.id
+      );
+
+    }
+
+
+    l3nSelectedEvidenceSignal = null;
+
+
+    const nodeJustCompleted =
+      links.length >= node.required &&
+      !l3nVerifiedEvidence.has(
+        node.id
+      );
+
+
+    if(nodeJustCompleted){
+
+      l3nVerifiedEvidence.add(
+        node.id
+      );
+
+      xp += 125;
+      l3nLevelXP += 125;
+
+      updateHUD();
+
+    }
+
 
     renderLevel3Network();
 
 
-    const feedback =
-      document.getElementById(
-        "l3nFeedback"
-      );
-
-
     if(
-      feedback &&
       l3nVerifiedEvidence.size <
       phase3Cases.length
     ){
 
-      feedback.innerHTML = `
-
-        <strong class="gold">
-
-          ${item.evidence}
-
-        </strong>
-
-        <br>
-
-        ${item.note}
-
-        <br><br>
-
-        EVIDENCE VERIFIED · +125 XP
-
-      `;
+      const feedback =
+        document.getElementById(
+          "l3nFeedback"
+        );
 
 
-      feedback.classList.add(
-        "success"
-      );
+      if(feedback){
+
+        if(nodeJustCompleted){
+
+          feedback.innerHTML = `
+
+            <strong class="gold">
+              ${node.evidence} · NODE SYNCHRONIZED
+            </strong>
+
+            <br>
+
+            ${node.note}
+
+            <br><br>
+
+            +125 XP ·
+            ${l3nVerifiedEvidence.size}/4 NODES ONLINE
+
+          `;
+
+        }
+        else{
+
+          feedback.innerHTML = `
+
+            <strong class="gold">
+              ${signal.code} · LINK ESTABLISHED
+            </strong>
+
+            <br>
+
+            ${links.length}/${node.required}
+            liên kết đã được nạp vào
+            ${node.code}.
+
+            <br><br>
+
+            Cần thêm một mảnh phù hợp
+            để đồng bộ node.
+
+          `;
+
+        }
+
+
+        feedback.classList.add(
+          "success"
+        );
+
+      }
 
     }
 
 
     return;
   }
-
-
-  /* ===== COMPLETE ===== */
 
   if(action === "complete-level"){
 
@@ -14293,13 +15005,13 @@ function showL3NStageTransition(nextStage){
       stamp:"NETWORK LINK ESTABLISHED"
     }
     :
-    {
-      code:"LINK 02 · VERIFIED",
-      title:"EVIDENCE ARCHIVE",
-      text:
-        "Các tín hiệu chiến lược đã được đồng bộ. Hệ thống mở kho hồ sơ xác minh.",
-      stamp:"ARCHIVE ACCESS GRANTED"
-    };
+   {
+  code:"LINK 02 · VERIFIED",
+  title:"NETWORK SYNCHRONIZATION",
+  text:
+    "Các tín hiệu chiến lược đã được giải mã. Bốn node cuối cùng đang chờ được đồng bộ với COMMAND CORE.",
+  stamp:"SYNC PROTOCOL ACTIVE"
+};
 
 
   screen.innerHTML = `

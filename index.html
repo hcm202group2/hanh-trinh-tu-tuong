@@ -17054,6 +17054,8 @@ shuffleDomChildren(
 
             `;
 
+            if(loseLife()) return;
+
             return;
 
           }
@@ -17227,11 +17229,11 @@ function startLevel4Architecture(){
   ];
 
 
-  const trayOrder = [
+  const trayOrder = shuffledCopy([
     "by",
     "for",
     "of"
-  ];
+  ]);
 
 
   let selectedKey = null;
@@ -17660,6 +17662,8 @@ function startLevel4Architecture(){
         },
         420
       );
+
+      if(loseLife()) return;
 
 
       return;
@@ -21637,7 +21641,7 @@ function startFinalGame(){
 
   document
     .getElementById("hearts")
-    .style.visibility = "hidden";
+    .style.visibility = "visible";
 
   document
     .querySelector(
@@ -22529,6 +22533,8 @@ function checkFinalTopic1Answer(
     "finalWrong"
   );
 
+  if(loseLife()) return;
+
 
   document
     .getElementById(
@@ -22831,7 +22837,7 @@ function startFinalTopic2(){
   document
     .getElementById("hearts")
     .style.visibility =
-    "hidden";
+    "visible";
 
 
   document
@@ -23275,6 +23281,8 @@ function checkFinalTopic2Answer(
 
   }
 
+  if(loseLife()) return;
+
 
   document
     .getElementById(
@@ -23573,7 +23581,7 @@ function startFinalTopic3(){
 
   document
     .getElementById("hearts")
-    .style.visibility = "hidden";
+    .style.visibility = "visible";
 
 
   document
@@ -24036,6 +24044,8 @@ function checkFinalTopic3Answer(
     "finalWrong"
   );
 
+  if(loseLife()) return;
+
 
   document
     .getElementById(
@@ -24357,7 +24367,7 @@ function startFinalTopic4(){
 
   document
     .getElementById("hearts")
-    .style.visibility = "hidden";
+    .style.visibility = "visible";
 
 
   document
@@ -24817,6 +24827,8 @@ function checkFinalTopic4Answer(
   hotspot.classList.add(
     "finalWrong"
   );
+
+  if(loseLife()) return;
 
 
   document

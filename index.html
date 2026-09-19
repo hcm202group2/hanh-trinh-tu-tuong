@@ -695,8 +695,6 @@ button.dropSlot.matched{
   animation:coreAwake .8s 3.2s forwards;
 }
 
-
-}
 .c1930Text{
   min-height:70px;
 
@@ -12369,6 +12367,485 @@ button.finalHubCard:hover
   .globalGameOverCard{
     animation-duration:.01ms !important;
   }
+}
+
+/* ==================================================
+   BIG UPDATE · CINEMATIC EXPERIENCE LAYER
+   Decorative only — gameplay logic stays untouched.
+================================================== */
+
+:root{
+  --vip-gold:#d9bc75;
+  --vip-gold-soft:rgba(217,188,117,.20);
+  --vip-red:#c64a43;
+  --vip-ink:#080505;
+  --vip-pointer-x:50vw;
+  --vip-pointer-y:45vh;
+}
+
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
+  background:
+    radial-gradient(
+      520px circle at var(--vip-pointer-x) var(--vip-pointer-y),
+      rgba(200,164,92,.055),
+      transparent 68%
+    ),
+    radial-gradient(
+      ellipse at 50% 115%,
+      rgba(147,43,37,.12),
+      transparent 55%
+    );
+}
+
+body::after{
+  content:"";
+  position:fixed;
+  inset:0;
+  z-index:9990;
+  pointer-events:none;
+  box-shadow:
+    inset 0 0 120px rgba(0,0,0,.70),
+    inset 0 0 22px rgba(0,0,0,.45);
+}
+
+.vipCinematicFrame{
+  position:fixed;
+  inset:12px;
+  z-index:9988;
+  pointer-events:none;
+  border:1px solid rgba(217,188,117,.055);
+}
+
+.vipCinematicFrame::before,
+.vipCinematicFrame::after{
+  content:"";
+  position:absolute;
+  left:50%;
+  width:56px;
+  height:1px;
+  transform:translateX(-50%);
+  background:linear-gradient(90deg,transparent,var(--vip-gold),transparent);
+  opacity:.48;
+}
+
+.vipCinematicFrame::before{top:-1px}
+.vipCinematicFrame::after{bottom:-1px}
+
+.vipCorner{
+  position:absolute;
+  width:30px;
+  height:30px;
+  border-color:rgba(217,188,117,.48);
+  border-style:solid;
+}
+
+.vipCorner:nth-child(1){top:-1px;left:-1px;border-width:1px 0 0 1px}
+.vipCorner:nth-child(2){top:-1px;right:-1px;border-width:1px 1px 0 0}
+.vipCorner:nth-child(3){bottom:-1px;left:-1px;border-width:0 0 1px 1px}
+.vipCorner:nth-child(4){right:-1px;bottom:-1px;border-width:0 1px 1px 0}
+
+.vipAmbient{
+  position:fixed;
+  inset:0;
+  z-index:1;
+  overflow:hidden;
+  pointer-events:none;
+}
+
+.vipDust{
+  position:absolute;
+  left:var(--x);
+  top:105%;
+  width:var(--size);
+  height:var(--size);
+  border-radius:50%;
+  background:#ead49a;
+  opacity:0;
+  box-shadow:0 0 8px rgba(234,212,154,.38);
+  animation:
+    vipDustRise var(--duration) linear var(--delay) infinite,
+    vipDustFlicker 3.8s ease-in-out var(--delay) infinite;
+}
+
+.vipSceneStatus{
+  position:fixed;
+  left:24px;
+  bottom:22px;
+  z-index:100;
+  display:flex;
+  align-items:center;
+  gap:11px;
+  max-width:min(420px,calc(100vw - 48px));
+  padding:10px 13px;
+  border-left:2px solid rgba(217,188,117,.62);
+  background:linear-gradient(90deg,rgba(8,5,5,.80),rgba(8,5,5,0));
+  color:#b9aea0;
+  pointer-events:none;
+  opacity:.82;
+  transition:opacity .25s ease,transform .35s ease;
+}
+
+.vipSceneStatus.isUpdating{
+  opacity:0;
+  transform:translateX(-8px);
+}
+
+.vipScenePulse{
+  width:7px;
+  height:7px;
+  flex:0 0 auto;
+  border-radius:50%;
+  background:var(--vip-red);
+  box-shadow:0 0 0 4px rgba(198,74,67,.09),0 0 14px rgba(198,74,67,.52);
+  animation:vipStatusPulse 2.2s ease-in-out infinite;
+}
+
+.vipSceneStatus small{
+  display:block;
+  margin-bottom:3px;
+  color:#766b60;
+  font-size:8px;
+  letter-spacing:2.5px;
+}
+
+.vipSceneStatus strong{
+  display:block;
+  color:#d9ccb8;
+  font-size:10px;
+  letter-spacing:1.8px;
+  font-weight:700;
+}
+
+.vipSceneWipe{
+  position:fixed;
+  inset:0;
+  z-index:9987;
+  pointer-events:none;
+  opacity:0;
+  background:
+    linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(217,188,117,.055) 46%,
+      rgba(239,216,158,.17) 50%,
+      rgba(217,188,117,.055) 54%,
+      transparent 100%
+    );
+  transform:translateX(-110%);
+}
+
+.vipSceneWipe.isActive{
+  animation:vipSceneWipe .72s cubic-bezier(.2,.75,.25,1) both;
+}
+
+.screen.vipSceneEnter > .content{
+  animation:vipSceneEnter .72s cubic-bezier(.16,.84,.25,1) both;
+}
+
+.vipBoot{
+  position:fixed;
+  inset:0;
+  z-index:10050;
+  display:grid;
+  place-items:center;
+  pointer-events:none;
+  background:#080505;
+  animation:vipBootExit .72s ease 1.25s forwards;
+}
+
+.vipBootPanel{
+  width:min(470px,calc(100vw - 48px));
+  text-align:center;
+}
+
+.vipBootMark{
+  margin-bottom:15px;
+  color:var(--vip-gold);
+  font-size:10px;
+  letter-spacing:6px;
+}
+
+.vipBootTitle{
+  color:#eee3d1;
+  font-size:clamp(18px,4vw,28px);
+  letter-spacing:.18em;
+  font-weight:700;
+}
+
+.vipBootLine{
+  position:relative;
+  height:2px;
+  margin:24px auto 12px;
+  overflow:hidden;
+  background:rgba(217,188,117,.12);
+}
+
+.vipBootLine::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  transform:translateX(-100%);
+  background:linear-gradient(90deg,#9c332e,var(--vip-gold));
+  animation:vipBootLoad 1.12s cubic-bezier(.2,.8,.2,1) forwards;
+}
+
+.vipBootCode{
+  color:#70665d;
+  font-size:8px;
+  letter-spacing:3px;
+}
+
+.vipStartMeta{
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:8px;
+  margin:22px auto 0;
+}
+
+.vipStartMeta span{
+  padding:7px 10px;
+  border:1px solid rgba(217,188,117,.17);
+  border-radius:999px;
+  background:rgba(10,6,6,.28);
+  color:#81766a;
+  font-size:8px;
+  letter-spacing:1.7px;
+}
+
+.btn{
+  overflow:hidden;
+  isolation:isolate;
+}
+
+.btn::after{
+  content:"";
+  position:absolute;
+  z-index:0;
+  top:-120%;
+  left:-35%;
+  width:22%;
+  height:340%;
+  transform:rotate(20deg) translateX(-220%);
+  background:linear-gradient(90deg,transparent,rgba(255,239,196,.22),transparent);
+  transition:transform .68s ease;
+  pointer-events:none;
+}
+
+.btn:hover::after,
+.btn:focus-visible::after{
+  transform:rotate(20deg) translateX(720%);
+}
+
+.vipInteractive{
+  --vip-hit-x:50%;
+  --vip-hit-y:50%;
+  position:relative;
+}
+
+.vipRipple{
+  position:absolute;
+  z-index:30;
+  left:var(--vip-hit-x);
+  top:var(--vip-hit-y);
+  width:12px;
+  height:12px;
+  border:1px solid rgba(239,216,158,.86);
+  border-radius:50%;
+  pointer-events:none;
+  transform:translate(-50%,-50%) scale(.2);
+  animation:vipRipple .58s ease-out forwards;
+}
+
+#xp.vipXpPulse{
+  display:inline-block;
+  animation:vipXpPulse .52s ease both;
+}
+
+.vipXpBurst{
+  position:fixed;
+  z-index:10020;
+  color:#f1d98f;
+  font-size:13px;
+  font-weight:800;
+  letter-spacing:1.5px;
+  text-shadow:0 0 18px rgba(217,188,117,.55);
+  pointer-events:none;
+  animation:vipXpFloat .95s cubic-bezier(.2,.75,.2,1) forwards;
+}
+
+.vipLifeFlash{
+  position:fixed;
+  inset:0;
+  z-index:9989;
+  pointer-events:none;
+  border:2px solid rgba(208,91,87,.72);
+  box-shadow:inset 0 0 120px rgba(173,34,31,.28);
+  animation:vipLifeFlash .55s ease-out forwards;
+}
+
+.vipVictoryBurst{
+  position:fixed;
+  inset:0;
+  z-index:10010;
+  overflow:hidden;
+  pointer-events:none;
+}
+
+.vipVictoryParticle{
+  position:absolute;
+  left:50%;
+  top:48%;
+  width:2px;
+  height:18px;
+  border-radius:3px;
+  opacity:0;
+  background:linear-gradient(#f0d58d,rgba(185,52,47,.18));
+  box-shadow:0 0 12px rgba(217,188,117,.32);
+  animation:vipVictoryParticle 1.25s cubic-bezier(.12,.75,.18,1) var(--delay) forwards;
+}
+
+.progressWrap{
+  position:relative;
+}
+
+.progressWrap::after{
+  content:"";
+  position:absolute;
+  inset:-2px 0;
+  pointer-events:none;
+  background:repeating-linear-gradient(
+    90deg,
+    transparent 0 calc(20% - 1px),
+    rgba(255,255,255,.16) calc(20% - 1px) 20%
+  );
+}
+
+#progress{
+  position:relative;
+  box-shadow:0 0 16px rgba(217,188,117,.26);
+  transition:width .7s cubic-bezier(.2,.8,.2,1);
+}
+
+#progress::after{
+  content:"";
+  position:absolute;
+  top:-2px;
+  right:-2px;
+  width:5px;
+  height:8px;
+  border-radius:50%;
+  background:#f2daa0;
+  box-shadow:0 0 12px #d9bc75;
+}
+
+body[data-vip-phase="gameover"] .vipCinematicFrame{
+  border-color:rgba(198,74,67,.18);
+}
+
+body[data-vip-phase="gameover"] .vipScenePulse{
+  background:#d05b57;
+  animation-duration:.7s;
+}
+
+@keyframes vipDustRise{
+  0%{transform:translate3d(0,0,0);opacity:0}
+  12%{opacity:.24}
+  82%{opacity:.10}
+  100%{transform:translate3d(var(--drift),-118vh,0);opacity:0}
+}
+
+@keyframes vipDustFlicker{
+  0%,100%{filter:brightness(.7)}
+  50%{filter:brightness(1.5)}
+}
+
+@keyframes vipStatusPulse{
+  0%,100%{opacity:.55;transform:scale(.86)}
+  50%{opacity:1;transform:scale(1.08)}
+}
+
+@keyframes vipSceneWipe{
+  0%{opacity:0;transform:translateX(-110%)}
+  22%{opacity:1}
+  100%{opacity:0;transform:translateX(110%)}
+}
+
+@keyframes vipSceneEnter{
+  from{opacity:0;transform:translateY(13px) scale(.992);filter:blur(3px)}
+  to{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}
+}
+
+@keyframes vipBootLoad{
+  to{transform:translateX(0)}
+}
+
+@keyframes vipBootExit{
+  to{opacity:0;visibility:hidden;filter:blur(4px)}
+}
+
+@keyframes vipRipple{
+  0%{opacity:.82;transform:translate(-50%,-50%) scale(.2)}
+  100%{opacity:0;transform:translate(-50%,-50%) scale(7)}
+}
+
+@keyframes vipXpPulse{
+  0%,100%{transform:scale(1);color:inherit}
+  45%{transform:scale(1.28);color:#f5dda0;text-shadow:0 0 16px rgba(217,188,117,.65)}
+}
+
+@keyframes vipXpFloat{
+  0%{opacity:0;transform:translate(-50%,8px) scale(.86)}
+  18%{opacity:1;transform:translate(-50%,0) scale(1)}
+  100%{opacity:0;transform:translate(-50%,-48px) scale(.96)}
+}
+
+@keyframes vipLifeFlash{
+  0%{opacity:0}
+  24%{opacity:1}
+  100%{opacity:0}
+}
+
+@keyframes vipVictoryParticle{
+  0%{opacity:0;transform:translate(-50%,-50%) rotate(var(--rot)) scaleY(.4)}
+  15%{opacity:1}
+  100%{opacity:0;transform:translate(calc(-50% + var(--tx)),calc(-50% + var(--ty))) rotate(calc(var(--rot) + 160deg)) scaleY(.85)}
+}
+
+@media(max-width:700px){
+  .vipCinematicFrame{inset:6px}
+  .vipSceneStatus{display:none}
+  .vipDust:nth-child(n+8){display:none}
+  .vipStartMeta{gap:6px;margin-top:18px}
+  .vipStartMeta span{font-size:7px;padding:6px 8px}
+  body::after{box-shadow:inset 0 0 65px rgba(0,0,0,.58)}
+}
+
+@media(pointer:coarse){
+  body::before{
+    background:radial-gradient(ellipse at 50% 115%,rgba(147,43,37,.12),transparent 55%);
+  }
+}
+
+@media(prefers-reduced-motion:reduce){
+  .vipBoot{display:none}
+  .vipDust,
+  .vipScenePulse,
+  .vipSceneWipe,
+  .screen.vipSceneEnter > .content,
+  .vipRipple,
+  .vipXpBurst,
+  .vipLifeFlash,
+  .vipVictoryParticle{
+    animation:none !important;
+  }
+  .vipDust,
+  .vipVictoryBurst{display:none !important}
 }
 </style>
 </head>
@@ -27234,6 +27711,925 @@ function showFinalJourneyEnding(){
         "Không tìm thấy file quoc-ca-quoc-te-ca-background.mp3"
       );
 
+    }
+  );
+
+})();
+</script>
+<script>
+(function(){
+  "use strict";
+
+  /* ==================================================
+     BIG UPDATE · SAFE CINEMATIC CONTROLLER
+     This layer observes the game without changing rules.
+  ================================================== */
+
+  const reducedMotion =
+    window.matchMedia &&
+    window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+
+  const screenElement =
+    document.getElementById("screen");
+
+  const xpElement =
+    document.getElementById("xp");
+
+  const heartsElement =
+    document.getElementById("hearts");
+
+  if(!screenElement){
+    return;
+  }
+
+
+  /* ===== CINEMATIC FRAME ===== */
+
+  const frame =
+    document.createElement("div");
+
+  frame.className =
+    "vipCinematicFrame";
+
+  frame.setAttribute(
+    "aria-hidden",
+    "true"
+  );
+
+  for(let i = 0; i < 4; i++){
+    const corner =
+      document.createElement("i");
+
+    corner.className =
+      "vipCorner";
+
+    frame.appendChild(corner);
+  }
+
+  document.body.appendChild(frame);
+
+
+  /* ===== AMBIENT ARCHIVE DUST ===== */
+
+  const ambient =
+    document.createElement("div");
+
+  ambient.className =
+    "vipAmbient";
+
+  ambient.setAttribute(
+    "aria-hidden",
+    "true"
+  );
+
+  if(!reducedMotion){
+    for(let i = 0; i < 15; i++){
+      const dust =
+        document.createElement("i");
+
+      dust.className =
+        "vipDust";
+
+      dust.style.setProperty(
+        "--x",
+        (4 + Math.random() * 92) + "%"
+      );
+
+      dust.style.setProperty(
+        "--size",
+        (1 + Math.random() * 2.2) + "px"
+      );
+
+      dust.style.setProperty(
+        "--duration",
+        (14 + Math.random() * 16) + "s"
+      );
+
+      dust.style.setProperty(
+        "--delay",
+        (-Math.random() * 22) + "s"
+      );
+
+      dust.style.setProperty(
+        "--drift",
+        (-35 + Math.random() * 70) + "px"
+      );
+
+      ambient.appendChild(dust);
+    }
+  }
+
+  document.body.appendChild(ambient);
+
+
+  /* ===== BOOT SEQUENCE ===== */
+
+  if(!reducedMotion){
+    const boot =
+      document.createElement("div");
+
+    boot.className =
+      "vipBoot";
+
+    boot.setAttribute(
+      "aria-hidden",
+      "true"
+    );
+
+    boot.innerHTML = `
+      <div class="vipBootPanel">
+        <div class="vipBootMark">
+          1911 · ARCHIVE · 2026
+        </div>
+        <div class="vipBootTitle">
+          HỆ THỐNG HÀNH TRÌNH TƯ TƯỞNG
+        </div>
+        <div class="vipBootLine"></div>
+        <div class="vipBootCode">
+          INITIALIZING HISTORICAL MEMORY
+        </div>
+      </div>
+    `;
+
+    document.body.appendChild(boot);
+
+    window.setTimeout(
+      function(){
+        boot.remove();
+      },
+      2200
+    );
+  }
+
+
+  /* ===== START-SCREEN DATA CHIPS ===== */
+
+  function enhanceStartScreen(){
+    const startButton =
+      document.getElementById("startBtn");
+
+    if(
+      !startButton ||
+      document.querySelector(
+        ".vipStartMeta"
+      )
+    ){
+      return;
+    }
+
+    const meta =
+      document.createElement("div");
+
+    meta.className =
+      "vipStartMeta";
+
+    meta.setAttribute(
+      "aria-label",
+      "Thông tin hành trình"
+    );
+
+    meta.innerHTML = `
+      <span>05 CHAPTERS</span>
+      <span>05 LIVES</span>
+      <span>FIRST-TRY XP</span>
+      <span>AUDIO EXPERIENCE</span>
+    `;
+
+    startButton.insertAdjacentElement(
+      "afterend",
+      meta
+    );
+  }
+
+  enhanceStartScreen();
+
+
+  /* ===== LIVE SCENE IDENTIFIER ===== */
+
+  const sceneStatus =
+    document.createElement("div");
+
+  sceneStatus.className =
+    "vipSceneStatus";
+
+  sceneStatus.setAttribute(
+    "aria-hidden",
+    "true"
+  );
+
+  sceneStatus.innerHTML = `
+    <span class="vipScenePulse"></span>
+    <span>
+      <small>LIVE ARCHIVE</small>
+      <strong id="vipSceneCode">
+        ENTRY · 1911—2026
+      </strong>
+    </span>
+  `;
+
+  document.body.appendChild(
+    sceneStatus
+  );
+
+  const sceneCode =
+    sceneStatus.querySelector(
+      "#vipSceneCode"
+    );
+
+  const sceneWipe =
+    document.createElement("div");
+
+  sceneWipe.className =
+    "vipSceneWipe";
+
+  sceneWipe.setAttribute(
+    "aria-hidden",
+    "true"
+  );
+
+  document.body.appendChild(
+    sceneWipe
+  );
+
+  let currentPhase = "";
+
+
+  function detectPhase(){
+    const text =
+      screenElement.textContent
+        .replace(/\s+/g," ")
+        .toUpperCase();
+
+    if(
+      screenElement.querySelector(
+        ".globalGameOver"
+      )
+    ){
+      return {
+        key:"gameover",
+        label:"SYSTEM FAILURE · ARCHIVE INTERRUPTED"
+      };
+    }
+
+    if(
+      screenElement.querySelector(
+        ".finalEndingScene"
+      )
+    ){
+      return {
+        key:"ending",
+        label:"FINAL ARCHIVE · JOURNEY COMPLETE"
+      };
+    }
+
+    if(
+      screenElement.querySelector(
+        ".finalHub, .finalSceneFrame"
+      ) ||
+      text.includes("FINAL JOURNEY")
+    ){
+      return {
+        key:"final",
+        label:"FINAL JOURNEY · LIVING ARCHIVE"
+      };
+    }
+
+    if(
+      text.includes("LEVEL 04") ||
+      screenElement.querySelector(
+        ".level4Console, .level4ReportView"
+      )
+    ){
+      return {
+        key:"level4",
+        label:"LEVEL 04 · NATIONAL CRISIS ROOM"
+      };
+    }
+
+    if(
+      screenElement.querySelector(
+        ".c1930"
+      )
+    ){
+      return {
+        key:"1930",
+        label:"CHECKPOINT · UNIFICATION 1930"
+      };
+    }
+
+    if(
+      text.includes("LEVEL 03") ||
+      screenElement.querySelector(
+        ".l3nBoard, .l3nLevelComplete"
+      )
+    ){
+      return {
+        key:"level3",
+        label:"LEVEL 03 · REVOLUTION NETWORK"
+      };
+    }
+
+    if(
+      screenElement.querySelector(
+        ".checkpoint1920Scene, .levelBridge1920"
+      ) ||
+      text.includes("NĂM 1920")
+    ){
+      return {
+        key:"1920",
+        label:"CHECKPOINT · PARIS 1920"
+      };
+    }
+
+    if(
+      text.includes("LEVEL 02") ||
+      document.getElementById(
+        "level2Timer"
+      )
+    ){
+      return {
+        key:"level2",
+        label:"LEVEL 02 · TURNING POINT 1920"
+      };
+    }
+
+    if(
+      screenElement.querySelector(
+        ".levelBridge1911"
+      )
+    ){
+      return {
+        key:"1911",
+        label:"CHECKPOINT · DEPARTURE 1911"
+      };
+    }
+
+    if(
+      text.includes("LEVEL 01") ||
+      screenElement.querySelector(
+        ".objects"
+      )
+    ){
+      return {
+        key:"level1",
+        label:"LEVEL 01 · DEPARTURE 1911"
+      };
+    }
+
+    return {
+      key:"entry",
+      label:"ENTRY · 1911—2026"
+    };
+  }
+
+
+  function updateSceneStatus(){
+    const phase =
+      detectPhase();
+
+    document.body.dataset.vipPhase =
+      phase.key;
+
+    if(phase.key === currentPhase){
+      return;
+    }
+
+    currentPhase =
+      phase.key;
+
+    sceneStatus.classList.add(
+      "isUpdating"
+    );
+
+    window.setTimeout(
+      function(){
+        sceneCode.textContent =
+          phase.label;
+
+        sceneStatus.classList.remove(
+          "isUpdating"
+        );
+      },
+      180
+    );
+  }
+
+
+  /* ===== SCENE TRANSITIONS ===== */
+
+  function playSceneTransition(){
+    updateSceneStatus();
+
+    if(reducedMotion){
+      return;
+    }
+
+    screenElement.classList.remove(
+      "vipSceneEnter"
+    );
+
+    void screenElement.offsetWidth;
+
+    screenElement.classList.add(
+      "vipSceneEnter"
+    );
+
+    sceneWipe.classList.remove(
+      "isActive"
+    );
+
+    void sceneWipe.offsetWidth;
+
+    sceneWipe.classList.add(
+      "isActive"
+    );
+
+    window.setTimeout(
+      function(){
+        screenElement.classList.remove(
+          "vipSceneEnter"
+        );
+
+        sceneWipe.classList.remove(
+          "isActive"
+        );
+      },
+      850
+    );
+  }
+
+
+  /* ===== CHECKPOINT CELEBRATION ===== */
+
+  const celebratedScenes =
+    new WeakSet();
+
+
+  function launchVictoryBurst(){
+    if(reducedMotion){
+      return;
+    }
+
+    const burst =
+      document.createElement("div");
+
+    burst.className =
+      "vipVictoryBurst";
+
+    burst.setAttribute(
+      "aria-hidden",
+      "true"
+    );
+
+    const count =
+      window.innerWidth < 700
+      ? 12
+      : 22;
+
+    for(let i = 0; i < count; i++){
+      const particle =
+        document.createElement("i");
+
+      const angle =
+        (-165 + Math.random() * 150) *
+        Math.PI / 180;
+
+      const distance =
+        110 + Math.random() * 250;
+
+      particle.className =
+        "vipVictoryParticle";
+
+      particle.style.setProperty(
+        "--tx",
+        (Math.cos(angle) * distance) +
+        "px"
+      );
+
+      particle.style.setProperty(
+        "--ty",
+        (Math.sin(angle) * distance) +
+        "px"
+      );
+
+      particle.style.setProperty(
+        "--rot",
+        Math.round(Math.random() * 180) +
+        "deg"
+      );
+
+      particle.style.setProperty(
+        "--delay",
+        (Math.random() * .18) +
+        "s"
+      );
+
+      burst.appendChild(particle);
+    }
+
+    document.body.appendChild(burst);
+
+    window.setTimeout(
+      function(){
+        burst.remove();
+      },
+      1650
+    );
+  }
+
+
+  function scanCheckpoint(){
+    const checkpoint =
+      screenElement.querySelector(
+        ".levelBridge .completeBox," +
+        ".l3nLevelComplete," +
+        ".level4ReportView," +
+        ".finalEndingScene"
+      );
+
+    if(
+      checkpoint &&
+      !celebratedScenes.has(checkpoint)
+    ){
+      celebratedScenes.add(checkpoint);
+      launchVictoryBurst();
+    }
+  }
+
+
+  let sceneFrame = null;
+
+  const sceneObserver =
+    new MutationObserver(
+      function(){
+        if(sceneFrame){
+          cancelAnimationFrame(
+            sceneFrame
+          );
+        }
+
+        sceneFrame =
+          requestAnimationFrame(
+            function(){
+              playSceneTransition();
+              scanCheckpoint();
+              sceneFrame = null;
+            }
+          );
+      }
+    );
+
+  sceneObserver.observe(
+    screenElement,
+    {
+      childList:true,
+      subtree:false
+    }
+  );
+
+  updateSceneStatus();
+
+
+  /* ===== CLICK RIPPLE ===== */
+
+  const interactiveSelector =
+    ".btn, button, .object, " +
+    ".finalHotspot, [data-l3n-action]";
+
+  document.addEventListener(
+    "pointerdown",
+    function(event){
+      if(reducedMotion){
+        return;
+      }
+
+      if(
+        !(event.target instanceof Element)
+      ){
+        return;
+      }
+
+      const target =
+        event.target.closest(
+          interactiveSelector
+        );
+
+      if(
+        !target ||
+        target.disabled
+      ){
+        return;
+      }
+
+      const rect =
+        target.getBoundingClientRect();
+
+      const ripple =
+        document.createElement("i");
+
+      target.classList.add(
+        "vipInteractive"
+      );
+
+      ripple.className =
+        "vipRipple";
+
+      ripple.style.setProperty(
+        "--vip-hit-x",
+        (event.clientX - rect.left) +
+        "px"
+      );
+
+      ripple.style.setProperty(
+        "--vip-hit-y",
+        (event.clientY - rect.top) +
+        "px"
+      );
+
+      target.appendChild(ripple);
+
+      window.setTimeout(
+        function(){
+          ripple.remove();
+        },
+        650
+      );
+    },
+    {passive:true}
+  );
+
+
+  /* ===== XP FEEDBACK ===== */
+
+  let previousXP =
+    xpElement
+    ? Number(xpElement.textContent) || 0
+    : 0;
+
+
+  function showXpBurst(amount){
+    if(
+      !xpElement ||
+      amount <= 0
+    ){
+      return;
+    }
+
+    xpElement.classList.remove(
+      "vipXpPulse"
+    );
+
+    void xpElement.offsetWidth;
+
+    xpElement.classList.add(
+      "vipXpPulse"
+    );
+
+    const rect =
+      xpElement.getBoundingClientRect();
+
+    const burst =
+      document.createElement("div");
+
+    burst.className =
+      "vipXpBurst";
+
+    burst.textContent =
+      "+" + amount + " XP";
+
+    burst.style.left =
+      (rect.left + rect.width / 2) +
+      "px";
+
+    burst.style.top =
+      (rect.bottom + 8) +
+      "px";
+
+    document.body.appendChild(burst);
+
+    window.setTimeout(
+      function(){
+        burst.remove();
+        xpElement.classList.remove(
+          "vipXpPulse"
+        );
+      },
+      1050
+    );
+  }
+
+
+  if(xpElement){
+    const xpObserver =
+      new MutationObserver(
+        function(){
+          const nextXP =
+            Number(
+              xpElement.textContent
+            ) || 0;
+
+          const gained =
+            nextXP - previousXP;
+
+          if(gained > 0){
+            showXpBurst(gained);
+          }
+
+          previousXP = nextXP;
+        }
+      );
+
+    xpObserver.observe(
+      xpElement,
+      {
+        childList:true,
+        characterData:true,
+        subtree:true
+      }
+    );
+  }
+
+
+  /* ===== LIFE-LOSS SCREEN RESPONSE ===== */
+
+  function countHearts(){
+    if(!heartsElement){
+      return 0;
+    }
+
+    return (
+      heartsElement.textContent.match(
+        /♥/g
+      ) || []
+    ).length;
+  }
+
+  let previousHearts =
+    countHearts();
+
+
+  function flashLifeLoss(){
+    if(reducedMotion){
+      return;
+    }
+
+    const flash =
+      document.createElement("div");
+
+    flash.className =
+      "vipLifeFlash";
+
+    flash.setAttribute(
+      "aria-hidden",
+      "true"
+    );
+
+    document.body.appendChild(flash);
+
+    window.setTimeout(
+      function(){
+        flash.remove();
+      },
+      620
+    );
+  }
+
+
+  if(heartsElement){
+    const heartsObserver =
+      new MutationObserver(
+        function(){
+          const nextHearts =
+            countHearts();
+
+          if(nextHearts < previousHearts){
+            flashLifeLoss();
+          }
+
+          previousHearts =
+            nextHearts;
+        }
+      );
+
+    heartsObserver.observe(
+      heartsElement,
+      {
+        childList:true,
+        characterData:true,
+        subtree:true
+      }
+    );
+  }
+
+
+  /* ===== POINTER LIGHT ===== */
+
+  let pointerFrame = null;
+  let pointerX = 0;
+  let pointerY = 0;
+
+  document.addEventListener(
+    "pointermove",
+    function(event){
+      if(
+        reducedMotion ||
+        event.pointerType === "touch"
+      ){
+        return;
+      }
+
+      pointerX = event.clientX;
+      pointerY = event.clientY;
+
+      if(pointerFrame){
+        return;
+      }
+
+      pointerFrame =
+        requestAnimationFrame(
+          function(){
+            document.documentElement
+              .style.setProperty(
+                "--vip-pointer-x",
+                pointerX + "px"
+              );
+
+            document.documentElement
+              .style.setProperty(
+                "--vip-pointer-y",
+                pointerY + "px"
+              );
+
+            pointerFrame = null;
+          }
+        );
+    },
+    {passive:true}
+  );
+
+
+  /* ===== AUDIO KEYBOARD SHORTCUT ===== */
+
+  const audioToggle =
+    document.querySelector(
+      ".audioToggle"
+    );
+
+  if(audioToggle){
+    audioToggle.title =
+      "Bật/tắt âm thanh · Phím M";
+  }
+
+  document.addEventListener(
+    "keydown",
+    function(event){
+      if(
+        event.key.toLowerCase() !== "m" ||
+        event.ctrlKey ||
+        event.metaKey ||
+        event.altKey
+      ){
+        return;
+      }
+
+      const target =
+        event.target;
+
+      if(
+        target instanceof HTMLElement &&
+        (
+          target.isContentEditable ||
+          target.tagName === "INPUT" ||
+          target.tagName === "TEXTAREA"
+        )
+      ){
+        return;
+      }
+
+      const toggle =
+        document.querySelector(
+          ".audioToggle"
+        );
+
+      if(toggle){
+        event.preventDefault();
+        toggle.click();
+      }
+    }
+  );
+
+
+  /* ===== GAME OVER VISUAL STATE ===== */
+
+  document.addEventListener(
+    "game:over",
+    function(){
+      document.body.dataset.vipPhase =
+        "gameover";
+
+      updateSceneStatus();
     }
   );
 

@@ -12932,6 +12932,17 @@ body[data-vip-phase="gameover"] .vipScenePulse{
       0 0 28px rgba(200,164,92,.22);
     animation:finalMemoryReadyIn .45s cubic-bezier(.2,.8,.2,1) both;
   }
+
+  .finalTopicView.finalQuizMode
+  .finalKnowledgePanel{
+    min-height:0;
+    margin:0 auto 12px;
+    padding:15px;
+    border:1px solid rgba(200,164,92,.38);
+    border-left:2px solid #c8a45c;
+    background:rgba(13,8,7,.94);
+    scroll-margin-top:82px;
+  }
 }
 
 @keyframes finalMobileHotspotRing{
@@ -28594,18 +28605,41 @@ function showFinalJourneyEnding(){
 
       window.setTimeout(
         function(){
+          const topicView =
+            document.querySelector(
+              ".finalTopicView"
+            );
+
           const panel =
             document.querySelector(
               ".finalKnowledgePanel"
             );
 
-          if(panel){
+          const sceneFrame =
+            document.querySelector(
+              ".finalSceneFrame"
+            );
+
+          if(
+            topicView &&
+            panel &&
+            sceneFrame
+          ){
+            topicView.classList.add(
+              "finalQuizMode"
+            );
+
+            topicView.insertBefore(
+              panel,
+              sceneFrame
+            );
+
             panel.scrollIntoView({
               behavior:
                 reducedMotion
                 ? "auto"
                 : "smooth",
-              block:"center"
+              block:"start"
             });
           }
         },

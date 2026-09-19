@@ -25165,6 +25165,1043 @@ function showFinalJourneyEnding(){
 
 }
 </script>
+<script>
+(function () {
 
+  /* ==============================
+     BACKGROUND MUSIC
+  ============================== */
+
+  const bgMusic = new Audio(
+    "quoc-ca-quoc-te-ca-background.mp3"
+  );
+
+  /* Phát lặp liên tục */
+
+  bgMusic.loop = true;
+
+  /* Background 15% */
+
+  bgMusic.volume = 0.15;
+
+  bgMusic.preload = "auto";
+
+
+  /* ==============================
+     SOUND EFFECT ENGINE
+  ============================== */
+
+  let audioContext = null;
+  let sfxMaster = null;
+  let audioEnabled = true;
+
+
+  function initializeAudio() {
+
+    const AudioContextClass =
+      window.AudioContext ||
+      window.webkitAudioContext;
+
+
+    if (!AudioContextClass) {
+      return false;
+    }
+
+
+    if (!audioContext) {
+
+      audioContext =
+        new AudioContextClass();
+
+
+      sfxMaster =
+        audioContext.createGain();
+
+
+      /* SFX 58% */
+
+      sfxMaster.gain.value =
+        0.58;
+
+
+      sfxMaster.connect(
+        audioContext.destination
+      );
+
+    }
+
+
+    if (
+      audioContext.state ===
+      "suspended"
+    ) {
+
+      audioContext
+        .resume()
+        .catch(function () {});
+
+    }
+
+
+    return true;
+
+  }
+
+
+  function tone(
+    startFrequency,
+    endFrequency,
+    duration,
+    volume,
+    type,
+    delay
+  ) {
+
+    if (!audioEnabled) return;
+
+    if (!initializeAudio()) return;
+
+
+    const startTime =
+      audioContext.currentTime +
+      (delay || 0);
+
+
+    const oscillator =
+      audioContext
+        .createOscillator();
+
+
+    const gain =
+      audioContext
+        .createGain();
+
+
+    oscillator.type =
+      type || "sine";
+
+
+    oscillator.frequency
+      .setValueAtTime(
+        Math.max(
+          20,
+          startFrequency
+        ),
+        startTime
+      );
+
+
+    oscillator.frequency
+      .exponentialRampToValueAtTime(
+        Math.max(
+          20,
+          endFrequency
+        ),
+        startTime +
+        duration
+      );
+
+
+    gain.gain
+      .setValueAtTime(
+        0.0001,
+        startTime
+      );
+
+
+    gain.gain
+      .exponentialRampToValueAtTime(
+        volume,
+        startTime +
+        0.012
+      );
+
+
+    gain.gain
+      .exponentialRampToValueAtTime(
+        0.0001,
+        startTime +
+        duration
+      );
+
+
+    oscillator.connect(gain);
+
+    gain.connect(sfxMaster);
+
+
+    oscillator.start(
+      startTime
+    );
+
+
+    oscillator.stop(
+      startTime +
+      duration +
+      0.04
+    );
+
+  }
+
+
+  const SFX = {
+
+    click: function () {
+
+      tone(
+        420,
+        350,
+        0.07,
+        0.045,
+        "triangle"
+      );
+
+    },
+
+
+    select: function () {
+
+      tone(
+        440,
+        520,
+        0.11,
+        0.06,
+        "sine"
+      );
+
+    },
+
+
+    correct: function () {
+
+      tone(
+        523.25,
+        523.25,
+        0.24,
+        0.08,
+        "sine"
+      );
+
+
+      tone(
+        659.25,
+        659.25,
+        0.34,
+        0.07,
+        "sine",
+        0.08
+      );
+
+    },
+
+
+    wrong: function () {
+
+      tone(
+        165,
+        90,
+        0.3,
+        0.09,
+        "sawtooth"
+      );
+
+    },
+
+
+    connect: function () {
+
+      tone(
+        220,
+        540,
+        0.28,
+        0.075,
+        "sine"
+      );
+
+
+      tone(
+        620,
+        620,
+        0.18,
+        0.045,
+        "triangle",
+        0.18
+      );
+
+    },
+
+
+    unlock: function () {
+
+      tone(
+        329.63,
+        329.63,
+        0.34,
+        0.075,
+        "sine"
+      );
+
+
+      tone(
+        493.88,
+        493.88,
+        0.42,
+        0.065,
+        "sine",
+        0.1
+      );
+
+
+      tone(
+        659.25,
+        659.25,
+        0.58,
+        0.055,
+        "sine",
+        0.2
+      );
+
+    },
+
+
+    tick: function () {
+
+      tone(
+        1050,
+        1050,
+        0.045,
+        0.04,
+        "square"
+      );
+
+    },
+
+
+    ping: function () {
+
+      tone(
+        880,
+        880,
+        0.2,
+        0.065,
+        "sine"
+      );
+
+
+      tone(
+        1320,
+        1320,
+        0.3,
+        0.035,
+        "sine",
+        0.055
+      );
+
+    },
+
+
+    hit: function () {
+
+      tone(
+        105,
+        68,
+        0.3,
+        0.12,
+        "sine"
+      );
+
+    },
+
+
+    stamp: function () {
+
+      tone(
+        82,
+        45,
+        0.36,
+        0.16,
+        "sine"
+      );
+
+    },
+
+
+    final: function () {
+
+      tone(
+        261.63,
+        261.63,
+        0.76,
+        0.07,
+        "sine"
+      );
+
+
+      tone(
+        392,
+        392,
+        0.82,
+        0.065,
+        "sine",
+        0.13
+      );
+
+
+      tone(
+        523.25,
+        523.25,
+        0.88,
+        0.06,
+        "sine",
+        0.26
+      );
+
+    }
+
+  };
+
+
+  /* ==============================
+     BẮT ĐẦU NHẠC KHI NHẤN START
+  ============================== */
+
+  const startButton =
+    document.getElementById(
+      "startBtn"
+    );
+
+
+  if (startButton) {
+
+    startButton.addEventListener(
+      "click",
+      function () {
+
+        initializeAudio();
+
+
+        if (audioEnabled) {
+
+          bgMusic
+            .play()
+            .catch(
+              function (error) {
+
+                console.error(
+                  "Không phát được nhạc:",
+                  error
+                );
+
+              }
+            );
+
+        }
+
+
+        SFX.hit();
+
+      },
+
+      true
+    );
+
+  }
+
+
+  /* ==============================
+     TỰ ĐỘNG BẮT CLICK GAME
+  ============================== */
+
+  document.addEventListener(
+    "click",
+    function (event) {
+
+      if (!audioEnabled) return;
+
+
+      const target =
+        event.target;
+
+
+      if (
+        !(
+          target instanceof
+          Element
+        )
+      ) return;
+
+
+      /* LEVEL 1 */
+
+      const object =
+        target.closest(
+          ".object"
+        );
+
+
+      if (object) {
+
+        if (
+          object.dataset.correct ===
+          "true"
+        ) {
+
+          SFX.correct();
+
+        } else {
+
+          SFX.wrong();
+
+        }
+
+        return;
+
+      }
+
+
+      /* LEVEL 2 · SELECT CARD */
+
+      if (
+        target.closest(
+          ".conceptCard"
+        )
+      ) {
+
+        SFX.select();
+
+        return;
+
+      }
+
+
+      /* LEVEL 2 · MATCH */
+
+      const slot =
+        target.closest(
+          ".dropSlot"
+        );
+
+
+      if (slot) {
+
+        setTimeout(
+          function () {
+
+            if (
+              slot.classList
+                .contains(
+                  "matched"
+                )
+            ) {
+
+              SFX.correct();
+
+            } else if (
+              slot.classList
+                .contains(
+                  "wrong"
+                )
+            ) {
+
+              SFX.wrong();
+
+            } else {
+
+              SFX.click();
+
+            }
+
+          },
+          0
+        );
+
+        return;
+
+      }
+
+
+      /* LEVEL 3 */
+
+      const networkAction =
+        target.closest(
+          "[data-l3n-action]"
+        );
+
+
+      if (networkAction) {
+
+        const action =
+          networkAction
+            .dataset
+            .l3nAction || "";
+
+
+        if (
+          action.indexOf(
+            "select"
+          ) === 0
+        ) {
+
+          SFX.select();
+
+        } else {
+
+          setTimeout(
+            function () {
+
+              if (
+                networkAction
+                  .classList
+                  .contains(
+                    "l3nWrong"
+                  )
+              ) {
+
+                SFX.wrong();
+
+              } else {
+
+                SFX.connect();
+
+              }
+
+            },
+            0
+          );
+
+        }
+
+        return;
+
+      }
+
+
+      /* LEVEL 4 */
+
+      const crisisChoice =
+        target.closest(
+          ".level4DecisionChoice"
+        );
+
+
+      if (crisisChoice) {
+
+        setTimeout(
+          function () {
+
+            if (
+              crisisChoice
+                .classList
+                .contains(
+                  "correctDecision"
+                )
+            ) {
+
+              SFX.correct();
+
+            } else if (
+              crisisChoice
+                .classList
+                .contains(
+                  "wrongDecision"
+                )
+            ) {
+
+              SFX.wrong();
+
+            } else {
+
+              SFX.click();
+
+            }
+
+          },
+          0
+        );
+
+        return;
+
+      }
+
+
+      /* FINAL JOURNEY */
+
+      const hotspot =
+        target.closest(
+          ".finalHotspot"
+        );
+
+
+      if (hotspot) {
+
+        setTimeout(
+          function () {
+
+            if (
+              hotspot.classList
+                .contains(
+                  "finalWrong"
+                )
+            ) {
+
+              SFX.wrong();
+
+            } else {
+
+              SFX.ping();
+
+            }
+
+          },
+          0
+        );
+
+        return;
+
+      }
+
+
+      /* BUTTON THÔNG THƯỜNG */
+
+      if (
+        target.closest(
+          ".btn, button"
+        )
+      ) {
+
+        SFX.click();
+
+      }
+
+    }
+  );
+
+
+  /* ==============================
+     TIMER VÀ COMPLETE SOUND
+  ============================== */
+
+  let lastTimerValue = null;
+
+  const playedElements =
+    new WeakSet();
+
+
+  function playOnce(
+    selector,
+    soundName
+  ) {
+
+    document
+      .querySelectorAll(
+        selector
+      )
+      .forEach(
+        function (element) {
+
+          if (
+            playedElements
+              .has(element)
+          ) return;
+
+
+          playedElements
+            .add(element);
+
+
+          SFX[soundName]();
+
+        }
+      );
+
+  }
+
+
+  function scanGameAudio() {
+
+    const timer =
+      document.getElementById(
+        "level2Timer"
+      );
+
+
+    if (timer) {
+
+      const value =
+        Number(
+          timer.textContent
+        );
+
+
+      if (
+        value > 0 &&
+        value <= 10 &&
+        value !==
+        lastTimerValue
+      ) {
+
+        SFX.tick();
+
+      }
+
+
+      lastTimerValue =
+        value;
+
+    } else {
+
+      lastTimerValue =
+        null;
+
+    }
+
+
+    playOnce(
+      ".levelBridge .completeBox",
+      "unlock"
+    );
+
+
+    playOnce(
+      ".l3nStageTransition",
+      "unlock"
+    );
+
+
+    playOnce(
+      ".l3nLevelComplete",
+      "final"
+    );
+
+
+    playOnce(
+      ".finalSuccessStamp",
+      "unlock"
+    );
+
+
+    playOnce(
+      ".finalEndingScene",
+      "final"
+    );
+
+
+    document
+      .querySelectorAll(
+        ".c1930"
+      )
+      .forEach(
+        function (scene) {
+
+          if (
+            playedElements
+              .has(scene)
+          ) return;
+
+
+          playedElements
+            .add(scene);
+
+
+          setTimeout(
+            function () {
+
+              if (
+                document
+                  .contains(scene)
+              ) SFX.hit();
+
+            },
+            350
+          );
+
+
+          setTimeout(
+            function () {
+
+              if (
+                document
+                  .contains(scene)
+              ) SFX.connect();
+
+            },
+            4100
+          );
+
+
+          setTimeout(
+            function () {
+
+              if (
+                document
+                  .contains(scene)
+              ) SFX.stamp();
+
+            },
+            6100
+          );
+
+        }
+      );
+
+  }
+
+
+  const observerTarget =
+    document.getElementById(
+      "screen"
+    ) ||
+    document.body;
+
+
+  const audioObserver =
+    new MutationObserver(
+      scanGameAudio
+    );
+
+
+  audioObserver.observe(
+    observerTarget,
+    {
+      childList: true,
+      subtree: true,
+      characterData: true
+    }
+  );
+
+
+  /* ==============================
+     NÚT AUDIO ON/OFF
+  ============================== */
+
+  const audioButton =
+    document.createElement(
+      "button"
+    );
+
+
+  audioButton.type =
+    "button";
+
+
+  audioButton.textContent =
+    "♪ AUDIO ON";
+
+
+  audioButton.setAttribute(
+    "aria-pressed",
+    "true"
+  );
+
+
+  Object.assign(
+    audioButton.style,
+    {
+      position: "fixed",
+      top: "72px",
+      right: "18px",
+      zIndex: "9999",
+
+      padding: "11px 14px",
+
+      border:
+        "1px solid rgba(200,164,92,.55)",
+
+      borderRadius:
+        "3px",
+
+      background:
+        "rgba(8,4,4,.88)",
+
+      color:
+        "#f3eadb",
+
+      fontSize:
+        "10px",
+
+      fontWeight:
+        "bold",
+
+      letterSpacing:
+        "1.7px",
+
+      cursor:
+        "pointer"
+    }
+  );
+
+
+  document.body.appendChild(
+    audioButton
+  );
+
+
+  audioButton.addEventListener(
+    "click",
+    function (event) {
+
+      event.stopPropagation();
+
+
+      audioEnabled =
+        !audioEnabled;
+
+
+      if (audioEnabled) {
+
+        bgMusic
+          .play()
+          .catch(
+            function () {}
+          );
+
+
+        audioButton.textContent =
+          "♪ AUDIO ON";
+
+
+        audioButton.setAttribute(
+          "aria-pressed",
+          "true"
+        );
+
+
+        SFX.click();
+
+      } else {
+
+        bgMusic.pause();
+
+
+        audioButton.textContent =
+          "♪ AUDIO OFF";
+
+
+        audioButton.setAttribute(
+          "aria-pressed",
+          "false"
+        );
+
+      }
+
+    }
+  );
+
+
+  /* BÁO LỖI ĐƯỜNG DẪN */
+
+  bgMusic.addEventListener(
+    "error",
+    function () {
+
+      console.error(
+        "Không tìm thấy file quoc-ca-quoc-te-ca-background.mp3"
+      );
+
+    }
+  );
+
+})();
+</script>
 </body>
 </html>

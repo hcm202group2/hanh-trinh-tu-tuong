@@ -12857,33 +12857,8 @@ body[data-vip-phase="gameover"] .vipScenePulse{
 }
 
 .finalHotspot{
-  display:grid;
-  place-items:center;
   touch-action:manipulation;
   -webkit-tap-highlight-color:transparent;
-}
-
-.finalHotspotNumber{
-  position:relative;
-  z-index:4;
-  display:grid;
-  place-items:center;
-  width:18px;
-  height:18px;
-  border-radius:50%;
-  background:#e3c779;
-  color:#140b08;
-  font-size:9px;
-  font-weight:900;
-  line-height:1;
-  box-shadow:0 0 12px rgba(227,199,121,.55);
-  pointer-events:none;
-}
-
-.finalHotspot.read .finalHotspotNumber{
-  background:#91c388;
-  color:#071006;
-  box-shadow:0 0 12px rgba(145,195,136,.45);
 }
 
 @media(max-width:760px), (pointer:coarse){
@@ -12896,48 +12871,83 @@ body[data-vip-phase="gameover"] .vipScenePulse{
 
   .finalHotspot{
     z-index:20 !important;
-    width:50px !important;
-    height:50px !important;
-    min-width:50px !important;
-    min-height:50px !important;
-    border:2px solid #f0d58d !important;
-    background:rgba(13,8,7,.88) !important;
-    box-shadow:
-      0 0 0 5px rgba(217,188,117,.16),
-      0 0 24px rgba(217,188,117,.55) !important;
-    animation:finalMobileHotspotPulse 1.55s ease-in-out infinite !important;
-  }
-
-  .finalHotspot::before,
-  .finalHotspot::after{
-    display:none;
-  }
-
-  .finalHotspotNumber{
-    width:24px;
-    height:24px;
-    font-size:12px;
-  }
-
-  .finalHotspot.read{
-    border-color:#9dce94 !important;
-    background:rgba(14,28,13,.90) !important;
-    box-shadow:
-      0 0 0 4px rgba(145,195,136,.13),
-      0 0 18px rgba(145,195,136,.38) !important;
+    width:52px !important;
+    height:52px !important;
+    min-width:52px !important;
+    min-height:52px !important;
+    border:0 !important;
+    background:transparent !important;
+    box-shadow:none !important;
     animation:none !important;
+  }
+
+  .finalHotspot::before{
+    display:block;
+    z-index:3;
+    width:7px;
+    height:7px;
+    background:#e7c66d;
+    box-shadow:0 0 12px rgba(231,198,109,.70);
+  }
+
+  .finalHotspot::after{
+    display:block;
+    z-index:2;
+    inset:9px;
+    border:1px solid rgba(235,201,116,.92);
+    background:rgba(13,8,7,.38);
+    box-shadow:
+      0 0 0 5px rgba(217,188,117,.09),
+      0 0 18px rgba(217,188,117,.28);
+    animation:finalMobileHotspotRing 1.65s ease-in-out infinite;
+  }
+
+  .finalHotspot.read::before{
+    background:#88c27e;
+    box-shadow:0 0 11px rgba(136,194,126,.58);
+  }
+
+  .finalHotspot.read::after{
+    border-color:rgba(145,195,136,.88);
+    background:rgba(21,49,20,.34);
+    box-shadow:
+      0 0 0 4px rgba(145,195,136,.08),
+      0 0 15px rgba(145,195,136,.24);
+    animation:none;
+  }
+
+  .finalMemoryBtn.finalMemoryReady{
+    position:fixed;
+    z-index:9998;
+    left:16px;
+    right:16px;
+    bottom:calc(68px + env(safe-area-inset-bottom));
+    width:calc(100vw - 32px);
+    margin:0;
+    background:rgba(29,17,11,.97);
+    border-color:#e0bd68;
+    color:#fff0c9;
+    box-shadow:
+      0 18px 50px rgba(0,0,0,.55),
+      0 0 28px rgba(200,164,92,.22);
+    animation:finalMemoryReadyIn .45s cubic-bezier(.2,.8,.2,1) both;
   }
 }
 
-@keyframes finalMobileHotspotPulse{
+@keyframes finalMobileHotspotRing{
   0%,100%{
-    transform:translate(-50%,-50%) scale(.94);
-    filter:brightness(.92);
+    transform:scale(.90);
+    opacity:.72;
   }
   50%{
-    transform:translate(-50%,-50%) scale(1.08);
-    filter:brightness(1.22);
+    transform:scale(1.08);
+    opacity:1;
   }
+}
+
+@keyframes finalMemoryReadyIn{
+  from{opacity:0;transform:translateY(18px) scale(.98)}
+  to{opacity:1;transform:translateY(0) scale(1)}
 }
 </style>
 </head>
@@ -12979,7 +12989,6 @@ body[data-vip-phase="gameover"] .vipScenePulse{
       lựa chọn và giá trị trong Tư tưởng Hồ Chí Minh.
       <br><br>
       Mỗi lựa chọn của bạn sẽ tạo nên hành trình.
-
     </p>
 
     <button class="btn" id="startBtn">
@@ -23251,7 +23260,7 @@ function renderFinalTopic1(){
 
 
         ${finalTopic1Points
-          .map(function(point,index){
+          .map(function(point){
 
             return `
 
@@ -23273,11 +23282,7 @@ function renderFinalTopic1(){
                   top:${point.y}%;
                 "
 
-                aria-label="Điểm ${index + 1}: ${point.title}">
-
-                <span class="finalHotspotNumber">
-                  ${index + 1}
-                </span>
+                aria-label="${point.title}">
               </button>
 
             `;
@@ -24042,7 +24047,7 @@ function renderFinalTopic2(){
           alt="Độc lập và quyền làm chủ của nhân dân giai đoạn 1945 đến 1946">
 
         ${finalTopic2Points
-          .map(function(point,index){
+          .map(function(point){
 
             return `
               <button
@@ -24059,11 +24064,7 @@ function renderFinalTopic2(){
                   left:${point.x}%;
                   top:${point.y}%;
                 "
-                aria-label="Điểm ${index + 1}: ${point.title}">
-
-                <span class="finalHotspotNumber">
-                  ${index + 1}
-                </span>
+                aria-label="${point.title}">
               </button>
             `;
 
@@ -24798,7 +24799,7 @@ function renderFinalTopic3(){
           alt="Giai đoạn 1954 đến 1969">
 
         ${finalTopic3Points
-          .map(function(point,index){
+          .map(function(point){
 
             return `
               <button
@@ -24818,11 +24819,7 @@ function renderFinalTopic3(){
                   top:${point.y}%;
                 "
 
-                aria-label="Điểm ${index + 1}: ${point.title}">
-
-                <span class="finalHotspotNumber">
-                  ${index + 1}
-                </span>
+                aria-label="${point.title}">
               </button>
             `;
 
@@ -25594,7 +25591,7 @@ function renderFinalTopic4(){
           alt="Việt Nam từ sau năm 1969 đến hiện đại">
 
         ${finalTopic4Points
-          .map(function(point,index){
+          .map(function(point){
 
             return `
               <button
@@ -25614,11 +25611,7 @@ function renderFinalTopic4(){
                   top:${point.y}%;
                 "
 
-                aria-label="Điểm ${index + 1}: ${point.title}">
-
-                <span class="finalHotspotNumber">
-                  ${index + 1}
-                </span>
+                aria-label="${point.title}">
               </button>
             `;
 
@@ -28463,6 +28456,90 @@ function showFinalJourneyEnding(){
       );
     },
     {passive:true}
+  );
+
+
+  /* ===== LEVEL 5 · MOBILE MEMORY CHECK CTA ===== */
+
+  function syncFinalMemoryButton(){
+    const button =
+      document.querySelector(
+        ".finalMemoryBtn"
+      );
+
+    if(!button){
+      return;
+    }
+
+    const isVisible =
+      window.getComputedStyle(button)
+        .display !== "none";
+
+    button.classList.toggle(
+      "finalMemoryReady",
+      isVisible
+    );
+  }
+
+
+  document.addEventListener(
+    "click",
+    function(event){
+      if(
+        !(event.target instanceof Element)
+      ){
+        return;
+      }
+
+      if(
+        event.target.closest(
+          ".finalHotspot"
+        )
+      ){
+        requestAnimationFrame(
+          syncFinalMemoryButton
+        );
+
+        return;
+      }
+
+      const memoryButton =
+        event.target.closest(
+          ".finalMemoryBtn"
+        );
+
+      if(!memoryButton){
+        return;
+      }
+
+      memoryButton.classList.remove(
+        "finalMemoryReady"
+      );
+
+      if(window.innerWidth > 760){
+        return;
+      }
+
+      window.setTimeout(
+        function(){
+          const panel =
+            document.querySelector(
+              ".finalKnowledgePanel"
+            );
+
+          if(panel){
+            panel.scrollIntoView({
+              behavior:
+                reducedMotion
+                ? "auto"
+                : "smooth",
+              block:"center"
+            });
+          }
+        },
+        80
+      );
+    }
   );
 
 

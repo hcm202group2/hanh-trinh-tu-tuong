@@ -12847,6 +12847,98 @@ body[data-vip-phase="gameover"] .vipScenePulse{
   .vipDust,
   .vipVictoryBurst{display:none !important}
 }
+
+/* ==================================================
+   LEVEL 5 · MOBILE HOTSPOT VISIBILITY FIX
+================================================== */
+
+.finalSceneImage{
+  pointer-events:none;
+}
+
+.finalHotspot{
+  display:grid;
+  place-items:center;
+  touch-action:manipulation;
+  -webkit-tap-highlight-color:transparent;
+}
+
+.finalHotspotNumber{
+  position:relative;
+  z-index:4;
+  display:grid;
+  place-items:center;
+  width:18px;
+  height:18px;
+  border-radius:50%;
+  background:#e3c779;
+  color:#140b08;
+  font-size:9px;
+  font-weight:900;
+  line-height:1;
+  box-shadow:0 0 12px rgba(227,199,121,.55);
+  pointer-events:none;
+}
+
+.finalHotspot.read .finalHotspotNumber{
+  background:#91c388;
+  color:#071006;
+  box-shadow:0 0 12px rgba(145,195,136,.45);
+}
+
+@media(max-width:760px), (pointer:coarse){
+  .finalSceneFrame{
+    width:100%;
+    min-height:190px;
+    aspect-ratio:16 / 9;
+    isolation:isolate;
+  }
+
+  .finalHotspot{
+    z-index:20 !important;
+    width:50px !important;
+    height:50px !important;
+    min-width:50px !important;
+    min-height:50px !important;
+    border:2px solid #f0d58d !important;
+    background:rgba(13,8,7,.88) !important;
+    box-shadow:
+      0 0 0 5px rgba(217,188,117,.16),
+      0 0 24px rgba(217,188,117,.55) !important;
+    animation:finalMobileHotspotPulse 1.55s ease-in-out infinite !important;
+  }
+
+  .finalHotspot::before,
+  .finalHotspot::after{
+    display:none;
+  }
+
+  .finalHotspotNumber{
+    width:24px;
+    height:24px;
+    font-size:12px;
+  }
+
+  .finalHotspot.read{
+    border-color:#9dce94 !important;
+    background:rgba(14,28,13,.90) !important;
+    box-shadow:
+      0 0 0 4px rgba(145,195,136,.13),
+      0 0 18px rgba(145,195,136,.38) !important;
+    animation:none !important;
+  }
+}
+
+@keyframes finalMobileHotspotPulse{
+  0%,100%{
+    transform:translate(-50%,-50%) scale(.94);
+    filter:brightness(.92);
+  }
+  50%{
+    transform:translate(-50%,-50%) scale(1.08);
+    filter:brightness(1.22);
+  }
+}
 </style>
 </head>
 
@@ -23162,7 +23254,7 @@ function renderFinalTopic1(){
 
 
         ${finalTopic1Points
-          .map(function(point){
+          .map(function(point,index){
 
             return `
 
@@ -23184,7 +23276,11 @@ function renderFinalTopic1(){
                   top:${point.y}%;
                 "
 
-                aria-label="${point.title}">
+                aria-label="Điểm ${index + 1}: ${point.title}">
+
+                <span class="finalHotspotNumber">
+                  ${index + 1}
+                </span>
               </button>
 
             `;
@@ -23949,7 +24045,7 @@ function renderFinalTopic2(){
           alt="Độc lập và quyền làm chủ của nhân dân giai đoạn 1945 đến 1946">
 
         ${finalTopic2Points
-          .map(function(point){
+          .map(function(point,index){
 
             return `
               <button
@@ -23966,7 +24062,11 @@ function renderFinalTopic2(){
                   left:${point.x}%;
                   top:${point.y}%;
                 "
-                aria-label="${point.title}">
+                aria-label="Điểm ${index + 1}: ${point.title}">
+
+                <span class="finalHotspotNumber">
+                  ${index + 1}
+                </span>
               </button>
             `;
 
@@ -24701,7 +24801,7 @@ function renderFinalTopic3(){
           alt="Giai đoạn 1954 đến 1969">
 
         ${finalTopic3Points
-          .map(function(point){
+          .map(function(point,index){
 
             return `
               <button
@@ -24721,7 +24821,11 @@ function renderFinalTopic3(){
                   top:${point.y}%;
                 "
 
-                aria-label="${point.title}">
+                aria-label="Điểm ${index + 1}: ${point.title}">
+
+                <span class="finalHotspotNumber">
+                  ${index + 1}
+                </span>
               </button>
             `;
 
@@ -25493,7 +25597,7 @@ function renderFinalTopic4(){
           alt="Việt Nam từ sau năm 1969 đến hiện đại">
 
         ${finalTopic4Points
-          .map(function(point){
+          .map(function(point,index){
 
             return `
               <button
@@ -25513,7 +25617,11 @@ function renderFinalTopic4(){
                   top:${point.y}%;
                 "
 
-                aria-label="${point.title}">
+                aria-label="Điểm ${index + 1}: ${point.title}">
+
+                <span class="finalHotspotNumber">
+                  ${index + 1}
+                </span>
               </button>
             `;
 

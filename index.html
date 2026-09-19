@@ -12210,6 +12210,65 @@ button.finalHubCard:hover
   }
 
 }
+  /* ===== GLOBAL GAME OVER ===== */
+.globalGameOver{
+  position:relative;
+  min-height:72vh;
+  display:grid;
+  place-items:center;
+  overflow:hidden;
+}
+
+.globalGameOver::before{
+  content:"";
+  position:absolute;
+  inset:8% 4%;
+  border:1px solid rgba(198,58,52,.35);
+  background:
+    linear-gradient(rgba(198,58,52,.07) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(198,58,52,.07) 1px,transparent 1px);
+  background-size:34px 34px;
+  box-shadow:inset 0 0 80px rgba(0,0,0,.45);
+  pointer-events:none;
+}
+
+.globalGameOverCard{
+  position:relative;
+  z-index:1;
+  width:min(720px,92vw);
+  padding:clamp(34px,6vw,70px);
+  text-align:center;
+  border:1px solid rgba(198,58,52,.65);
+  background:rgba(17,15,14,.94);
+  box-shadow:0 28px 90px rgba(0,0,0,.55);
+}
+
+.globalGameOverCode{
+  color:#d05b57;
+  letter-spacing:.2em;
+  font-size:12px;
+  font-weight:800;
+}
+
+.globalGameOverTitle{
+  margin:18px 0 12px;
+  font-size:clamp(54px,10vw,112px);
+  line-height:.88;
+  color:#eee5d4;
+}
+
+.globalGameOverLine{
+  width:90px;
+  height:2px;
+  margin:26px auto;
+  background:#c63a34;
+  box-shadow:0 0 24px rgba(198,58,52,.75);
+}
+
+.globalGameOver .btn{
+  margin-top:30px;
+  min-width:220px;
+}
 </style>
 </head>
 
@@ -12339,6 +12398,133 @@ document.addEventListener("error",function(event){
 let hearts = 3;
 let xp = 0;
 let found = 0;
+let gameIsOver = false;
+
+
+/* =========================================
+   RANDOMIZATION ENGINE
+========================================= */
+
+function shuffledCopy(items){
+
+  const original = Array.from(items);
+  const result = original.slice();
+
+  for(let i = result.length - 1; i > 0; i--){
+
+    const randomIndex =
+      Math.floor(Math.random() * (i + 1));
+
+    [
+      result[i],
+      result[randomIndex]
+    ] = [
+      result[randomIndex],
+      result[i]
+    ];
+
+  }
+
+  /*
+    Nếu random vô tình giữ nguyên toàn bộ thứ tự,
+    đổi hai phần tử đầu để người chơi chắc chắn
+    nhìn thấy thứ tự mới.
+  */
+
+  if(
+    result.length > 1 &&
+    result.every(function(item,index){
+      return item === original[index];
+    })
+  ){
+
+    [
+      result[0],
+      result[1]
+    ] = [
+      result[1],
+      result[0]
+    ];
+
+  }
+
+  return result;
+}
+
+
+function shuffleInPlace(items){
+
+  const shuffled =
+    shuffledCopy(items);
+
+  items.splice(
+    0,
+    items.length,
+    ...shuffled
+  );
+
+  return items;
+}
+
+
+function shuffleDomChildren(
+  parentSelector,
+  itemSelector
+){
+
+  const parent =
+    document.querySelector(
+      parentSelector
+    );
+
+  if(!parent) return;
+
+  shuffledCopy(
+    parent.querySelectorAll(
+      itemSelector
+    )
+  )
+  .forEach(function(item){
+
+    parent.appendChild(item);
+
+  });
+
+}
+
+
+/* =========================================
+   GLOBAL LIFE SYSTEM
+========================================= */
+
+function loseLife(){
+
+  if(gameIsOver){
+    return true;
+  }
+
+  hearts =
+    Math.max(
+      0,
+      hearts - 1
+    );
+
+  updateHUD();
+
+  if(hearts === 0){
+
+    gameIsOver = true;
+
+    window.setTimeout(
+      gameOver,
+      350
+    );
+
+    return true;
+  }
+
+  return false;
+}
   function archiveIcon(name){
 
   const icons = {
@@ -12747,6 +12933,10 @@ function levelOne(){
 
     </div>
   `;
+  shuffleDomChildren(
+    ".objects",
+    ".object"
+  );
 
   document
   .querySelectorAll(".object")
@@ -12820,23 +13010,30 @@ function chooseObject(e){
       setTimeout(levelComplete,700);
     }
 
-  } else {
+   } else {
 
-    hearts--;
+    item.classList.remove(
+      "wrong"
+    );
 
-    item.classList.remove("wrong");
     void item.offsetWidth;
-    item.classList.add("wrong");
 
-    updateHUD();
+    item.classList.add(
+      "wrong"
+    );
 
-    document.getElementById("message").innerHTML =
-      `<span style="color:#d45d58">✕ Đây không phải lựa chọn phù hợp.</span>`;
+    document
+      .getElementById(
+        "message"
+      )
+      .innerHTML =
 
-    if(hearts <= 0){
+      `<span style="color:#d45d58">
+        ✕ Đây không phải lựa chọn phù hợp.
+      </span>`;
 
-      setTimeout(gameOver,500);
-    }
+    loseLife();
+
   }
 }
 
@@ -12855,39 +13052,74 @@ function updateHUD(){
 
 function gameOver(){
 
+  clearInterval(level2Interval);
+
+  hud.style.display =
+    "none";
+
   screen.innerHTML = `
-    <div class="content">
 
-      <div class="small">MISSION FAILED</div>
+    <div class="content globalGameOver">
 
-      <h1>
-        THỬ <span class="red">LẠI</span>
-      </h1>
+      <div class="globalGameOverCard">
 
-      <p class="subtitle">
-        Bạn đã sử dụng hết 3 lượt lựa chọn.
-        <br>
-        Quan sát kỹ hơn và thử lại nhiệm vụ.
-      </p>
+        <div class="globalGameOverCode">
+          SYSTEM FAILURE · 3 / 3 ERRORS
+        </div>
 
-      <button class="btn" id="retryBtn">
-        CHƠI LẠI LEVEL 1
-      </button>
+        <h1 class="globalGameOverTitle">
+
+          GAME
+
+          <span class="red">
+            OVER
+          </span>
+
+        </h1>
+
+        <div class="globalGameOverLine">
+        </div>
+
+        <p class="subtitle">
+
+          Bạn đã sử dụng hết 3 mạng
+          trong hành trình.
+
+          <br><br>
+
+          Toàn bộ nhiệm vụ
+          sẽ bắt đầu lại từ đầu.
+
+        </p>
+
+        <button
+          class="btn"
+          id="playAgainBtn"
+        >
+
+          PLAY AGAIN
+
+        </button>
+
+      </div>
 
     </div>
+
   `;
 
-  document.getElementById("retryBtn").addEventListener("click",function(){
+  document
+    .getElementById(
+      "playAgainBtn"
+    )
+    .addEventListener(
+      "click",
+      function(){
 
-    hearts = 3;
-    xp = 0;
-    found = 0;
+        window.location.reload();
 
-    updateHUD();
-    levelOne();
-  });
+      }
+    );
 }
-
 function levelComplete(){
   hud.style.display = "none";
   screen.innerHTML = `
@@ -13155,7 +13387,6 @@ function levelTwo(resetBase = true){
     level2BaseXP = xp;
   }
 
-  hearts = 3;
   level2Matched = 0;
   level2Selected = null;
   level2Time = 45;
@@ -13291,10 +13522,20 @@ function levelTwo(resetBase = true){
       </div>
 
     </div>
+   
   `;
 
-  setupLevel2();
+  shuffleDomChildren(
+    ".cardColumn",
+    ".conceptCard"
+  );
 
+  shuffleDomChildren(
+    ".slotColumn",
+    ".dropSlot"
+  );
+
+  setupLevel2();
   clearInterval(level2Interval);
 
   level2Interval = setInterval(function(){
@@ -13437,10 +13678,7 @@ function checkLevel2Match(card,slot){
 
   } else {
 
-    hearts--;
-
-    updateHUD();
-
+  
     slot.classList.remove("wrong");
 
     void slot.offsetWidth;
@@ -13456,13 +13694,7 @@ function checkLevel2Match(card,slot){
 
     level2Selected = null;
 
-    if(hearts <= 0){
-
-      clearInterval(level2Interval);
-
-      level2Fail("BẠN ĐÃ HẾT 3 LƯỢT");
-
-    }
+   if(loseLife()) return;
 
   }
 }
@@ -13738,7 +13970,17 @@ function startLevel3Network(){
   l3nEvidenceNodeSignals = {};
 
   l3nLevelXP = 0;
+shuffleInPlace(
+  l3nOrganizations
+);
 
+shuffleInPlace(
+  phase2Pieces
+);
+
+shuffleInPlace(
+  phase3Signals
+);
 
   hud.style.display = "flex";
 
@@ -13746,7 +13988,7 @@ function startLevel3Network(){
   document
     .getElementById("hearts")
     .style.visibility =
-    "hidden";
+   "visible";
 
 
   document
@@ -14862,7 +15104,7 @@ function handleL3NClick(event){
         "ROUTING ERROR · Tuyến vừa chọn chưa đúng. Hãy thử lại.",
         true
       );
-
+if(loseLife()) return;
       return;
     }
 
@@ -15036,7 +15278,7 @@ if(action === "next-stage"){
         "ROUTING ERROR · Tín hiệu chưa thuộc node này. Hãy thử lại.",
         true
       );
-
+if(loseLife()) return;
       return;
     }
 
@@ -15202,7 +15444,7 @@ return;
         "SYNC ERROR · Mảnh tín hiệu này không hỗ trợ node vừa chọn. Tín hiệu vẫn được giữ để bạn thử lại.",
         true
       );
-
+if(loseLife()) return;
       return;
     }
 
@@ -15953,7 +16195,15 @@ const level4MetricData = [
 /* ===== START LEVEL 4 ===== */
 
 function startLevel4(){
+level4Crises.forEach(
+  function(crisis){
 
+    shuffleInPlace(
+      crisis.choices
+    );
+
+  }
+);
   level4Metrics = {
     ...level4InitialMetrics
   };
@@ -15977,8 +16227,8 @@ level4MissionCompleted =
 
   document
     .getElementById("hearts")
-    .style.visibility =
-    "hidden";
+   .style.visibility =
+"visible";
 
 
   document
@@ -16738,7 +16988,10 @@ function startLevel4Recovery(){
 
   `;
 
-
+shuffleDomChildren(
+  ".level4RecoveryChoiceGrid",
+  ".level4RecoveryChoice"
+);
   const choices =
     Array.from(
       document.querySelectorAll(
@@ -19915,31 +20168,31 @@ function handleLevel4Decision(
 
   }
 
-  else{
+ else{
 
-    selectedButton
-      .classList.add(
-        "wrongDecision"
-      );
+  selectedButton
+    .classList.add(
+      "wrongDecision"
+    );
 
+  if(
+    buttons[
+      correctIndex
+    ]
+  ){
 
-    if(
-      buttons[
-        correctIndex
-      ]
-    ){
-
-      buttons[
-        correctIndex
-      ]
-      .classList.add(
-        "answerReveal"
-      );
-
-    }
+    buttons[
+      correctIndex
+    ]
+    .classList.add(
+      "answerReveal"
+    );
 
   }
 
+  if(loseLife()) return;
+
+}
   const foodVisual =
     document.getElementById(
       "level4FoodVisual"

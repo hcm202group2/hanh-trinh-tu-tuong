@@ -12269,6 +12269,89 @@ button.finalHubCard:hover
   margin-top:30px;
   min-width:220px;
 }
+
+/* ===== GLOBAL LIFE FEEDBACK · POLISH ===== */
+.lifeLossToast{
+  position:fixed;
+  top:108px;
+  left:50%;
+  z-index:10001;
+  transform:translateX(-50%);
+  min-width:220px;
+  padding:12px 18px;
+  border:1px solid rgba(208,91,87,.72);
+  background:rgba(17,8,8,.94);
+  color:#f3dfdb;
+  box-shadow:0 16px 45px rgba(0,0,0,.45),0 0 28px rgba(198,58,52,.18);
+  text-align:center;
+  font-size:12px;
+  font-weight:800;
+  letter-spacing:.14em;
+  pointer-events:none;
+  animation:lifeLossToastIn .9s ease both;
+}
+
+#hearts.lifeHit{
+  animation:lifeHit .48s ease;
+}
+
+.globalGameOverCard{
+  animation:gameOverCardIn .62s cubic-bezier(.2,.78,.2,1) both;
+}
+
+.audioToggle:hover{
+  border-color:rgba(217,188,117,.92) !important;
+  background:rgba(26,13,10,.96) !important;
+  transform:translateY(-1px);
+}
+
+.audioToggle:focus-visible{
+  outline:2px solid #d9bc75;
+  outline-offset:3px;
+}
+
+@keyframes lifeLossToastIn{
+  0%{opacity:0;transform:translate(-50%,-12px) scale(.96)}
+  18%{opacity:1;transform:translate(-50%,0) scale(1)}
+  72%{opacity:1;transform:translate(-50%,0) scale(1)}
+  100%{opacity:0;transform:translate(-50%,-8px) scale(.98)}
+}
+
+@keyframes lifeHit{
+  0%,100%{transform:translateX(0);filter:none}
+  22%{transform:translateX(-4px);filter:drop-shadow(0 0 7px #d05b57)}
+  44%{transform:translateX(4px);color:#ff7770}
+  66%{transform:translateX(-2px)}
+}
+
+@keyframes gameOverCardIn{
+  from{opacity:0;transform:translateY(18px) scale(.975)}
+  to{opacity:1;transform:translateY(0) scale(1)}
+}
+
+@media(max-width:600px){
+  .lifeLossToast{
+    top:82px;
+    min-width:190px;
+    max-width:calc(100vw - 32px);
+    font-size:10px;
+  }
+
+  .audioToggle{
+    top:auto !important;
+    right:12px !important;
+    bottom:12px !important;
+    padding:10px 12px !important;
+  }
+}
+
+@media(prefers-reduced-motion:reduce){
+  .lifeLossToast,
+  #hearts.lifeHit,
+  .globalGameOverCard{
+    animation-duration:.01ms !important;
+  }
+}
 </style>
 </head>
 
@@ -12452,10 +12535,158 @@ function shuffledCopy(items){
 }
 
 
-function shuffleInPlace(items){
+function shuffleSignature(items){
+
+  return items
+    .map(function(item,index){
+
+      if(
+        item &&
+        item.dataset
+      ){
+
+        return (
+          item.dataset.match ||
+          item.dataset.key ||
+          item.dataset.l3nId ||
+          item.textContent.trim()
+        );
+
+      }
+
+      if(
+        item &&
+        typeof item === "object"
+      ){
+
+        return (
+          item.id ||
+          item.key ||
+          item.code ||
+          item.text ||
+          item.name ||
+          item.label ||
+          String(index)
+        );
+
+      }
+
+      return String(item);
+
+    })
+    .join("¦");
+}
+
+
+function shuffledWithMemory(
+  items,
+  memoryKey
+){
+
+  const original = Array.from(items);
+  let result = shuffledCopy(original);
+
+  if(!memoryKey){
+    return result;
+  }
+
+  let previousOrder = "";
+
+  try{
+    previousOrder =
+      sessionStorage.getItem(
+        "shuffle:" + memoryKey
+      ) || "";
+  }
+  catch(error){}
+
+  let attempts = 0;
+
+  while(
+    attempts < 12 &&
+    shuffleSignature(result) === previousOrder
+  ){
+
+    result = shuffledCopy(original);
+    attempts++;
+
+  }
+
+  try{
+    sessionStorage.setItem(
+      "shuffle:" + memoryKey,
+      shuffleSignature(result)
+    );
+  }
+  catch(error){}
+
+  return result;
+}
+
+
+function pickRandomWithMemory(
+  items,
+  memoryKey
+){
+
+  const choices = Array.from(items);
+
+  if(choices.length === 0){
+    return null;
+  }
+
+  let previousId = "";
+
+  try{
+    previousId =
+      sessionStorage.getItem(
+        "random:" + memoryKey
+      ) || "";
+  }
+  catch(error){}
+
+  const available =
+    choices.filter(function(item){
+      return (
+        shuffleSignature([item]) !==
+        previousId
+      );
+    });
+
+  const pool =
+    available.length > 0
+    ? available
+    : choices;
+
+  const selected =
+    pool[
+      Math.floor(
+        Math.random() * pool.length
+      )
+    ];
+
+  try{
+    sessionStorage.setItem(
+      "random:" + memoryKey,
+      shuffleSignature([selected])
+    );
+  }
+  catch(error){}
+
+  return selected;
+}
+
+
+function shuffleInPlace(
+  items,
+  memoryKey
+){
 
   const shuffled =
-    shuffledCopy(items);
+    shuffledWithMemory(
+      items,
+      memoryKey
+    );
 
   items.splice(
     0,
@@ -12479,10 +12710,11 @@ function shuffleDomChildren(
 
   if(!parent) return;
 
-  shuffledCopy(
+  shuffledWithMemory(
     parent.querySelectorAll(
       itemSelector
-    )
+    ),
+    parentSelector + "|" + itemSelector
   )
   .forEach(function(item){
 
@@ -12497,6 +12729,63 @@ function shuffleDomChildren(
    GLOBAL LIFE SYSTEM
 ========================================= */
 
+let lifeToastTimer = null;
+
+
+function showLifeLossFeedback(){
+
+  const heartsElement =
+    document.getElementById("hearts");
+
+  if(heartsElement){
+
+    heartsElement.classList.remove("lifeHit");
+    void heartsElement.offsetWidth;
+    heartsElement.classList.add("lifeHit");
+
+    window.setTimeout(
+      function(){
+        heartsElement.classList.remove("lifeHit");
+      },
+      520
+    );
+
+  }
+
+  const oldToast =
+    document.querySelector(".lifeLossToast");
+
+  if(oldToast){
+    oldToast.remove();
+  }
+
+  if(lifeToastTimer){
+    clearTimeout(lifeToastTimer);
+  }
+
+  const toast =
+    document.createElement("div");
+
+  toast.className = "lifeLossToast";
+  toast.setAttribute("role","status");
+  toast.setAttribute("aria-live","assertive");
+
+  toast.textContent =
+    hearts > 0
+    ? "−1 MẠNG · CÒN " + hearts + "/3"
+    : "HỆ THỐNG MẠNG ĐÃ CẠN";
+
+  document.body.appendChild(toast);
+
+  lifeToastTimer = window.setTimeout(
+    function(){
+      toast.remove();
+      lifeToastTimer = null;
+    },
+    920
+  );
+}
+
 function loseLife(){
 
   if(gameIsOver){
@@ -12510,6 +12799,7 @@ function loseLife(){
     );
 
   updateHUD();
+  showLifeLossFeedback();
 
   if(hearts === 0){
 
@@ -13057,6 +13347,8 @@ function gameOver(){
   hud.style.display =
     "none";
 
+  window.scrollTo(0,0);
+
   screen.innerHTML = `
 
     <div class="content globalGameOver">
@@ -13119,6 +13411,14 @@ function gameOver(){
 
       }
     );
+
+  document
+    .getElementById("playAgainBtn")
+    .focus();
+
+  document.dispatchEvent(
+    new CustomEvent("game:over")
+  );
 }
 function levelComplete(){
   hud.style.display = "none";
@@ -13971,15 +14271,18 @@ function startLevel3Network(){
 
   l3nLevelXP = 0;
 shuffleInPlace(
-  l3nOrganizations
+  l3nOrganizations,
+  "level3-organizations"
 );
 
 shuffleInPlace(
-  phase2Pieces
+  phase2Pieces,
+  "level3-strategy-signals"
 );
 
 shuffleInPlace(
-  phase3Signals
+  phase3Signals,
+  "level3-evidence-signals"
 );
 
   hud.style.display = "flex";
@@ -16199,7 +16502,8 @@ level4Crises.forEach(
   function(crisis){
 
     shuffleInPlace(
-      crisis.choices
+      crisis.choices,
+      "level4-crisis-" + crisis.id
     );
 
   }
@@ -17229,11 +17533,14 @@ function startLevel4Architecture(){
   ];
 
 
-  const trayOrder = shuffledCopy([
-    "by",
-    "for",
-    "of"
-  ]);
+  const trayOrder = shuffledWithMemory(
+    [
+      "by",
+      "for",
+      "of"
+    ],
+    "level4-architecture-tray"
+  );
 
 
   let selectedKey = null;
@@ -22451,14 +22758,10 @@ function startFinalTopic1MemoryCheck(){
 
 
   finalTopic1QuizTarget =
-
-    finalTopic1Points[
-      Math.floor(
-        Math.random()
-        *
-        finalTopic1Points.length
-      )
-    ];
+    pickRandomWithMemory(
+      finalTopic1Points,
+      "final-topic-1"
+    );
 
 
   document
@@ -23201,14 +23504,10 @@ function startFinalTopic2MemoryCheck(){
 
 
   finalTopic2QuizTarget =
-
-    finalTopic2Points[
-      Math.floor(
-        Math.random()
-        *
-        finalTopic2Points.length
-      )
-    ];
+    pickRandomWithMemory(
+      finalTopic2Points,
+      "final-topic-2"
+    );
 
 
   document
@@ -23966,14 +24265,10 @@ function startFinalTopic3MemoryCheck(){
 
 
   finalTopic3QuizTarget =
-
-    finalTopic3Points[
-      Math.floor(
-        Math.random()
-        *
-        finalTopic3Points.length
-      )
-    ];
+    pickRandomWithMemory(
+      finalTopic3Points,
+      "final-topic-3"
+    );
 
 
   document
@@ -24750,14 +25045,10 @@ function startFinalTopic4MemoryCheck(){
 
 
   finalTopic4QuizTarget =
-
-    finalTopic4Points[
-      Math.floor(
-        Math.random()
-        *
-        finalTopic4Points.length
-      )
-    ];
+    pickRandomWithMemory(
+      finalTopic4Points,
+      "final-topic-4"
+    );
 
 
   document
@@ -25441,13 +25732,15 @@ function showFinalJourneyEnding(){
     "quoc-ca-quoc-te-ca-background.mp3"
   );
 
+  const normalBgmVolume = 0.15;
+
   /* Phát lặp liên tục */
 
   bgMusic.loop = true;
 
   /* Background 15% */
 
-  bgMusic.volume = 0.15;
+  bgMusic.volume = normalBgmVolume;
 
   bgMusic.preload = "auto";
 
@@ -25459,6 +25752,19 @@ function showFinalJourneyEnding(){
   let audioContext = null;
   let sfxMaster = null;
   let audioEnabled = true;
+  let musicStarted = false;
+
+  try{
+
+    audioEnabled =
+      localStorage.getItem(
+        "hanh-trinh-audio"
+      ) !== "off";
+
+  }
+  catch(error){
+    audioEnabled = true;
+  }
 
 
   function initializeAudio() {
@@ -25844,6 +26150,8 @@ function showFinalJourneyEnding(){
 
         initializeAudio();
 
+        musicStarted = true;
+
 
         if (audioEnabled) {
 
@@ -26069,6 +26377,115 @@ function showFinalJourneyEnding(){
                 .classList
                 .contains(
                   "wrongDecision"
+                )
+            ) {
+
+              SFX.wrong();
+
+            } else {
+
+              SFX.click();
+
+            }
+
+          },
+          0
+        );
+
+        return;
+
+      }
+
+
+      /* LEVEL 4 · STATE RECOVERY */
+
+      const recoveryChoice =
+        target.closest(
+          ".level4RecoveryChoice"
+        );
+
+
+      if (recoveryChoice) {
+
+        setTimeout(
+          function () {
+
+            if (
+              recoveryChoice
+                .classList
+                .contains(
+                  "correctRecovery"
+                )
+            ) {
+
+              SFX.correct();
+
+            } else if (
+              recoveryChoice
+                .classList
+                .contains(
+                  "wrongRecovery"
+                )
+            ) {
+
+              SFX.wrong();
+
+            } else {
+
+              SFX.click();
+
+            }
+
+          },
+          0
+        );
+
+        return;
+
+      }
+
+
+      /* LEVEL 4 · STATE ARCHITECTURE */
+
+      if (
+        target.closest(
+          ".architectureFragment"
+        )
+      ) {
+
+        SFX.select();
+
+        return;
+
+      }
+
+
+      const architectureSlot =
+        target.closest(
+          ".architectureSlot"
+        );
+
+
+      if (architectureSlot) {
+
+        setTimeout(
+          function () {
+
+            if (
+              architectureSlot
+                .classList
+                .contains(
+                  "architectureMatched"
+                )
+            ) {
+
+              SFX.correct();
+
+            } else if (
+              architectureSlot
+                .classList
+                .contains(
+                  "architectureWrong"
                 )
             ) {
 
@@ -26349,13 +26766,27 @@ function showFinalJourneyEnding(){
     "button";
 
 
+  audioButton.className =
+    "audioToggle";
+
+
+  audioButton.setAttribute(
+    "aria-label",
+    "Bật hoặc tắt âm thanh"
+  );
+
+
   audioButton.textContent =
-    "♪ AUDIO ON";
+    audioEnabled
+    ? "♪ AUDIO ON"
+    : "♪ AUDIO OFF";
 
 
   audioButton.setAttribute(
     "aria-pressed",
-    "true"
+    audioEnabled
+    ? "true"
+    : "false"
   );
 
 
@@ -26412,7 +26843,25 @@ function showFinalJourneyEnding(){
         !audioEnabled;
 
 
+      try{
+
+        localStorage.setItem(
+          "hanh-trinh-audio",
+          audioEnabled
+          ? "on"
+          : "off"
+        );
+
+      }
+      catch(error){}
+
+
       if (audioEnabled) {
+
+        musicStarted = true;
+
+        bgMusic.volume =
+          normalBgmVolume;
 
         bgMusic
           .play()
@@ -26448,6 +26897,58 @@ function showFinalJourneyEnding(){
         );
 
       }
+
+    }
+  );
+
+
+  /* TẠM DỪNG NHẠC KHI RỜI TAB */
+
+  document.addEventListener(
+    "visibilitychange",
+    function(){
+
+      if(document.hidden){
+
+        bgMusic.pause();
+
+        return;
+      }
+
+
+      if(
+        audioEnabled &&
+        musicStarted
+      ){
+
+        bgMusic
+          .play()
+          .catch(function(){});
+
+      }
+
+    }
+  );
+
+
+  /* GAME OVER AUDIO CUE */
+
+  document.addEventListener(
+    "game:over",
+    function(){
+
+      audioButton.style.display =
+        "none";
+
+      if(!audioEnabled) return;
+
+      SFX.stamp();
+
+      bgMusic.volume =
+        Math.min(
+          bgMusic.volume,
+          0.055
+        );
 
     }
   );

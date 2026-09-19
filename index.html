@@ -23372,6 +23372,107 @@ function renderFinalTopic1(){
 
 /* ===== GẮN SỰ KIỆN CHO HOTSPOT ===== */
 
+function bindFinalHotspotTouch(
+  hotspot,
+  getPointId,
+  activatePoint
+){
+
+  let touchStartX = 0;
+  let touchStartY = 0;
+  let lastTouchActivation = 0;
+
+
+  function activate(){
+
+    const id =
+      getPointId(hotspot);
+
+    if(!id) return;
+
+    activatePoint(
+      id,
+      hotspot
+    );
+  }
+
+
+  hotspot.addEventListener(
+    "touchstart",
+    function(event){
+
+      const touch =
+        event.touches[0];
+
+      if(!touch) return;
+
+      touchStartX =
+        touch.clientX;
+
+      touchStartY =
+        touch.clientY;
+
+    },
+    {passive:true}
+  );
+
+
+  hotspot.addEventListener(
+    "touchend",
+    function(event){
+
+      const touch =
+        event.changedTouches[0];
+
+      if(!touch) return;
+
+      const distanceX =
+        Math.abs(
+          touch.clientX -
+          touchStartX
+        );
+
+      const distanceY =
+        Math.abs(
+          touch.clientY -
+          touchStartY
+        );
+
+      if(
+        distanceX > 18 ||
+        distanceY > 18
+      ){
+        return;
+      }
+
+      lastTouchActivation =
+        Date.now();
+
+      activate();
+
+    },
+    {passive:true}
+  );
+
+
+  hotspot.addEventListener(
+    "click",
+    function(){
+
+      if(
+        Date.now() -
+        lastTouchActivation <
+        750
+      ){
+        return;
+      }
+
+      activate();
+
+    }
+  );
+}
+
 function setupFinalTopic1(){
 
   document
@@ -23380,20 +23481,12 @@ function setupFinalTopic1(){
     )
     .forEach(function(hotspot){
 
-      hotspot.addEventListener(
-        "click",
-        function(){
-
-          const id =
-            hotspot.dataset.finalPoint;
-
-
-          handleFinalTopic1Point(
-            id,
-            hotspot
-          );
-
-        }
+      bindFinalHotspotTouch(
+        hotspot,
+        function(element){
+          return element.dataset.finalPoint;
+        },
+        handleFinalTopic1Point
       );
 
     });
@@ -24159,19 +24252,12 @@ function setupFinalTopic2(){
     )
     .forEach(function(hotspot){
 
-      hotspot.addEventListener(
-        "click",
-        function(){
-
-          const id =
-            hotspot.dataset.finalTopic2Point;
-
-          handleFinalTopic2Point(
-            id,
-            hotspot
-          );
-
-        }
+      bindFinalHotspotTouch(
+        hotspot,
+        function(element){
+          return element.dataset.finalTopic2Point;
+        },
+        handleFinalTopic2Point
       );
 
     });
@@ -24920,19 +25006,12 @@ function setupFinalTopic3(){
     )
     .forEach(function(hotspot){
 
-      hotspot.addEventListener(
-        "click",
-        function(){
-
-          const id =
-            hotspot.dataset.finalTopic3Point;
-
-          handleFinalTopic3Point(
-            id,
-            hotspot
-          );
-
-        }
+      bindFinalHotspotTouch(
+        hotspot,
+        function(element){
+          return element.dataset.finalTopic3Point;
+        },
+        handleFinalTopic3Point
       );
 
     });
@@ -25712,19 +25791,12 @@ function setupFinalTopic4(){
     )
     .forEach(function(hotspot){
 
-      hotspot.addEventListener(
-        "click",
-        function(){
-
-          const id =
-            hotspot.dataset.finalTopic4Point;
-
-          handleFinalTopic4Point(
-            id,
-            hotspot
-          );
-
-        }
+      bindFinalHotspotTouch(
+        hotspot,
+        function(element){
+          return element.dataset.finalTopic4Point;
+        },
+        handleFinalTopic4Point
       );
 
     });

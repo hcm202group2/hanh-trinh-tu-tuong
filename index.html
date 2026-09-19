@@ -12861,6 +12861,13 @@ body[data-vip-phase="gameover"] .vipScenePulse{
   -webkit-tap-highlight-color:transparent;
 }
 
+.finalHotspot.quizChoice{
+  display:block !important;
+  visibility:visible !important;
+  opacity:1 !important;
+  pointer-events:auto !important;
+}
+
 @media(max-width:760px), (pointer:coarse){
   .finalSceneFrame{
     width:100%;
@@ -23484,6 +23491,33 @@ function bindFinalHotspotTouch(
   );
 }
 
+
+function prepareFinalHotspotsForQuiz(){
+
+  document
+    .querySelectorAll(
+      ".finalHotspot"
+    )
+    .forEach(function(hotspot){
+
+      hotspot.classList.remove(
+        "read",
+        "finalWrong"
+      );
+
+      hotspot.classList.add(
+        "quizChoice"
+      );
+
+      hotspot.disabled = false;
+
+      hotspot.removeAttribute(
+        "aria-disabled"
+      );
+
+    });
+}
+
 function setupFinalTopic1(){
 
   document
@@ -23667,6 +23701,9 @@ function startFinalTopic1MemoryCheck(){
       finalTopic1Points,
       "final-topic-1"
     );
+
+
+  prepareFinalHotspotsForQuiz();
 
 
   document
@@ -24417,6 +24454,9 @@ function startFinalTopic2MemoryCheck(){
       finalTopic2Points,
       "final-topic-2"
     );
+
+
+  prepareFinalHotspotsForQuiz();
 
 
   document
@@ -25182,6 +25222,9 @@ function startFinalTopic3MemoryCheck(){
       finalTopic3Points,
       "final-topic-3"
     );
+
+
+  prepareFinalHotspotsForQuiz();
 
 
   document
@@ -25966,6 +26009,9 @@ function startFinalTopic4MemoryCheck(){
       finalTopic4Points,
       "final-topic-4"
     );
+
+
+  prepareFinalHotspotsForQuiz();
 
 
   document

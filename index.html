@@ -12271,7 +12271,8 @@ button.finalHubCard:hover
 }
 
 /* ===== GLOBAL LIFE FEEDBACK · POLISH ===== */
-.lifeLossToast{
+.lifeLossToast,
+.scoreLockToast{
   position:fixed;
   top:108px;
   left:50%;
@@ -12289,6 +12290,14 @@ button.finalHubCard:hover
   letter-spacing:.14em;
   pointer-events:none;
   animation:lifeLossToastIn .9s ease both;
+}
+
+.scoreLockToast{
+  top:108px;
+  border-color:rgba(217,188,117,.72);
+  background:rgba(19,15,8,.96);
+  color:#f0dca8;
+  animation:scoreLockToastIn 1.35s ease both;
 }
 
 #hearts.lifeHit{
@@ -12324,13 +12333,21 @@ button.finalHubCard:hover
   66%{transform:translateX(-2px)}
 }
 
+@keyframes scoreLockToastIn{
+  0%{opacity:0;transform:translate(-50%,-10px) scale(.97)}
+  14%{opacity:1;transform:translate(-50%,0) scale(1)}
+  78%{opacity:1;transform:translate(-50%,0) scale(1)}
+  100%{opacity:0;transform:translate(-50%,-7px) scale(.99)}
+}
+
 @keyframes gameOverCardIn{
   from{opacity:0;transform:translateY(18px) scale(.975)}
   to{opacity:1;transform:translateY(0) scale(1)}
 }
 
 @media(max-width:600px){
-  .lifeLossToast{
+  .lifeLossToast,
+  .scoreLockToast{
     top:82px;
     min-width:190px;
     max-width:calc(100vw - 32px);
@@ -12347,6 +12364,7 @@ button.finalHubCard:hover
 
 @media(prefers-reduced-motion:reduce){
   .lifeLossToast,
+  .scoreLockToast,
   #hearts.lifeHit,
   .globalGameOverCard{
     animation-duration:.01ms !important;
@@ -12362,7 +12380,7 @@ button.finalHubCard:hover
 
 <div id="hud">
   <div class="hudBlock">
-    <span id="hearts">♥ ♥ ♥</span>
+    <span id="hearts"></span>
   </div>
 
   <div class="hudBlock">
@@ -12392,6 +12410,10 @@ button.finalHubCard:hover
       lựa chọn và giá trị trong Tư tưởng Hồ Chí Minh.
       <br><br>
       Mỗi lựa chọn của bạn sẽ tạo nên hành trình.
+      <br><br>
+      <span class="gold" style="font-size:13px;letter-spacing:.08em">
+        ĐÚNG NGAY LẦN ĐẦU: NHẬN XP · SỬA SAU KHI SAI: PASS +0 XP
+      </span>
     </p>
 
     <button class="btn" id="startBtn">
@@ -12483,6 +12505,114 @@ let hearts = MAX_HEARTS;
 let xp = 0;
 let found = 0;
 let gameIsOver = false;
+
+
+/* =========================================
+   QUESTION SCORE SYSTEM
+========================================= */
+
+const failedQuestions =
+  new Set();
+
+let scoreLockToastTimer =
+  null;
+
+
+function markQuestionWrong(
+  questionId
+){
+
+  failedQuestions.add(
+    questionId
+  );
+}
+
+
+function showScoreLockFeedback(){
+
+  const oldToast =
+    document.querySelector(
+      ".scoreLockToast"
+    );
+
+  if(oldToast){
+    oldToast.remove();
+  }
+
+  if(scoreLockToastTimer){
+    clearTimeout(
+      scoreLockToastTimer
+    );
+  }
+
+  const toast =
+    document.createElement("div");
+
+  toast.className =
+    "scoreLockToast";
+
+  toast.setAttribute(
+    "role",
+    "status"
+  );
+
+  toast.setAttribute(
+    "aria-live",
+    "polite"
+  );
+
+  toast.textContent =
+    "PASS THÀNH CÔNG · +0 XP · ĐÃ SAI TRƯỚC ĐÓ";
+
+  document.body.appendChild(
+    toast
+  );
+
+  scoreLockToastTimer =
+    window.setTimeout(
+      function(){
+
+        toast.remove();
+
+        scoreLockToastTimer =
+          null;
+
+      },
+      1380
+    );
+}
+
+
+function grantQuestionXP(
+  questionId,
+  amount
+){
+
+  if(
+    failedQuestions.has(
+      questionId
+    )
+  ){
+
+    showScoreLockFeedback();
+
+    return 0;
+  }
+
+  xp += amount;
+
+  return amount;
+}
+
+
+function rewardMessage(
+  earnedXP
+){
+
+  return earnedXP > 0
+    ? "+" + earnedXP + " XP"
+    : "PASS · +0 XP · ĐÃ SAI TRƯỚC ĐÓ";
+}
 
 
 /* =========================================
@@ -13289,12 +13419,20 @@ function chooseObject(e){
     item.tabIndex = -1;
 
     found++;
-    xp += 100;
+
+    const earnedXP =
+      grantQuestionXP(
+        "level1-clues",
+        100
+      );
 
     updateHUD();
 
     document.getElementById("message").innerHTML =
-      `<span style="color:#8fb987">✓ MANH MỐI ĐÚNG &nbsp; +100 XP</span>`;
+      `<span style="color:#8fb987">
+        ✓ MANH MỐI ĐÚNG &nbsp;
+        ${rewardMessage(earnedXP)}
+      </span>`;
 
     if(found === 3){
 
@@ -13323,6 +13461,10 @@ function chooseObject(e){
         ✕ Đây không phải lựa chọn phù hợp.
       </span>`;
 
+    markQuestionWrong(
+      "level1-clues"
+    );
+
     loseLife();
 
   }
@@ -13340,6 +13482,8 @@ function updateHUD(){
 
   document.getElementById("hearts").textContent = heartText;
 }
+
+updateHUD();
 
 function gameOver(){
 
@@ -13944,6 +14088,13 @@ function checkLevel2Match(card,slot){
 
   if(!level2Active) return;
 
+  if(
+    card.classList.contains("matched") ||
+    slot.classList.contains("matched")
+  ){
+    return;
+  }
+
   if(card.dataset.match === slot.dataset.match){
 
     card.classList.remove("selected");
@@ -13955,14 +14106,24 @@ function checkLevel2Match(card,slot){
     slot.innerHTML =
       "✓ " + slot.innerHTML;
 
-    xp += 150;
+    const questionId =
+      "level2-" +
+      card.dataset.match;
+
+    const earnedXP =
+      grantQuestionXP(
+        questionId,
+        150
+      );
+
     level2Matched++;
 
     updateHUD();
 
     document.getElementById("level2Feedback").innerHTML =
       `<span style="color:#8fb987">
-      ✓ GHÉP CHÍNH XÁC &nbsp; +150 XP
+      ✓ GHÉP CHÍNH XÁC &nbsp;
+      ${rewardMessage(earnedXP)}
       </span>`;
 
     level2Selected = null;
@@ -13990,6 +14151,11 @@ function checkLevel2Match(card,slot){
       `<span style="color:#d45d58">
       ✕ Chưa đúng mối liên hệ. Hãy thử lại.
       </span>`;
+
+    markQuestionWrong(
+      "level2-" +
+      card.dataset.match
+    );
 
     card.classList.remove("selected");
 
@@ -14050,6 +14216,12 @@ function level2Complete(){
   hud.style.display = "none";
   clearInterval(level2Interval);
 
+  const level2EarnedXP =
+    Math.max(
+      0,
+      xp - level2BaseXP
+    );
+
   screen.innerHTML = `
 <div class="content levelBridge levelBridge1920">
 
@@ -14065,7 +14237,7 @@ function level2Complete(){
         </h1>
 
         <div class="scoreBig">
-          +450 XP
+          +${level2EarnedXP} XP
         </div>
 
         <p class="subtitle">
@@ -15408,6 +15580,12 @@ function handleL3NClick(event){
         "ROUTING ERROR · Tuyến vừa chọn chưa đúng. Hãy thử lại.",
         true
       );
+
+      markQuestionWrong(
+        "level3-org-" +
+        l3nSelectedOrg
+      );
+
 if(loseLife()) return;
       return;
     }
@@ -15421,9 +15599,14 @@ if(loseLife()) return;
     l3nSelectedOrg = null;
 
 
-    xp += 300;
+    const earnedXP =
+      grantQuestionXP(
+        "level3-org-" +
+        org.id,
+        300
+      );
 
-    l3nLevelXP += 300;
+    l3nLevelXP += earnedXP;
 
 
     updateHUD();
@@ -15466,7 +15649,8 @@ if(
 
       <br><br>
 
-      ROUTE VERIFIED · +300 XP
+      ROUTE VERIFIED ·
+      ${rewardMessage(earnedXP)}
 
     `;
 
@@ -15582,6 +15766,12 @@ if(action === "next-stage"){
         "ROUTING ERROR · Tín hiệu chưa thuộc node này. Hãy thử lại.",
         true
       );
+
+      markQuestionWrong(
+        "level3-signal-" +
+        l3nSelectedSignal
+      );
+
 if(loseLife()) return;
       return;
     }
@@ -15600,9 +15790,14 @@ if(loseLife()) return;
       150;
 
 
-    xp += reward;
+    const earnedXP =
+      grantQuestionXP(
+        "level3-signal-" +
+        piece.id,
+        reward
+      );
 
-    l3nLevelXP += reward;
+    l3nLevelXP += earnedXP;
 
 
     l3nSelectedSignal = null;
@@ -15641,7 +15836,7 @@ if(
 
       <br><br>
 
-      +${reward} XP
+      ${rewardMessage(earnedXP)}
 
     `;
 
@@ -15748,6 +15943,12 @@ return;
         "SYNC ERROR · Mảnh tín hiệu này không hỗ trợ node vừa chọn. Tín hiệu vẫn được giữ để bạn thử lại.",
         true
       );
+
+      markQuestionWrong(
+        "level3-node-" +
+        signal.node
+      );
+
 if(loseLife()) return;
       return;
     }
@@ -15782,14 +15983,24 @@ if(loseLife()) return;
       );
 
 
+    let nodeEarnedXP = 0;
+
+
     if(nodeJustCompleted){
 
       l3nVerifiedEvidence.add(
         node.id
       );
 
-      xp += 125;
-      l3nLevelXP += 125;
+      nodeEarnedXP =
+        grantQuestionXP(
+          "level3-node-" +
+          node.id,
+          125
+        );
+
+      l3nLevelXP +=
+        nodeEarnedXP;
 
       updateHUD();
 
@@ -15826,7 +16037,7 @@ if(loseLife()) return;
 
             <br><br>
 
-            +125 XP ·
+            ${rewardMessage(nodeEarnedXP)} ·
             ${l3nVerifiedEvidence.size}/4 NODES ONLINE
 
           `;
@@ -17971,6 +18182,10 @@ function startLevel4Architecture(){
         420
       );
 
+      markQuestionWrong(
+        "level4-architecture"
+      );
+
       if(loseLife()) return;
 
 
@@ -18106,6 +18321,10 @@ function startLevel4Architecture(){
         "GOVERNMENT ARCHITECTURE · 100% · SYSTEM STABLE";
 
 
+      let architectureEarnedXP =
+        0;
+
+
       if(
         !level4ArchitectureCompleted
       ){
@@ -18114,11 +18333,15 @@ function startLevel4Architecture(){
           true;
 
 
-        xp += 300;
+        architectureEarnedXP =
+          grantQuestionXP(
+            "level4-architecture",
+            300
+          );
 
 
         level4LevelXP +=
-          300;
+          architectureEarnedXP;
 
 
         updateHUD();
@@ -18151,7 +18374,9 @@ function startLevel4Architecture(){
 
         <span class="gold">
 
-          +300 XP
+          ${rewardMessage(
+            architectureEarnedXP
+          )}
 
         </span>
 
@@ -22837,6 +23062,10 @@ function checkFinalTopic1Answer(
     "finalWrong"
   );
 
+  markQuestionWrong(
+    "final-memory-topic1"
+  );
+
   if(loseLife()) return;
 
 
@@ -22887,11 +23116,17 @@ function completeFinalTopic1(){
   finalTopic1Complete = true;
   finalTopic1QuizActive = false;
 
+  let memoryEarnedXP = 0;
+
   if(!finalJourneyCompleted.topic1){
 
     finalJourneyCompleted.topic1 = true;
 
-    xp += 250;
+    memoryEarnedXP =
+      grantQuestionXP(
+        "final-memory-topic1",
+        250
+      );
 
     updateHUD();
   }
@@ -22919,7 +23154,8 @@ function completeFinalTopic1(){
         <br><br>
 
         <strong class="gold">
-          MEMORY CHECK PASSED · +250 XP
+          MEMORY CHECK PASSED ·
+          ${rewardMessage(memoryEarnedXP)}
         </strong>
 
         <br><br>
@@ -23581,6 +23817,10 @@ function checkFinalTopic2Answer(
 
   }
 
+  markQuestionWrong(
+    "final-memory-topic2"
+  );
+
   if(loseLife()) return;
 
 
@@ -23626,11 +23866,17 @@ function completeFinalTopic2(){
   finalTopic2Complete = true;
   finalTopic2QuizActive = false;
 
+  let memoryEarnedXP = 0;
+
   if(!finalJourneyCompleted.topic2){
 
     finalJourneyCompleted.topic2 = true;
 
-    xp += 250;
+    memoryEarnedXP =
+      grantQuestionXP(
+        "final-memory-topic2",
+        250
+      );
 
     updateHUD();
   }
@@ -23658,7 +23904,8 @@ function completeFinalTopic2(){
         <br><br>
 
         <strong class="gold">
-          MEMORY CHECK PASSED · +250 XP
+          MEMORY CHECK PASSED ·
+          ${rewardMessage(memoryEarnedXP)}
         </strong>
 
         <br><br>
@@ -24340,6 +24587,10 @@ function checkFinalTopic3Answer(
     "finalWrong"
   );
 
+  markQuestionWrong(
+    "final-memory-topic3"
+  );
+
   if(loseLife()) return;
 
 
@@ -24385,11 +24636,17 @@ function completeFinalTopic3(){
   finalTopic3Complete = true;
   finalTopic3QuizActive = false;
 
+  let memoryEarnedXP = 0;
+
   if(!finalJourneyCompleted.topic3){
 
     finalJourneyCompleted.topic3 = true;
 
-    xp += 250;
+    memoryEarnedXP =
+      grantQuestionXP(
+        "final-memory-topic3",
+        250
+      );
 
     updateHUD();
   }
@@ -24417,7 +24674,8 @@ function completeFinalTopic3(){
         <br><br>
 
         <strong class="gold">
-          MEMORY CHECK PASSED · +250 XP
+          MEMORY CHECK PASSED ·
+          ${rewardMessage(memoryEarnedXP)}
         </strong>
 
         <br><br>
@@ -25120,6 +25378,10 @@ function checkFinalTopic4Answer(
     "finalWrong"
   );
 
+  markQuestionWrong(
+    "final-memory-topic4"
+  );
+
   if(loseLife()) return;
 
 
@@ -25165,11 +25427,17 @@ function completeFinalTopic4(){
   finalTopic4Complete = true;
   finalTopic4QuizActive = false;
 
+  let memoryEarnedXP = 0;
+
   if(!finalJourneyCompleted.topic4){
 
     finalJourneyCompleted.topic4 = true;
 
-    xp += 250;
+    memoryEarnedXP =
+      grantQuestionXP(
+        "final-memory-topic4",
+        250
+      );
 
     updateHUD();
   }
@@ -25197,7 +25465,8 @@ function completeFinalTopic4(){
         <br><br>
 
         <strong class="gold">
-          MEMORY CHECK PASSED · +250 XP
+          MEMORY CHECK PASSED ·
+          ${rewardMessage(memoryEarnedXP)}
         </strong>
 
         <br><br>

@@ -12478,7 +12478,8 @@ document.addEventListener("error",function(event){
   }
 
 },true);
-let hearts = 3;
+const MAX_HEARTS = 5;
+let hearts = MAX_HEARTS;
 let xp = 0;
 let found = 0;
 let gameIsOver = false;
@@ -12772,7 +12773,7 @@ function showLifeLossFeedback(){
 
   toast.textContent =
     hearts > 0
-    ? "−1 MẠNG · CÒN " + hearts + "/3"
+  ? "−1 MẠNG · CÒN " + hearts + "/" + MAX_HEARTS
     : "HỆ THỐNG MẠNG ĐÃ CẠN";
 
   document.body.appendChild(toast);
@@ -13333,7 +13334,7 @@ function updateHUD(){
 
   let heartText = "";
 
-  for(let i=0;i<3;i++){
+ for(let i=0;i<MAX_HEARTS;i++){
     heartText += i < hearts ? "♥ " : "♡ ";
   }
 
@@ -13356,7 +13357,7 @@ function gameOver(){
       <div class="globalGameOverCard">
 
         <div class="globalGameOverCode">
-          SYSTEM FAILURE · 3 / 3 ERRORS
+        SYSTEM FAILURE · ${MAX_HEARTS} / ${MAX_HEARTS} ERRORS
         </div>
 
         <h1 class="globalGameOverTitle">
@@ -13374,7 +13375,7 @@ function gameOver(){
 
         <p class="subtitle">
 
-          Bạn đã sử dụng hết 3 mạng
+       Bạn đã sử dụng hết ${MAX_HEARTS} mạng
           trong hành trình.
 
           <br><br>
@@ -13725,7 +13726,7 @@ function levelTwo(resetBase = true){
       <p class="subtitle">
         Ghép mỗi khái niệm bên trái với ý nghĩa phù hợp bên phải.
         <br>
-        Bạn có 45 giây và 3 lượt sai.
+Bạn có 45 giây và ${MAX_HEARTS} mạng dùng chung cho toàn hành trình.
       </p>
 
       <div class="matchBoard">

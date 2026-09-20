@@ -28680,12 +28680,14 @@ function showFinalJourneyEnding(){
               sceneFrame
             );
 
-            panel.scrollIntoView({
+            /* Keep the quiz question directly above the image, then
+               bring the actual answer hotspots into the phone viewport. */
+            sceneFrame.scrollIntoView({
               behavior:
                 reducedMotion
                 ? "auto"
                 : "smooth",
-              block:"start"
+              block:"center"
             });
           }
         },
